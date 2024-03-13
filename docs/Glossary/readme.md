@@ -9,7 +9,10 @@
 | System administrator(Admin) | managing customer entities as wellas the company’s employees who are customer managers                                                            |                                                                                                         
 | Customer Manager            | register job offers for the entities he manages in the backoffice manage other aspects of job offers, namely the entire candidateselection proces |
 | Operator                    | monitor the automatic process that registers applications for job offers, contact candidates if problems exist in their applications              |
-| Language Engineer           | deploy and configure plugins                                                                                                                      |
-|                             |                                                                                                                                                   |
-|                             |                                                                                                                                                   |
+| Language Engineer           | deploy and configure plugins for selection of candidates in an automated process                                                                  |
+| Job Opening Address         | physical location where a particular job or task is to be performed or completed                                                                  |
+| Job Opening Function        | main purpose or role that an individual fulfills within a team or company.                                                                        |
+| Job Opening Mode            | arrangement or method by which work is carried out                                                                                                |
+| Job Application             | application to be sent by the applicant for the vacancy                                                                                           |
+| Candidate                   | system user that will apply to a job opening                                                                                                      |
 |                             |                                                                                                                                                   |
