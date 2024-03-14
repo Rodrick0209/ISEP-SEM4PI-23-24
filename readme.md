@@ -10,7 +10,18 @@
 
 ## 3. How to Build
 
-*To Do*
+
+make sure Maven is installed and on the PATH
+
+<!--
+If using an Oracle database, you will need to change your maven settings for
+downloading the Oracle drivers. see <https://blogs.oracle.com/dev2dev/entry/how_to_get_oracle_jdbc#settings> for more information.
+-->
+
+run script
+
+    build-all.bat
+
 
 ## 4. How to Execute Tests
 
