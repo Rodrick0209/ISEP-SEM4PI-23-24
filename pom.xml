@@ -7,6 +7,7 @@
 	<groupId>lapr4</groupId>
 	<artifactId>jobs4u</artifactId>
 	<packaging>pom</packaging>
+
 	<modules>
 		<module>jobs4u.app.candidate.console</module>
 		<module>jobs4u.app.customer.console</module>
@@ -25,11 +26,29 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+
+		<eapli.framework.core.version>v24.0.1_RELEASE</eapli.framework.core.version>
+		<eapli.framework.authz.version>v24.0.1_RELEASE</eapli.framework.authz.version>
+
+		<eapli.framework.core.version-snapshot>25.0.0</eapli.framework.core.version-snapshot>
+		<eapli.framework.authz.version-snapshot>21.0.0</eapli.framework.authz.version-snapshot>
+
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.bitbucket.pag_isep.eapliframework</groupId>
+			<artifactId>eapli.framework.core</artifactId>
+			<version>${eapli.framework.core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bitbucket.pag_isep.eapliframework</groupId>
+			<artifactId>eapli.framework.infrastructure.authz</artifactId>
+			<version>${eapli.framework.authz.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
@@ -86,7 +105,12 @@
 			<version>4.13.1</version>
 		</dependency>
 	</dependencies>
-
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
 
