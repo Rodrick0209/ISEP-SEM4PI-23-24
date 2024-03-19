@@ -78,6 +78,13 @@
 			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- ANTLR Support -->
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4</artifactId>
+			<version>4.13.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -204,7 +211,22 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>			
+			</plugin>
+
+			<!-- ANTLR -->
+			<plugin>
+				<groupId>org.antlr</groupId>
+				<artifactId>antlr4-maven-plugin</artifactId>
+				<version>4.3</version>
+				<executions>
+					<execution>
+						<id>antlr</id>
+						<goals>
+							<goal>antlr4</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
