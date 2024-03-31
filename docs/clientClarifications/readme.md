@@ -114,7 +114,7 @@ This document provides clarifications on various issues related to the system un
 **Q34 – US3002, lista job openings, position o que é?**
 *A34* Nessa US quando referimos “position” tem o mesmo significado que “title or function” na secção 2.2.2.
 
-**Q35 – Customer tem que ter morada e nome da empresa ou se basta essa informação estar no job opening?**
+**Q35 - Customer tem que ter morada e nome da empresa ou se basta essa informação estar no job opening?**
 *A35* Devemos registar nome e morada do customer. Para cada job opening a morada pode ser especifica (e diferente da morada do customer).
 
 **Q36 – US1021, o que é “all data of an application”? O que é uma job application?**
