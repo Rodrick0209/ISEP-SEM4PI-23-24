@@ -1,4 +1,4 @@
-package jobs4u.app.bootstrap;
+package jobs4u.app.customer.console;
 
 public class Main {
     public static void main(String[] args) {

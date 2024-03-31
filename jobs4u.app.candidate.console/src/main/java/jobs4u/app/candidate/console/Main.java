@@ -1,4 +1,4 @@
-package jobs4u.app.common.console;
+package jobs4u.app.candidate.console;
 
 public class Main {
     public static void main(String[] args) {

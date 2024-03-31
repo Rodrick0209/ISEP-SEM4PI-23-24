@@ -20,19 +20,16 @@ The selection of candidates is highly based on automated processes (such as inte
 
 [Planning and Technical Documentation](docs/readme.md)
 
+
+
+
 ## 3. How to Build
+
+
 
 1. Ensure that Maven is installed on your system. You can check this by running the command `mvn -v` in your terminal. If Maven is not installed, you can download it from the [official Apache Maven website](https://maven.apache.org/download.cgi).
 
-2. Add Maven to your system's PATH. The process for this varies depending on your operating system. For macOS and Linux, you can add the following line to your `.bashrc` or `.bash_profile` file:
-
-    ```bash
-    export PATH=/path/to/your/maven/bin:$PATH
-    ```
-
-   Replace `/path/to/your/maven/bin` with the actual path to your Maven `bin` directory. For Windows, you can add the path to your Maven `bin` directory to your system's PATH variable through the System Properties.
-
-3. Once Maven is set up, you can build the project by running the `build-all.bat` script if you're on Windows, or `build-all.sh` script if you're on macOS or Linux. These scripts will use Maven to compile the project and build a JAR file. To run the script, navigate to the project directory in your terminal and run:
+2. Once Maven is set up, you can build the project by running the `build-all.bat` script if you're on Windows, or `build-all.sh` script if you're on macOS or Linux. These scripts will use Maven to compile the project and build a JAR file. To run the script, navigate to the project directory in your terminal and run:
 
     ```bash
     ./build-all.bat
@@ -72,43 +69,87 @@ The selection of candidates is highly based on automated processes (such as inte
 
 1. After building the project as described in the "How to Build" section, a JAR file will be created in the `target` directory of your project.
 
-2. To run the application, navigate to the `target` directory in your terminal and run the following command:
+2. There are different aplications and there are different ways to run them. 
+   1. **The backoffice application:** 
+      1. macOs/Linux:
 
-    ```bash
-    java -jar your-jar-file.jar
-    ```
+          ```bash
+          ./run-backoffice.sh
+          ```
+      2. Windows:
+    
+            ```bash
+            ./run-backoffice.bat
+            ```
+   2. **The user application:**
+      1. macOs/Linux:
 
-    Replace `your-jar-file.jar` with the actual name of your JAR file.
+           ```bash
+           ./run-user.sh
+           ```
+      2. Windows:
 
-3. The application should now start and you can interact with it through the terminal.
+          ```bash
+          ./run-user.bat
+          ```
+   3. **The candidate application:**
+      1. macOs/Linux:
 
-Please note that the application may require certain environment variables to be set or specific arguments to be passed in. If that's the case, please refer to the application's documentation or source code to determine what's needed.
+          ```bash
+          ./run-candidate.sh
+          ```
+      2. Windows:
 
-## 6. How to Install/Deploy into Another Machine (or Virtual Machine)
+          ```bash
+          ./run-candidate.bat
+          ```
+   4. **The customer application:**
+      1. macOs/Linux:
 
-1. After building the project as described in the "How to Build" section, a JAR file will be created in the `target` directory of your project.
+          ```bash
+          ./run-customer.sh
+          ```
+      2. Windows:
+    
+           ```bash
+              ./run-customer.bat
+         ```
 
-2. Copy the JAR file to the machine or virtual machine where you want to deploy the application. You can do this using a secure copy (scp) command, a USB drive, or any other method you prefer.
 
-    ```bash
-    scp your-jar-file.jar user@your.server:/path/to/deploy/directory
-    ```
+3. Alternatively, you can directly run the JAR files:
 
-    Replace `your-jar-file.jar` with the actual name of your JAR file, `user@your.server` with your username and server address, and `/path/to/deploy/directory` with the directory where you want to deploy the application.
+   - **For each application**, navigate to the `target` directory and run the respective JAR file using the following command:
 
-3. On the target machine or virtual machine, ensure that Java is installed. You can check this by running the command `java -version` in the terminal. If Java is not installed, you can download it from the [official Oracle Java website](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+     ```bash
+     java -jar your-application.jar
+     ```
 
-4. Navigate to the directory where you deployed the JAR file and run the application with the following command:
+   Replace `your-application.jar` with the actual name of the JAR file for the specific application you want to run.
 
-    ```bash
-    java -jar your-jar-file.jar
-    ```
+4. The application should now start, and you can interact with it through the terminal.
 
-    Replace `your-jar-file.jar` with the actual name of your JAR file.
+## Install/Deploy into Another Machine (or Virtual Machine)
 
-5. The application should now start and you can interact with it through the terminal.
+After building the project as described in the "How to Build" section, multiple JAR files may be created in the target directory of your project.
 
-Please note that the application may require certain environment variables to be set or specific arguments to be passed in. If that's the case, please refer to the application's documentation or source code to determine what's needed.4. If the build is successful, you should see a `BUILD SUCCESS` message in your terminal, and a JAR file will be created in the `target` directory of your project.
+1. **Choose the Correct JAR File:**
+   - Identify the JAR file that corresponds to the version of your application you want to deploy. This could be named based on version numbers, timestamps, or other identifiers.
+
+2. **Copy the JAR File:**
+   - Copy the chosen JAR file to the machine or virtual machine where you want to deploy the application. You can do this using a secure copy (scp) command, a USB drive, or any other method you prefer.
+     ```bash
+     scp your-jar-file.jar user@your.server:/path/to/deploy/directory
+     ```
+   - Replace `your-jar-file.jar` with the actual name of your JAR file, `user@your.server` with your username and server address, and `/path/to/deploy/directory` with the directory where you want to deploy the application.
+
+3. **Install Java:**
+   - On the target machine or virtual machine, ensure that Java is installed. You can check this by running the command `java -version` in the terminal. If Java is not installed, you can download it from the official Oracle Java website.
+
+4. **Run the Application:**
+   - Please refer to the "How to Execute" section for detailed instructions on how to run the application.   
+
+5. **Verify Deployment:**
+   - Once the application is running, verify its functionality to ensure that the deployment was successful.
 
 
 ## 7. How to Generate PlantUML Diagrams
