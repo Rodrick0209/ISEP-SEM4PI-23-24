@@ -30,11 +30,10 @@ jobs:
       - name: Build and Test with Maven
         run: mvn -B verify
 
-      - name: Upload JaCoCo coverage report
-        uses: actions/upload-artifact@v2
-        with:
-          name: jacoco-report
-          path: target/site/jacoco
+        # Generate JaCoCo report
+      - name: Generate JaCoCo report
+        run: mvn -B verify org.jacoco:jacoco-maven-plugin:0.8.11:report
+
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
