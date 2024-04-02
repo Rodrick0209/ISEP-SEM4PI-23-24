@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
            name: jacoco-report
-           path: target/site/jacoco
+           path: /home/runner/work/sem4pi-23-24-2dj2/sem4pi-23-24-2dj2/jobs4u.app.bootstrap/target/surefire-reports
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
