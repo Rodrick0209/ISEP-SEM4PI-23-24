@@ -33,7 +33,7 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 
 | Student Nr.	                 | Name            | Justification                                              | Engineering Process | Issues and Version Control | Team Work | Deployment | Integration | Req. Satisfaction | 
 |------------------------------|-----------------|------------------------------------------------------------|---------------------|----------------------------|-----------|------------|-------------|-------------------|
-| [1211281](1211281/readme.md) | Miguel Oliveira | [1211281 - Justification](1211281/lapr4/sprinta/readme.md) | 3                   | 4                          | 5         | 4          | 5           | 2                 |
+| [1211281](1211281/readme.md) | Miguel Oliveira | [1211281 - Justification](1211281/lapr4/sprinta/readme.md) |                     |                            |           |            |             |                   |
 | [1221276](1221276/readme.md) | David Marques   | [1221276 - Justification](1221276/lapr4/sprinta/readme.md) |                     |                            |           |            |             |
 | [1221083](1221083/readme.md) | Rodrigo Cardoso | [1221083 - Justification](1221083/lapr4/sprinta/readme.md) |                     |                            |           |            |             |
 | [1220636](1220636/readme.md) | Rodrigo Castro  | [1220636 - Justification](1220636/lapr4/sprinta/readme.md) |                     |                            |           |            |             |
@@ -43,7 +43,7 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 
 | Student Nr.	                 | Name            | Justification                                              | Engineering Process | Issues and Version Control | Team Work | Deployment | Integration | Req. Satisfaction | 
 |------------------------------|-----------------|------------------------------------------------------------|---------------------|----------------------------|-----------|------------|-------------|-------------------|
-| [1211281](1211281/readme.md) | Miguel Oliveira | [1211281 - Justification](1211281/lapr4/sprintb/readme.md) | 3                   | 4                          | 5         | 4          | 5           | 2                 |
+| [1211281](1211281/readme.md) | Miguel Oliveira | [1211281 - Justification](1211281/lapr4/sprintb/readme.md) |                     |                            |           |            |             |                   |
 | [1221276](1221276/readme.md) | David Marques   | [1221276 - Justification](1221276/lapr4/sprintb/readme.md) |                     |                            |           |            |             |
 | [1221083](1221083/readme.md) | Rodrigo Cardoso | [1221083 - Justification](1221083/lapr4/sprintb/readme.md) |                     |                            |           |            |             |
 | [1220636](1220636/readme.md) | Rodrigo Castro  | [1220636 - Justification](1220636/lapr4/sprintb/readme.md) |                     |                            |           |            |             |
@@ -53,7 +53,7 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 
 | Student Nr.	                 | Name            | Justification                                              | Engineering Process | Issues and Version Control | Team Work | Deployment | Integration | Req. Satisfaction | 
 |------------------------------|-----------------|------------------------------------------------------------|---------------------|----------------------------|-----------|------------|-------------|-------------------|
-| [1211281](1211281/readme.md) | Miguel Oliveira | [1211281 - Justification](1211281/lapr4/sprintc/readme.md) | 3                   | 4                          | 5         | 4          | 5           | 2                 |
+| [1211281](1211281/readme.md) | Miguel Oliveira | [1211281 - Justification](1211281/lapr4/sprintc/readme.md) |                     |                            |           |            |             |                   |
 | [1221276](1221276/readme.md) | David Marques   | [1221276 - Justification](1221276/lapr4/sprintc/readme.md) |                     |                            |           |            |             |
 | [1221083](1221083/readme.md) | Rodrigo Cardoso | [1221083 - Justification](1221083/lapr4/sprintc/readme.md) |                     |                            |           |            |             |
 | [1220636](1220636/readme.md) | Rodrigo Castro  | [1220636 - Justification](1220636/lapr4/sprintc/readme.md) |                     |                            |           |            |             |
