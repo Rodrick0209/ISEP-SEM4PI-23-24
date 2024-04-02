@@ -41,11 +41,10 @@ jobs:
           path: jobs4u.util.ci/target/site/jacoco-aggregate
 
 
-      - name: JaCoCo Code Coverage Report
-        id: jacoco_reporter
+      - name: jacoco-reporter
         uses: PavanMudigonda/jacoco-reporter@v5.0
         with:
-          coverage_results_path: jobs4u.util.ci/target/site/jacoco-aggregate
+          coverage_results_path: jobs4u.util.ci/target/site/jacoco-aggregate/jacoco.xml
 
       # Publish Coverage Job Summary  # Optional
       - name: Add Coverage Job Summary
