@@ -30,8 +30,14 @@ jobs:
       - name: Build and Test with Maven
         run: mvn -B verify
 
-      - name: JaCoCo Report
-        uses: Madrapps/jacoco-report@v1.6.1
+      name: jaCoCo Report
+      id: jacoco
+      uses: madrapps/jacoco-report@v1.6.1
+      with:
+        paths: |
+          ${{ github.workspace }}/**/build/reports/jacoco/prodNormalDebugCoverage/prodNormalDebugCoverage.xml,
+          ${{ github.workspace }}/**/build/reports/jacoco/**/debugCoverage.xml
+        token: ${{ secrets.GITHUB_TOKEN }
 
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
