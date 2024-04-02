@@ -81,18 +81,7 @@ The selection of candidates is highly based on automated processes (such as inte
             ```bash
             ./run-backoffice.bat
             ```
-   2. **The user application:**
-      1. macOs/Linux:
-
-           ```bash
-           ./run-user.sh
-           ```
-      2. Windows:
-
-          ```bash
-          ./run-user.bat
-          ```
-   3. **The candidate application:**
+   2. **The candidate application:**
       1. macOs/Linux:
 
           ```bash
@@ -103,7 +92,7 @@ The selection of candidates is highly based on automated processes (such as inte
           ```bash
           ./run-candidate.bat
           ```
-   4. **The customer application:**
+   3. **The customer application:**
       1. macOs/Linux:
 
           ```bash
@@ -112,9 +101,23 @@ The selection of candidates is highly based on automated processes (such as inte
       2. Windows:
     
            ```bash
-              ./run-customer.bat
+         ./run-customer.bat
          ```
-
+   
+   4. **The bootstrap application:**
+       1. macOs/Linux:
+    
+           ```bash
+           ./run-bootstrap.sh
+           ```
+      2. Windows:
+    
+          ```bash
+          ./run-bootstrap.bat
+         ```
+   
+      
+     
 
 3. Alternatively, you can directly run the JAR files:
 
@@ -133,7 +136,7 @@ The selection of candidates is highly based on automated processes (such as inte
 After building the project as described in the "How to Build" section, multiple JAR files may be created in the target directory of your project.
 
 1. **Choose the Correct JAR File:**
-   - Identify the JAR file that corresponds to the version of your application you want to deploy. This could be named based on version numbers, timestamps, or other identifiers.
+   - Identify the JAR file that corresponds to the version of your application you want to deploy.
 
 2. **Copy the JAR File:**
    - Copy the chosen JAR file to the machine or virtual machine where you want to deploy the application. You can do this using a secure copy (scp) command, a USB drive, or any other method you prefer.
