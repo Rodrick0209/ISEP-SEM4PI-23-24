@@ -33,14 +33,14 @@ jobs:
         # Generate JaCoCo report
       - name: Generate JaCoCo report
         run: mvn -B verify org.jacoco:jacoco-maven-plugin:0.8.7:report
-        # Specify the output directory for JaCoCo report files
-        working-directory: ${{ github.workspace }}/target
 
+
+        # Upload JaCoCo report as an artifact
       - name: Upload JaCoCo report
         uses: actions/upload-artifact@v2
         with:
-          name: jacoco-report
-          path: target/site/jacoco
+           name: jacoco-report
+           path: target/site/jacoco
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
