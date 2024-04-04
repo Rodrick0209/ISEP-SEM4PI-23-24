@@ -1,5 +1,3 @@
-Sure, here is the glossary with the first letter of each description capitalized:
-
 
 # Glossário
 
