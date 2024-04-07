@@ -29,7 +29,7 @@
 | 4 – Correct	| Frequent use of the repository: messages that are mostly significant but sometimes fail to connect to issues/tasks. Use task/issue management boards correctly. |
 | 5 - Exceptional |	Frequent use of the repository: mostly significant messages and (virtually) no failures in connection to issues/tasks. They use task/issue management boards in an exemplary way. |
 
-**Selected Level:** 5
+**Selected Level:** 4
 
 **Justification and Evidences:** All the functionalities were integrated correctly and the repository was used correctly.
 
