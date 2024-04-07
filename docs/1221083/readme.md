@@ -4,7 +4,7 @@
 
 | Sprint | Task                                    |
 |--------|-----------------------------------------|
-| **A**  | [US G002](../example/us_g002/readme.md) |
+| **A**  | [US G001](../us_g001/readme.md)         |
 |        | [US G002](../example/us_g002/readme.md) |
 |        | [US G003](../us_g003/readme.md)         |
 |        | [US G004](../us_g004/readme.md)         |
