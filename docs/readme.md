@@ -34,7 +34,7 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 |------------------------------|-----------------|------------------------------------------------------------|---------------------|----------------------------|-----------|------------|-------------|-------------------|
 | [1211281](1211281/readme.md) | Miguel Oliveira | [1211281 - Justification](1211281/lapr4/sprinta/readme.md) | 4                   | 4                          | 5         | 4          | 4           | 4                 |
 | [1221276](1221276/readme.md) | David Marques   | [1221276 - Justification](1221276/lapr4/sprinta/readme.md) | 4                   | 4                          | 5         | 4          | 5           | 4                 |
-| [1221083](1221083/readme.md) | Rodrigo Cardoso | [1221083 - Justification](1221083/lapr4/sprinta/readme.md) | 4                   | 4                          | 5         | 1          |             |
+| [1221083](1221083/readme.md) | Rodrigo Cardoso | [1221083 - Justification](1221083/lapr4/sprinta/readme.md) | 4                   | 4                          | 5         | 4          | 4           | 4                 |
 | [1220636](1220636/readme.md) | Rodrigo Castro  | [1220636 - Justification](1220636/lapr4/sprinta/readme.md) | 4                   | 4                          | 5         | 5          | 5           | 4                 |
 | [1221019](1221019/readme.md) | Mário Ribeiro   | [1221019 - Justification](1221019/lapr4/sprinta/readme.md) | 4                   | 4                          | 5         | 4          | 4           | 4                 |
 
