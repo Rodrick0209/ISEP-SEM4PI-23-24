@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/jobs4u.app.backoffice.console/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.backoffice.console/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.bootstrap/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.bootstrap/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.candidate.console/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.candidate.console/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.common.console/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.common.console/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.customer.console/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.customer.console/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.other.console/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.other.console/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.user.console/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app.user.console/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.app2/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.bootstrappers/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.bootstrappers/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.infrastructure.application/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.infrastructure.application/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.persistence.impl/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.persistence.impl/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.util.ci/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.util.ci/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
