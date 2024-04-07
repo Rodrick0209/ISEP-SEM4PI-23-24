@@ -44,7 +44,7 @@
 | 4 – Correct	       | There is evidence of a team decision-making process in which students actively participate and which results in the assignment of tasks in a clear and timely manner.                                                                                  |
 | 5 - Exceptional    | 	There is evidence of a team decision-making process in which students actively participate and which results in the assignment of tasks in a clear and timely manner. There is evidence of group tasks such as integration and deployment activities. |
 
-**Selected Level:** 4
+**Selected Level:** 5
 
 **Justification and Evidences:** All students participated actively in the development of the project.
 
@@ -74,7 +74,7 @@
 | 4 – Correct	       | There is integration between most components/functionalities without any type of incoherence and/or unnecessary coupling.                                     |
 | 5 - Exceptional	   | The previous item is true and this integration is perfectly documented.                                                                                       |
 
-**Selected Level:** 5
+**Selected Level:** 4
 
 **Justification and Evidences:** The integration is all documented, for the better interpretation of the client.
 
