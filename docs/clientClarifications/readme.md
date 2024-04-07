@@ -117,3 +117,43 @@
 
 **Q36:** In US1021, what is "all data of an application"? What is a job application?  
 **A36:** A job application is an application (from a candidate) to a job opening. Regarding "all data of an application," it refers to all the data of an application, including the files submitted by the candidates, as well as data collected or generated during the process (such as interviews and requirements processing).
+
+### 2024-04-04
+
+**Q37** No job opening (secção 2.2.2), no campo company, deve ser o customer name ou o customer code, uma vez que o customer code é único e introduzido manualmente?
+**A37** A informação relativa ao job opening que aparece no final da página 5 deve ser vista como algo a ser usado na divulgação de uma oferta de emprego. Nesse contexto, para a Company faz mais sentido divulgar o nome da company e não o seu código. Dito isto, em termos de armazenamento numa base de dados poderá ficar o código.
+
+**Q38** Cada questão de um interview model aceita um x tipos de respostas(ex escolha múltipla) ou é a interview model que aceita um x tipos de respostas em todas as suas questões? Assumimos que uma job opening só segue um interview model?
+**A38** Sim, cada pergunta/resposta aceita um tipo de pergunta/resposta (um dos tipos que aparece no inicio da página 8). Na US1011, o Customer manager seleciona o interview model a usar nas entrevistas para um job opening. Ou seja, existirá apenas um interview model a usar nas entrevistas desse job opening.
+
+**Q39** João – O recruitment process é como está definido ou pode haver alterações no futuro?
+**A39** O processo é o que está descrito na secção 2.2.1. Neste momento a única fase opcional é a das entrevistas.
+
+**Q40** Bernardo – Uma entrevista pode ter apenas uma questão? US1014, time and date, quer dizer data de inicio e não data final? Podem haver entrevistas em paralelo?
+**A40** Quanto ao número de perguntas numa entrevista, não está definido nenhum limite inferior ou superior. Ou seja, pode haver uma entrevista com apenas 1 pergunta (não fará sentido não ter perguntas). A US1014 refere-se à marcação da data de uma entrevista com um candidato. Algo como indicar o dia e a hora (ex: 23 de abril pelas 14:00). Em relação à marcação de entrevistas “sobrepostas” (com a mesma data de inicio), neste momento, seria algo a permitir (pode, por exemplo, o customer manager delegar noutra pessoa a condução da entrevista). Isso não invalida que devam validar se as entrevistas ocorrem dentro da fase das entrevistas.
+
+**Q41** Como é que o Language Engineer faz o interview model e os job requirements? É texto? Ou ele seleciona perguntas para a interview e requirements para a job opening? E isso é quando se está a criar uma entrevista ou uma job opening ou para-se a meio para fazer isso e depois continua se?
+**A41** O language enginner com informação passada pelo customer manager (que obteve do customer) vai desenvolver em java um jar correspondente ao modulo/plugin. Para esse desenvolvimento terá de utilizar técnicas de desenvolvimento de gramáticas/linguagens como o antlr. Esse código ficará num jar que depois o language engineer “instala/regista” na aplicação (US1008, por exemplo, associando um nome ao jar num ficheiro de configuração – “5 anos experiencia java”, “req-model-5-years-java.jar”). A aplicação com essa informação carrega dinamicamente esse jar. Na gramátca usada no jar é que vão estar espelhadas a estrutura das perguntas a usar nesse modelo e sua avaliação. Estas atividades têm de ser feitas antes de se poder fazer a US1008. Esse trabalho é feito “fora” dos sistema, apenas se registando o modelo (quando está pronto) na US1008. A US 1009 e US1011 permitem selecionar modelos a usar (dos que foram devidamente registados no sistema).
+
+**Q42** Bernado – US1006, Qual a informação do nome do candidato deve aparecer (nome completo, primeiro e ultimo nome , etc)?
+**A42** À partida diria que seria o nome, tal como foi recebido na application que fez (página 6, “name of the candidate”)
+
+### 2024-04-06
+
+**Q43** Para os candidato e para os utilizadores do sistema que informações são necessárias?
+**A43** Alguma informação anterior é referida na Q11. Para além disso a secção 2.2.3 refere que relativamente aos candidatos temos a seguinte informação: email of the candidate, name of teh candidate, phone number of the candidate.
+
+**Q44** Relativamente à secção 2.2.3 e ao facto de o application email bot estar fora do scope mas produzir a informação descrita nessa secção, será disponibilizado exemplos dessa informação?
+**A44** Sim. Será disponibilizado um exemplo da informação produzida pelo application email bot.
+
+**Q45** Relativamente aos estados possíveis de uma candidatura, quais são os estados possíveis?
+**A45** O estado deve refletir em que estado do processo se encontra e o possível resultado final. Do ponto do vista do cliente, deve ser algo que faça sentido para ele. Ou seja, não sei se faz sentido o candidato saber detalhes que podem não fazer sentido para ele, pois este pode não conhecer todos os detalhes internos da gestão de um processo de candidatura.
+
+**Q46** US1007, o identificar do processo de recrutamento pode ser um numero automático ou seja mais especifico?
+**A46** O job opening tem um identificar. O processo de recrutamento de um job opening é um “tributo” desse job opening. À partida não vejo necessidade de ter um identificador “especial” para o processo de recrutamento (i.e., fases do processo de recrutamento desse job opening).
+
+**Q47** US1008, relativamente aos módulos das entrevistas e dos requisitos, os seus identificadores podem ser automáticos ou específicos(i.e., manuais)?
+**A47** A Q41 refere a mesma US. Lá refere-se que cada modulo será registado no sistema através de 2 dados, por exemplo, associando um nome ao jar num ficheiro de configuração – “5 anos experiencia java”, “req-model-5-years-java.jar”. Ou seja, assume- se que cada modulo terá um nome/designação (que suponho que deverá ser única) e a este nome ficará associado o nome do ficheiro jar (provavelmente um path completo) que implementa esse módulo. Ou seja, esse nome/designação pode ser considerado como um identificador especifico/manual.
+
+**Q48** US1016 e US1020, relativamente ao envio das notificações por email, é necessário guardar que esse envio foi feito?
+**A48** No documento nada de explicito é dito sobre este assunto. No entanto, do ponto de vista de gestão do processo da jobs4u parece-me adequado que essa informação fique registada.
