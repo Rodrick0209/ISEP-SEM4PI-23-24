@@ -25,6 +25,9 @@ package jobs4u.base.usermanagement.domain;
 
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Paulo Gandra Sousa
  *
@@ -71,7 +74,17 @@ public final class Jobs4uRoles {
         return new Role[] { ADMIN, CANDIDATE, CUSTOMER, CUSTOMER_MANAGER, LANGUAGE_ENGINEER, OPERATOR};
     }
 
-    public boolean isCollaborator(final Role role) {
+    public static Role[] BackgroundUserValues() {
+        List<Role> collaboratorRoles = new ArrayList<>();
+        for (Role role : nonUserValues()) {
+            if (isCollaborator(role)){
+                collaboratorRoles.add(role);
+            }
+        }
+        return collaboratorRoles.toArray(new Role[0]);
+    }
+
+    public static boolean isCollaborator(final Role role) {
         return !role.equals(CANDIDATE) && !role.equals(CUSTOMER);
     }
 }

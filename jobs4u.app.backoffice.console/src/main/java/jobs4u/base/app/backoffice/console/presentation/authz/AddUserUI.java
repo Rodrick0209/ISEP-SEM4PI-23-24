@@ -37,7 +37,9 @@ import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
 //Custom
+import eapli.framework.infrastructure.authz.application.PasswordPolicy;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -57,8 +59,11 @@ public class AddUserUI extends AbstractUI {
         // UtenteApp
         final String username = Console.readLine("Username");
 
+
+        //TODO: é suposto eu chamar a interface da framework ou  a minha classe?
         //Custom
-        Jobs4uPasswordPolicy passwordPolicy = new Jobs4uPasswordPolicy();
+        PasswordPolicy passwordPolicy = new Jobs4uPasswordPolicy();
+
         String password;
         do {
             password = Console.readLine("Password");
@@ -71,6 +76,7 @@ public class AddUserUI extends AbstractUI {
         final String email = Console.readLine("E-Mail");
 
         final Set<Role> roleTypes = new HashSet<>();
+
         boolean show;
         do {
             show = showRoles(roleTypes);
@@ -87,17 +93,17 @@ public class AddUserUI extends AbstractUI {
     }
 
     private boolean showRoles(final Set<Role> roleTypes) {
-        // TODO we could also use the "widget" classes from the framework...
         final Menu rolesMenu = buildRolesMenu(roleTypes);
         final MenuRenderer renderer = new VerticalMenuRenderer(rolesMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
+
     }
 
     private Menu buildRolesMenu(final Set<Role> roleTypes) {
         final Menu rolesMenu = new Menu();
         int counter = 0;
-        rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
-        for (final Role roleType : theController.getRoleTypes()) {
+        //rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
+        for (final Role roleType : theController.getBackgroundRoleTypes()) {
             rolesMenu.addItem(MenuItem.of(counter++, roleType.toString(), () -> roleTypes.add(roleType)));
         }
         return rolesMenu;

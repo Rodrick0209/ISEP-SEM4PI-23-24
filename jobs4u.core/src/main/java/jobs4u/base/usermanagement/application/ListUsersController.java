@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static jobs4u.base.usermanagement.domain.Jobs4uRoles.isCollaborator;
+
 /**
  *
  * @author losa
@@ -62,7 +64,7 @@ public class ListUsersController{
 
         List<SystemUser> backOfficeUsers = new ArrayList<>();
         for (SystemUser user : userSvc.allUsers()) {
-            if (roles.isCollaborator(user.roleTypes().stream().iterator().next())){
+            if (isCollaborator(user.roleTypes().stream().iterator().next())){
                  backOfficeUsers.add(user);
             }
         }

@@ -51,6 +51,10 @@ public class AddUserController {
         return Jobs4uRoles.nonUserValues();
     }
 
+    public Role[] getBackgroundRoleTypes() {
+        return Jobs4uRoles.BackgroundUserValues();
+    }
+
     public SystemUser addUser(final String username, final String password, final String firstName,
             final String lastName,
             final String email, final Set<Role> roles, final Calendar createdOn) {
