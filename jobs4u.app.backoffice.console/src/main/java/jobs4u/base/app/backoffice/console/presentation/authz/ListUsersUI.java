@@ -48,7 +48,7 @@ public class ListUsersUI extends AbstractListUI<SystemUser> {
 
     @Override
     protected Iterable<SystemUser> elements() {
-        return theController.allUsers();
+        return theController.BackOfficeUsers();
     }
 
     @Override

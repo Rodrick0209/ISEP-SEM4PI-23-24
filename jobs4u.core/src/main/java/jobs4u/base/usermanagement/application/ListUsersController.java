@@ -23,6 +23,7 @@
  */
 package jobs4u.base.usermanagement.application;
 
+import eapli.framework.infrastructure.authz.domain.model.Role;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -31,6 +32,8 @@ import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -47,6 +50,23 @@ public class ListUsersController{
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN);
 
         return userSvc.allUsers();
+    }
+
+    //TODO: talk to the teatcher about this method
+    //Can controller do this? or it should be assing to an other class?
+    public Iterable<SystemUser> BackOfficeUsers() {
+
+        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN);
+        Jobs4uRoles roles = new Jobs4uRoles();
+
+        List<SystemUser> backOfficeUsers = new ArrayList<>();
+        for (SystemUser user : userSvc.allUsers()) {
+            if (roles.isCollaborator(user.roleTypes().stream().iterator().next())){
+                 backOfficeUsers.add(user);
+            }
+        }
+        return backOfficeUsers;
+
     }
 
     public Optional<SystemUser> find(final Username u) {

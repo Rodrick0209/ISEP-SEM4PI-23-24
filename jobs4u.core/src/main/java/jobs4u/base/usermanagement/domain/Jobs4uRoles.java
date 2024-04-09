@@ -35,13 +35,29 @@ public final class Jobs4uRoles {
      */
     public static final Role POWER_USER = Role.valueOf("POWER_USER");
     /**
-     * Utente
+     * Candidate
      */
-    public static final Role CANDIDATE = Role.valueOf("CLIENT_USER");
+    public static final Role CANDIDATE = Role.valueOf("CANDIDATE");
     /**
      * Base Administrator
      */
     public static final Role ADMIN = Role.valueOf("ADMIN");
+    /**
+     * Language Engineer
+     */
+    public static final Role LANGUAGE_ENGINEER = Role.valueOf("LANGUAGE_ENGINEER");
+    /**
+     * Operator
+     */
+    public static final Role OPERATOR = Role.valueOf("OPERATOR");
+    /**
+     * Customer Manager
+     */
+    public static final Role CUSTOMER_MANAGER = Role.valueOf("CUSTOMER_MANAGER");
+    /**
+     * Customer
+     */
+    public static final Role CUSTOMER = Role.valueOf("CUSTOMER");
     /**
      *
      */
@@ -52,10 +68,10 @@ public final class Jobs4uRoles {
      * @return
      */
     public static Role[] nonUserValues() {
-        return new Role[] { ADMIN, CANDIDATE};
+        return new Role[] { ADMIN, CANDIDATE, CUSTOMER, CUSTOMER_MANAGER, LANGUAGE_ENGINEER, OPERATOR};
     }
 
     public boolean isCollaborator(final Role role) {
-        return role != CANDIDATE;
+        return !role.equals(CANDIDATE) && !role.equals(CUSTOMER);
     }
 }
