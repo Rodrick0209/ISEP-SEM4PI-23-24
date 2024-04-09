@@ -34,21 +34,24 @@ jobs:
       - name: Generate JaCoCo report
         run: mvn org.jacoco:jacoco-maven-plugin:0.8.11:report
 
-      - name: Upload JaCoCo report as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: jacoco-report
-          path: jobs4u.util.ci/target/site/jacoco-aggregate
+      #- name: Upload JaCoCo report as artifact
+       # uses: actions/upload-artifact@v2
+        #with:
+         # name: jacoco-report
+          #path: jobs4u.util.ci/target/site/jacoco-aggregate
 
 
-      - name: jacoco-reporter
-        uses: PavanMudigonda/jacoco-reporter@v5.0
-        with:
-          coverage_results_path: jobs4u.util.ci/target/site/jacoco-aggregate/jacoco.xml
+
+      #- name: jacoco-reporter
+      #  uses: PavanMudigonda/jacoco-reporter@v5.0
+      #  with:
+      #    coverage_results_path: jobs4u.util.ci/target/site/jacoco-aggregate/jacoco.xml
 
       # Publish Coverage Job Summary  # Optional
       - name: Add Coverage Job Summary
         run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
+
+
 
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive

@@ -38,9 +38,6 @@
 	</properties>
 
 	<dependencies>
-		<!--  Dependencias para corrigir vulnerabilidades da framework -->
-
-		<!-- Dependencias para corrigir vulnerabilidades da framework -->
 
 		<dependency>
 			<groupId>org.bitbucket.pag_isep.eapliframework</groupId>
@@ -140,16 +137,24 @@
 				</executions>
 			</plugin>
 
+
+
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.11</version>
+				<configuration>
+					<dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+				</configuration>
 				<executions>
 					<execution>
-						<id>prepare-agent</id>
+						<id>jacoco-initialize</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
+						<configuration>
+							<propertyName>jacoco.argLine</propertyName>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
