@@ -23,76 +23,115 @@
  */
 package jobs4u.base.jobs4uusermanagement.domain;
 
-import jobs4u.base.jobs4uusermanagement.util.Jobs4uUserTestUtil;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
+
+import jobs4u.base.usermanagement.domain.Jobs4uRoles;
+import eapli.framework.infrastructure.authz.domain.model.NilPasswordPolicy;
+import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
+import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
 
 /**
- * @author Nuno Bettencourt [NMB] on 03/04/16.
+ * Created by Nuno Bettencourt [NMB] on 03/04/16.
  */
-class Jobs4uUserTest {
+public class Jobs4uUserTest {
 
 	private final String aMecanographicNumber = "abc";
 	private final String anotherMecanographicNumber = "xyz";
 
+	public static SystemUser dummyUser(final String username, final Role... roles) {
+		// should we load from spring context?
+		final SystemUserBuilder userBuilder = new SystemUserBuilder(new NilPasswordPolicy(), new PlainTextEncoder());
+		return userBuilder.with(username, "duMMy1", "dummy", "dummy", "a@b.ro").withRoles(roles).build();
+	}
+
+	private SystemUser getNewDummyUser() {
+		return dummyUser("dummy", Jobs4uRoles.ADMIN);
+	}
+
 	@Test
-	void ensureJobs4uUserEqualsPassesForTheSameMecanographicNumber() throws Exception {
+	public void ensureJobs4uUserEqualsPassesForTheSameMecanographicNumber() throws Exception {
 
-		final var aJobs4uUser = Jobs4uUserTestUtil.getDummyJobs4uUser();
+		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber("DUMMY")
+				.withSystemUser(getNewDummyUser()).build();
 
-		final var anotherJobs4uUser = Jobs4uUserTestUtil.getDummyJobs4uUser();
+		final Jobs4uUser anotherJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber("DUMMY")
+				.withSystemUser(getNewDummyUser()).build();
 
-		final var expected = aJobs4uUser.equals(anotherJobs4uUser);
+		final boolean expected = aJobs4uUser.equals(anotherJobs4uUser);
 
 		assertTrue(expected);
 	}
 
 	@Test
-	void ensureJobs4uUserEqualsFailsForDifferenteMecanographicNumber() throws Exception {
-		final var aJobs4uUser = Jobs4uUserTestUtil.getDummyJobs4uUser(aMecanographicNumber);
+	public void ensureJobs4uUserEqualsFailsForDifferenteMecanographicNumber() throws Exception {
+		final Set<Role> roles = new HashSet<>();
+		roles.add(Jobs4uRoles.ADMIN);
 
-		final var anotherJobs4uUser = Jobs4uUserTestUtil.getDummyJobs4uUser(anotherMecanographicNumber);
+		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber(aMecanographicNumber)
+				.withSystemUser(getNewDummyUser()).build();
 
-		final var expected = aJobs4uUser.equals(anotherJobs4uUser);
+		final Jobs4uUser anotherJobs4uUser = new Jobs4uUserBuilder()
+				.withMecanographicNumber(anotherMecanographicNumber).withSystemUser(getNewDummyUser()).build();
+
+		final boolean expected = aJobs4uUser.equals(anotherJobs4uUser);
 
 		assertFalse(expected);
 	}
 
 	@Test
-	void ensureJobs4uUserEqualsAreTheSameForTheSameInstance() throws Exception {
-		final var aJobs4uUser = new Jobs4uUser();
+	public void ensureJobs4uUserEqualsAreTheSameForTheSameInstance() throws Exception {
+		final Jobs4uUser aJobs4uUser = new Jobs4uUser();
 
-		assertEquals(aJobs4uUser, aJobs4uUser);
+		final boolean expected = aJobs4uUser.equals(aJobs4uUser);
+
+		assertTrue(expected);
 	}
 
 	@Test
-	void ensureJobs4uUserEqualsFailsForDifferenteObjectTypes() throws Exception {
-		final var aJobs4uUser = Jobs4uUserTestUtil.getDummyJobs4uUser();
+	public void ensureJobs4uUserEqualsFailsForDifferenteObjectTypes() throws Exception {
+		final Set<Role> roles = new HashSet<>();
+		roles.add(Jobs4uRoles.ADMIN);
+
+		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber("DUMMY")
+				.withSystemUser(getNewDummyUser()).build();
 
 		@SuppressWarnings("unlikely-arg-type")
-		final var expected = aJobs4uUser.equals(Jobs4uUserTestUtil.getNewDummyUser());
+		final boolean expected = aJobs4uUser.equals(getNewDummyUser());
 
 		assertFalse(expected);
 	}
 
 	@Test
-	void ensureJobs4uUserIsTheSameAsItsInstance() throws Exception {
-		final var aJobs4uUser = Jobs4uUserTestUtil.getDummyJobs4uUser();
+	public void ensureJobs4uUserIsTheSameAsItsInstance() throws Exception {
+		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber("DUMMY")
+				.withSystemUser(getNewDummyUser()).build();
 
-		assertTrue(aJobs4uUser.sameAs(aJobs4uUser));
+		final boolean expected = aJobs4uUser.sameAs(aJobs4uUser);
+
+		assertTrue(expected);
 	}
 
 	@Test
-	void ensureTwoJobs4uUserWithDifferentMecanographicNumbersAreNotTheSame() throws Exception {
-		final var aJobs4uUser = Jobs4uUserTestUtil.getDummyJobs4uUser(aMecanographicNumber);
+	public void ensureTwoJobs4uUserWithDifferentMecanographicNumbersAreNotTheSame() throws Exception {
+		final Set<Role> roles = new HashSet<>();
+		roles.add(Jobs4uRoles.ADMIN);
+		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber(aMecanographicNumber)
+				.withSystemUser(getNewDummyUser()).build();
 
-		final var anotherJobs4uUser = Jobs4uUserTestUtil.getDummyJobs4uUser(anotherMecanographicNumber);
+		final Jobs4uUser anotherJobs4uUser = new Jobs4uUserBuilder()
+				.withMecanographicNumber(anotherMecanographicNumber).withSystemUser(getNewDummyUser()).build();
 
-		assertFalse(aJobs4uUser.sameAs(anotherJobs4uUser));
+		final boolean expected = aJobs4uUser.sameAs(anotherJobs4uUser);
+
+		assertFalse(expected);
 	}
 }
