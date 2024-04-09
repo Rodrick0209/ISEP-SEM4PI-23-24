@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SignupRequest.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">jobs4u.util.ci</a> &gt; <a href="../index.html" class="el_bundle">jobs4u.core</a> &gt; <a href="index.source.html" class="el_package">jobs4u.base.jobs4uusermanagement.domain</a> &gt; <span class="el_source">SignupRequest.java</span></div><h1>SignupRequest.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (c) 2013-2024 the original author or authors.
+ *
+ * MIT License
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package jobs4u.base.jobs4uusermanagement.domain;
+
+import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.domain.model.DomainEntities;
+import eapli.framework.general.domain.model.EmailAddress;
+import eapli.framework.infrastructure.authz.domain.model.Name;
+import eapli.framework.infrastructure.authz.domain.model.Password;
+import eapli.framework.infrastructure.authz.domain.model.Username;
+import eapli.framework.validations.Preconditions;
+import jakarta.persistence.*;
+
+import java.util.Calendar;
+
+/**
+ * A Signup Request. This class represents the Signup Request created right
+ * after a person applies for a Client User account.
+ *
+ * &lt;p&gt;
+ * It follows a DDD approach where all of its properties are instances of value
+ * objects. This approach may seem a little more complex than just having String
+ * or native type attributes but provides for real semantic of the domain and
+ * follows the Single Responsibility Pattern.
+ *
+ * @author Jorge Santos ajs@isep.ipp.pt
+ *
+ */
+@Entity
+public class SignupRequest implements AggregateRoot&lt;Username&gt; {
+
+    private static final long serialVersionUID = 1L;
+
+    @Version
+    private Long version;
+
+    @EmbeddedId
+    private Username username;
+    private Password password;
+    private Name name;
+    private EmailAddress email;
+
+    private MecanographicNumber mecanographicNumber;
+
+    @Enumerated(EnumType.STRING)
+    private ApprovalStatus approvalStatus;
+    @Temporal(TemporalType.DATE)
+    private Calendar createdOn;
+
+    /* package */ SignupRequest(final Username username, final Password password, final Name name,
+            final EmailAddress email, final MecanographicNumber mecanographicNumber,
+<span class="fc" id="L73">            final Calendar createdOn) {</span>
+<span class="fc" id="L74">        Preconditions.noneNull(username, password, name, email, mecanographicNumber);</span>
+
+<span class="fc" id="L76">        this.username = username;</span>
+<span class="fc" id="L77">        this.password = password;</span>
+<span class="fc" id="L78">        this.name = name;</span>
+<span class="fc" id="L79">        this.email = email;</span>
+<span class="fc" id="L80">        this.mecanographicNumber = mecanographicNumber;</span>
+        // by default
+<span class="fc" id="L82">        approvalStatus = ApprovalStatus.PENDING;</span>
+<span class="fc" id="L83">        this.createdOn = createdOn;</span>
+<span class="fc" id="L84">    }</span>
+
+<span class="nc" id="L86">    protected SignupRequest() {</span>
+        // for ORM only
+<span class="nc" id="L88">    }</span>
+
+    public void accept() {
+<span class="fc" id="L91">        approvalStatus = ApprovalStatus.ACCEPTED;</span>
+<span class="fc" id="L92">    }</span>
+
+    public void refuse() {
+<span class="fc" id="L95">        approvalStatus = ApprovalStatus.REFUSED;</span>
+<span class="fc" id="L96">    }</span>
+
+    @Override
+    public boolean equals(final Object o) {
+<span class="nc" id="L100">        return DomainEntities.areEqual(this, o);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L105">        return DomainEntities.hashCode(this);</span>
+    }
+
+    @Override
+    public boolean sameAs(final Object other) {
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (!(other instanceof SignupRequest)) {</span>
+<span class="nc" id="L111">            return false;</span>
+        }
+
+<span class="nc" id="L114">        final SignupRequest that = (SignupRequest) other;</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (this == that) {</span>
+<span class="nc" id="L116">            return true;</span>
+        }
+
+<span class="nc bnc" id="L119" title="All 4 branches missed.">        return username.equals(that.username) &amp;&amp; password.equals(that.password)</span>
+<span class="nc bnc" id="L120" title="All 4 branches missed.">                &amp;&amp; name.equals(that.name) &amp;&amp; email.equals(that.email)</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">                &amp;&amp; mecanographicNumber.equals(that.mecanographicNumber);</span>
+    }
+
+    public MecanographicNumber mecanographicNumber() {
+<span class="nc" id="L125">        return mecanographicNumber;</span>
+    }
+
+    @Override
+    public Username identity() {
+<span class="nc" id="L130">        return username;</span>
+    }
+
+    public Username username() {
+<span class="nc" id="L134">        return username;</span>
+    }
+
+    public Name name() {
+<span class="nc" id="L138">        return name;</span>
+    }
+
+    public boolean isPending() {
+<span class="fc bfc" id="L142" title="All 2 branches covered.">        return approvalStatus == ApprovalStatus.PENDING;</span>
+    }
+
+    public boolean isAccepted() {
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        return approvalStatus == ApprovalStatus.ACCEPTED;</span>
+    }
+
+    public boolean isRefused() {
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        return approvalStatus == ApprovalStatus.REFUSED;</span>
+    }
+
+    public EmailAddress email() {
+<span class="nc" id="L154">        return email;</span>
+    }
+
+    public Password password() {
+<span class="nc" id="L158">        return password;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

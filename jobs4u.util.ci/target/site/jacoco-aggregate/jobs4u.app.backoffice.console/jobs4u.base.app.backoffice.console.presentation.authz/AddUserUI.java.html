@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AddUserUI.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">jobs4u.util.ci</a> &gt; <a href="../index.html" class="el_bundle">jobs4u.app.backoffice.console</a> &gt; <a href="index.source.html" class="el_package">jobs4u.base.app.backoffice.console.presentation.authz</a> &gt; <span class="el_source">AddUserUI.java</span></div><h1>AddUserUI.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (c) 2013-2024 the original author or authors.
+ *
+ * MIT License
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package jobs4u.base.app.backoffice.console.presentation.authz;
+
+import jobs4u.base.usermanagement.application.AddUserController;
+import eapli.framework.actions.Actions;
+import eapli.framework.actions.menu.Menu;
+import eapli.framework.actions.menu.MenuItem;
+import eapli.framework.domain.repositories.ConcurrencyException;
+import eapli.framework.domain.repositories.IntegrityViolationException;
+import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.io.util.Console;
+import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.menu.MenuItemRenderer;
+import eapli.framework.presentation.console.menu.MenuRenderer;
+import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
+
+//Custom
+import eapli.framework.infrastructure.authz.application.PasswordPolicy;
+import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
+
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * UI for adding a user to the application.
+ *
+ * Created by nuno on 22/03/16.
+ */
+<span class="nc" id="L52">public class AddUserUI extends AbstractUI {</span>
+
+<span class="nc" id="L54">    private final AddUserController theController = new AddUserController();</span>
+
+    @Override
+    protected boolean doShow() {
+        // FIXME avoid duplication with SignUpUI. reuse UserDataWidget from
+        // UtenteApp
+<span class="nc" id="L60">        final String username = Console.readLine(&quot;Username&quot;);</span>
+
+
+        //TODO: é suposto eu chamar a interface da framework ou  a minha classe?
+        //Custom
+<span class="nc" id="L65">        PasswordPolicy passwordPolicy = new Jobs4uPasswordPolicy();</span>
+
+        String password;
+        do {
+<span class="nc" id="L69">            password = Console.readLine(&quot;Password&quot;);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        }while (!passwordPolicy.isSatisfiedBy(password));</span>
+
+
+
+<span class="nc" id="L74">        final String firstName = Console.readLine(&quot;First Name&quot;);</span>
+<span class="nc" id="L75">        final String lastName = Console.readLine(&quot;Last Name&quot;);</span>
+<span class="nc" id="L76">        final String email = Console.readLine(&quot;E-Mail&quot;);</span>
+
+<span class="nc" id="L78">        final Set&lt;Role&gt; roleTypes = new HashSet&lt;&gt;();</span>
+
+        boolean show;
+        do {
+<span class="nc" id="L82">            show = showRoles(roleTypes);</span>
+
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        } while (!show);</span>
+
+        try {
+<span class="nc" id="L87">            this.theController.addUser(username, password, firstName, lastName, email, roleTypes);</span>
+<span class="nc" id="L88">        } catch (final IntegrityViolationException | ConcurrencyException e) {</span>
+<span class="nc" id="L89">            System.out.println(&quot;That username is already in use.&quot;);</span>
+<span class="nc" id="L90">        }</span>
+
+<span class="nc" id="L92">        return false;</span>
+    }
+
+    private boolean showRoles(final Set&lt;Role&gt; roleTypes) {
+<span class="nc" id="L96">        final Menu rolesMenu = buildRolesMenu(roleTypes);</span>
+<span class="nc" id="L97">        final MenuRenderer renderer = new VerticalMenuRenderer(rolesMenu, MenuItemRenderer.DEFAULT);</span>
+<span class="nc" id="L98">        return renderer.render();</span>
+
+    }
+
+    private Menu buildRolesMenu(final Set&lt;Role&gt; roleTypes) {
+<span class="nc" id="L103">        final Menu rolesMenu = new Menu();</span>
+<span class="nc" id="L104">        int counter = 0;</span>
+        //rolesMenu.addItem(MenuItem.of(counter++, &quot;No Role&quot;, Actions.SUCCESS));
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        for (final Role roleType : theController.getBackgroundRoleTypes()) {</span>
+<span class="nc" id="L107">            rolesMenu.addItem(MenuItem.of(counter++, roleType.toString(), () -&gt; roleTypes.add(roleType)));</span>
+        }
+<span class="nc" id="L109">        return rolesMenu;</span>
+    }
+
+    @Override
+    public String headline() {
+<span class="nc" id="L114">        return &quot;Add User&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
