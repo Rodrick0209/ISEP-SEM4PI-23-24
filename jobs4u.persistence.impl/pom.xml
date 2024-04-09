@@ -18,4 +18,23 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>jobs4u.infrastructure.application</groupId>
+            <artifactId>jobs4u.infrastructure.application</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jobs4u.core</groupId>
+            <artifactId>jobs4u.core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jobs4u.bootstrappers</groupId>
+            <artifactId>jobs4u.bootstrappers</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>
