@@ -24,10 +24,10 @@
 package jobs4u.base.app.backoffice.console.presentation;
 
 import jobs4u.base.Application;
+import jobs4u.base.app.backoffice.console.presentation.authz.EnableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.AddUserUI;
-import jobs4u.base.app.backoffice.console.presentation.authz.DeactivateUserAction;
+import jobs4u.base.app.backoffice.console.presentation.authz.DisableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.ListUsersAction;
-import jobs4u.base.app.backoffice.console.presentation.clientuser.AcceptRefuseSignupRequestAction;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Actions;
@@ -57,11 +57,12 @@ public class MainMenu extends AbstractUI {
     // USERS
     private static final int ADD_USER_OPTION = 1;
     private static final int LIST_USERS_OPTION = 2;
-    private static final int DEACTIVATE_USER_OPTION = 3;
-    private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
+    private static final int ACTIVATE_USER_OPTION = 3;
+    private static final int DISABLE_USER_OPTION = 4;
+    //private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
 
     // SETTINGS
-    private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
+    private static final int Option = 1;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
@@ -129,7 +130,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildAdminSettingsMenu() {
         final Menu menu = new Menu("Settings >");
 
-        menu.addItem(SET_KITCHEN_ALERT_LIMIT_OPTION, "Set kitchen alert limit",
+        menu.addItem(Option, "Option",
                 new ShowMessageAction("Not implemented yet"));
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
@@ -141,9 +142,9 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(ADD_USER_OPTION, "Add User", new AddUserUI()::show);
         menu.addItem(LIST_USERS_OPTION, "List all Users", new ListUsersAction());
-        menu.addItem(DEACTIVATE_USER_OPTION, "Deactivate User", new DeactivateUserAction());
-        menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
-                new AcceptRefuseSignupRequestAction());
+        menu.addItem(ACTIVATE_USER_OPTION, "Activate User", new EnableUserAction());
+        menu.addItem(DISABLE_USER_OPTION, "Deactivate User", new DisableUserAction());
+        //menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",new AcceptRefuseSignupRequestAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
