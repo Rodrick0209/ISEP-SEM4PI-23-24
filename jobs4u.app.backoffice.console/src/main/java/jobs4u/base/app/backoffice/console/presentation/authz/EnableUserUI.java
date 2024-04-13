@@ -22,6 +22,7 @@ package jobs4u.base.app.backoffice.console.presentation.authz;
 
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
@@ -41,7 +42,9 @@ import java.util.List;
 public class EnableUserUI extends AbstractUI {
     private static final Logger LOGGER = LoggerFactory.getLogger(EnableUserUI.class);
 
-    private final EnableUserController theController = new EnableUserController();
+    private final EnableUserController theController = new EnableUserController(
+            AuthzRegistry.authorizationService(), AuthzRegistry.userService()
+    );
 
     @Override
     protected boolean doShow() {

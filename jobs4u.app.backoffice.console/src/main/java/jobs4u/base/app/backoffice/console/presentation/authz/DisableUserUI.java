@@ -20,6 +20,7 @@
  */
 package jobs4u.base.app.backoffice.console.presentation.authz;
 
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import jobs4u.base.usermanagement.application.DisableUserController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -40,7 +41,9 @@ import java.util.List;
 public class DisableUserUI extends AbstractUI {
     private static final Logger LOGGER = LoggerFactory.getLogger(DisableUserUI.class);
 
-    private final DisableUserController theController = new DisableUserController();
+    private final DisableUserController theController = new DisableUserController(
+            AuthzRegistry.authorizationService(), AuthzRegistry.userService()
+    );
 
     @Override
     protected boolean doShow() {

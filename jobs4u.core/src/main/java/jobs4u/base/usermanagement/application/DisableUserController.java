@@ -37,8 +37,19 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 @UseCaseController
 public class DisableUserController {
 
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final UserManagementService userSvc = AuthzRegistry.userService();
+    private AuthorizationService authz;
+    private UserManagementService userSvc;
+
+    public DisableUserController(final AuthorizationService authz,final UserManagementService userSvc){
+        // dependency injection - to make this object more testable we don't create the
+        // infrastructure objects to avoid coupling to the implementation. This way, the controller
+        // can be used in different scenarios with different implementations of the repository. for
+        // instance, unit testing.
+        this.authz = authz;
+        this.userSvc= userSvc;
+
+    }
+
 
     public Iterable<SystemUser> activeUsers() {
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN);
