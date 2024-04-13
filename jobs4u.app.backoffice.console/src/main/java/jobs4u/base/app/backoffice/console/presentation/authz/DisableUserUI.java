@@ -20,7 +20,7 @@
  */
 package jobs4u.base.app.backoffice.console.presentation.authz;
 
-import jobs4u.base.usermanagement.application.DeactivateUserController;
+import jobs4u.base.usermanagement.application.DisableUserController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
@@ -37,10 +37,10 @@ import java.util.List;
  * @author Fernando
  */
 @SuppressWarnings("squid:S106")
-public class DeactivateUserUI extends AbstractUI {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DeactivateUserUI.class);
+public class DisableUserUI extends AbstractUI {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DisableUserUI.class);
 
-    private final DeactivateUserController theController = new DeactivateUserController();
+    private final DisableUserController theController = new DisableUserController();
 
     @Override
     protected boolean doShow() {

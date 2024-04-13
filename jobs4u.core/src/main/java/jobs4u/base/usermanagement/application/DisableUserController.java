@@ -21,49 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jobs4u.base.app.backoffice.console.presentation.authz;
+package jobs4u.base.usermanagement.application;
 
-import jobs4u.base.usermanagement.application.ListUsersController;
+import jobs4u.base.usermanagement.domain.Jobs4uRoles;
+import eapli.framework.application.UseCaseController;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.presentation.console.AbstractListUI;
-import eapli.framework.visitor.Visitor;
 
 /**
  *
- * @author losa
+ * @author Fernando
  */
-@SuppressWarnings({ "squid:S106" })
-public class ListUsersUI extends AbstractListUI<SystemUser> {
-    private ListUsersController theController = new ListUsersController();
+@UseCaseController
+public class DisableUserController {
 
-    @Override
-    public String headline() {
-        return "List Users";
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    private final UserManagementService userSvc = AuthzRegistry.userService();
+
+    public Iterable<SystemUser> activeUsers() {
+        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN);
+
+        return userSvc.activeUsers();
     }
 
-    @Override
-    protected String emptyMessage() {
-        return "No data.";
-    }
+    public SystemUser deactivateUser(final SystemUser user) {
+        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN);
 
-    @Override
-    protected Iterable<SystemUser> elements() {
-        return theController.BackOfficeUsers();
-    }
-
-    @Override
-    protected Visitor<SystemUser> elementPrinter() {
-        return new SystemUserPrinter();
-    }
-
-    @Override
-    protected String elementName() {
-        return "User";
-    }
-
-    @Override
-    protected String listHeader() {
-        return String.format("#  %-30s%-30s%-30s%-10s", "EMAIL", "F. NAME", "L. NAME", "ACTIVE");
-
+        return userSvc.deactivateUser(user);
     }
 }

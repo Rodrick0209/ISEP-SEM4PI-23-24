@@ -68,13 +68,13 @@ public class LoginUI extends AbstractUI {
 	protected boolean doShow() {
 		var attempt = 1;
 		while (attempt <= maxAttempts) {
-			final String userName = Console.readNonEmptyLine("Username:", "Please provide a username");
+			final String email = Console.readNonEmptyLine("Email:", "Please provide a email");
 			final String password = Console.readLine("Password:");
 
-			if (credentialHandler.authenticated(userName, password, onlyWithThis)) {
+			if (credentialHandler.authenticated(email, password, onlyWithThis)) {
 				return true;
 			}
-			System.out.printf("Wrong username or password. You have %d attempts left.%n%n»»»»»»»»»%n",
+			System.out.printf("Wrong email or password. You have %d attempts left.%n%n»»»»»»»»»%n",
 					maxAttempts - attempt);
 			attempt++;
 		}

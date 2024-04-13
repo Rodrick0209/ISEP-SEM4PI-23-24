@@ -23,6 +23,9 @@
  */
 package jobs4u.base.app.backoffice.console.presentation.authz;
 
+import eapli.framework.functional.Either;
+import eapli.framework.general.domain.model.EmailAddress;
+import eapli.framework.strings.util.StringPredicates;
 import jobs4u.base.usermanagement.application.AddUserController;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -55,25 +58,22 @@ public class AddUserUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        // FIXME avoid duplication with SignUpUI. reuse UserDataWidget from
-        // UtenteApp
-        final String username = Console.readLine("Username");
 
+        String email;
+        do {
+            email = Console.readLine("E-Mail");
+        }while (!StringPredicates.isEmail(email));
 
-        //TODO: é suposto eu chamar a interface da framework ou  a minha classe?
         //Custom
         PasswordPolicy passwordPolicy = new Jobs4uPasswordPolicy();
-
         String password;
         do {
             password = Console.readLine("Password");
         }while (!passwordPolicy.isSatisfiedBy(password));
 
-
-
         final String firstName = Console.readLine("First Name");
         final String lastName = Console.readLine("Last Name");
-        final String email = Console.readLine("E-Mail");
+
 
         final Set<Role> roleTypes = new HashSet<>();
 
@@ -84,7 +84,7 @@ public class AddUserUI extends AbstractUI {
         } while (!show);
 
         try {
-            this.theController.addUser(username, password, firstName, lastName, email, roleTypes);
+            this.theController.addUser(email, password, firstName, lastName, email, roleTypes);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That username is already in use.");
         }

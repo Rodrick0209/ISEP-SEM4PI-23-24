@@ -20,20 +20,16 @@
  */
 package jobs4u.base.app.backoffice.console.presentation.authz;
 
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.visitor.Visitor;
+import eapli.framework.actions.Action;
 
 /**
  *
- * @author Paulo Gandra de Sousa
- *
+ * @author Fernando
  */
-@SuppressWarnings({ "squid:S106" })
-public class SystemUserPrinter implements Visitor<SystemUser> {
+public class EnableUserAction implements Action {
 
     @Override
-    public void visit(final SystemUser visitee) {
-        System.out.printf("%-30s%-30s%-30s%-10s", visitee.email(), visitee.name().firstName(), visitee.name().lastName(),
-                visitee.isActive());
+    public boolean execute() {
+        return new EnableUserUI().show();
     }
 }

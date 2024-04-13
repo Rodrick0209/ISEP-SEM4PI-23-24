@@ -23,32 +23,31 @@
  */
 package jobs4u.base.usermanagement.application;
 
-import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 
 /**
  *
  * @author Fernando
  */
 @UseCaseController
-public class DeactivateUserController {
+public class EnableUserController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
 
-    public Iterable<SystemUser> activeUsers() {
+    public Iterable<SystemUser> disableUsers() {
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN);
-
-        return userSvc.activeUsers();
+        return userSvc.deactivatedUsers();
     }
 
-    public SystemUser deactivateUser(final SystemUser user) {
+    public SystemUser enableUser(final SystemUser user) {
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN);
 
-        return userSvc.deactivateUser(user);
+        return userSvc.activateUser(user);
     }
 }
