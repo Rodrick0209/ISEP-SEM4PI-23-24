@@ -28,6 +28,7 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.base.usermanagement.application.DisableUserController;
 import jobs4u.base.usermanagement.application.EnableUserController;
+import jobs4u.base.usermanagement.util.ListUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,13 +57,7 @@ public class EnableUserUI extends AbstractUI {
             int cont = 1;
             System.out.println("SELECT User to enable\n");
             // FIXME use select widget, see, ChangeDishTypeUI
-            System.out.printf("%-6s%-10s%-30s%-30s%n", "Nº:", "Username", "Firstname", "Lastname");
-            for (final SystemUser user : iterable) {
-                list.add(user);
-                System.out.printf("%-6d%-10s%-30s%-30s%n", cont, user.username(), user.name().firstName(),
-                        user.name().lastName());
-                cont++;
-            }
+            ListUser.ListUserToSelect(list, iterable, cont);
             final int option = Console.readInteger("Enter user nº to disable or 0 to finish ");
             if (option == 0) {
                 System.out.println("No user selected");
