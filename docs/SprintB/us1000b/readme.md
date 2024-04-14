@@ -2,7 +2,7 @@
 
 # 1. Requirements
 **1000b** As Administrator, I want to be disable/enable users of the backoffice
-- Create two new services with all the attributes.
+- Create a new services with all the attributes.
 The interpretation made of this requirement was to create a service with all the necessary attributes for its creation.
   
 
@@ -26,6 +26,23 @@ The interpretation made of this requirement was to create a service with all the
 - To implement this functionality, the team used the Controller and Repository pattern.
 - Use the standard base structure of the layered application
 
+
+### Domain Classes
+
+- SystemUser and its associated classes
+
+### Controller
+
+- EnableUserController - For enabling the user
+- DisableUserController - For disabling the user
+
+### Service
+
+- UserManagementService
+
+### Repository
+
+- UserRepository
 
 
 

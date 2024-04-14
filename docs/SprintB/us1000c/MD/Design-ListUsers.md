@@ -9,8 +9,7 @@
 
 ### Controller
 
-- EnableUserController - For enabling the user
-- DisableUserController - For disabling the user
+- ListUserController - For listing the users
 
 ### Service
 
@@ -19,4 +18,3 @@
 ### Repository
 
 - UserRepository
-

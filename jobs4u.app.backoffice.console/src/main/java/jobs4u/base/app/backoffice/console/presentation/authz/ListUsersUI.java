@@ -34,7 +34,7 @@ import eapli.framework.visitor.Visitor;
  */
 @SuppressWarnings({ "squid:S106" })
 public class ListUsersUI extends AbstractListUI<SystemUser> {
-    private ListUsersController theController = new ListUsersController();
+    private final ListUsersController theController = new ListUsersController();
 
     @Override
     public String headline() {
