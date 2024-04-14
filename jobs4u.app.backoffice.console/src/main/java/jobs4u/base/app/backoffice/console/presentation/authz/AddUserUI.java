@@ -25,6 +25,7 @@ package jobs4u.base.app.backoffice.console.presentation.authz;
 
 import eapli.framework.functional.Either;
 import eapli.framework.general.domain.model.EmailAddress;
+import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.strings.util.StringPredicates;
 import jobs4u.base.usermanagement.application.AddUserController;
 import eapli.framework.actions.Actions;
@@ -80,10 +81,14 @@ public class AddUserUI extends AbstractUI {
         String password = passwordGenerator.generatePassword();
 
 
+
         final String firstName = Console.readLine("First Name");
+
+
         final String lastName = Console.readLine("Last Name");
 
 
+        System.out.println("Please select the role for the new user");
         final Set<Role> roleTypes = new HashSet<>();
 
         boolean show;
@@ -97,7 +102,7 @@ public class AddUserUI extends AbstractUI {
             System.out.println("The password for the new user is: " + password);
 
         } catch (final IntegrityViolationException | ConcurrencyException e) {
-            System.out.println("That username is already in use.");
+            System.out.println("That email is already in use.");
         }
 
         return false;

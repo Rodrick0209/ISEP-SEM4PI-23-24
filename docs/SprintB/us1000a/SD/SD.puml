@@ -1,0 +1,80 @@
+@startuml
+
+actor Admin
+participant "AddUserUI" as AUI
+participant "AddUserController" as controller
+
+participant Jobs4uPasswordGenerator as JPG
+participant "Jobs4uRoles" as Roles
+
+participant "AuthorizationService" as AS
+participant "UserManagementService" as UMS
+participant "SystemUserBuilder" as SUB
+
+participant "UserRepository" as UR
+
+
+
+
+
+Admin -> AUI: Choose Option User > Add User
+activate AUI
+
+AUI --> Admin : Asks for new user email
+Admin -> AUI : Email
+
+AUI -> JPG : generatePassword()
+activate JPG
+JPG --> AUI : password
+deactivate JPG
+
+
+AUI --> Admin : Asks for new user first name
+Admin -> AUI : first Name
+
+AUI --> Admin : Asks for new user last name
+Admin -> AUI : last Name
+
+AUI -> AUI: showRoles()
+activate AUI
+
+AUI -> controller : getBackgroundRoleTypes()
+activate controller
+controller -> Roles : BackgroundUserValues()
+activate Roles
+Roles --> controller : Roles
+deactivate Roles
+controller --> AUI : Roles
+deactivate controller
+AUI-->AUI: Roles
+deactivate AUI
+AUI --> Admin : Show roles and asks to select a role
+Admin -> AUI : select role
+
+AUI -> controller : addUser(email, password, firstName, lastName, role)
+activate controller
+
+controller -> AS : ensureAuthenticatedUserHasAnyOf(adminRole);
+activate AS
+deactivate AS
+
+controller -> UMS : addUser(email, password, firstName, lastName, role)
+activate UMS
+UMS -> SUB : buildUser(email, password, firstName, lastName, role)
+activate SUB
+SUB --> UMS : SystemUser
+deactivate SUB
+UMS --> controller : SystemUser
+deactivate UMS
+controller -> UR : save(SystemUser)
+activate UR
+UR --> controller : new User
+deactivate UR
+controller--> AUI : new User
+deactivate controller
+AUI --> Admin : success message and generate Password
+
+
+
+
+@enduml
