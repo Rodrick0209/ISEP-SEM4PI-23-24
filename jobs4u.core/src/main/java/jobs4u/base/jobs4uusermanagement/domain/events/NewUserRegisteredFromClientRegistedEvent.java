@@ -28,6 +28,8 @@ import jobs4u.base.jobs4uusermanagement.domain.MecanographicNumber;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.domain.events.DomainEventBase;
 import eapli.framework.infrastructure.authz.domain.model.Username;
+import jobs4u.base.utils.ClientCode;
+import jobs4u.base.utils.PhoneNumber;
 
 /**
  * @author Paulo Gandra de Sousa
@@ -37,23 +39,29 @@ public class NewUserRegisteredFromSignupEvent extends DomainEventBase implements
 
     private static final long serialVersionUID = 1L;
 
-    private final MecanographicNumber mecanographicNumber;
+    private final ClientCode clientCode;
     private final Username newUser;
 
-    public NewUserRegisteredFromSignupEvent(final MecanographicNumber mecanographicNumber,
-            final Username newUser) {
-        this.mecanographicNumber = mecanographicNumber;
+    private final PhoneNumber phoneNumber;
+
+    public NewUserRegisteredFromSignupEvent(final ClientCode clientCode,
+            final Username newUser, final PhoneNumber phoneNumber) {
+        this.clientCode = clientCode;
         this.newUser = newUser;
+        this.phoneNumber = phoneNumber;
     }
 
-    public MecanographicNumber mecanographicNumber() {
-        return mecanographicNumber;
+    public ClientCode clientCode() {
+        return clientCode;
     }
 
     public Username username() {
         return newUser;
     }
 
+    public PhoneNumber phoneNumber() {
+        return phoneNumber;
+    }
     @Override
     public String toString() {
         return "NewUserFromsignup(" + username() + ")";

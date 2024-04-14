@@ -25,7 +25,7 @@ package jobs4u.base.jobs4uusermanagement.application.eventhandlers;
 
 import jobs4u.base.jobs4uusermanagement.domain.Jobs4uUser;
 import jobs4u.base.jobs4uusermanagement.domain.Jobs4uUserBuilder;
-import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
 import jobs4u.base.jobs4uusermanagement.repositories.ClientUserRepository;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import eapli.framework.functional.Functions;
@@ -45,19 +45,19 @@ import java.util.Optional;
     private final ClientUserRepository clientUserRepository = PersistenceContext
             .repositories().clientUsers();
 
-    public Jobs4uUser addClientUser(final NewUserRegisteredFromSignupEvent event) {
+    public Jobs4uUser addClientUser(final NewUserRegisteredFromClientRegistedEvent event) {
         final Optional<SystemUser> newUser = findUser(event);
 
         return newUser.map(u -> {
             final Jobs4uUserBuilder jobs4uUserBuilder = new Jobs4uUserBuilder();
-            jobs4uUserBuilder.withMecanographicNumber(event.mecanographicNumber())
-                    .withSystemUser(u);
+            jobs4uUserBuilder.withClientCode(event.clientCode())
+                    .withSystemUser(u).withPhoneNumber(event.phoneNumber());
             return clientUserRepository.save(jobs4uUserBuilder.build());
         }).orElseThrow(IllegalStateException::new);
     }
 
     @SuppressWarnings("squid:S1488")
-    private Optional<SystemUser> findUser(final NewUserRegisteredFromSignupEvent event) {
+    private Optional<SystemUser> findUser(final NewUserRegisteredFromClientRegistedEvent event) {
         // since we are using events, the actual user may not yet be
         // created, so lets give it a time and wait
         final Optional<SystemUser> newUser = Functions
