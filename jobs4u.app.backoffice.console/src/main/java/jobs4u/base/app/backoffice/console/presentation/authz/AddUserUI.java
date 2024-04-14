@@ -42,6 +42,7 @@ import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 //Custom
 import eapli.framework.infrastructure.authz.application.PasswordPolicy;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
+import jobs4u.base.usermanagement.domain.Jobs4uPasswordGenerator;
 
 
 import java.util.HashSet;
@@ -64,12 +65,20 @@ public class AddUserUI extends AbstractUI {
             email = Console.readLine("E-Mail");
         }while (!StringPredicates.isEmail(email));
 
-        //Custom
+        //ASK FOR PASSWORD
+        /*
         PasswordPolicy passwordPolicy = new Jobs4uPasswordPolicy();
         String password;
         do {
             password = Console.readLine("Password");
         }while (!passwordPolicy.isSatisfiedBy(password));
+
+         */
+
+        //GENERATE PASSWORD
+        Jobs4uPasswordGenerator passwordGenerator = new Jobs4uPasswordGenerator();
+        String password = passwordGenerator.generatePassword();
+
 
         final String firstName = Console.readLine("First Name");
         final String lastName = Console.readLine("Last Name");
@@ -85,6 +94,8 @@ public class AddUserUI extends AbstractUI {
 
         try {
             this.theController.addUser(email, password, firstName, lastName, email, roleTypes);
+            System.out.println("The password for the new user is: " + password);
+
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That username is already in use.");
         }
