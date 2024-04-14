@@ -3,7 +3,7 @@ package jobs4u.base.usermanagement.domain;
 import java.util.Random;
 
 public class Jobs4uPasswordGenerator {
-    //TODO: Tests and separate into functions
+    //TODO: Tests
 
     private static final String CAPITAL_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String NUMBERS = "0123456789";
@@ -32,11 +32,16 @@ public class Jobs4uPasswordGenerator {
             }
         }
 
-        if (passwordPolicy.isSatisfiedBy(password.toString())) {
+        if (validatePasswordPolicy(password)) {
             return password.toString();
         }else {
             return generatePassword();
         }
+
     }
 
+
+    private boolean validatePasswordPolicy(StringBuilder password) {
+        return passwordPolicy.isSatisfiedBy(password.toString());
+    }
 }
