@@ -1,4 +1,4 @@
-# UC 1000b
+# US 1000b
 
 # 1. Requirements
 **1000b** As Administrator, I want to be disable/enable users of the backoffice

@@ -6,10 +6,16 @@
 ### Domain Classes
 
 - SystemUser and its associated classes
+- Jobs4uRoles
+- PasswordGenerator
 
 ### Controller
 
-- ListUserController - For listing the users
+- AddUserController
+
+### Builder
+
+- SystemUserBuilder
 
 ### Service
 

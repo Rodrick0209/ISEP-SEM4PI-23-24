@@ -1,4 +1,4 @@
-# UC 1000c
+# US 1000c
 
 # 1. Requirements
 **1000c** As Administrator, I want to be able to list users of the backoffice.

@@ -1,4 +1,4 @@
-# UC 1000c
+# US 1000c
 
 # 1. Requirements
 **1000a** As Administrator, I want to be able to register users of the backoffice.
@@ -23,6 +23,28 @@
 - To implement this functionality, the team used the Controller and Repository pattern.
 - Use the standard base structure of the layered application
 
+
+### Domain Classes
+
+- SystemUser and its associated classes
+- Jobs4uRoles
+- PasswordGenerator
+
+### Controller
+
+- AddUserController
+
+### Builder
+
+- SystemUserBuilder
+
+### Service
+
+- UserManagementService
+
+### Repository
+
+- UserRepository
 
 ## 3.1. Class Diagram
 

@@ -1,18 +1,32 @@
+
 # Test Plan
 
-## Case #1: List User 
 
+## Case #1: Add user successfully
 1. Log in as admin
-2. Choose the Option User > List users
-3. Display all the users (email, name, status)
+2. Choose the Option Users > Add user
+3. Fill the email field
+4. Fill the first name field
+5. Fill the last name field
+6. Choose a role
+7. The system displays the password generated
+8. Confirm the user created through List users (User > List Users)
 
-
-## Case #2: List User (does not exist users)
-
+## Case #2: Add user with same email
 1. Log in as admin
-2. Choose the Option User > Enable User
-3. Display a message "There are no users"
+2. Choose the Option Users > Add user
+3. Fill the email field wih an email that already exists
+4. Fill the first name field
+5. Fill the last name field
+6. Choose a role
+7. The system displays an error message "That email is already in use."
+8. Confirm the user was not created through List users (User > List Users)
 
-
-
-
+## Case #3: Add user with invalid name
+1. Log in as admin
+2. Choose the Option Users > Add user
+3. Fill the email field
+4. Fill the first name field or the last name field with invalid characters
+5. Choose a role
+6. The system ends and displays an error message "That name inserted is invalid."
+7. Confirm the user was not created through List users (User > List Users)
