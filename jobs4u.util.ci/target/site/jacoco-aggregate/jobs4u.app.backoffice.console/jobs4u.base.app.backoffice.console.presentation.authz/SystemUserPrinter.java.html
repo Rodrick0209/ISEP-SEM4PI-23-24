@@ -33,7 +33,8 @@ import eapli.framework.visitor.Visitor;
 
     @Override
     public void visit(final SystemUser visitee) {
-<span class="nc" id="L36">        System.out.printf(&quot;%-10s%-30s%-30s&quot;, visitee.username(), visitee.name().firstName(), visitee.name().lastName());</span>
-<span class="nc" id="L37">    }</span>
+<span class="nc" id="L36">        System.out.printf(&quot;%-30s%-30s%-30s%-10s&quot;, visitee.email(), visitee.name().firstName(), visitee.name().lastName(),</span>
+<span class="nc" id="L37">                visitee.isActive());</span>
+<span class="nc" id="L38">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

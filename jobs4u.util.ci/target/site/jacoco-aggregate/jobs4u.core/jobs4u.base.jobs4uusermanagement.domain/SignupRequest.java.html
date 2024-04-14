@@ -70,30 +70,30 @@ public class SignupRequest implements AggregateRoot&lt;Username&gt; {
 
     /* package */ SignupRequest(final Username username, final Password password, final Name name,
             final EmailAddress email, final MecanographicNumber mecanographicNumber,
-<span class="fc" id="L73">            final Calendar createdOn) {</span>
-<span class="fc" id="L74">        Preconditions.noneNull(username, password, name, email, mecanographicNumber);</span>
+<span class="nc" id="L73">            final Calendar createdOn) {</span>
+<span class="nc" id="L74">        Preconditions.noneNull(username, password, name, email, mecanographicNumber);</span>
 
-<span class="fc" id="L76">        this.username = username;</span>
-<span class="fc" id="L77">        this.password = password;</span>
-<span class="fc" id="L78">        this.name = name;</span>
-<span class="fc" id="L79">        this.email = email;</span>
-<span class="fc" id="L80">        this.mecanographicNumber = mecanographicNumber;</span>
+<span class="nc" id="L76">        this.username = username;</span>
+<span class="nc" id="L77">        this.password = password;</span>
+<span class="nc" id="L78">        this.name = name;</span>
+<span class="nc" id="L79">        this.email = email;</span>
+<span class="nc" id="L80">        this.mecanographicNumber = mecanographicNumber;</span>
         // by default
-<span class="fc" id="L82">        approvalStatus = ApprovalStatus.PENDING;</span>
-<span class="fc" id="L83">        this.createdOn = createdOn;</span>
-<span class="fc" id="L84">    }</span>
+<span class="nc" id="L82">        approvalStatus = ApprovalStatus.PENDING;</span>
+<span class="nc" id="L83">        this.createdOn = createdOn;</span>
+<span class="nc" id="L84">    }</span>
 
 <span class="nc" id="L86">    protected SignupRequest() {</span>
         // for ORM only
 <span class="nc" id="L88">    }</span>
 
     public void accept() {
-<span class="fc" id="L91">        approvalStatus = ApprovalStatus.ACCEPTED;</span>
-<span class="fc" id="L92">    }</span>
+<span class="nc" id="L91">        approvalStatus = ApprovalStatus.ACCEPTED;</span>
+<span class="nc" id="L92">    }</span>
 
     public void refuse() {
-<span class="fc" id="L95">        approvalStatus = ApprovalStatus.REFUSED;</span>
-<span class="fc" id="L96">    }</span>
+<span class="nc" id="L95">        approvalStatus = ApprovalStatus.REFUSED;</span>
+<span class="nc" id="L96">    }</span>
 
     @Override
     public boolean equals(final Object o) {
@@ -139,15 +139,15 @@ public class SignupRequest implements AggregateRoot&lt;Username&gt; {
     }
 
     public boolean isPending() {
-<span class="fc bfc" id="L142" title="All 2 branches covered.">        return approvalStatus == ApprovalStatus.PENDING;</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        return approvalStatus == ApprovalStatus.PENDING;</span>
     }
 
     public boolean isAccepted() {
-<span class="fc bfc" id="L146" title="All 2 branches covered.">        return approvalStatus == ApprovalStatus.ACCEPTED;</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">        return approvalStatus == ApprovalStatus.ACCEPTED;</span>
     }
 
     public boolean isRefused() {
-<span class="fc bfc" id="L150" title="All 2 branches covered.">        return approvalStatus == ApprovalStatus.REFUSED;</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        return approvalStatus == ApprovalStatus.REFUSED;</span>
     }
 
     public EmailAddress email() {

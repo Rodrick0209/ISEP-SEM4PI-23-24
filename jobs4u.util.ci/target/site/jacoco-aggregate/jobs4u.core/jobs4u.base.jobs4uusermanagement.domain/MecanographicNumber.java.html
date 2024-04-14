@@ -35,35 +35,35 @@ public class MecanographicNumber implements ValueObject, Comparable&lt;Mecanogra
 
     private String number;
 
-<span class="fc" id="L38">    public MecanographicNumber(final String mecanographicNumber) {</span>
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (StringPredicates.isNullOrEmpty(mecanographicNumber)) {</span>
+<span class="nc" id="L38">    public MecanographicNumber(final String mecanographicNumber) {</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (StringPredicates.isNullOrEmpty(mecanographicNumber)) {</span>
 <span class="nc" id="L40">            throw new IllegalArgumentException(</span>
                     &quot;Mecanographic Number should neither be null nor empty&quot;);
         }
         // TODO validate invariants, i.e., mecanographic number regular
         // expression
-<span class="fc" id="L45">        this.number = mecanographicNumber;</span>
-<span class="fc" id="L46">    }</span>
+<span class="nc" id="L45">        this.number = mecanographicNumber;</span>
+<span class="nc" id="L46">    }</span>
 
 <span class="nc" id="L48">    protected MecanographicNumber() {</span>
         // for ORM
 <span class="nc" id="L50">    }</span>
 
     public static MecanographicNumber valueOf(final String mecanographicNumber) {
-<span class="fc" id="L53">        return new MecanographicNumber(mecanographicNumber);</span>
+<span class="nc" id="L53">        return new MecanographicNumber(mecanographicNumber);</span>
     }
 
     @Override
     public boolean equals(final Object o) {
-<span class="pc bpc" id="L58" title="1 of 2 branches missed.">        if (this == o) {</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (this == o) {</span>
 <span class="nc" id="L59">            return true;</span>
         }
-<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if (!(o instanceof MecanographicNumber)) {</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (!(o instanceof MecanographicNumber)) {</span>
 <span class="nc" id="L62">            return false;</span>
         }
 
-<span class="fc" id="L65">        final MecanographicNumber that = (MecanographicNumber) o;</span>
-<span class="fc" id="L66">        return this.number.equals(that.number);</span>
+<span class="nc" id="L65">        final MecanographicNumber that = (MecanographicNumber) o;</span>
+<span class="nc" id="L66">        return this.number.equals(that.number);</span>
     }
 
     @Override

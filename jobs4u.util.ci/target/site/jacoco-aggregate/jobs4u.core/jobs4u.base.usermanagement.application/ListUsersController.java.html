@@ -55,25 +55,24 @@ import static jobs4u.base.usermanagement.domain.Jobs4uRoles.isCollaborator;
     }
 
 
-    //TODO: talk to the teatcher about this method
     //Can controller do this? or it should be assing to an other class?
     public Iterable&lt;SystemUser&gt; BackOfficeUsers() {
 
-<span class="nc" id="L62">        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN);</span>
-<span class="nc" id="L63">        Jobs4uRoles roles = new Jobs4uRoles();</span>
+<span class="nc" id="L61">        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN);</span>
+<span class="nc" id="L62">        Jobs4uRoles roles = new Jobs4uRoles();</span>
 
-<span class="nc" id="L65">        List&lt;SystemUser&gt; backOfficeUsers = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        for (SystemUser user : userSvc.allUsers()) {</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">            if (isCollaborator(user.roleTypes().stream().iterator().next())){</span>
-<span class="nc" id="L68">                 backOfficeUsers.add(user);</span>
+<span class="nc" id="L64">        List&lt;SystemUser&gt; backOfficeUsers = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        for (SystemUser user : userSvc.allUsers()) {</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">            if (isCollaborator(user.roleTypes().stream().iterator().next())){</span>
+<span class="nc" id="L67">                 backOfficeUsers.add(user);</span>
             }
-<span class="nc" id="L70">        }</span>
-<span class="nc" id="L71">        return backOfficeUsers;</span>
+<span class="nc" id="L69">        }</span>
+<span class="nc" id="L70">        return backOfficeUsers;</span>
 
     }
 
     public Optional&lt;SystemUser&gt; find(final Username u) {
-<span class="nc" id="L76">        return userSvc.userOfIdentity(u);</span>
+<span class="nc" id="L75">        return userSvc.userOfIdentity(u);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

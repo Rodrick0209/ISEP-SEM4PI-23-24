@@ -31,14 +31,14 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-<span class="fc" id="L34">public class Jobs4uUserBuilder implements DomainFactory&lt;Jobs4uUser&gt; {</span>
+<span class="nc" id="L34">public class Jobs4uUserBuilder implements DomainFactory&lt;Jobs4uUser&gt; {</span>
 
     private SystemUser systemUser;
     private MecanographicNumber mecanographicNumber;
 
     public Jobs4uUserBuilder withSystemUser(final SystemUser systemUser) {
-<span class="fc" id="L40">        this.systemUser = systemUser;</span>
-<span class="fc" id="L41">        return this;</span>
+<span class="nc" id="L40">        this.systemUser = systemUser;</span>
+<span class="nc" id="L41">        return this;</span>
     }
 
     public Jobs4uUserBuilder withMecanographicNumber(final MecanographicNumber mecanographicNumber) {
@@ -47,15 +47,15 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
     }
 
     public Jobs4uUserBuilder withMecanographicNumber(final String mecanographicNumber) {
-<span class="fc" id="L50">        this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);</span>
-<span class="fc" id="L51">        return this;</span>
+<span class="nc" id="L50">        this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);</span>
+<span class="nc" id="L51">        return this;</span>
     }
 
     @Override
     public Jobs4uUser build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-<span class="fc" id="L58">        return new Jobs4uUser(this.systemUser, this.mecanographicNumber);</span>
+<span class="nc" id="L58">        return new Jobs4uUser(this.systemUser, this.mecanographicNumber);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

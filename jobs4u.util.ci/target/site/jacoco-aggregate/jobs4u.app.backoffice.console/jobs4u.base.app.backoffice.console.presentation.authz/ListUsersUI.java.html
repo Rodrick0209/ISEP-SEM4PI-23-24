@@ -34,7 +34,7 @@ import eapli.framework.visitor.Visitor;
  */
 @SuppressWarnings({ &quot;squid:S106&quot; })
 <span class="nc" id="L36">public class ListUsersUI extends AbstractListUI&lt;SystemUser&gt; {</span>
-<span class="nc" id="L37">    private ListUsersController theController = new ListUsersController();</span>
+<span class="nc" id="L37">    private final ListUsersController theController = new ListUsersController();</span>
 
     @Override
     public String headline() {
@@ -63,7 +63,8 @@ import eapli.framework.visitor.Visitor;
 
     @Override
     protected String listHeader() {
-<span class="nc" id="L66">        return String.format(&quot;#  %-10s%-30s%-30s&quot;, &quot;USERNAME&quot;, &quot;F. NAME&quot;, &quot;L. NAME&quot;);</span>
+<span class="nc" id="L66">        return String.format(&quot;#  %-30s%-30s%-30s%-10s&quot;, &quot;EMAIL&quot;, &quot;F. NAME&quot;, &quot;L. NAME&quot;, &quot;ACTIVE&quot;);</span>
+
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

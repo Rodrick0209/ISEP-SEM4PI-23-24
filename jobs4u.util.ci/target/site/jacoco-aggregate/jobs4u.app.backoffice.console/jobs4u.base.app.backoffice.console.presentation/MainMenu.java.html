@@ -24,10 +24,10 @@
 package jobs4u.base.app.backoffice.console.presentation;
 
 import jobs4u.base.Application;
+import jobs4u.base.app.backoffice.console.presentation.authz.EnableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.DisableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.ListUsersAction;
-import jobs4u.base.app.backoffice.console.presentation.clientuser.AcceptRefuseSignupRequestAction;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Actions;
@@ -57,25 +57,26 @@ import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
     // USERS
     private static final int ADD_USER_OPTION = 1;
     private static final int LIST_USERS_OPTION = 2;
-    private static final int DEACTIVATE_USER_OPTION = 3;
-    private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
+    private static final int ACTIVATE_USER_OPTION = 3;
+    private static final int DISABLE_USER_OPTION = 4;
+    //private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
 
     // SETTINGS
-    private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
+    private static final int Option = 1;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
-    private static final int SETTINGS_OPTION = 4;
+    private static final int SETTINGS_OPTION = 3;
 
     private static final String SEPARATOR_LABEL = &quot;--------------&quot;;
 
-<span class="nc" id="L73">    private final AuthorizationService authz = AuthzRegistry.authorizationService();</span>
+<span class="nc" id="L74">    private final AuthorizationService authz = AuthzRegistry.authorizationService();</span>
 
     @Override
     public boolean show() {
-<span class="nc" id="L77">        drawFormTitle();</span>
-<span class="nc" id="L78">        return doShow();</span>
+<span class="nc" id="L78">        drawFormTitle();</span>
+<span class="nc" id="L79">        return doShow();</span>
     }
 
     /**
@@ -83,70 +84,70 @@ import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
      */
     @Override
     public boolean doShow() {
-<span class="nc" id="L86">        final Menu menu = buildMainMenu();</span>
+<span class="nc" id="L87">        final Menu menu = buildMainMenu();</span>
         final MenuRenderer renderer;
-<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (Application.settings().isMenuLayoutHorizontal()) {</span>
-<span class="nc" id="L89">            renderer = new HorizontalMenuRenderer(menu, MenuItemRenderer.DEFAULT);</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        if (Application.settings().isMenuLayoutHorizontal()) {</span>
+<span class="nc" id="L90">            renderer = new HorizontalMenuRenderer(menu, MenuItemRenderer.DEFAULT);</span>
         } else {
-<span class="nc" id="L91">            renderer = new VerticalMenuRenderer(menu, MenuItemRenderer.DEFAULT);</span>
+<span class="nc" id="L92">            renderer = new VerticalMenuRenderer(menu, MenuItemRenderer.DEFAULT);</span>
         }
-<span class="nc" id="L93">        return renderer.render();</span>
+<span class="nc" id="L94">        return renderer.render();</span>
     }
 
     @Override
     public String headline() {
 
-<span class="nc" id="L99">        return authz.session().map(s -&gt; &quot;Base [ @&quot; + s.authenticatedUser().identity() + &quot; ]&quot;)</span>
-<span class="nc" id="L100">                .orElse(&quot;Base [ ==Anonymous== ]&quot;);</span>
+<span class="nc" id="L100">        return authz.session().map(s -&gt; &quot;Base [ @&quot; + s.authenticatedUser().identity() + &quot; ]&quot;)</span>
+<span class="nc" id="L101">                .orElse(&quot;Base [ ==Anonymous== ]&quot;);</span>
     }
 
     private Menu buildMainMenu() {
-<span class="nc" id="L104">        final Menu mainMenu = new Menu();</span>
+<span class="nc" id="L105">        final Menu mainMenu = new Menu();</span>
 
-<span class="nc" id="L106">        final Menu myUserMenu = new MyUserMenu();</span>
-<span class="nc" id="L107">        mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);</span>
+<span class="nc" id="L107">        final Menu myUserMenu = new MyUserMenu();</span>
+<span class="nc" id="L108">        mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);</span>
 
-<span class="nc bnc" id="L109" title="All 2 branches missed.">        if (!Application.settings().isMenuLayoutHorizontal()) {</span>
-<span class="nc" id="L110">            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (!Application.settings().isMenuLayoutHorizontal()) {</span>
+<span class="nc" id="L111">            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));</span>
         }
 
-<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN)) {</span>
-<span class="nc" id="L114">            final Menu usersMenu = buildUsersMenu();</span>
-<span class="nc" id="L115">            mainMenu.addSubMenu(USERS_OPTION, usersMenu);</span>
-<span class="nc" id="L116">            final Menu settingsMenu = buildAdminSettingsMenu();</span>
-<span class="nc" id="L117">            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN)) {</span>
+<span class="nc" id="L115">            final Menu usersMenu = buildUsersMenu();</span>
+<span class="nc" id="L116">            mainMenu.addSubMenu(USERS_OPTION, usersMenu);</span>
+<span class="nc" id="L117">            final Menu settingsMenu = buildAdminSettingsMenu();</span>
+<span class="nc" id="L118">            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);</span>
         }
 
-<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (!Application.settings().isMenuLayoutHorizontal()) {</span>
-<span class="nc" id="L121">            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (!Application.settings().isMenuLayoutHorizontal()) {</span>
+<span class="nc" id="L122">            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));</span>
         }
 
-<span class="nc" id="L124">        mainMenu.addItem(EXIT_OPTION, &quot;Exit&quot;, new ExitWithMessageAction(&quot;Bye, Bye&quot;));</span>
+<span class="nc" id="L125">        mainMenu.addItem(EXIT_OPTION, &quot;Exit&quot;, new ExitWithMessageAction(&quot;Bye, Bye&quot;));</span>
 
-<span class="nc" id="L126">        return mainMenu;</span>
+<span class="nc" id="L127">        return mainMenu;</span>
     }
 
     private Menu buildAdminSettingsMenu() {
-<span class="nc" id="L130">        final Menu menu = new Menu(&quot;Settings &gt;&quot;);</span>
+<span class="nc" id="L131">        final Menu menu = new Menu(&quot;Settings &gt;&quot;);</span>
 
-<span class="nc" id="L132">        menu.addItem(SET_KITCHEN_ALERT_LIMIT_OPTION, &quot;Set kitchen alert limit&quot;,</span>
+<span class="nc" id="L133">        menu.addItem(Option, &quot;Option&quot;,</span>
                 new ShowMessageAction(&quot;Not implemented yet&quot;));
-<span class="nc" id="L134">        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);</span>
+<span class="nc" id="L135">        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);</span>
 
-<span class="nc" id="L136">        return menu;</span>
+<span class="nc" id="L137">        return menu;</span>
     }
 
     private Menu buildUsersMenu() {
-<span class="nc" id="L140">        final Menu menu = new Menu(&quot;Users &gt;&quot;);</span>
+<span class="nc" id="L141">        final Menu menu = new Menu(&quot;Users &gt;&quot;);</span>
 
-<span class="nc" id="L142">        menu.addItem(ADD_USER_OPTION, &quot;Add User&quot;, new AddUserUI()::show);</span>
-<span class="nc" id="L143">        menu.addItem(LIST_USERS_OPTION, &quot;List all Users&quot;, new ListUsersAction());</span>
-<span class="nc" id="L144">        menu.addItem(DEACTIVATE_USER_OPTION, &quot;Deactivate User&quot;, new DeactivateUserAction());</span>
-<span class="nc" id="L145">        menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, &quot;Accept/Refuse Signup Request&quot;,</span>
-                new AcceptRefuseSignupRequestAction());
-<span class="nc" id="L147">        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);</span>
+<span class="nc" id="L143">        menu.addItem(ADD_USER_OPTION, &quot;Add User&quot;, new AddUserUI()::show);</span>
+<span class="nc" id="L144">        menu.addItem(LIST_USERS_OPTION, &quot;List all Users&quot;, new ListUsersAction());</span>
+<span class="nc" id="L145">        menu.addItem(ACTIVATE_USER_OPTION, &quot;Activate User&quot;, new EnableUserAction());</span>
+<span class="nc" id="L146">        menu.addItem(DISABLE_USER_OPTION, &quot;Deactivate User&quot;, new DisableUserAction());</span>
+        //menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, &quot;Accept/Refuse Signup Request&quot;,new AcceptRefuseSignupRequestAction());
+<span class="nc" id="L148">        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);</span>
 
-<span class="nc" id="L149">        return menu;</span>
+<span class="nc" id="L150">        return menu;</span>
     }
 
 }
