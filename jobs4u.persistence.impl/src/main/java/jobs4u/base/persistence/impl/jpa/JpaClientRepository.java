@@ -4,18 +4,17 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.base.Application;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.utils.ClientCode;
 
-public class JpaClientRepository extends JpaAutoTxRepository<Client,String,String> implements ClientRepository {
+import java.util.Optional;
+
+class JpaClientRepository extends BasepaRepositoryBase<Client,String,String> implements ClientRepository {
 
 
 
-    public JpaClientRepository(final String puname) {
-        super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "code");
+    public JpaClientRepository() {
+        super("code");
     }
-
-
-
 
 
 

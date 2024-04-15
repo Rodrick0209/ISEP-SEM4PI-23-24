@@ -58,7 +58,7 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Override
     public ClientRepository clients() {
-        return new JpaClientRepository(Application.settings().getPersistenceUnitName());
+        return new JpaClientRepository();
     }
 
     @Override
