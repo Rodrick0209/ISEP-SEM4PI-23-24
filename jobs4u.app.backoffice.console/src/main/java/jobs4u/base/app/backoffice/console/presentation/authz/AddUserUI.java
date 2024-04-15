@@ -26,6 +26,8 @@ package jobs4u.base.app.backoffice.console.presentation.authz;
 import eapli.framework.functional.Either;
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.Name;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.representations.dto.GeneralDTO;
 import eapli.framework.strings.util.StringPredicates;
 import jobs4u.base.usermanagement.application.AddUserController;
 import eapli.framework.actions.Actions;
@@ -40,10 +42,6 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
-//Custom
-import eapli.framework.infrastructure.authz.application.PasswordPolicy;
-import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
-import jobs4u.base.usermanagement.domain.Jobs4uPasswordGenerator;
 
 
 import java.util.HashSet;
@@ -66,21 +64,6 @@ public class AddUserUI extends AbstractUI {
             email = Console.readLine("E-Mail");
         }while (!StringPredicates.isEmail(email));
 
-        //ASK FOR PASSWORD
-        /*
-        PasswordPolicy passwordPolicy = new Jobs4uPasswordPolicy();
-        String password;
-        do {
-            password = Console.readLine("Password");
-        }while (!passwordPolicy.isSatisfiedBy(password));
-
-         */
-
-        //GENERATE PASSWORD
-        Jobs4uPasswordGenerator passwordGenerator = new Jobs4uPasswordGenerator();
-        String password = passwordGenerator.generatePassword();
-
-
 
         final String firstName = Console.readLine("First Name");
 
@@ -98,8 +81,8 @@ public class AddUserUI extends AbstractUI {
         } while (!show);
 
         try {
-            this.theController.addUser(email, password, firstName, lastName, email, roleTypes);
-            System.out.println("The password for the new user is: " + password);
+            this.theController.addUser(firstName, lastName, email, roleTypes);;
+            System.out.println("User added successfully");
 
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That email is already in use.");

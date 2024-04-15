@@ -54,7 +54,7 @@ public class UsersBootstrapperBase {
             final String lastName, final String email, final Set<Role> roles) {
         SystemUser u = null;
         try {
-            u = userController.addUser(username, password, firstName, lastName, email, roles);
+            u = userController.addUser(firstName, lastName, email, roles);
             LOGGER.debug("»»» %s", username);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             // assuming it is just a primary key violation due to the tentative
