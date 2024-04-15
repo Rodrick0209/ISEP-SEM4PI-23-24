@@ -8,7 +8,7 @@ import jobs4u.base.utils.ClientCode;
 
 import java.util.Optional;
 
-class JpaClientRepository extends BasepaRepositoryBase<Client,String,String> implements ClientRepository {
+class JpaClientRepository extends BasepaRepositoryBase<Client,ClientCode,ClientCode> implements ClientRepository {
 
 
 
