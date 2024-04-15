@@ -27,6 +27,7 @@ import jobs4u.base.jobs4uusermanagement.domain.Jobs4uUser;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import jobs4u.base.jobs4uusermanagement.domain.Jobs4uUserBuilder;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
+import jobs4u.base.utils.ClientCode;
 
 /**
  * @author Paulo Gandra Sousa 2024.03.12
@@ -45,8 +46,8 @@ public class Jobs4uUserTestUtil {
 		return getDummyJobs4uUser("DUMMY");
 	}
 
-	public static Jobs4uUser getDummyJobs4uUser(final String mecNumber) {
-		return new Jobs4uUserBuilder().withMecanographicNumber(mecNumber)
+	public static Jobs4uUser getDummyJobs4uUser(final String clientCode) {
+		return new Jobs4uUserBuilder().withClientCode(ClientCode.valueOf(clientCode))
 				.withSystemUser(Jobs4uUserTestUtil.getNewDummyUser()).build();
 	}
 }

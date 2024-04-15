@@ -20,14 +20,17 @@
  */
 package jobs4u.base.app.common.console;
 
+import eapli.framework.infrastructure.pubsub.PubSubRegistry;
 import jobs4u.base.Application;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
- *
  * @author Paulo Gandra Sousa
  */
 @SuppressWarnings("squid:S106")
@@ -40,18 +43,20 @@ public abstract class BaseApplication {
 
     protected static final String SEPARATOR_HR = "=====================================";
     private static final Logger LOGGER = LogManager.getLogger(BaseApplication.class);
+    private static final ExecutorService executor = Executors.newFixedThreadPool(10); // ajuste o número de threads conforme necessário
+
 
     /**
-     * @param args
-     *            the command line arguments
+     * @param args the command line arguments
      */
     public void run(final String[] args) {
+        configureAuthz();
+        configurePubSub();
         printHeader();
 
         try {
             setupEventHandlers();
-
-            doMain(args);
+            doMain(args); // submeta a tarefa para o executor
 
             printFooter();
         } catch (final Exception e) {
@@ -62,9 +67,20 @@ public abstract class BaseApplication {
             clearEventHandlers();
         }
 
+
+        //TODO this code is not a good practice just here to test the create client and user, to change
+        try {
+            // Pause for 4 seconds
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            // This part is executed when an exception (in this case InterruptedException) occurs
+            System.out.println("Sleep was interrupted");
+        }
+
         // exiting the application, closing all threads
         System.exit(0);
     }
+
 
     protected void printFooter() {
         System.out.println("\n");
@@ -84,7 +100,7 @@ public abstract class BaseApplication {
         try {
             doClearEventHandlers(dispatcher);
 
-            dispatcher.shutdown();
+            PubSubRegistry.dispatcher().shutdown();
         } catch (final Exception e) {
             LOGGER.error("Unable to cleanup event handlers", e);
         }
@@ -104,5 +120,23 @@ public abstract class BaseApplication {
         // nothing to do
     }
 
+    protected void configurePubSub() {
+        // TODO use a factory/registry to obtain the pub/sub engine
+        /*
+         * SimplePersistentPubSub.configure(PersistenceContext.repositories().
+         * eventRecord(), PersistenceContext.repositories().eventConsumption(),
+         * Application.settings().getProperty("eapli.framework.pubsub.instanceKey"),
+         * Integer.valueOf(Application.settings().getProperty(
+         * "eapli.framework.pubsub.poolInterval") ));
+         * PubSubRegistry.configure(SimplePersistentPubSub.dispatcher(),
+         * SimplePersistentPubSub.publisher());
+         */
+        PubSubRegistry.configure(InProcessPubSub.dispatcher(), InProcessPubSub.publisher());
+    }
+
     protected abstract void doSetupEventHandlers(EventDispatcher dispatcher);
+
+    protected abstract void configureAuthz();
+
+
 }

@@ -23,7 +23,7 @@
  */
 package jobs4u.base.jobs4uusermanagement.application.eventhandlers;
 
-import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.infrastructure.pubsub.EventHandler;
 
@@ -31,7 +31,7 @@ import eapli.framework.infrastructure.pubsub.EventHandler;
  * @author Paulo Gandra de Sousa
  *
  */
-public class NewUserRegisteredFromSignupWatchDog implements EventHandler {
+public class NewUserRegisteredFromClientRegistedWatchDog implements EventHandler {
 
     /*
      * (non-Javadoc)
@@ -41,12 +41,12 @@ public class NewUserRegisteredFromSignupWatchDog implements EventHandler {
      */
     @Override
     public void onEvent(final DomainEvent domainevent) {
-        assert domainevent instanceof NewUserRegisteredFromSignupEvent;
+        assert domainevent instanceof NewUserRegisteredFromClientRegistedEvent;
 
-        final NewUserRegisteredFromSignupEvent event = (NewUserRegisteredFromSignupEvent) domainevent;
+        final NewUserRegisteredFromClientRegistedEvent event = (NewUserRegisteredFromClientRegistedEvent) domainevent;
 
-        final AddClientUserOnSignupAcceptedController
-                controller = new AddClientUserOnSignupAcceptedController();
+        final AddClientUserOnClientRegistedController
+                controller = new AddClientUserOnClientRegistedController();
         controller.addClientUser(event);
         System.out.println("New user created with success!");
     }

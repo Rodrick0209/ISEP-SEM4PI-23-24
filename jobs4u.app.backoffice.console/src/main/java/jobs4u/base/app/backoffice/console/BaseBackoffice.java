@@ -23,15 +23,13 @@
  */
 package jobs4u.base.app.backoffice.console;
 
-import jobs4u.base.app.backoffice.console.presentation.MainMenu;
+import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientAction;
 import jobs4u.base.app.common.console.BaseApplication;
-import jobs4u.base.app.common.console.authz.LoginUI;
-import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromSignupWatchDog;
-import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import jobs4u.base.jobs4uusermanagement.domain.events.SignupAcceptedEvent;
-import jobs4u.base.authz.AuthenticationCredentialHandler;
+import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedEvent;
+import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedWatchDog;
+import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromClientRegistedWatchDog;
+import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
-import jobs4u.base.usermanagement.application.eventhandlers.SignupAcceptedWatchDog;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
@@ -58,19 +56,22 @@ public final class BaseBackoffice extends BaseApplication {
 
         AuthzRegistry.configure(PersistenceContext.repositories().users(),
                 new Jobs4uPasswordPolicy(), new PlainTextEncoder());
-
         new BaseBackoffice().run(args);
+      //
     }
 
     @Override
     protected void doMain(final String[] args) {
         // login and go to main menu
-        if (new LoginUI(new AuthenticationCredentialHandler()).show()) {
+       // if (new LoginUI(new AuthenticationCredentialHandler()).show()) {
             // go to main menu
-            final MainMenu menu = new MainMenu();
-            menu.mainLoop();
+          //  final MainMenu menu = new MainMenu();
+           // doSetupEventHandlers(InProcessPubSub.dispatcher());
+            new RegisterClientAction().execute();
+
+            // menu.mainLoop();
         }
-    }
+
 
     @Override
     protected String appTitle() {
@@ -82,11 +83,21 @@ public final class BaseBackoffice extends BaseApplication {
         return "Base Back Office";
     }
 
+    @Override
+    protected void configureAuthz() {
+        AuthzRegistry.configure(PersistenceContext.repositories().users(), new Jobs4uPasswordPolicy(),
+                new PlainTextEncoder());
+    }
     @SuppressWarnings("unchecked")
     @Override
     protected void doSetupEventHandlers(final EventDispatcher dispatcher) {
-        dispatcher.subscribe(new NewUserRegisteredFromSignupWatchDog(),
-                NewUserRegisteredFromSignupEvent.class);
-        dispatcher.subscribe(new SignupAcceptedWatchDog(), SignupAcceptedEvent.class);
+        dispatcher.subscribe(new NewUserRegisteredFromClientRegistedWatchDog(),
+                NewUserRegisteredFromClientRegistedEvent.class);
+
+        dispatcher.subscribe(new ClientRegistedWatchDog(), ClientRegistedEvent.class);
     }
+
+
+
+
 }

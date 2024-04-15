@@ -25,11 +25,15 @@ package jobs4u.base.jobs4uusermanagement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
+import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Version;
+import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.utils.ClientCode;
+import jobs4u.base.utils.PhoneNumber;
 
 /**
  * A Client User.
@@ -43,7 +47,7 @@ import jakarta.persistence.Version;
  * @author Jorge Santos ajs@isep.ipp.pt
  */
 @Entity
-public class Jobs4uUser implements AggregateRoot<MecanographicNumber> {
+public class Jobs4uUser implements AggregateRoot<ClientCode> {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,7 +55,11 @@ public class Jobs4uUser implements AggregateRoot<MecanographicNumber> {
     private Long version;
 
     @EmbeddedId
-    private MecanographicNumber mecanographicNumber;
+    private ClientCode clientCode;
+
+    private PhoneNumber phoneNumber;
+
+
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -59,12 +67,13 @@ public class Jobs4uUser implements AggregateRoot<MecanographicNumber> {
     @OneToOne()
     private SystemUser systemUser;
 
-    public Jobs4uUser(final SystemUser user, final MecanographicNumber mecanographicNumber) {
-        if (mecanographicNumber == null || user == null) {
+    public Jobs4uUser(final SystemUser user, final ClientCode clientCode, final PhoneNumber phoneNumber) {
+        if (clientCode == null || user == null) {
             throw new IllegalArgumentException();
         }
         this.systemUser = user;
-        this.mecanographicNumber = mecanographicNumber;
+        this.clientCode = clientCode;
+        this.phoneNumber = phoneNumber;
     }
 
     protected Jobs4uUser() {
@@ -75,6 +84,9 @@ public class Jobs4uUser implements AggregateRoot<MecanographicNumber> {
         return this.systemUser;
     }
 
+    public PhoneNumber phoneNumber() {
+        return this.phoneNumber;
+    }
     @Override
     public boolean equals(final Object o) {
         return DomainEntities.areEqual(this, o);
@@ -90,12 +102,12 @@ public class Jobs4uUser implements AggregateRoot<MecanographicNumber> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public MecanographicNumber mecanographicNumber() {
+    public ClientCode clientCode() {
         return identity();
     }
 
     @Override
-    public MecanographicNumber identity() {
-        return this.mecanographicNumber;
+    public ClientCode identity() {
+        return this.clientCode;
     }
 }

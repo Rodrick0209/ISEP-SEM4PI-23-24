@@ -20,6 +20,7 @@
  */
 package jobs4u.base.persistence.impl.inmemory;
 
+import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.ClientUserRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.SignupRequestRepository;
 import jobs4u.base.infrastructure.bootstrapers.BaseBootstrapper;
@@ -59,6 +60,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public ClientUserRepository clientUsers() {
         return clientUsers(null);
     }
+
+    @Override
+    public ClientRepository clients() {
+         return clients(null);
+    }
+
+    public ClientRepository clients(final TransactionalContext tx) {
+        return new InMemoryClientRepository();
+    }
+
 
     @Override
     public SignupRequestRepository signupRequests() {

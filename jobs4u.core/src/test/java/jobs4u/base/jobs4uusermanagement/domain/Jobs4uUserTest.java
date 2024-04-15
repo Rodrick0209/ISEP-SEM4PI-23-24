@@ -30,6 +30,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
 
+import jobs4u.base.utils.ClientCode;
+import jobs4u.base.utils.PhoneNumber;
 import org.junit.Test;
 
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
@@ -38,14 +40,15 @@ import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
+import org.springframework.security.core.parameters.P;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 03/04/16.
  */
 public class Jobs4uUserTest {
 
-	private final String aMecanographicNumber = "abc";
-	private final String anotherMecanographicNumber = "xyz";
+	private final ClientCode aCLientCode = ClientCode.valueOf("abc");
+	private final ClientCode anotherClientCode = ClientCode.valueOf("xyz");
 
 	public static SystemUser dummyUser(final String username, final Role... roles) {
 		// should we load from spring context?
@@ -60,11 +63,11 @@ public class Jobs4uUserTest {
 	@Test
 	public void ensureJobs4uUserEqualsPassesForTheSameMecanographicNumber() throws Exception {
 
-		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber("DUMMY")
-				.withSystemUser(getNewDummyUser()).build();
+		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withClientCode(ClientCode.valueOf("DUMMY"))
+				.withSystemUser(getNewDummyUser()).withPhoneNumber(PhoneNumber.valueOf("966280301")).build();
 
-		final Jobs4uUser anotherJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber("DUMMY")
-				.withSystemUser(getNewDummyUser()).build();
+		final Jobs4uUser anotherJobs4uUser =  new Jobs4uUserBuilder().withClientCode(ClientCode.valueOf("DUMMY"))
+				.withSystemUser(getNewDummyUser()).withPhoneNumber(PhoneNumber.valueOf("966280301")).build();
 
 		final boolean expected = aJobs4uUser.equals(anotherJobs4uUser);
 
@@ -76,11 +79,11 @@ public class Jobs4uUserTest {
 		final Set<Role> roles = new HashSet<>();
 		roles.add(Jobs4uRoles.ADMIN);
 
-		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber(aMecanographicNumber)
-				.withSystemUser(getNewDummyUser()).build();
+		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withClientCode(aCLientCode)
+				.withSystemUser(getNewDummyUser()).withPhoneNumber(PhoneNumber.valueOf("966280301")).build();
 
 		final Jobs4uUser anotherJobs4uUser = new Jobs4uUserBuilder()
-				.withMecanographicNumber(anotherMecanographicNumber).withSystemUser(getNewDummyUser()).build();
+				.withClientCode(anotherClientCode).withSystemUser(getNewDummyUser()).withPhoneNumber(PhoneNumber.valueOf("966280301")).build();
 
 		final boolean expected = aJobs4uUser.equals(anotherJobs4uUser);
 
@@ -101,8 +104,8 @@ public class Jobs4uUserTest {
 		final Set<Role> roles = new HashSet<>();
 		roles.add(Jobs4uRoles.ADMIN);
 
-		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber("DUMMY")
-				.withSystemUser(getNewDummyUser()).build();
+		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withClientCode(ClientCode.valueOf("DUMMY"))
+				.withSystemUser(getNewDummyUser()).withPhoneNumber(PhoneNumber.valueOf("966280301")).build();
 
 		@SuppressWarnings("unlikely-arg-type")
 		final boolean expected = aJobs4uUser.equals(getNewDummyUser());
@@ -112,8 +115,8 @@ public class Jobs4uUserTest {
 
 	@Test
 	public void ensureJobs4uUserIsTheSameAsItsInstance() throws Exception {
-		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber("DUMMY")
-				.withSystemUser(getNewDummyUser()).build();
+		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withClientCode(ClientCode.valueOf("DUMMY"))
+				.withSystemUser(getNewDummyUser()).withPhoneNumber(PhoneNumber.valueOf("966280301")).build();
 
 		final boolean expected = aJobs4uUser.sameAs(aJobs4uUser);
 
@@ -121,14 +124,14 @@ public class Jobs4uUserTest {
 	}
 
 	@Test
-	public void ensureTwoJobs4uUserWithDifferentMecanographicNumbersAreNotTheSame() throws Exception {
+	public void ensureTwoJobs4uUserWithDifferentClientCodesAreNotTheSame() throws Exception {
 		final Set<Role> roles = new HashSet<>();
 		roles.add(Jobs4uRoles.ADMIN);
-		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withMecanographicNumber(aMecanographicNumber)
-				.withSystemUser(getNewDummyUser()).build();
+		final Jobs4uUser aJobs4uUser = new Jobs4uUserBuilder().withClientCode(ClientCode.valueOf("DUMMY"))
+				.withSystemUser(getNewDummyUser()).withPhoneNumber(PhoneNumber.valueOf("966280301")).build();
 
 		final Jobs4uUser anotherJobs4uUser = new Jobs4uUserBuilder()
-				.withMecanographicNumber(anotherMecanographicNumber).withSystemUser(getNewDummyUser()).build();
+				.withClientCode(ClientCode.valueOf("DIFFERENT")).withSystemUser(getNewDummyUser()).withPhoneNumber(PhoneNumber.valueOf("966280301")).build();
 
 		final boolean expected = aJobs4uUser.sameAs(anotherJobs4uUser);
 

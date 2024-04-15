@@ -13,10 +13,7 @@ public final class RegisterClientFactory {
     }
 
     public static RegisterClientController build() {
-        // for pedagogical purposes: play around with the 2 approaches
-        // dependency injection - when constructing the object one must inject the dependencies
-        // to infrastructure objects it needs. this should be handled by a DI/IoC container like
-        // Spring Framework
+
         return new RegisterClientController(PersistenceContext.repositories().clients(), AuthzRegistry.authorizationService(),
                 InProcessPubSub.publisher());
 

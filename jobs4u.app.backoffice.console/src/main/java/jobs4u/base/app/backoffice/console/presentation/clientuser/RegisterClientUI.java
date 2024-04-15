@@ -6,8 +6,6 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.base.clientManagement.application.RegisterClientController;
 import jobs4u.base.clientManagement.application.RegisterClientFactory;
-import jobs4u.base.jobs4uusermanagement.application.AcceptRefuseSignupFactory;
-import jobs4u.base.jobs4uusermanagement.application.AcceptRefuseSignupRequestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,22 +19,24 @@ public class RegisterClientUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        final String clientName = Console.readLine("Client Name");
 
-        final String address = Console.readLine("Address");
+        final String clientName = Console.readLine("Client Name->");
 
-        final String clientCode = Console.readLine("Client Code");
+        final String address = Console.readLine("Postal Address->");
 
-        final String clientRepresentativeName = Console.readLine("Client Representative Name");
+        final String clientCode = Console.readLine("Client Code->");
 
-        final String clientRepresentativeMail = Console.readLine("Client Representative Mail");
+        final String clientRepresentativeName = Console.readLine("Client Representative Name->");
 
-        final String clientRepresentativePhone = Console.readLine("Client Representative Phone");
+        final String clientRepresentativeLastName = Console.readLine("Client Representative Last Name->");
 
-        final String clientRepresentativePassword = Console.readLine("Client Representative Password");
+        final String clientRepresentativeMail = Console.readLine("Client Representative Mail->");
+
+        final String clientRepresentativePhone = Console.readLine("Client Representative Phone->");
+
 
         try {
-        this.theController.registerClient(clientCode,clientName, clientRepresentativeMail, clientRepresentativePassword, clientRepresentativePhone,address);
+        this.theController.registerClient(clientCode,clientName, clientRepresentativeMail, clientRepresentativePhone,address, clientRepresentativeName, clientRepresentativeLastName);
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println(

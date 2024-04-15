@@ -24,7 +24,6 @@
 package jobs4u.base.jobs4uusermanagement.domain.events;
 
 
-import jobs4u.base.jobs4uusermanagement.domain.MecanographicNumber;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.domain.events.DomainEventBase;
 import eapli.framework.infrastructure.authz.domain.model.Username;
@@ -35,7 +34,7 @@ import jobs4u.base.utils.PhoneNumber;
  * @author Paulo Gandra de Sousa
  *
  */
-public class NewUserRegisteredFromSignupEvent extends DomainEventBase implements DomainEvent {
+public class NewUserRegisteredFromClientRegistedEvent extends DomainEventBase implements DomainEvent {
 
     private static final long serialVersionUID = 1L;
 
@@ -44,8 +43,8 @@ public class NewUserRegisteredFromSignupEvent extends DomainEventBase implements
 
     private final PhoneNumber phoneNumber;
 
-    public NewUserRegisteredFromSignupEvent(final ClientCode clientCode,
-            final Username newUser, final PhoneNumber phoneNumber) {
+    public NewUserRegisteredFromClientRegistedEvent(final ClientCode clientCode,
+                                                    final Username newUser, final PhoneNumber phoneNumber) {
         this.clientCode = clientCode;
         this.newUser = newUser;
         this.phoneNumber = phoneNumber;

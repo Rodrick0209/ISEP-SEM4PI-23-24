@@ -31,22 +31,23 @@ import jobs4u.base.jobs4uusermanagement.repositories.ClientUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
+import jobs4u.base.utils.ClientCode;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 class JpaClientUserRepository
-        extends JpaAutoTxRepository<Jobs4uUser, MecanographicNumber, MecanographicNumber>
+        extends JpaAutoTxRepository<Jobs4uUser, ClientCode, ClientCode>
         implements ClientUserRepository {
 
     public JpaClientUserRepository(final TransactionalContext autoTx) {
-        super(autoTx, "mecanographicNumber");
+        super(autoTx, "clientCode");
     }
 
     public JpaClientUserRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "mecanographicNumber");
+                "clientCode");
     }
 
     @Override
@@ -57,11 +58,12 @@ class JpaClientUserRepository
     }
 
     @Override
-    public Optional<Jobs4uUser> findByMecanographicNumber(final MecanographicNumber number) {
+    public Optional<Jobs4uUser> findByClientCode(final ClientCode number) {
         final Map<String, Object> params = new HashMap<>();
         params.put("number", number);
-        return matchOne("e.mecanographicNumber=:number", params);
+        return matchOne("e.clientCode=:number", params);
     }
+
 
     @Override
     public Iterable<Jobs4uUser> findAllActive() {

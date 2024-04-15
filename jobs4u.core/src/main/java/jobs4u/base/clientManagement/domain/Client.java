@@ -11,6 +11,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jobs4u.base.jobs4uusermanagement.domain.Jobs4uUser;
+import jobs4u.base.utils.ClientCode;
+import jobs4u.base.utils.ClientName;
+import jobs4u.base.utils.PostalAddress;
 import org.springframework.security.core.userdetails.User;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,37 +22,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Table(name = "Client")
 @Entity
-public class Client implements AggregateRoot<String> {
+public class Client implements AggregateRoot<ClientCode> {
 
 
     @Id
-    private String code;
-    private Name name;
-    private String address;
-    private String clientEmailAddress;
-
-    //TODO o cliente n pode ter a password aqui??
-    private String password;
-
-
-
+    private ClientCode code;
+    private ClientName name;
+    private PostalAddress address;
 
     public Client() {
 
     }
 
-    public Client(String code, String firstName, String lastName, String address, String emailAddress, String password) {
+    public Client(String code, String clientName, String address) {
 
-        this.code = code;
-        this.name = Name.valueOf(firstName, lastName);
-        this.address = address;
-        this.clientEmailAddress = emailAddress;
-        this.password = password;
+        this.code = ClientCode.valueOf(code);
+        this.name = ClientName.valueOf(clientName);
+        this.address = PostalAddress.valueOf(address);
     }
 
-    public String code() {
+    public ClientCode code() {
         return code;
     }
+
     @Override
     public boolean equals(final Object o) {
         return DomainEntities.areEqual(this, o);
@@ -65,26 +60,16 @@ public class Client implements AggregateRoot<String> {
         return DomainEntities.areEqual(this, other);
     }
 
-
-    public Name name() {
+    public ClientName name() {
         return name;
     }
 
-    public String address() {
+    public PostalAddress address() {
         return address;
     }
 
-    public String emailAddress() {
-        return clientEmailAddress;
-    }
-
-    public String password() {
-        return password;
-    }
-
-
     @Override
-    public String identity() {
-        return null;
+    public ClientCode identity() {
+        return this.code;
     }
 }

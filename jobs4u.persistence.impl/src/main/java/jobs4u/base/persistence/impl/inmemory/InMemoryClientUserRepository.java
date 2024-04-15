@@ -27,13 +27,14 @@ import jobs4u.base.jobs4uusermanagement.domain.MecanographicNumber;
 import jobs4u.base.jobs4uusermanagement.repositories.ClientUserRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
+import jobs4u.base.utils.ClientCode;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 public class InMemoryClientUserRepository
-        extends InMemoryDomainRepository<Jobs4uUser, MecanographicNumber>
+        extends InMemoryDomainRepository<Jobs4uUser, ClientCode>
         implements ClientUserRepository {
 
     static {
@@ -45,10 +46,7 @@ public class InMemoryClientUserRepository
         return matchOne(e -> e.user().username().equals(name));
     }
 
-    @Override
-    public Optional<Jobs4uUser> findByMecanographicNumber(final MecanographicNumber number) {
-        return Optional.of(data().get(number));
-    }
+
 
     @Override
     public Iterable<Jobs4uUser> findAllActive() {

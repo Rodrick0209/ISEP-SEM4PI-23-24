@@ -39,7 +39,7 @@ import java.util.Optional;
  * @author Paulo Gandra de Sousa
  *
  */
-/* package */ class AddClientUserOnSignupAcceptedController {
+/* package */ class AddClientUserOnClientRegistedController {
 
     private final UserRepository repo = PersistenceContext.repositories().users();
     private final ClientUserRepository clientUserRepository = PersistenceContext

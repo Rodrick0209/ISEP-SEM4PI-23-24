@@ -31,6 +31,7 @@ import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Username;
+import jobs4u.base.utils.ClientCode;
 
 import java.util.Optional;
 
@@ -44,11 +45,11 @@ public class ClientUserService {
     private final ClientUserRepository repo =
             PersistenceContext.repositories().clientUsers();
 
-    public Optional<Jobs4uUser> findClientUserByMecNumber(
-            final String mecNumber) {
+    public Optional<Jobs4uUser> findClientUserByClientCode(
+            final String clientCode) {
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER,
                 Jobs4uRoles.ADMIN);
-        return repo.ofIdentity(MecanographicNumber.valueOf(mecNumber));
+        return repo.ofIdentity(ClientCode.valueOf(clientCode));
     }
 
     public Optional<Jobs4uUser> findClientUserByUsername(

@@ -21,14 +21,12 @@
 package jobs4u.base.app.bootstrap;
 
 import jobs4u.base.app.common.console.BaseApplication;
-import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromSignupWatchDog;
-import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import jobs4u.base.jobs4uusermanagement.domain.events.SignupAcceptedEvent;
+import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromClientRegistedWatchDog;
+import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
 import jobs4u.base.infrastructure.bootstrapers.BaseBootstrapper;
 import jobs4u.base.infrastructure.bootstrapers.demo.BaseDemoBootstrapper;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.infrastructure.smoketests.BaseDemoSmokeTester;
-import jobs4u.base.usermanagement.application.eventhandlers.SignupAcceptedWatchDog;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
 import eapli.framework.collections.util.ArrayPredicates;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -93,10 +91,18 @@ public final class BaseBootstrap extends BaseApplication {
         return "Bootstrap data done.";
     }
 
+    @Override
+    protected void configureAuthz() {
+        AuthzRegistry.configure(PersistenceContext.repositories().users(), new Jobs4uPasswordPolicy(),
+                new PlainTextEncoder());
+    }
+
+
+
     @SuppressWarnings("unchecked")
     @Override
     protected void doSetupEventHandlers(final EventDispatcher dispatcher) {
-        dispatcher.subscribe(new NewUserRegisteredFromSignupWatchDog(), NewUserRegisteredFromSignupEvent.class);
-        dispatcher.subscribe(new SignupAcceptedWatchDog(), SignupAcceptedEvent.class);
+        dispatcher.subscribe(new NewUserRegisteredFromClientRegistedWatchDog(), NewUserRegisteredFromClientRegistedEvent.class);
+        dispatcher.subscribe(new NewUserRegisteredFromClientRegistedWatchDog(), NewUserRegisteredFromClientRegistedEvent.class);
     }
 }
