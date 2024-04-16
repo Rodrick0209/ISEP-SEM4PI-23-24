@@ -143,14 +143,6 @@
 							<goal>report</goal>
 						</goals>
 					</execution>
-					<execution>
-						<phase>
-							test
-						</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
 				</executions>
 			</plugin>
 
