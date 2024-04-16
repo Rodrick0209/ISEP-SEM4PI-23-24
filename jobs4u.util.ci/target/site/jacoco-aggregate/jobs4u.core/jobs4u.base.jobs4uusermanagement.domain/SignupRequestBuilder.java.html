@@ -58,62 +58,62 @@ public class SignupRequestBuilder implements DomainFactory&lt;SignupRequest&gt; 
     private String mecanographicNumber;
     private Calendar createdOn;
 
-<span class="nc" id="L61">    public SignupRequestBuilder(final PasswordPolicy policy, final PasswordEncoder encoder) {</span>
-<span class="nc" id="L62">        this.policy = policy;</span>
-<span class="nc" id="L63">        this.encoder = encoder;</span>
-<span class="nc" id="L64">    }</span>
+<span class="fc" id="L61">    public SignupRequestBuilder(final PasswordPolicy policy, final PasswordEncoder encoder) {</span>
+<span class="fc" id="L62">        this.policy = policy;</span>
+<span class="fc" id="L63">        this.encoder = encoder;</span>
+<span class="fc" id="L64">    }</span>
 
     public SignupRequestBuilder withData(final String username, final String rawPassword,
             final String email, final String number) {
-<span class="nc" id="L68">        withUsername(username);</span>
-<span class="nc" id="L69">        withPassword(rawPassword);</span>
-<span class="nc" id="L70">        withEmail(email);</span>
-<span class="nc" id="L71">        withMecanographicNumber(number);</span>
-<span class="nc" id="L72">        return this;</span>
+<span class="fc" id="L68">        withUsername(username);</span>
+<span class="fc" id="L69">        withPassword(rawPassword);</span>
+<span class="fc" id="L70">        withEmail(email);</span>
+<span class="fc" id="L71">        withMecanographicNumber(number);</span>
+<span class="fc" id="L72">        return this;</span>
     }
 
     public SignupRequestBuilder withUsername(final String username) {
-<span class="nc" id="L76">        this.username = username;</span>
-<span class="nc" id="L77">        return this;</span>
+<span class="fc" id="L76">        this.username = username;</span>
+<span class="fc" id="L77">        return this;</span>
     }
 
     public SignupRequestBuilder withPassword(final String rawPassword) {
-<span class="nc" id="L81">        password = Password.encodedAndValid(rawPassword, policy, encoder)</span>
-<span class="nc" id="L82">                .orElseThrow(IllegalArgumentException::new);</span>
-<span class="nc" id="L83">        return this;</span>
+<span class="fc" id="L81">        password = Password.encodedAndValid(rawPassword, policy, encoder)</span>
+<span class="fc" id="L82">                .orElseThrow(IllegalArgumentException::new);</span>
+<span class="fc" id="L83">        return this;</span>
     }
 
     public SignupRequestBuilder withName(final String firstName, final String lastName) {
-<span class="nc" id="L87">        this.firstName = firstName;</span>
-<span class="nc" id="L88">        this.lastName = lastName;</span>
-<span class="nc" id="L89">        return this;</span>
+<span class="fc" id="L87">        this.firstName = firstName;</span>
+<span class="fc" id="L88">        this.lastName = lastName;</span>
+<span class="fc" id="L89">        return this;</span>
     }
 
     public SignupRequestBuilder withEmail(final String email) {
-<span class="nc" id="L93">        this.email = email;</span>
-<span class="nc" id="L94">        return this;</span>
+<span class="fc" id="L93">        this.email = email;</span>
+<span class="fc" id="L94">        return this;</span>
     }
 
     public SignupRequestBuilder withMecanographicNumber(final String mecanographicNumber) {
-<span class="nc" id="L98">        this.mecanographicNumber = mecanographicNumber;</span>
-<span class="nc" id="L99">        return this;</span>
+<span class="fc" id="L98">        this.mecanographicNumber = mecanographicNumber;</span>
+<span class="fc" id="L99">        return this;</span>
     }
 
     public SignupRequestBuilder createdOn(final Calendar createdOn) {
-<span class="nc" id="L103">        this.createdOn = createdOn;</span>
-<span class="nc" id="L104">        return this;</span>
+<span class="fc" id="L103">        this.createdOn = createdOn;</span>
+<span class="fc" id="L104">        return this;</span>
     }
 
     @Override
     public SignupRequest build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (createdOn != null) {</span>
-<span class="nc" id="L112">            createdOn = CurrentTimeCalendars.now();</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if (createdOn != null) {</span>
+<span class="fc" id="L112">            createdOn = CurrentTimeCalendars.now();</span>
         }
-<span class="nc" id="L114">        return new SignupRequest(Username.valueOf(username), password,</span>
-<span class="nc" id="L115">                Name.valueOf(firstName, lastName), EmailAddress.valueOf(email),</span>
-<span class="nc" id="L116">                MecanographicNumber.valueOf(mecanographicNumber), createdOn);</span>
+<span class="fc" id="L114">        return new SignupRequest(Username.valueOf(username), password,</span>
+<span class="fc" id="L115">                Name.valueOf(firstName, lastName), EmailAddress.valueOf(email),</span>
+<span class="fc" id="L116">                MecanographicNumber.valueOf(mecanographicNumber), createdOn);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -20,79 +20,95 @@
  */
 package jobs4u.base.app.common.console;
 
+import eapli.framework.infrastructure.pubsub.PubSubRegistry;
 import jobs4u.base.Application;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
- *
  * @author Paulo Gandra Sousa
  */
 @SuppressWarnings(&quot;squid:S106&quot;)
-<span class="nc" id="L34">public abstract class BaseApplication {</span>
+<span class="nc" id="L37">public abstract class BaseApplication {</span>
 
     // we are assuming we will always use the in process event
     // dispatcher. check the Spring version of the Base project
     // for an alternative
-<span class="nc" id="L39">    final EventDispatcher dispatcher = InProcessPubSub.dispatcher();</span>
+<span class="nc" id="L42">    final EventDispatcher dispatcher = InProcessPubSub.dispatcher();</span>
 
     protected static final String SEPARATOR_HR = &quot;=====================================&quot;;
-<span class="nc" id="L42">    private static final Logger LOGGER = LogManager.getLogger(BaseApplication.class);</span>
+<span class="nc" id="L45">    private static final Logger LOGGER = LogManager.getLogger(BaseApplication.class);</span>
+<span class="nc" id="L46">    private static final ExecutorService executor = Executors.newFixedThreadPool(10); // ajuste o número de threads conforme necessário</span>
+
 
     /**
-     * @param args
-     *            the command line arguments
+     * @param args the command line arguments
      */
     public void run(final String[] args) {
-<span class="nc" id="L49">        printHeader();</span>
+<span class="nc" id="L53">        configureAuthz();</span>
+<span class="nc" id="L54">        configurePubSub();</span>
+<span class="nc" id="L55">        printHeader();</span>
 
         try {
-<span class="nc" id="L52">            setupEventHandlers();</span>
+<span class="nc" id="L58">            setupEventHandlers();</span>
+<span class="nc" id="L59">            doMain(args); // submeta a tarefa para o executor</span>
 
-<span class="nc" id="L54">            doMain(args);</span>
-
-<span class="nc" id="L56">            printFooter();</span>
-<span class="nc" id="L57">        } catch (final Exception e) {</span>
-<span class="nc" id="L58">            System.out.println(</span>
+<span class="nc" id="L61">            printFooter();</span>
+<span class="nc" id="L62">        } catch (final Exception e) {</span>
+<span class="nc" id="L63">            System.out.println(</span>
                     &quot;Something unexpected has happened and the application will terminate. Please check the logs.\n&quot;);
-<span class="nc" id="L60">            LOGGER.error(e);</span>
+<span class="nc" id="L65">            LOGGER.error(e);</span>
         } finally {
-<span class="nc" id="L62">            clearEventHandlers();</span>
+<span class="nc" id="L67">            clearEventHandlers();</span>
         }
 
+
+        //TODO this code is not a good practice just here to test the create client and user, to change
+        try {
+            // Pause for 4 seconds
+<span class="nc" id="L74">            Thread.sleep(4000);</span>
+<span class="nc" id="L75">        } catch (InterruptedException e) {</span>
+            // This part is executed when an exception (in this case InterruptedException) occurs
+<span class="nc" id="L77">            System.out.println(&quot;Sleep was interrupted&quot;);</span>
+<span class="nc" id="L78">        }</span>
+
         // exiting the application, closing all threads
-<span class="nc" id="L66">        System.exit(0);</span>
-<span class="nc" id="L67">    }</span>
+<span class="nc" id="L81">        System.exit(0);</span>
+<span class="nc" id="L82">    }</span>
+
 
     protected void printFooter() {
-<span class="nc" id="L70">        System.out.println(&quot;\n&quot;);</span>
-<span class="nc" id="L71">        System.out.println(SEPARATOR_HR);</span>
-<span class="nc" id="L72">        System.out.println(appGoodbye());</span>
-<span class="nc" id="L73">        System.out.println(SEPARATOR_HR);</span>
-<span class="nc" id="L74">    }</span>
+<span class="nc" id="L86">        System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L87">        System.out.println(SEPARATOR_HR);</span>
+<span class="nc" id="L88">        System.out.println(appGoodbye());</span>
+<span class="nc" id="L89">        System.out.println(SEPARATOR_HR);</span>
+<span class="nc" id="L90">    }</span>
 
     protected void printHeader() {
-<span class="nc" id="L77">        System.out.println(SEPARATOR_HR);</span>
-<span class="nc" id="L78">        System.out.println(appTitle() + &quot; &quot; + Application.VERSION);</span>
-<span class="nc" id="L79">        System.out.println(Application.COPYRIGHT);</span>
-<span class="nc" id="L80">        System.out.println(SEPARATOR_HR);</span>
-<span class="nc" id="L81">    }</span>
+<span class="nc" id="L93">        System.out.println(SEPARATOR_HR);</span>
+<span class="nc" id="L94">        System.out.println(appTitle() + &quot; &quot; + Application.VERSION);</span>
+<span class="nc" id="L95">        System.out.println(Application.COPYRIGHT);</span>
+<span class="nc" id="L96">        System.out.println(SEPARATOR_HR);</span>
+<span class="nc" id="L97">    }</span>
 
     private final void clearEventHandlers() {
         try {
-<span class="nc" id="L85">            doClearEventHandlers(dispatcher);</span>
+<span class="nc" id="L101">            doClearEventHandlers(dispatcher);</span>
 
-<span class="nc" id="L87">            dispatcher.shutdown();</span>
-<span class="nc" id="L88">        } catch (final Exception e) {</span>
-<span class="nc" id="L89">            LOGGER.error(&quot;Unable to cleanup event handlers&quot;, e);</span>
-<span class="nc" id="L90">        }</span>
-<span class="nc" id="L91">    }</span>
+<span class="nc" id="L103">            PubSubRegistry.dispatcher().shutdown();</span>
+<span class="nc" id="L104">        } catch (final Exception e) {</span>
+<span class="nc" id="L105">            LOGGER.error(&quot;Unable to cleanup event handlers&quot;, e);</span>
+<span class="nc" id="L106">        }</span>
+<span class="nc" id="L107">    }</span>
 
     private final void setupEventHandlers() {
-<span class="nc" id="L94">        doSetupEventHandlers(dispatcher);</span>
-<span class="nc" id="L95">    }</span>
+<span class="nc" id="L110">        doSetupEventHandlers(dispatcher);</span>
+<span class="nc" id="L111">    }</span>
 
     protected abstract void doMain(final String[] args);
 
@@ -102,8 +118,26 @@ import org.apache.logging.log4j.Logger;
 
     protected void doClearEventHandlers(final EventDispatcher dispatcher) {
         // nothing to do
-<span class="nc" id="L105">    }</span>
+<span class="nc" id="L121">    }</span>
+
+    protected void configurePubSub() {
+        // TODO use a factory/registry to obtain the pub/sub engine
+        /*
+         * SimplePersistentPubSub.configure(PersistenceContext.repositories().
+         * eventRecord(), PersistenceContext.repositories().eventConsumption(),
+         * Application.settings().getProperty(&quot;eapli.framework.pubsub.instanceKey&quot;),
+         * Integer.valueOf(Application.settings().getProperty(
+         * &quot;eapli.framework.pubsub.poolInterval&quot;) ));
+         * PubSubRegistry.configure(SimplePersistentPubSub.dispatcher(),
+         * SimplePersistentPubSub.publisher());
+         */
+<span class="nc" id="L134">        PubSubRegistry.configure(InProcessPubSub.dispatcher(), InProcessPubSub.publisher());</span>
+<span class="nc" id="L135">    }</span>
 
     protected abstract void doSetupEventHandlers(EventDispatcher dispatcher);
+
+    protected abstract void configureAuthz();
+
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

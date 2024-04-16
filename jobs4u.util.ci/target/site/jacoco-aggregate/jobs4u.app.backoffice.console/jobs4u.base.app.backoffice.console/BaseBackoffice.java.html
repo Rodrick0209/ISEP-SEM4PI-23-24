@@ -23,15 +23,17 @@
  */
 package jobs4u.base.app.backoffice.console;
 
+import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
 import jobs4u.base.app.backoffice.console.presentation.MainMenu;
+import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientAction;
 import jobs4u.base.app.common.console.BaseApplication;
 import jobs4u.base.app.common.console.authz.LoginUI;
-import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromSignupWatchDog;
-import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import jobs4u.base.jobs4uusermanagement.domain.events.SignupAcceptedEvent;
 import jobs4u.base.authz.AuthenticationCredentialHandler;
+import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedEvent;
+import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedWatchDog;
+import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromClientRegistedWatchDog;
+import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
-import jobs4u.base.usermanagement.application.eventhandlers.SignupAcceptedWatchDog;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
@@ -56,38 +58,51 @@ public final class BaseBackoffice extends BaseApplication {
      */
     public static void main(final String[] args) {
 
-<span class="nc" id="L59">        AuthzRegistry.configure(PersistenceContext.repositories().users(),</span>
+<span class="nc" id="L61">        AuthzRegistry.configure(PersistenceContext.repositories().users(),</span>
                 new Jobs4uPasswordPolicy(), new PlainTextEncoder());
-
-<span class="nc" id="L62">        new BaseBackoffice().run(args);</span>
-<span class="nc" id="L63">    }</span>
+<span class="nc" id="L63">        new BaseBackoffice().run(args);</span>
+      //
+<span class="nc" id="L65">    }</span>
 
     @Override
     protected void doMain(final String[] args) {
         // login and go to main menu
-<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (new LoginUI(new AuthenticationCredentialHandler()).show()) {</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (new LoginUI(new AuthenticationCredentialHandler()).show()) {</span>
             // go to main menu
-<span class="nc" id="L70">            final MainMenu menu = new MainMenu();</span>
-<span class="nc" id="L71">            menu.mainLoop();</span>
+<span class="nc" id="L72">            final MainMenu menu = new MainMenu();</span>
+<span class="nc" id="L73">            doSetupEventHandlers(InProcessPubSub.dispatcher());</span>
+
+<span class="nc" id="L75">            menu.mainLoop();</span>
         }
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L77">    }</span>
+
 
     @Override
     protected String appTitle() {
-<span class="nc" id="L77">        return &quot;Base Back Office&quot;;</span>
+<span class="nc" id="L82">        return &quot;Base Back Office&quot;;</span>
     }
 
     @Override
     protected String appGoodbye() {
-<span class="nc" id="L82">        return &quot;Base Back Office&quot;;</span>
+<span class="nc" id="L87">        return &quot;Base Back Office&quot;;</span>
     }
 
+    @Override
+    protected void configureAuthz() {
+<span class="nc" id="L92">        AuthzRegistry.configure(PersistenceContext.repositories().users(), new Jobs4uPasswordPolicy(),</span>
+                new PlainTextEncoder());
+<span class="nc" id="L94">    }</span>
     @SuppressWarnings(&quot;unchecked&quot;)
     @Override
     protected void doSetupEventHandlers(final EventDispatcher dispatcher) {
-<span class="nc" id="L88">        dispatcher.subscribe(new NewUserRegisteredFromSignupWatchDog(),</span>
-                NewUserRegisteredFromSignupEvent.class);
-<span class="nc" id="L90">        dispatcher.subscribe(new SignupAcceptedWatchDog(), SignupAcceptedEvent.class);</span>
-<span class="nc" id="L91">    }</span>
+<span class="nc" id="L98">        dispatcher.subscribe(new NewUserRegisteredFromClientRegistedWatchDog(),</span>
+                NewUserRegisteredFromClientRegistedEvent.class);
+
+<span class="nc" id="L101">        dispatcher.subscribe(new ClientRegistedWatchDog(), ClientRegistedEvent.class);</span>
+<span class="nc" id="L102">    }</span>
+
+
+
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

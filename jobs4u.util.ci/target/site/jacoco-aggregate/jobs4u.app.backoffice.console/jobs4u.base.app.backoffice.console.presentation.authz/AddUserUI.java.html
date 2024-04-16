@@ -26,6 +26,8 @@ package jobs4u.base.app.backoffice.console.presentation.authz;
 import eapli.framework.functional.Either;
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.Name;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.representations.dto.GeneralDTO;
 import eapli.framework.strings.util.StringPredicates;
 import jobs4u.base.usermanagement.application.AddUserController;
 import eapli.framework.actions.Actions;
@@ -40,10 +42,6 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
-//Custom
-import eapli.framework.infrastructure.authz.application.PasswordPolicy;
-import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
-import jobs4u.base.usermanagement.domain.Jobs4uPasswordGenerator;
 
 
 import java.util.HashSet;
@@ -54,80 +52,65 @@ import java.util.Set;
  *
  * Created by nuno on 22/03/16.
  */
-<span class="nc" id="L57">public class AddUserUI extends AbstractUI {</span>
+<span class="nc" id="L55">public class AddUserUI extends AbstractUI {</span>
 
-<span class="nc" id="L59">    private final AddUserController theController = new AddUserController();</span>
+<span class="nc" id="L57">    private final AddUserController theController = new AddUserController();</span>
 
     @Override
     protected boolean doShow() {
 
         String email;
         do {
-<span class="nc" id="L66">            email = Console.readLine(&quot;E-Mail&quot;);</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        }while (!StringPredicates.isEmail(email));</span>
-
-        //ASK FOR PASSWORD
-        /*
-        PasswordPolicy passwordPolicy = new Jobs4uPasswordPolicy();
-        String password;
-        do {
-            password = Console.readLine(&quot;Password&quot;);
-        }while (!passwordPolicy.isSatisfiedBy(password));
-
-         */
-
-        //GENERATE PASSWORD
-<span class="nc" id="L80">        Jobs4uPasswordGenerator passwordGenerator = new Jobs4uPasswordGenerator();</span>
-<span class="nc" id="L81">        String password = passwordGenerator.generatePassword();</span>
+<span class="nc" id="L64">            email = Console.readLine(&quot;E-Mail&quot;);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        }while (!StringPredicates.isEmail(email));</span>
 
 
-
-<span class="nc" id="L85">        final String firstName = Console.readLine(&quot;First Name&quot;);</span>
-
-
-<span class="nc" id="L88">        final String lastName = Console.readLine(&quot;Last Name&quot;);</span>
+<span class="nc" id="L68">        final String firstName = Console.readLine(&quot;First Name&quot;);</span>
 
 
-<span class="nc" id="L91">        System.out.println(&quot;Please select the role for the new user&quot;);</span>
-<span class="nc" id="L92">        final Set&lt;Role&gt; roleTypes = new HashSet&lt;&gt;();</span>
+<span class="nc" id="L71">        final String lastName = Console.readLine(&quot;Last Name&quot;);</span>
+
+
+<span class="nc" id="L74">        System.out.println(&quot;Please select the role for the new user&quot;);</span>
+<span class="nc" id="L75">        final Set&lt;Role&gt; roleTypes = new HashSet&lt;&gt;();</span>
 
         boolean show;
         do {
-<span class="nc" id="L96">            show = showRoles(roleTypes);</span>
+<span class="nc" id="L79">            show = showRoles(roleTypes);</span>
 
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        } while (!show);</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        } while (!show);</span>
 
         try {
-<span class="nc" id="L101">            this.theController.addUser(email, password, firstName, lastName, email, roleTypes);</span>
-<span class="nc" id="L102">            System.out.println(&quot;The password for the new user is: &quot; + password);</span>
+<span class="nc" id="L84">            this.theController.addUser(firstName, lastName, email, roleTypes);;</span>
+<span class="nc" id="L85">            System.out.println(&quot;User added successfully&quot;);</span>
 
-<span class="nc" id="L104">        } catch (final IntegrityViolationException | ConcurrencyException e) {</span>
-<span class="nc" id="L105">            System.out.println(&quot;That email is already in use.&quot;);</span>
-<span class="nc" id="L106">        }</span>
+<span class="nc" id="L87">        } catch (final IntegrityViolationException | ConcurrencyException e) {</span>
+<span class="nc" id="L88">            System.out.println(&quot;That email is already in use.&quot;);</span>
+<span class="nc" id="L89">        }</span>
 
-<span class="nc" id="L108">        return false;</span>
+<span class="nc" id="L91">        return false;</span>
     }
 
     private boolean showRoles(final Set&lt;Role&gt; roleTypes) {
-<span class="nc" id="L112">        final Menu rolesMenu = buildRolesMenu(roleTypes);</span>
-<span class="nc" id="L113">        final MenuRenderer renderer = new VerticalMenuRenderer(rolesMenu, MenuItemRenderer.DEFAULT);</span>
-<span class="nc" id="L114">        return renderer.render();</span>
+<span class="nc" id="L95">        final Menu rolesMenu = buildRolesMenu(roleTypes);</span>
+<span class="nc" id="L96">        final MenuRenderer renderer = new VerticalMenuRenderer(rolesMenu, MenuItemRenderer.DEFAULT);</span>
+<span class="nc" id="L97">        return renderer.render();</span>
 
     }
 
     private Menu buildRolesMenu(final Set&lt;Role&gt; roleTypes) {
-<span class="nc" id="L119">        final Menu rolesMenu = new Menu();</span>
-<span class="nc" id="L120">        int counter = 0;</span>
+<span class="nc" id="L102">        final Menu rolesMenu = new Menu();</span>
+<span class="nc" id="L103">        int counter = 0;</span>
         //rolesMenu.addItem(MenuItem.of(counter++, &quot;No Role&quot;, Actions.SUCCESS));
-<span class="nc bnc" id="L122" title="All 2 branches missed.">        for (final Role roleType : theController.getBackgroundRoleTypes()) {</span>
-<span class="nc" id="L123">            rolesMenu.addItem(MenuItem.of(counter++, roleType.toString(), () -&gt; roleTypes.add(roleType)));</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        for (final Role roleType : theController.getBackgroundRoleTypes()) {</span>
+<span class="nc" id="L106">            rolesMenu.addItem(MenuItem.of(counter++, roleType.toString(), () -&gt; roleTypes.add(roleType)));</span>
         }
-<span class="nc" id="L125">        return rolesMenu;</span>
+<span class="nc" id="L108">        return rolesMenu;</span>
     }
 
     @Override
     public String headline() {
-<span class="nc" id="L130">        return &quot;Add User&quot;;</span>
+<span class="nc" id="L113">        return &quot;Add User&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

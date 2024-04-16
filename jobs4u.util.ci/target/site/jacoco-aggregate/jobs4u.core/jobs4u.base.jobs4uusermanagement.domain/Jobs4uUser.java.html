@@ -25,11 +25,15 @@ package jobs4u.base.jobs4uusermanagement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
+import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Version;
+import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.utils.ClientCode;
+import jobs4u.base.utils.PhoneNumber;
 
 /**
  * A Client User.
@@ -43,7 +47,7 @@ import jakarta.persistence.Version;
  * @author Jorge Santos ajs@isep.ipp.pt
  */
 @Entity
-public class Jobs4uUser implements AggregateRoot&lt;MecanographicNumber&gt; {
+public class Jobs4uUser implements AggregateRoot&lt;ClientCode&gt; {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,7 +55,11 @@ public class Jobs4uUser implements AggregateRoot&lt;MecanographicNumber&gt; {
     private Long version;
 
     @EmbeddedId
-    private MecanographicNumber mecanographicNumber;
+    private ClientCode clientCode;
+
+    private PhoneNumber phoneNumber;
+
+
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -59,44 +67,48 @@ public class Jobs4uUser implements AggregateRoot&lt;MecanographicNumber&gt; {
     @OneToOne()
     private SystemUser systemUser;
 
-<span class="nc" id="L62">    public Jobs4uUser(final SystemUser user, final MecanographicNumber mecanographicNumber) {</span>
-<span class="nc bnc" id="L63" title="All 4 branches missed.">        if (mecanographicNumber == null || user == null) {</span>
-<span class="nc" id="L64">            throw new IllegalArgumentException();</span>
+<span class="fc" id="L70">    public Jobs4uUser(final SystemUser user, final ClientCode clientCode, final PhoneNumber phoneNumber) {</span>
+<span class="pc bpc" id="L71" title="2 of 4 branches missed.">        if (clientCode == null || user == null) {</span>
+<span class="nc" id="L72">            throw new IllegalArgumentException();</span>
         }
-<span class="nc" id="L66">        this.systemUser = user;</span>
-<span class="nc" id="L67">        this.mecanographicNumber = mecanographicNumber;</span>
-<span class="nc" id="L68">    }</span>
+<span class="fc" id="L74">        this.systemUser = user;</span>
+<span class="fc" id="L75">        this.clientCode = clientCode;</span>
+<span class="fc" id="L76">        this.phoneNumber = phoneNumber;</span>
+<span class="fc" id="L77">    }</span>
 
-<span class="nc" id="L70">    protected Jobs4uUser() {</span>
+<span class="fc" id="L79">    protected Jobs4uUser() {</span>
         // for ORM only
-<span class="nc" id="L72">    }</span>
+<span class="fc" id="L81">    }</span>
 
     public SystemUser user() {
-<span class="nc" id="L75">        return this.systemUser;</span>
+<span class="nc" id="L84">        return this.systemUser;</span>
     }
 
+    public PhoneNumber phoneNumber() {
+<span class="nc" id="L88">        return this.phoneNumber;</span>
+    }
     @Override
     public boolean equals(final Object o) {
-<span class="nc" id="L80">        return DomainEntities.areEqual(this, o);</span>
+<span class="fc" id="L92">        return DomainEntities.areEqual(this, o);</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L85">        return DomainEntities.hashCode(this);</span>
+<span class="nc" id="L97">        return DomainEntities.hashCode(this);</span>
     }
 
     @Override
     public boolean sameAs(final Object other) {
-<span class="nc" id="L90">        return DomainEntities.areEqual(this, other);</span>
+<span class="fc" id="L102">        return DomainEntities.areEqual(this, other);</span>
     }
 
-    public MecanographicNumber mecanographicNumber() {
-<span class="nc" id="L94">        return identity();</span>
+    public ClientCode clientCode() {
+<span class="nc" id="L106">        return identity();</span>
     }
 
     @Override
-    public MecanographicNumber identity() {
-<span class="nc" id="L99">        return this.mecanographicNumber;</span>
+    public ClientCode identity() {
+<span class="fc" id="L111">        return this.clientCode;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

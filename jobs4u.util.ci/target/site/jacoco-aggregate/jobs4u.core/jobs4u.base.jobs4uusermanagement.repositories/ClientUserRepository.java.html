@@ -24,6 +24,7 @@ import jobs4u.base.jobs4uusermanagement.domain.Jobs4uUser;
 import jobs4u.base.jobs4uusermanagement.domain.MecanographicNumber;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
+import jobs4u.base.utils.ClientCode;
 
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ import java.util.Optional;
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 public interface ClientUserRepository
-        extends DomainRepository&lt;MecanographicNumber, Jobs4uUser&gt; {
+        extends DomainRepository&lt;ClientCode, Jobs4uUser&gt; {
 
     /**
      * returns the client user (utente) whose username is given
@@ -44,14 +45,15 @@ public interface ClientUserRepository
     Optional&lt;Jobs4uUser&gt; findByUsername(Username name);
 
     /**
-     * returns the client user (utente) with the given mecanographic number
-     *
-     * @param number
+     * returns the client user (utente) whose clientCode is given
+     * @param code
      * @return
      */
-    default Optional&lt;Jobs4uUser&gt; findByMecanographicNumber(final MecanographicNumber number) {
-<span class="nc" id="L53">        return ofIdentity(number);</span>
+
+    default Optional&lt;Jobs4uUser&gt; findByClientCode(final ClientCode code) {
+<span class="nc" id="L54">        return ofIdentity(code);</span>
     }
+
 
     public Iterable&lt;Jobs4uUser&gt; findAllActive();
 }

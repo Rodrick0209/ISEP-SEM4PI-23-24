@@ -22,6 +22,8 @@ package jobs4u.base.jobs4uusermanagement.domain;
 
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import jobs4u.base.utils.ClientCode;
+import jobs4u.base.utils.PhoneNumber;
 
 /**
  * A factory for User entities.
@@ -31,31 +33,34 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-<span class="nc" id="L34">public class Jobs4uUserBuilder implements DomainFactory&lt;Jobs4uUser&gt; {</span>
+<span class="fc" id="L36">public class Jobs4uUserBuilder implements DomainFactory&lt;Jobs4uUser&gt; {</span>
 
     private SystemUser systemUser;
-    private MecanographicNumber mecanographicNumber;
+    private ClientCode clientCode;
+
+    private PhoneNumber phoneNumber;
 
     public Jobs4uUserBuilder withSystemUser(final SystemUser systemUser) {
-<span class="nc" id="L40">        this.systemUser = systemUser;</span>
-<span class="nc" id="L41">        return this;</span>
+<span class="fc" id="L44">        this.systemUser = systemUser;</span>
+<span class="fc" id="L45">        return this;</span>
     }
 
-    public Jobs4uUserBuilder withMecanographicNumber(final MecanographicNumber mecanographicNumber) {
-<span class="nc" id="L45">        this.mecanographicNumber = mecanographicNumber;</span>
-<span class="nc" id="L46">        return this;</span>
+    public Jobs4uUserBuilder withPhoneNumber(final PhoneNumber phoneNumber) {
+<span class="fc" id="L49">        this.phoneNumber = phoneNumber;</span>
+<span class="fc" id="L50">        return this;</span>
     }
 
-    public Jobs4uUserBuilder withMecanographicNumber(final String mecanographicNumber) {
-<span class="nc" id="L50">        this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);</span>
-<span class="nc" id="L51">        return this;</span>
+    public Jobs4uUserBuilder withClientCode(final ClientCode clientCode) {
+<span class="fc" id="L54">        this.clientCode = clientCode;</span>
+<span class="fc" id="L55">        return this;</span>
     }
+
 
     @Override
     public Jobs4uUser build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-<span class="nc" id="L58">        return new Jobs4uUser(this.systemUser, this.mecanographicNumber);</span>
+<span class="fc" id="L63">        return new Jobs4uUser(this.systemUser, this.clientCode,this.phoneNumber);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

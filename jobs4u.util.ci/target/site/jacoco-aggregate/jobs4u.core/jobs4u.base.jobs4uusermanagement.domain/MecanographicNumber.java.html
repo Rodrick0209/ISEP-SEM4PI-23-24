@@ -35,22 +35,22 @@ public class MecanographicNumber implements ValueObject, Comparable&lt;Mecanogra
 
     private String number;
 
-<span class="nc" id="L38">    public MecanographicNumber(final String mecanographicNumber) {</span>
-<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (StringPredicates.isNullOrEmpty(mecanographicNumber)) {</span>
+<span class="fc" id="L38">    public MecanographicNumber(final String mecanographicNumber) {</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (StringPredicates.isNullOrEmpty(mecanographicNumber)) {</span>
 <span class="nc" id="L40">            throw new IllegalArgumentException(</span>
                     &quot;Mecanographic Number should neither be null nor empty&quot;);
         }
         // TODO validate invariants, i.e., mecanographic number regular
         // expression
-<span class="nc" id="L45">        this.number = mecanographicNumber;</span>
-<span class="nc" id="L46">    }</span>
+<span class="fc" id="L45">        this.number = mecanographicNumber;</span>
+<span class="fc" id="L46">    }</span>
 
 <span class="nc" id="L48">    protected MecanographicNumber() {</span>
         // for ORM
 <span class="nc" id="L50">    }</span>
 
     public static MecanographicNumber valueOf(final String mecanographicNumber) {
-<span class="nc" id="L53">        return new MecanographicNumber(mecanographicNumber);</span>
+<span class="fc" id="L53">        return new MecanographicNumber(mecanographicNumber);</span>
     }
 
     @Override

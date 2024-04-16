@@ -20,6 +20,7 @@
  */
 package jobs4u.base.usermanagement.application;
 
+import jobs4u.base.usermanagement.domain.Jobs4uPasswordGenerator;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -37,10 +38,11 @@ import java.util.Set;
  * Created by nuno on 21/03/16.
  */
 @UseCaseController
-<span class="nc" id="L40">public class AddUserController {</span>
+<span class="nc" id="L41">public class AddUserController {</span>
 
-<span class="nc" id="L42">    private final AuthorizationService authz = AuthzRegistry.authorizationService();</span>
-<span class="nc" id="L43">    private final UserManagementService userSvc = AuthzRegistry.userService();</span>
+<span class="nc" id="L43">    private final AuthorizationService authz = AuthzRegistry.authorizationService();</span>
+<span class="nc" id="L44">    private final UserManagementService userSvc = AuthzRegistry.userService();</span>
+<span class="nc" id="L45">    private final Jobs4uPasswordGenerator passwordGenerator = new Jobs4uPasswordGenerator();</span>
 
     /**
      * Get existing RoleTypes available to the user.
@@ -48,27 +50,27 @@ import java.util.Set;
      * @return a list of RoleTypes
      */
     public Role[] getRoleTypes() {
-<span class="nc" id="L51">        return Jobs4uRoles.nonUserValues();</span>
+<span class="nc" id="L53">        return Jobs4uRoles.nonUserValues();</span>
     }
 
     public Role[] getBackgroundRoleTypes() {
-<span class="nc" id="L55">        return Jobs4uRoles.BackgroundUserValues();</span>
+<span class="nc" id="L57">        return Jobs4uRoles.BackgroundUserValues();</span>
     }
 
     public SystemUser addUser(final String username, final String password, final String firstName,
             final String lastName,
             final String email, final Set&lt;Role&gt; roles, final Calendar createdOn) {
 
-<span class="nc" id="L62">        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN);</span>
+<span class="nc" id="L64">        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN);</span>
 
-<span class="nc" id="L64">        return userSvc.registerNewUser(username, password, firstName, lastName, email, roles,</span>
+<span class="nc" id="L66">        return userSvc.registerNewUser(username, password, firstName, lastName, email, roles,</span>
                 createdOn);
     }
 
-    public SystemUser addUser(final String username, final String password, final String firstName,
+    public SystemUser addUser(final String firstName,
             final String lastName,
             final String email, final Set&lt;Role&gt; roles) {
-<span class="nc" id="L71">        return addUser(username, password, firstName, lastName, email, roles, CurrentTimeCalendars.now());</span>
+<span class="nc" id="L73">        return addUser(email,passwordGenerator.generatePassword(), firstName, lastName, email, roles, CurrentTimeCalendars.now());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

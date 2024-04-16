@@ -31,31 +31,32 @@ import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Username;
+import jobs4u.base.utils.ClientCode;
 
 import java.util.Optional;
 
 /**
  * @author mcn
  */
-<span class="nc" id="L40">public class ClientUserService {</span>
+<span class="nc" id="L41">public class ClientUserService {</span>
 
-<span class="nc" id="L42">    private final AuthorizationService authz =</span>
-<span class="nc" id="L43">            AuthzRegistry.authorizationService();</span>
-<span class="nc" id="L44">    private final ClientUserRepository repo =</span>
-<span class="nc" id="L45">            PersistenceContext.repositories().clientUsers();</span>
+<span class="nc" id="L43">    private final AuthorizationService authz =</span>
+<span class="nc" id="L44">            AuthzRegistry.authorizationService();</span>
+<span class="nc" id="L45">    private final ClientUserRepository repo =</span>
+<span class="nc" id="L46">            PersistenceContext.repositories().clientUsers();</span>
 
-    public Optional&lt;Jobs4uUser&gt; findClientUserByMecNumber(
-            final String mecNumber) {
-<span class="nc" id="L49">        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER,</span>
+    public Optional&lt;Jobs4uUser&gt; findClientUserByClientCode(
+            final String clientCode) {
+<span class="nc" id="L50">        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER,</span>
                 Jobs4uRoles.ADMIN);
-<span class="nc" id="L51">        return repo.ofIdentity(MecanographicNumber.valueOf(mecNumber));</span>
+<span class="nc" id="L52">        return repo.ofIdentity(ClientCode.valueOf(clientCode));</span>
     }
 
     public Optional&lt;Jobs4uUser&gt; findClientUserByUsername(
             final Username user) {
-<span class="nc" id="L56">        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER,</span>
+<span class="nc" id="L57">        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER,</span>
                 Jobs4uRoles.ADMIN);
-<span class="nc" id="L58">        return repo.findByUsername(user);</span>
+<span class="nc" id="L59">        return repo.findByUsername(user);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
