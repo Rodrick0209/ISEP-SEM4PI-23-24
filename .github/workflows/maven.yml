@@ -33,7 +33,7 @@ jobs:
 
         # Generate JaCoCo report
       - name: Generate JaCoCo report
-        run: mvn org.jacoco:jacoco-maven-plugin:0.8.11:report
+        run: mvn verify
 
       - name: Upload JaCoCo report as artifact
         uses: actions/upload-artifact@v2
