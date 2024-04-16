@@ -9,18 +9,16 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
 
     private static final long serialVersionUID = 1L;
 
-    private static int counter = 0;
-
     private final ClientCode clientCode;
     private final int referenceNumber;
 
-    public JobReference(ClientCode clientCode) {
+    public JobReference(ClientCode clientCode, int referenceNumber) {
         this.clientCode = clientCode;
-        this.referenceNumber = ++counter;
+        this.referenceNumber = referenceNumber;
     }
 
-
-    public String reference() {
+    @Override
+    public String toString() {
         return this.clientCode.code() + "-" + String.format("%06d", this.referenceNumber);
     }
 
@@ -32,17 +30,17 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
             return false;
         } else {
             JobReference other = (JobReference) o;
-            return this.reference().equals(other.reference());
+            return this.toString().equals(other.toString());
         }
     }
 
     @Override
     public int hashCode() {
-        return this.reference().hashCode();
+        return this.toString().hashCode();
     }
 
     @Override
     public int compareTo(JobReference other) {
-        return this.reference().compareTo(other.reference());
+        return this.toString().compareTo(other.toString());
     }
 }

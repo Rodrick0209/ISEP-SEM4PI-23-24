@@ -9,6 +9,7 @@ import jobs4u.base.jobOpeningsManagement.domain.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.domain.utils.NrVacancy;
 import jobs4u.base.jobOpeningsManagement.domain.utils.WorkingMode;
 
+import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 
 @Entity
@@ -25,10 +26,16 @@ public class Jobs4uJobOpening implements AggregateRoot<JobReference> {
     private PostalAddress address;
     private Designation description;
     private Designation function;
+    private ClientCode clientCode;
 
 
-    public Jobs4uJobOpening(JobReference jobReference) {
+    public Jobs4uJobOpening(JobReference jobReference, WorkingMode workingMode, NrVacancy nrVacancy, PostalAddress address, Designation description, Designation function) {
         this.jobReference = jobReference;
+        this.workingMode = workingMode;
+        this.nrVacancy = nrVacancy;
+        this.address = address;
+        this.description = description;
+        this.function = function;
     }
 
     protected Jobs4uJobOpening() {
