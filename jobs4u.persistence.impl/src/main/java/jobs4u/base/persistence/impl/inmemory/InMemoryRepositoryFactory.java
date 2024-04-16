@@ -20,6 +20,7 @@
  */
 package jobs4u.base.persistence.impl.inmemory;
 
+import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.ClientUserRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.SignupRequestRepository;
@@ -63,7 +64,12 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public ClientRepository clients() {
-        return clients(null);
+         return clients(null);
+    }
+
+    @Override
+    public CandidateRepository candidates() {
+        return null;
     }
 
     public ClientRepository clients(final TransactionalContext tx) {
