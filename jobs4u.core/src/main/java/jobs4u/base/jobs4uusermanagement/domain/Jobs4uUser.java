@@ -35,6 +35,8 @@ import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PhoneNumber;
 
+import java.io.Serializable;
+
 /**
  * A Client User.
  * This class represents client users. It follows a DDD approach where User
@@ -47,7 +49,7 @@ import jobs4u.base.utils.PhoneNumber;
  * @author Jorge Santos ajs@isep.ipp.pt
  */
 @Entity
-public class Jobs4uUser implements AggregateRoot<ClientCode> {
+public class Jobs4uUser implements AggregateRoot<ClientCode>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
