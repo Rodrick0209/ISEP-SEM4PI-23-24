@@ -20,7 +20,6 @@
  */
 package jobs4u.base.infrastructure.persistence;
 
-import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.ClientUserRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.SignupRequestRepository;
@@ -76,7 +75,7 @@ public interface RepositoryFactory {
     ClientRepository clients();
 
 
-    CandidateRepository candidates();
+
 
 
     SignupRequestRepository signupRequests(TransactionalContext autoTx);

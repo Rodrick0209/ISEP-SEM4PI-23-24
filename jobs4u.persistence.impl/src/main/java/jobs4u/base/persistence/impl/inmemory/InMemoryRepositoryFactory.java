@@ -63,7 +63,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public ClientRepository clients() {
-         return clients(null);
+        return clients(null);
     }
 
     public ClientRepository clients(final TransactionalContext tx) {
