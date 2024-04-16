@@ -36,7 +36,13 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     public boolean execute() {
         registerAdmin("admin@gmail.com", TestDataConstants.PASSWORD1, "Admin", "Doe Admin",
                 "admin@gmail.com");
+
+        registerCustomerManager("customermanager@gmail.com", TestDataConstants.PASSWORD1, "Customer", "Doe Admin",
+                "customermanager@gmail.com");
         return true;
+
+
+
     }
 
     /**
@@ -46,6 +52,14 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
             final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.ADMIN);
+
+        registerUser(username, password, firstName, lastName, email, roles);
+    }
+
+    private void registerCustomerManager(final String username, final String password, final String firstName,
+                               final String lastName, final String email) {
+        final Set<Role> roles = new HashSet<>();
+        roles.add(Jobs4uRoles.CUSTOMER_MANAGER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }

@@ -21,6 +21,7 @@
 package jobs4u.base.persistence.impl.jpa;
 
 import jobs4u.base.Application;
+import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.SignupRequestRepository;
 import jobs4u.base.infrastructure.persistence.RepositoryFactory;
@@ -59,6 +60,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public ClientRepository clients() {
         return new JpaClientRepository();
+    }
+
+    @Override
+    public CandidateRepository candidates() {
+        return null;
     }
 
     @Override

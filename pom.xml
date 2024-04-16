@@ -118,7 +118,13 @@
 			<artifactId>antlr4</artifactId>
 			<version>4.13.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.8.11</version>
+		</dependency>
 	</dependencies>
+
 	<repositories>
 		<repository>
 			<id>jitpack.io</id>
@@ -131,7 +137,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.2.5</version>
 				<configuration>
 					<!--- <testFailureIgnore>true</testFailureIgnore> -->
 					<aggregate>true</aggregate>
@@ -151,18 +157,24 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.11</version>
-				<configuration>
-					<dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
-				</configuration>
+				<version>0.8.11</version> <!-- Adjust version as needed -->
 				<executions>
 					<execution>
-						<id>jacoco-initialize</id>
+						<id>default-prepare-agent</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
+					</execution>
+
+					<execution>
+						<id>default-report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
 						<configuration>
-							<propertyName>jacoco.argLine</propertyName>
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-merged.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>

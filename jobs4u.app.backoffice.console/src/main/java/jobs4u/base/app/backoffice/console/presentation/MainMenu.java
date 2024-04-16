@@ -28,6 +28,8 @@ import jobs4u.base.app.backoffice.console.presentation.authz.EnableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.DisableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.ListUsersAction;
+import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientAction;
+import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientUI;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Actions;
@@ -61,12 +63,16 @@ public class MainMenu extends AbstractUI {
     private static final int DISABLE_USER_OPTION = 4;
     //private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
 
+    // CUSTOMER
+    private static final int ADD_CUSTOMER_OPTION = 1;
+
     // SETTINGS
     private static final int Option = 1;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
+    private static final int CUSTOMERS_OPTION = 3;
     private static final int SETTINGS_OPTION = 3;
 
     private static final String SEPARATOR_LABEL = "--------------";
@@ -118,6 +124,11 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER)) {
+            final Menu customersMenu = buildCustomersMenu();
+            mainMenu.addSubMenu(CUSTOMERS_OPTION, customersMenu);
+        }
+
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
@@ -145,6 +156,16 @@ public class MainMenu extends AbstractUI {
         menu.addItem(ACTIVATE_USER_OPTION, "Activate User", new EnableUserAction());
         menu.addItem(DISABLE_USER_OPTION, "Deactivate User", new DisableUserAction());
         //menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",new AcceptRefuseSignupRequestAction());
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildCustomersMenu() {
+        final Menu menu = new Menu("Customers >");
+
+        menu.addItem(ADD_CUSTOMER_OPTION, "Add Customer", new RegisterClientUI()::show);
+
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

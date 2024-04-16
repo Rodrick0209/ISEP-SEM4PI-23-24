@@ -20,6 +20,7 @@
  */
 package jobs4u.base.usermanagement.application;
 
+import jobs4u.base.usermanagement.domain.Jobs4uPasswordGenerator;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -41,6 +42,7 @@ public class AddUserController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
+    private final Jobs4uPasswordGenerator passwordGenerator = new Jobs4uPasswordGenerator();
 
     /**
      * Get existing RoleTypes available to the user.
@@ -65,9 +67,9 @@ public class AddUserController {
                 createdOn);
     }
 
-    public SystemUser addUser(final String username, final String password, final String firstName,
+    public SystemUser addUser(final String firstName,
             final String lastName,
             final String email, final Set<Role> roles) {
-        return addUser(username, password, firstName, lastName, email, roles, CurrentTimeCalendars.now());
+        return addUser(email,passwordGenerator.generatePassword(), firstName, lastName, email, roles, CurrentTimeCalendars.now());
     }
 }

@@ -20,6 +20,7 @@
  */
 package jobs4u.base.infrastructure.bootstrapers;
 
+import eapli.framework.time.util.CurrentTimeCalendars;
 import jobs4u.base.usermanagement.application.AddUserController;
 import jobs4u.base.usermanagement.application.ListUsersController;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -54,7 +55,7 @@ public class UsersBootstrapperBase {
             final String lastName, final String email, final Set<Role> roles) {
         SystemUser u = null;
         try {
-            u = userController.addUser(username, password, firstName, lastName, email, roles);
+            u = userController.addUser(username,password,firstName, lastName, email, roles, CurrentTimeCalendars.now());
             LOGGER.debug("»»» %s", username);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             // assuming it is just a primary key violation due to the tentative

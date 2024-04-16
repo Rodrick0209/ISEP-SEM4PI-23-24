@@ -63,7 +63,7 @@ public class ListUsersUI extends AbstractListUI<SystemUser> {
 
     @Override
     protected String listHeader() {
-        return String.format("#  %-30s%-30s%-30s%-10s", "EMAIL", "F. NAME", "L. NAME", "ACTIVE");
+        return String.format("#  %-30s%-30s%-30s%-30s%-10s", "EMAIL", "F. NAME", "L. NAME","ROLE" ,"ACTIVE");
 
     }
 }

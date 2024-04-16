@@ -446,4 +446,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+jobs4u.util.ci/target/
+
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,windows,macos,compressedarchive,compressed,appbuilder,eclipse,perl
+
+
+/jobs4u.util.ci/target/site/jacoco-aggregate/
