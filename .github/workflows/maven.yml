@@ -6,6 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
+
 name: Java CI with Maven
 
 on:
@@ -28,29 +29,20 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build and Test with Maven
-        run: mvn -B verify
+        run: mvn verify
 
-        # Generate JaCoCo report
-      - name: Generate JaCoCo report
-        run: mvn org.jacoco:jacoco-maven-plugin:0.8.11:report
-
+      # Upload JaCoCo report as artifact
       - name: Upload JaCoCo report as artifact
         uses: actions/upload-artifact@v2
         with:
-          name: jacoco-report
+          name: jacoco-coverage-report
           path: jobs4u.util.ci/target/site/jacoco-aggregate
 
 
-
-      - name: jacoco-reporter
+      - name: jacoco-coverage-report
         uses: PavanMudigonda/jacoco-reporter@v5.0
         with:
            coverage_results_path: jobs4u.util.ci/target/site/jacoco-aggregate/jacoco.xml
-
-      # Publish Coverage Job Summary  # Optional
-      - name: Add Coverage Job Summary
-        run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
-
 
 
 
