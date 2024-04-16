@@ -136,20 +136,11 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>3.0.0</version>
+				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<!--- <testFailureIgnore>true</testFailureIgnore> -->
-					<aggregate>true</aggregate>
+					<!--suppress UnresolvedMavenProperty -->
+					<argLine>${argLine} -Xmx2048m</argLine>
 				</configuration>
-				<executions>
-					<execution>
-						<phase>install</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 
 			<plugin>
@@ -163,6 +154,7 @@
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
+
 					<execution>
 						<id>default-report</id>
 						<phase>prepare-package</phase>
