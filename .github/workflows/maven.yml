@@ -31,19 +31,15 @@ jobs:
       - name: Build and Test with Maven
         run: mvn -B verify
 
-      # Generate JaCoCo report
-      - name: Generate JaCoCo report
-        run: mvn verify
-
-  # Upload JaCoCo report as artifact
+      # Upload JaCoCo report as artifact
       - name: Upload JaCoCo report as artifact
         uses: actions/upload-artifact@v2
         with:
-          name: default-report
+          name: jacoco-coverage-report
           path: jobs4u.util.ci/target/site/jacoco-aggregate
 
 
-      - name: jacoco-reporter
+      - name: jacoco-coverage-report
         uses: PavanMudigonda/jacoco-reporter@v5.0
         with:
            coverage_results_path: jobs4u.util.ci/target/site/jacoco-aggregate/jacoco.xml
