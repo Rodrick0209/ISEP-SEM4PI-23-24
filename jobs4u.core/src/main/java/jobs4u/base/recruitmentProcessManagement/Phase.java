@@ -17,9 +17,9 @@ import java.util.Date;
 public class Phase {
 
     @Id
-    Designation designation;
-    LocalDate startDate;
-    LocalDate endDate;
+    private Designation designation;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
 
     @Enumerated(EnumType.STRING)
@@ -31,7 +31,7 @@ public class Phase {
 
     public Phase(Designation designation, LocalDate startDate, LocalDate endDate) {
         Preconditions.noneNull(designation, startDate, endDate);
-        validations(designation,startDate,endDate);
+        validations(designation, startDate, endDate);
         this.designation = designation;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -39,11 +39,11 @@ public class Phase {
     }
 
 
-
-    private void validations(Designation designation, LocalDate startDate, LocalDate endDate){
+    private void validations(Designation designation, LocalDate startDate, LocalDate endDate) {
         validateDesignationPhase(designation);
-        validatePhasesDates(startDate,endDate);
+        validatePhasesDates(startDate, endDate);
     }
+
     public Designation designation() {
         return designation;
     }
@@ -70,22 +70,20 @@ public class Phase {
         }
     }
 
-    private void validatePhasesDates(LocalDate startDate,LocalDate endDate ){
-       if( startDate.isAfter(endDate)){
-           throw new IllegalArgumentException("Invalid Date, start date should be before after date");
-       }
+    private void validatePhasesDates(LocalDate startDate, LocalDate endDate) {
+        if (startDate.isAfter(endDate)) {
+            throw new IllegalArgumentException("Invalid Date, start date should be before after date");
+        }
     }
 
 
-
-    public void openPhase(){
+    public void openPhase() {
         this.state = State.OPEN;
     }
 
-    public void closePhase(){
+    public void closePhase() {
         this.state = State.CLOSED;
     }
-
 
 
 }

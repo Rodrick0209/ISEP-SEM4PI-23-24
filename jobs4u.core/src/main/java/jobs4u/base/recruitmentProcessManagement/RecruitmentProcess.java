@@ -4,7 +4,10 @@ package jobs4u.base.recruitmentProcessManagement;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.jobOpeningsManagement.domain.utils.JobReference;
+import org.springframework.cglib.core.Local;
+import org.springframework.security.core.parameters.P;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,23 +37,16 @@ public class RecruitmentProcess {
     }
 
 
-
     private void validatePhases(List<Phase> phases) {
         Preconditions.nonEmpty(phases);
-        validateNumberOfPhases(phases);
-        validatePhasesOrder();
-
+        validatePhasesOrder(phases);
+        validatePhasesStartEndDates(phases);
     }
 
-    private void validateNumberOfPhases(List<Phase> phases) {
-        if(phases.size() != 5 && phases.size() != 6){
-            throw new IllegalArgumentException("Recruitment process must have 5 or 6 phases");
-        }
-    }
 
-    private void validatePhasesOrder(){
-        List<String> expectedPhaseIfInterview = List.of("application", "resume screen", "interviews", "analysis", "result");
-        List<String> expectedPhaseIfNotInterview = List.of("application", "resume screen", "analysis", "result");
+    private void validatePhasesOrder(List<Phase> phases) {
+        List<String> expectedPhaseIfInterview = List.of("application", "resume_screen", "interviews", "analysis", "result");
+        List<String> expectedPhaseIfNotInterview = List.of("application", "resume_screen", "analysis", "result");
         List<String> currentPhases = new ArrayList<>();
 
         for (Phase phase : phases) {
@@ -62,10 +58,26 @@ public class RecruitmentProcess {
         }
 
 
-
     }
 
+    private static void validatePhasesStartEndDates(List<Phase> phases) {
+        for (int i = 0; i < phases.size() - 1; i++) {
+            Phase currentPhase = phases.get(i);
+            Phase nextPhase = phases.get(i + 1);
+
+            // Verifica se a data final da fase atual é igual à data inicial da próxima fase
+            if (!currentPhase.endDate().isEqual(nextPhase.startDate())) {
+                throw new IllegalArgumentException("Error in the dates setup ");
+
+            }
+
+            // Verifica se não há datas de fases anteriores que ocorrem após as datas das fases seguintes
+            if (i > 0 && currentPhase.startDate().isAfter(phases.get(i - 1).endDate())) {
+                throw new IllegalArgumentException("Error in the dates setup ");
+            }
+        }
 
 
+    }
 }
 
