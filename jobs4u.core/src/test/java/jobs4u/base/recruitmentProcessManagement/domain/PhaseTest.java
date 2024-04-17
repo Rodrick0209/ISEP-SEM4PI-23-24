@@ -1,7 +1,6 @@
 package jobs4u.base.recruitmentProcessManagement.domain;
 
 import eapli.framework.general.domain.model.Designation;
-import jobs4u.base.recruitmentProcessManagement.Phase;
 import jobs4u.base.recruitmentProcessManagement.utils.DateUtils;
 import org.junit.jupiter.api.Test;
 

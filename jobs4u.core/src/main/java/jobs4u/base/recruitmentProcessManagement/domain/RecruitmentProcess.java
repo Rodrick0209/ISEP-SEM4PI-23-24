@@ -1,13 +1,11 @@
-package jobs4u.base.recruitmentProcessManagement;
+package jobs4u.base.recruitmentProcessManagement.domain;
 
 
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.jobOpeningsManagement.domain.utils.JobReference;
-import org.springframework.cglib.core.Local;
-import org.springframework.security.core.parameters.P;
+import jobs4u.base.recruitmentProcessManagement.domain.Phase;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

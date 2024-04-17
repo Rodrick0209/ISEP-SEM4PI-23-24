@@ -1,4 +1,4 @@
-package jobs4u.base.recruitmentProcessManagement;
+package jobs4u.base.recruitmentProcessManagement.domain;
 
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
