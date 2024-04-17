@@ -28,5 +28,6 @@ JpaJobOpeningRepository --|> JobOpeningRepository
 InMemoryJobOpeningRepository --|> JobOpeningRepository
 InMemoryJobRequirementSpecificationRepository --|> JobRequirementSpecificationRepository
 JpaJobRequirementSpecificationRepository --|> JobRequirementSpecificationRepository
+JobOpening --> JobRequirementSpecification
 
 @enduml
