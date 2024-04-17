@@ -1,6 +1,32 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class
+class SelectJobRequirementSpecificationUI <<presentation>>
+class SelectJobRequirementSpecificationController <<application>>
+class PersistenceContext
+interface RepositoryFactory
+interface JobOpeningRepository <<repository>>
+interface JobRequirementSpecificationRepository <<repository>>
+class InMemoryJobOpeningRepository <<persistence>>
+class JpaJobOpeningRepository <<persistence>>
+class InMemoryJobRequirementSpecificationRepository <<persistence>>
+class JpaJobRequirementSpecificationRepository <<persistence>>
+class JobOpening <<domain>>
+class JobRequirementSpecification <<domain>>
+
+SelectJobRequirementSpecificationUI -> SelectJobRequirementSpecificationController
+SelectJobRequirementSpecificationController -> PersistenceContext
+PersistenceContext --> RepositoryFactory
+SelectJobRequirementSpecificationController ..> JobOpeningRepository
+SelectJobRequirementSpecificationController ..> JobRequirementSpecificationRepository
+RepositoryFactory --> JobOpeningRepository
+RepositoryFactory --> JobRequirementSpecificationRepository
+SelectJobRequirementSpecificationController ..> JobOpening
+JobOpeningRepository --> JobOpening
+JobRequirementSpecificationRepository --> JobRequirementSpecification
+JpaJobOpeningRepository --|> JobOpeningRepository
+InMemoryJobOpeningRepository --|> JobOpeningRepository
+InMemoryJobRequirementSpecificationRepository --|> JobRequirementSpecificationRepository
+JpaJobRequirementSpecificationRepository --|> JobRequirementSpecificationRepository
 
 @enduml
