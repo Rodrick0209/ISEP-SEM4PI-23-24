@@ -17,9 +17,9 @@
         </processorPath>
         <module name="jobs4u.bootstrappers" />
         <module name="jobs4u.core" />
-        <module name="jobs4u.persistence.impl" />
-        <module name="jobs4u.app.common.console" />
         <module name="jobs4u.app.candidate.console" />
+        <module name="jobs4u.app.common.console" />
+        <module name="jobs4u.persistence.impl" />
         <module name="jobs4u.app.bootstrap" />
         <module name="jobs4u.app.customer.console" />
         <module name="jobs4u.app.backoffice.console" />

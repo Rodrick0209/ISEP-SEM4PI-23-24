@@ -1,4 +1,4 @@
-package jobs4u.base.jobOpeningsManagement.domain.utils;
+package jobs4u.base.jobOpeningsManagement.utils;
 
 import eapli.framework.domain.model.ValueObject;
 

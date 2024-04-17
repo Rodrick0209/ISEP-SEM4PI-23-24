@@ -5,15 +5,15 @@ import eapli.framework.general.domain.model.Designation;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Version;
-import jobs4u.base.jobOpeningsManagement.domain.utils.JobReference;
-import jobs4u.base.jobOpeningsManagement.domain.utils.NrVacancy;
-import jobs4u.base.jobOpeningsManagement.domain.utils.WorkingMode;
+import jobs4u.base.jobOpeningsManagement.utils.JobReference;
+import jobs4u.base.jobOpeningsManagement.utils.NrVacancy;
+import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 
 @Entity
-public class Jobs4uJobOpening implements AggregateRoot<JobReference> {
+public class JobOpening implements AggregateRoot<JobReference> {
 
     @Version
     private Long version;
@@ -29,8 +29,8 @@ public class Jobs4uJobOpening implements AggregateRoot<JobReference> {
     private ClientCode clientCode;
 
 
-    public Jobs4uJobOpening(JobReference jobReference, WorkingMode workingMode, NrVacancy nrVacancy, PostalAddress address, Designation description, Designation function) {
-        this.jobReference = jobReference;
+    public JobOpening(JobReference jobReference, WorkingMode workingMode, NrVacancy nrVacancy, PostalAddress address, Designation description, Designation function) {
+
         this.workingMode = workingMode;
         this.nrVacancy = nrVacancy;
         this.address = address;
@@ -38,7 +38,7 @@ public class Jobs4uJobOpening implements AggregateRoot<JobReference> {
         this.function = function;
     }
 
-    protected Jobs4uJobOpening() {
+    protected JobOpening() {
     }
 
     @Override

@@ -1,6 +1,6 @@
 package jobs4u.base.jobOpeningsManagement.domain;
 
-import jobs4u.base.jobOpeningsManagement.domain.utils.JobReference;
+import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.utils.ClientCode;
 
 public class JobReferenceService {

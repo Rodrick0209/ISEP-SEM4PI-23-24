@@ -1,7 +1,7 @@
 package jobs4u.base.recruitmentProcessManagement.domain;
 
 import eapli.framework.general.domain.model.Designation;
-import jobs4u.base.jobOpeningsManagement.domain.utils.JobReference;
+import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.recruitmentProcessManagement.utils.DateUtils;
 import jobs4u.base.utils.ClientCode;
 import org.junit.jupiter.api.Test;
