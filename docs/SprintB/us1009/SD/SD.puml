@@ -1,0 +1,65 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+actor CustomerManager
+
+participant SelectJobRequirementSpecificationUI <<presentation>>
+participant SelectJobRequirementSpecificationController <<application>>
+participant PersistenceContext
+participant RepositoryFactory
+participant JobOpeningRepository <<repository>>
+participant JobRequirementSpecificationRepository <<repository>>
+participant JobOpening <<domain>>
+
+-> SelectJobRequirementSpecificationUI: doShow()
+activate SelectJobRequirementSpecificationUI
+SelectJobRequirementSpecificationUI -> SelectJobRequirementSpecificationController : create
+SelectJobRequirementSpecificationUI -> SelectJobRequirementSpecificationController : listJobOpenings()
+activate SelectJobRequirementSpecificationController
+SelectJobRequirementSpecificationController -> PersistenceContext : repositories()
+PersistenceContext -> RepositoryFactory : create
+RepositoryFactory -> JobOpeningRepository : jobOpenings()
+SelectJobRequirementSpecificationController -> JobOpeningRepository : findAll()
+activate JobOpeningRepository
+JobOpeningRepository --> SelectJobRequirementSpecificationController : List<JobOpening>
+deactivate JobOpeningRepository
+SelectJobRequirementSpecificationController --> SelectJobRequirementSpecificationUI : List<JobOpening>
+deactivate SelectJobRequirementSpecificationController
+
+SelectJobRequirementSpecificationUI --> CustomerManager : shows list of Job Openings\nand asks to select one
+CustomerManager -> SelectJobRequirementSpecificationUI : selects one Job Opening
+
+SelectJobRequirementSpecificationUI -> SelectJobRequirementSpecificationController : listJobRequirementsSpecification()
+activate SelectJobRequirementSpecificationController
+SelectJobRequirementSpecificationController -> PersistenceContext : repositories()
+PersistenceContext -> RepositoryFactory : create
+RepositoryFactory -> JobRequirementSpecificationRepository : create
+SelectJobRequirementSpecificationController -> JobRequirementSpecificationRepository : findAll()
+activate JobRequirementSpecificationRepository
+JobRequirementSpecificationRepository --> SelectJobRequirementSpecificationController : List<JobRequirementSpecification>
+deactivate JobRequirementSpecificationRepository
+SelectJobRequirementSpecificationController --> SelectJobRequirementSpecificationUI : List<JobRequirementSpecification>
+deactivate SelectJobRequirementSpecificationController
+
+SelectJobRequirementSpecificationUI --> CustomerManager : shows list of Job Requirements\nSpecification and asks to select one
+CustomerManager -> SelectJobRequirementSpecificationUI : selects one Job \nRequirement Specification
+
+SelectJobRequirementSpecificationUI -> SelectJobRequirementSpecificationController : selectJobRequirementSpecificationForJobOpening(jobRequirementSpecification, jobOpening)
+activate SelectJobRequirementSpecificationController
+SelectJobRequirementSpecificationController -> JobOpening : selectJobRequirementSpecification(jobRequirementSpecification)
+SelectJobRequirementSpecificationController -> PersistenceContext : repositories()
+PersistenceContext -> RepositoryFactory : create
+RepositoryFactory -> JobOpeningRepository : create
+SelectJobRequirementSpecificationController -> JobOpeningRepository : save(jobOpening)
+activate JobOpeningRepository
+JobOpeningRepository --> SelectJobRequirementSpecificationController : jobOpening
+deactivate JobOpeningRepository
+SelectJobRequirementSpecificationController --> SelectJobRequirementSpecificationUI : jobOpening
+deactivate SelectJobRequirementSpecificationController
+
+SelectJobRequirementSpecificationUI --> CustomerManager : backs to menu
+
+
+
+@enduml
