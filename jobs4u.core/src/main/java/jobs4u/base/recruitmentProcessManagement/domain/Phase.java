@@ -18,6 +18,7 @@ public class Phase {
 
     @Id
     private Designation designation;
+
     private LocalDate startDate;
     private LocalDate endDate;
 

@@ -12,6 +12,9 @@ import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 @Entity
 public class JobOpening implements AggregateRoot<JobReference> {
 

@@ -13,6 +13,7 @@
     <class>jobs4u.base.jobs4uusermanagement.domain.Jobs4uUser</class>
     <class>jobs4u.base.jobs4uusermanagement.domain.SignupRequest</class>
     <class>jobs4u.base.clientManagement.domain.Client</class>
+    <class>jobs4u.base.jobOpeningsManagement.domain.JobOpening</class>
 
     <properties>
       <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->
