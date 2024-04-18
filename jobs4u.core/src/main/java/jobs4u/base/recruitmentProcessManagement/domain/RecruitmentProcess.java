@@ -3,7 +3,7 @@ package jobs4u.base.recruitmentProcessManagement.domain;
 
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
-import jobs4u.base.jobOpeningsManagement.domain.utils.JobReference;
+import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.recruitmentProcessManagement.domain.Phase;
 
 import java.util.ArrayList;
