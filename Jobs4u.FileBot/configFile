@@ -1,4 +1,4 @@
 input_directory=input
 output_directory=output
-worker_children=3
+worker_children=2
 check_interval=5
