@@ -1,6 +1,5 @@
 #include "header.h"
 
-
 // Função que lida com o sinal de ficheiro encontrado
 void handle_fileFoundSignal(int signo, siginfo_t *sinfo, void *context)
 {
@@ -9,7 +8,6 @@ void handle_fileFoundSignal(int signo, siginfo_t *sinfo, void *context)
         printf("Novo Arquivo encontrado\n");
         sleep(2);
         distribute_files();
-
     }
 }
 
@@ -29,26 +27,36 @@ void handle_childWorkFinishedSignal(int signo, siginfo_t *sinfo, void *context)
             }
         }
     }
+    if (count_unique_identifiers(input_directory) == 0)
+        {
+            generateReport();
+        }
 }
 
 // Função que lida com o sinal de interrupção (SIGINT)
-void sigint_handler(int signo, siginfo_t *sinfo, void *context) {
+void sigint_handler(int signo, siginfo_t *sinfo, void *context)
+{
     printf("Received SIGINT. Terminating child processes.\n");
-    
+
+    generateReport();
+
     // Terminate each child process
-    for (int i = 0; i < worker_children; i++) {
-        if (child_pids[i] > 0) {
+    for (int i = 0; i < worker_children; i++)
+    {
+        if (child_pids[i] > 0)
+        {
             kill(child_pids[i], SIGTERM);
         }
     }
 
     // Wait for each child process to terminate
-    for (int i = 0; i < worker_children; i++) {
-        if (child_pids[i] > 0) {
+    for (int i = 0; i < worker_children; i++)
+    {
+        if (child_pids[i] > 0)
+        {
             waitpid(child_pids[i], NULL, 0);
         }
     }
-
 
     // Fecha os pipes
     for (int i = 0; i < worker_children; i++)

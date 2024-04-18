@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I.
 DEPS = header.h
-OBJ = main.o ProcessFile.o readConfig.o monitor_directory.o destributeFiles.o utils.o handleSignals.o
+OBJ = main.o ProcessFile.o readConfig.o monitor_directory.o destributeFiles.o utils.o handleSignals.o generateReport.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)

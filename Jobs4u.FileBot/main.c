@@ -4,6 +4,7 @@
 // Define global variables
 char input_directory[MAX_FILENAME];
 char output_directory[MAX_FILENAME];
+char report_file[MAX_FILENAME];
 int worker_children;
 int check_interval;
 int **pipes;
@@ -59,13 +60,7 @@ int main()
             // Filho que monitoriza o diretorio
             if (i == 0)
             {
-                
-        
-                while (1)
-                {
-                    monitor_directory();
-                    sleep(check_interval);
-                }
+                execlp("./monitor_directory", "monitor_directory", NULL);
             }
             else
             {                                
@@ -117,7 +112,7 @@ int main()
         sleep(1);
     }
 
-    printf("Main process PID: %d\n", getpid()); 
+    
 
     while (1)
     {
@@ -127,7 +122,6 @@ int main()
         {
             kill(getpid(), SIGUSR1);
         }
-
     }
 
     // Fecha os pipes

@@ -17,10 +17,12 @@
 #define MAX_CHILDREN 3
 #define MAX_FILENAME 256
 #define MAX_FILES 20
+#define MAX_CANDIDATES 1000
 
 // Global variables
 extern char input_directory[MAX_FILENAME];
 extern char output_directory[MAX_FILENAME];
+extern char report_file[MAX_FILENAME];
 extern int worker_children;
 extern int check_interval;
 extern int **pipes;       // Array of pipes, one for each child process
@@ -30,6 +32,8 @@ extern int num_ids;
 extern int fd[2];
 extern int num_files;
 extern int *child_pids;
+
+
 
 
 // Function ProcessFile.c
@@ -62,11 +66,18 @@ int getChildIndex();
 void inicializa();
 
 
-
 //Function handleSignals.c
 void handle_fileFoundSignal(int signo, siginfo_t *sinfo, void *context);
 void handle_childWorkFinishedSignal(int signo, siginfo_t *sinfo, void *context);
 void sigint_handler(int signo, siginfo_t *sinfo, void *context);
+
+
+// Function generateReport.c
+void generateReport();
+int countCandidatures();
+void loadCandidateInfo();
+int countFilesInDirectory(const char *dirPath);
+void loadFilesInDirectory(const char *dirPath, char files[MAX_FILES][MAX_FILENAME]);
 
 
 #endif // MY_HEADER_H

@@ -45,6 +45,10 @@ void read_config()
         {
             check_interval = atoi(value);
         }
+        else if (strcmp(key, "report_name") == 0)
+        {
+            strncpy(report_file, value, sizeof(report_file));
+        }
     }
 
     // Fecha o file

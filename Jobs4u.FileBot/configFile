@@ -2,3 +2,4 @@ input_directory=input
 output_directory=output
 worker_children=3
 check_interval=5
+report_name=report
