@@ -6,7 +6,6 @@ void handle_fileFoundSignal(int signo, siginfo_t *sinfo, void *context)
     if (signo == SIGUSR1)
     {
         printf("Novo Arquivo encontrado\n");
-        sleep(2);
         distribute_files();
     }
 }

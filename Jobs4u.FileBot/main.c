@@ -116,12 +116,7 @@ int main()
 
     while (1)
     {
-        // Verifica se todos os ficheiros foram lidos pelos filhos
-        sleep(check_interval);
-        if (count_unique_identifiers(input_directory) > 0)
-        {
-            kill(getpid(), SIGUSR1);
-        }
+        
     }
 
     // Fecha os pipes
