@@ -14,6 +14,7 @@ void read_config()
     }
 
     char line[256];
+    
     // Lê o file linha a linha
     while (fgets(line, sizeof(line), file))
     {

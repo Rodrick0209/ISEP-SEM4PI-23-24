@@ -1,7 +1,7 @@
 #include "header.h"
 
 
-
+// Function that distributes files to the child processes
 void distribute_files()
 {
     DIR *dir;
@@ -31,7 +31,6 @@ void distribute_files()
                     child = 0;
                 }
             }
-
 
             // Get the identifier from the file name
             int identifier = atoi(strtok(ent->d_name, "-"));
@@ -73,6 +72,7 @@ void distribute_files()
                 // Distribute files to the current child process
                 printf("Enviando %d arquivos para o processo filho %d\n", fileCount, child + 1);
 
+                //write the files to the pipe to parent
                 int n = write(pipes[child][1], files, fileCount * MAX_FILENAME);
                 if (n == -1)
                 {

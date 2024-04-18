@@ -1,7 +1,7 @@
 #include "header.h"
 
 
-
+// Get the candidate number from the filename (first number)
 int getCandidateNumber(const char *filename) {
     char *filename_copy = strdup(filename);
     char *token;
@@ -11,11 +11,12 @@ int getCandidateNumber(const char *filename) {
     // convert the token to an integer
     applicationNumber = atoi(token);
     free(filename_copy);
+    // return the candidate number
     return applicationNumber;
 }
 
 
-
+// Get the job application reference from the first line of the file
 char* getJobApplicationReference(const char *filename){
   char path[256];
   sprintf(path, "%s/%s",input_directory, filename);
@@ -35,13 +36,13 @@ char* getJobApplicationReference(const char *filename){
 
     fclose(file);
 
-
-      remove_non_printable_chars(firstLine);
+    remove_non_printable_chars(firstLine);
 
     return firstLine;
 }
 
 
+// Ensure that the directory for the job opening exists
 void ensure_JobOpening_directory_exists(const char *dir) {
 
   char path[256];
@@ -55,6 +56,7 @@ void ensure_JobOpening_directory_exists(const char *dir) {
   }
 }
 
+// Ensure that the directory for the application exists
 void ensure_Application_directory_exists(const char *dirJobOpening,int dirApplication) {
 
   char path[256];
@@ -69,7 +71,7 @@ void ensure_Application_directory_exists(const char *dirJobOpening,int dirApplic
 }
 
 
-
+// Move the file to the appropriate directory
 void moveFile(const char *filename,const char *dir,int dirApplication) {
   char path[256];
   sprintf(path, "%s/%s",input_directory, filename);
@@ -82,6 +84,8 @@ void moveFile(const char *filename,const char *dir,int dirApplication) {
   }
 }
 
+
+// Function that call all the functions above to process the candidate files
 void processCandidateFile(char file_names[][MAX_FILENAME], int array_size) {
 
 

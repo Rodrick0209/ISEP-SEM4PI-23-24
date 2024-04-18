@@ -20,6 +20,7 @@ void allocate_memory()
             exit(EXIT_FAILURE);
         }
     }
+
     // Allocate memory for the array of child processes and child status
     child_status = (int *)malloc(worker_children * sizeof(int));
     if (child_status == NULL)
@@ -28,7 +29,13 @@ void allocate_memory()
         exit(EXIT_FAILURE);
     }
     
-
+    // Allocate memory for the array of child pids
+    child_pids = (int *)malloc((worker_children+1) * sizeof(int));
+    if (child_pids == NULL)
+    {
+        perror("Falha ao alocar memória para child_pids");
+        exit(EXIT_FAILURE);
+    }
 }
 
 void free_memory()
@@ -42,7 +49,11 @@ void free_memory()
 
     // Free memory allocated for the array of child status
     free(child_status);
+
+    // Free memory allocated for the array of child pids
+    free(child_pids);
 }
+
 
 bool id_exists(int id)
 {
@@ -56,18 +67,21 @@ bool id_exists(int id)
     return false;
 }
 
+
 void add_id(int id)
 {
     processed_ids[num_ids] = id;
     num_ids++;
 }
 
+
+//count the number of unique identifiers in the input directory
 int count_unique_identifiers(const char *input_directory)
 {
     DIR *dir;
     struct dirent *ent;
     int unique_identifiers = 0;
-    int identifiers[100] = {0}; // Assuming a maximum of 100 identifiers
+    int identifiers[100] = {0}; 
 
     // Open the directory
     if ((dir = opendir(input_directory)) != NULL)
@@ -114,6 +128,8 @@ int count_unique_identifiers(const char *input_directory)
     return unique_identifiers;
 }
 
+
+// Remove non-printable characters from a string
 void remove_non_printable_chars(char* str) {
     char* i = str;
     char* j = str;
@@ -126,7 +142,7 @@ void remove_non_printable_chars(char* str) {
     *j = 0;
 }
 
-
+// Reorganize the array of file names to move the candidate file to the beginning
 bool reorganize_array(char files[MAX_FILES][MAX_FILENAME], int fileCount)
 {
     int candidate_index = -1;
@@ -148,7 +164,7 @@ bool reorganize_array(char files[MAX_FILES][MAX_FILENAME], int fileCount)
         char temp[MAX_FILENAME];
         strcpy(temp, files[candidate_index]); // Store the candidate file temporarily
 
-        // Shift all elements to the right to make space for the candidate file at the beginning
+        
         for (int i = candidate_index; i > 0; i--)
         {
             strcpy(files[i], files[i - 1]);
@@ -164,16 +180,16 @@ bool reorganize_array(char files[MAX_FILES][MAX_FILENAME], int fileCount)
     }
 }
 
+
 int getChildIndex()
 {
     int childIndex;
-    // close(fd[1]);
     int n = read(fd[0], &childIndex, sizeof(childIndex));
     return childIndex;
 }
 
 
-
+// Inicializa os pipes e o array de status dos filhos
 void inicializa()
 {
     for (int i = 0; i < worker_children; i++)

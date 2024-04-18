@@ -29,6 +29,8 @@ extern int processed_ids[MAX_FILES];
 extern int num_ids;
 extern int fd[2];
 extern int num_files;
+extern int *child_pids;
+
 
 // Function ProcessFile.c
 void ensure_JobOpening_directory_exists(const char *dir);
@@ -64,7 +66,7 @@ void inicializa();
 //Function handleSignals.c
 void handle_fileFoundSignal(int signo, siginfo_t *sinfo, void *context);
 void handle_childWorkFinishedSignal(int signo, siginfo_t *sinfo, void *context);
-
+void sigint_handler(int signo, siginfo_t *sinfo, void *context);
 
 
 #endif // MY_HEADER_H
