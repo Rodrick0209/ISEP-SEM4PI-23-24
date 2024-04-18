@@ -75,6 +75,12 @@ void allocate_memory()
         perror("Falha ao alocar memória para child_status");
         exit(EXIT_FAILURE);
     }
+    child_pids = (int *)malloc(worker_children * sizeof(int));
+    if (child_pids == NULL)
+    {
+        perror("Falha ao alocar memória para child_pids");
+        exit(EXIT_FAILURE);
+    }
 }
 
 void free_memory()
@@ -88,6 +94,7 @@ void free_memory()
 
     // Free memory allocated for the array of child status
     free(child_status);
+    free(child_pids);
 }
 
 void monitor_directory()
@@ -376,6 +383,7 @@ void handle_fileFoundSignal(int signo, siginfo_t *sinfo, void *context)
     }
 }
 
+
 int getChildIndex()
 {
     int childIndex;
@@ -412,7 +420,7 @@ int main()
 
     inicializa();
 
-    struct sigaction act, act2;
+    struct sigaction act, act2,act1;
 
     // setup do sinal do ficheiro encontrado
     memset(&act, 0, sizeof(struct sigaction));
@@ -425,9 +433,11 @@ int main()
     act2.sa_flags = SA_SIGINFO;
     sigaction(SIGUSR2, &act2, NULL);
 
+
     for (int i = 0; i < (worker_children + 1); i++)
     {
         pid_t pid = fork();
+        child_pids[i] = pid;
 
         if (pid == 0)
         {
@@ -502,11 +512,6 @@ int main()
             kill(getpid(), SIGUSR1);
         }
 
-    }
-
-    for (int i = 0; i < worker_children; i++)
-    {
-        wait(NULL);
     }
 
     for (int i = 0; i < worker_children; i++)
