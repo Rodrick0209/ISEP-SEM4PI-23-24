@@ -4,9 +4,11 @@
 
 // Structure to hold candidate information
 struct Candidate {
+    char email[MAX_FILENAME]; 
     char number[MAX_FILENAME];
     char jobReference[MAX_FILENAME]; // Added to store job reference
     char files[MAX_FILES][MAX_FILENAME];
+    char path[MAX_FILENAME];
     int fileCount;
 };
 
@@ -31,12 +33,14 @@ void generateReport() {
 
     // Iterate through each candidate and write their information to the report
     for (int i = 0; i < candidateCount; i++) {
+        fprintf(reportFile, "Candidate Email: %s\n", report_data[i].email); 
         fprintf(reportFile, "Candidate Number: %s\n", report_data[i].number);
         fprintf(reportFile, "Job Reference: %s\n", report_data[i].jobReference);
-        fprintf(reportFile, "Path: %s\\%s\\%s\n", output_directory ,report_data[i].number, report_data[i].jobReference);
+        fprintf(reportFile, "Path: %s\n", report_data[i].path);
+
         fprintf(reportFile, "Files:\n");
         for (int j = 0; j < report_data[i].fileCount; j++) {
-            fprintf(reportFile, "- %s\n", report_data[i].files[j]);
+            fprintf(reportFile, "   - %s\n", report_data[i].files[j]);
         }
         fprintf(reportFile, "\n");
     }
@@ -156,10 +160,16 @@ void loadCandidateInfo() {
 
                     if (S_ISDIR(jobStat.st_mode) && strcmp(jobEntry->d_name, ".") != 0 && strcmp(jobEntry->d_name, "..") != 0) {
                         // Extract candidate information and store it in the report_data array
-                        strcpy(report_data[candidateIndex].number, rootEntry->d_name); // Candidate number
-                        strcpy(report_data[candidateIndex].jobReference, jobEntry->d_name); // Job reference
+                        strcpy(report_data[candidateIndex].jobReference, rootEntry->d_name); // Candidate number
+                        strcpy(report_data[candidateIndex].number, jobEntry->d_name); // Job reference
+                        strcpy(report_data[candidateIndex].path, jobFullPath); // Path to candidate directory
                         report_data[candidateIndex].fileCount = countFilesInDirectory(jobFullPath); // Count files in candidate directory
                         loadFilesInDirectory(jobFullPath, report_data[candidateIndex].files); // Load file names into report_data array
+
+                        char emailFilePath[1024];
+                        sprintf(emailFilePath, "%s/%s-candidate-data.txt", jobFullPath, jobEntry->d_name); // Construct email file path
+                        getEmailFromCandidateData(emailFilePath, report_data[candidateIndex].email); // Load email from file
+
 
                         candidateIndex++;
                     }
@@ -211,3 +221,33 @@ void loadFilesInDirectory(const char *dirPath, char files[MAX_FILES][MAX_FILENAM
     }
 }
 
+
+
+// Function to load email from file
+void getEmailFromCandidateData(const char *filePath, char *email) {
+    FILE *emailFile = fopen(filePath, "r");
+    if (emailFile == NULL) {
+        perror("Failed to open email file");
+        return;
+    }
+
+    // Skip the first line
+    char buffer[MAX_FILENAME];
+    if (fgets(buffer, MAX_FILENAME, emailFile) == NULL) {
+        perror("Failed to read first line from email file");
+        fclose(emailFile);
+        return;
+    }
+
+    // Read the email data from the second line
+    if (fgets(email, MAX_FILENAME, emailFile) == NULL) {
+        perror("Failed to read email from file");
+    }
+
+    fclose(emailFile);
+
+    // Remove newline character if present
+    char *newlinePos;
+    if ((newlinePos = strchr(email, '\n')) != NULL)
+        *newlinePos = '\0';
+}
