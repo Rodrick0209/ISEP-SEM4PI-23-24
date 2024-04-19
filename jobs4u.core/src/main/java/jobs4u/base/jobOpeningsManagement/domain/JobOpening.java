@@ -5,6 +5,7 @@ import eapli.framework.general.domain.model.Designation;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Version;
+import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.NrVacancy;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
@@ -30,15 +31,18 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private Designation description;
     private Designation function;
     private ClientCode clientCode;
+    private ContractType contractType;
 
 
-    public JobOpening(JobReference jobReference, WorkingMode workingMode, NrVacancy nrVacancy, PostalAddress address, Designation description, Designation function) {
+    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String  description, String function, ContractType contractType) {
 
+        this.jobReference = jobReference;
         this.workingMode = workingMode;
-        this.nrVacancy = nrVacancy;
-        this.address = address;
-        this.description = description;
-        this.function = function;
+        this.nrVacancy = NrVacancy.valueOf(nrVacancy);
+        this.address = PostalAddress.valueOf(address);
+        this.description = Designation.valueOf(description);
+        this.function = Designation.valueOf(function);
+        this.contractType = contractType;
     }
 
     protected JobOpening() {

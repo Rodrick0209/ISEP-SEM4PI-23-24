@@ -6,3 +6,5 @@ public enum ContractType implements ValueObject {
     FULL_TIME,
     PART_TIME,
 }
+
+
