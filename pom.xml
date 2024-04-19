@@ -157,28 +157,23 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.11</version> <!-- Adjust version as needed -->
+				<version>0.8.12</version>
 				<executions>
 					<execution>
-						<id>default-prepare-agent</id>
+						<phase>verify</phase>
 						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-
-					<execution>
-						<id>default-report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
+							<goal>report-aggregate</goal>
 						</goals>
 						<configuration>
-							<dataFile>${project.build.directory}/coverage-reports/jacoco-merged.exec</dataFile>
+							<dataFileIncludes>
+								<dataFileInclude>**/jacoco.exec</dataFileInclude>
+							</dataFileIncludes>
 							<outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+
 
 			<!-- lombok -->
 			<plugin>
