@@ -1,6 +1,7 @@
 package jobs4u.base.candidateManagement.application;
 
 import jobs4u.base.candidateManagement.domain.Candidate;
+import jobs4u.base.candidateManagement.domain.CandidateDTO;
 
 public class CandidateMapper {
 

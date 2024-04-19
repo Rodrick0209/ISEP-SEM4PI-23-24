@@ -1,4 +1,4 @@
-package jobs4u.base.candidateManagement.application;
+package jobs4u.base.candidateManagement.domain;
 
 public class CandidateDTO {
 
