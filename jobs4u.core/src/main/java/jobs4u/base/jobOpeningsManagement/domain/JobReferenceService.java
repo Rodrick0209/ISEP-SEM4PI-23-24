@@ -13,6 +13,6 @@ public class JobReferenceService {
         if (counter >= 1000000) {
             counter = 0;
         }
-        return new JobReference(clientCode, Integer.toString(referenceNumber));
+        return new JobReference(clientCode, referenceNumber);
     }
 }
