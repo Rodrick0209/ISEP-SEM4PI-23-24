@@ -17,6 +17,7 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
         this.referenceNumber = referenceNumber;
     }
 
+
     @Override
     public String toString() {
         return this.clientCode.code() + "-" + String.format("%06d", this.referenceNumber);
@@ -33,6 +34,7 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
             return this.toString().equals(other.toString());
         }
     }
+
 
     @Override
     public int hashCode() {

@@ -1,16 +1,15 @@
 package jobs4u.base.jobOpeningsManagement.utils;
 
 import eapli.framework.domain.model.ValueObject;
+import eapli.framework.validations.Preconditions;
 
 public class NrVacancy implements ValueObject {
-    private final int nrVacancy;
+    private static final long serialVersionUID = 1L;
+    private final String nrVacancy;
 
-    public NrVacancy(int nrVacancy) {
+    protected NrVacancy(final String nrVacancy) {
+        Preconditions.nonEmpty(nrVacancy, "Number of vacancies should neither be null nor empty");
         this.nrVacancy = nrVacancy;
-    }
-
-    public int nrVacancy() {
-        return this.nrVacancy;
     }
 
     @Override
@@ -25,8 +24,12 @@ public class NrVacancy implements ValueObject {
         }
     }
 
+    public static NrVacancy valueOf(final String nrVacancy) {
+        return new NrVacancy(nrVacancy);
+    }
+
     @Override
     public int hashCode() {
-        return Integer.hashCode(this.nrVacancy);
+        return Integer.hashCode(Integer.parseInt(this.nrVacancy));
     }
 }
