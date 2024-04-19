@@ -29,11 +29,23 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build and Test with Maven
-        run: mvn verify
+        run: mvn -B verify
 
-      # Upload JaCoCo report as artifact
+
+      - name: jacoco-badge-generator
+        uses: cicirello/jacoco-badge-generator@v2.11.0
+
       - name: Upload JaCoCo report as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: jacoco-coverage-report
-          path: jobs4u.util.ci/target/site/jacoco-aggregate
+          name: jacoco-report
+          path: target/site/jacoco-aggregate
+
+
+
+    # Upload JaCoCo report as artifact
+#      - name: Upload JaCoCo report as artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: jacoco-coverage-report
+#          path: jobs4u.util.ci/target/site/jacoco-aggregate
