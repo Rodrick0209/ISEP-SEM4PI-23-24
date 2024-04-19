@@ -72,20 +72,21 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
         return new InMemoryJobOpeningRepository();
     }
 
+    @Override
+    public CandidateRepository candidates() {
+        return candidates(null);
+    }
+
+
+    public CandidateRepository candidates(final TransactionalContext tx) {
+        return new InMemoryCandidateRepository();
+    }
 
     @Override
     public ClientRepository clients() {
          return clients(null);
     }
 
-
-
-
-
-    @Override
-    public CandidateRepository candidates() {
-        return null;
-    }
 
     public ClientRepository clients(final TransactionalContext tx) {
         return new InMemoryClientRepository();
