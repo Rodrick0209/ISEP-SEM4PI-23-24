@@ -1,6 +1,7 @@
 package jobs4u.base.jobOpeningsManagement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
 import jakarta.persistence.*;
 import jobs4u.base.clientManagement.domain.Client;
@@ -65,5 +66,12 @@ public class JobOpening implements AggregateRoot<JobReference> {
     public JobReference identity() {
         return jobReference;
     }
+
+    @Override
+    public boolean equals(final Object o) {
+        return DomainEntities.areEqual(this, o);
+    }
+
+
 
 }
