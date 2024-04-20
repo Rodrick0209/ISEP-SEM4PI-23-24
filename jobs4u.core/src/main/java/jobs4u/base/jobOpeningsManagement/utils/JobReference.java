@@ -1,10 +1,12 @@
 package jobs4u.base.jobOpeningsManagement.utils;
 
 import eapli.framework.domain.model.ValueObject;
+import jakarta.persistence.Embeddable;
 import jobs4u.base.utils.ClientCode;
 
 import java.io.Serializable;
 
+@Embeddable
 public class JobReference implements ValueObject, Serializable, Comparable<JobReference> {
 
     private static final long serialVersionUID = 1L;
@@ -17,6 +19,10 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
         this.referenceNumber = referenceNumber;
     }
 
+    protected JobReference() {
+        this.clientCode = null;
+        this.referenceNumber = 0;
+    }
 
     @Override
     public String toString() {

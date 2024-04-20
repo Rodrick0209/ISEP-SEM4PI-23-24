@@ -2,10 +2,10 @@ package jobs4u.base.app.backoffice.console.presentation.costumerManagerUser;
 
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
+import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
-import jobs4u.base.jobOpeningsManagement.application.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningFactory;
 import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
@@ -20,11 +20,9 @@ public class RegisterJobOpeningUI extends AbstractUI {
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.RegisterJobOpeningUI.class);
-    private JobOpeningRepository jobOpeningRepository;
-    private JobReferenceService jobReferenceService;
-    private ClientCode clientCode;
 
-    private final RegisterJobOpeningController theController = new RegisterJobOpeningController(jobOpeningRepository, jobReferenceService, clientCode);
+
+    private final RegisterJobOpeningController theController = new RegisterJobOpeningController();
 
     @Override
     protected boolean doShow() {

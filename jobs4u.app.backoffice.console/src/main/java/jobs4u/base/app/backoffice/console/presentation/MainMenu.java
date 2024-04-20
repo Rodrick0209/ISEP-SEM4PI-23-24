@@ -30,6 +30,8 @@ import jobs4u.base.app.backoffice.console.presentation.authz.DisableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.ListUsersAction;
 import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientAction;
 import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientUI;
+import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.RegisterJobOpeningAction;
+import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.RegisterJobOpeningUI;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Actions;
@@ -66,6 +68,10 @@ public class MainMenu extends AbstractUI {
     // CUSTOMER
     private static final int ADD_CUSTOMER_OPTION = 1;
 
+    // JOB OPENING
+    private static final int REGISTER_JOB_OPENING = 1;
+
+
     // SETTINGS
     private static final int Option = 1;
 
@@ -73,7 +79,8 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
     private static final int CUSTOMERS_OPTION = 3;
-    private static final int SETTINGS_OPTION = 3;
+    private static final int JOB_OPENING_OPTION = 4;
+    private static final int SETTINGS_OPTION = 5;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -127,6 +134,9 @@ public class MainMenu extends AbstractUI {
         if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER)) {
             final Menu customersMenu = buildCustomersMenu();
             mainMenu.addSubMenu(CUSTOMERS_OPTION, customersMenu);
+            final Menu jobOpeningMenu = buildJobOpeningMenu();
+            mainMenu.addSubMenu(JOB_OPENING_OPTION, jobOpeningMenu);
+
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -170,5 +180,17 @@ public class MainMenu extends AbstractUI {
 
         return menu;
     }
+
+
+    private Menu buildJobOpeningMenu() {
+        final Menu menu = new Menu("Job Opening >");
+
+        menu.addItem(REGISTER_JOB_OPENING, "Register Job Opening", new RegisterJobOpeningUI()::show);
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
 
 }
