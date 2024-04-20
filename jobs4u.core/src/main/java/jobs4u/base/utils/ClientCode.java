@@ -2,6 +2,7 @@ package jobs4u.base.utils;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
@@ -9,16 +10,18 @@ import java.io.Serializable;
 @Embeddable
 public final class ClientCode implements ValueObject, Serializable, Comparable<ClientCode> {
     private static final long serialVersionUID = 1L;
-    private final String code;
 
-    protected ClientCode(final String code) {
-        Preconditions.nonEmpty(code, "Code should neither be null nor empty");
-        Preconditions.ensure(code.length() <= 10, "Code should not have more than 10 characters");
-        this.code = code;
+
+    private final String clientCode;
+
+    protected ClientCode(final String clientCode) {
+        Preconditions.nonEmpty(clientCode, "Code should neither be null nor empty");
+        Preconditions.ensure(clientCode.length() <= 10, "Code should not have more than 10 characters");
+        this.clientCode = clientCode;
     }
 
     protected ClientCode() {
-        this.code = "";
+        this.clientCode = "";
     }
 
     public static ClientCode valueOf(final String code) {
@@ -26,7 +29,7 @@ public final class ClientCode implements ValueObject, Serializable, Comparable<C
     }
 
     public String code() {
-        return this.code;
+        return this.clientCode;
     }
 
     @Override
@@ -37,17 +40,17 @@ public final class ClientCode implements ValueObject, Serializable, Comparable<C
             return false;
         } else {
             ClientCode other = (ClientCode) o;
-            return this.code.equals(other.code);
+            return this.clientCode.equals(other.clientCode);
         }
     }
 
     @Override
     public int hashCode() {
-        return this.code.hashCode();
+        return this.clientCode.hashCode();
     }
 
     @Override
     public int compareTo(ClientCode o) {
-        return this.code.compareTo(o.code);
+        return this.clientCode.compareTo(o.clientCode);
     }
 }

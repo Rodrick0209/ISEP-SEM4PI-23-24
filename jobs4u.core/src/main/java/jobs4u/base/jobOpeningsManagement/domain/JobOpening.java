@@ -2,9 +2,8 @@ package jobs4u.base.jobOpeningsManagement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Designation;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.NrVacancy;
@@ -28,9 +27,18 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private WorkingMode workingMode;
     private NrVacancy nrVacancy;
     private PostalAddress address;
+    @AttributeOverrides({
+            @AttributeOverride(name="name",
+                    column=@Column(name="description",
+                            insertable=false, updatable=false))
+    })
     private Designation description;
+    @AttributeOverrides({
+            @AttributeOverride(name="name",
+                    column=@Column(name="description",
+                            insertable=false, updatable=false))
+    })
     private Designation function;
-    private ClientCode clientCode;
     private ContractType contractType;
 
 

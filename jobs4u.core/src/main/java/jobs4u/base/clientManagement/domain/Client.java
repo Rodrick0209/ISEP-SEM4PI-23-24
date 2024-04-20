@@ -2,19 +2,10 @@ package jobs4u.base.clientManagement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
-import eapli.framework.general.domain.model.EmailAddress;
-import eapli.framework.infrastructure.authz.domain.model.Name;
-import eapli.framework.infrastructure.authz.domain.model.Password;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jobs4u.base.jobs4uusermanagement.domain.Jobs4uUser;
+import jakarta.persistence.*;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.ClientName;
 import jobs4u.base.utils.PostalAddress;
-import org.springframework.security.core.userdetails.User;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,7 +17,7 @@ public class Client implements AggregateRoot<ClientCode> {
 
 
     @Id
-    private ClientCode code;
+    private ClientCode clientCode;
     private ClientName name;
     private PostalAddress address;
 
@@ -34,15 +25,15 @@ public class Client implements AggregateRoot<ClientCode> {
 
     }
 
-    public Client(String code, String clientName, String address) {
+    public Client(String clientCode, String clientName, String address) {
 
-        this.code = ClientCode.valueOf(code);
+        this.clientCode = ClientCode.valueOf(clientCode);
         this.name = ClientName.valueOf(clientName);
         this.address = PostalAddress.valueOf(address);
     }
 
     public ClientCode code() {
-        return code;
+        return clientCode;
     }
 
     @Override
@@ -70,6 +61,6 @@ public class Client implements AggregateRoot<ClientCode> {
 
     @Override
     public ClientCode identity() {
-        return this.code;
+        return this.clientCode;
     }
 }
