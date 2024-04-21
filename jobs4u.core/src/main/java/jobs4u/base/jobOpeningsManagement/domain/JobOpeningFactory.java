@@ -7,9 +7,11 @@ import jobs4u.base.jobOpeningsManagement.utils.NrVacancy;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import jobs4u.base.utils.PostalAddress;
 
+import java.time.LocalDate;
+
 public class JobOpeningFactory {
 
-    public JobOpening createJobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType) {
-        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType);
+    public JobOpening createJobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, LocalDate creationDate) {
+        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
     }
 }

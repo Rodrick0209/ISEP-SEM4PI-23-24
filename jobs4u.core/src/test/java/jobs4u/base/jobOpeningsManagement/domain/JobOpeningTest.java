@@ -9,6 +9,8 @@ import jobs4u.base.utils.PostalAddress;
 import eapli.framework.general.domain.model.Designation;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JobOpeningTest {
@@ -22,9 +24,10 @@ public class JobOpeningTest {
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
+        LocalDate creationDate = LocalDate.now();
 
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType);
-        JobOpening actualJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType);
+        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
+        JobOpening actualJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
 
         assertEquals(expectedJobOpening, actualJobOpening);
     }

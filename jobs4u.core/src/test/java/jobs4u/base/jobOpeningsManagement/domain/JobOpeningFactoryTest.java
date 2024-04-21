@@ -8,6 +8,8 @@ import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JobOpeningFactoryTest {
@@ -23,9 +25,10 @@ public class JobOpeningFactoryTest {
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
+        LocalDate creationDate = LocalDate.now();
 
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType);
-        JobOpening actualJobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType);
+        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
+        JobOpening actualJobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
 
         assertEquals(expectedJobOpening, actualJobOpening);
     }

@@ -14,6 +14,7 @@ import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
 
 @XmlRootElement
 @Entity
@@ -41,9 +42,11 @@ public class JobOpening implements AggregateRoot<JobReference> {
     })
     private Designation function;
     private ContractType contractType;
+    private LocalDate creationDate;
 
 
-    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String  description, String function, ContractType contractType) {
+
+    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String  description, String function, ContractType contractType, LocalDate creationDate) {
 
         this.jobReference = jobReference;
         this.workingMode = workingMode;
@@ -52,6 +55,8 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.description = Designation.valueOf(description);
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
+        this.creationDate = creationDate;
+
     }
 
     protected JobOpening() {
