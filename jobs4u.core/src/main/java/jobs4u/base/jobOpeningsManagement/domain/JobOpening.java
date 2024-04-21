@@ -3,6 +3,7 @@ package jobs4u.base.jobOpeningsManagement.domain;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.time.util.CurrentTimeCalendars;
 import jakarta.persistence.*;
 import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
@@ -55,7 +56,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.description = Designation.valueOf(description);
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
-        this.creationDate = creationDate;
+        this.creationDate = creationDate == null ? LocalDate.now() : creationDate;;
 
     }
 
