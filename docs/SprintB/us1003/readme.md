@@ -35,7 +35,6 @@ openings.
 
 ### 4.1. Realization
 
-![SD1002.svg](SD%2FSD1002.svg)
 
 ### 4.2. Class Diagram
 
@@ -44,13 +43,10 @@ openings.
 In the development of this task, we utilized several design patterns to structure our code and ensure its
 maintainability and scalability. These patterns include:
 
-- **Factory Pattern:** This pattern was used to construct complex objects step by step. It separates the construction of
-  an object from its representation, allowing the same construction process to create different representations.
+
 - **Repository Pattern:** The Repository pattern was used to create an abstraction layer between the data access layer
   and the business logic layer of the application. This helps to decouple the application and make it easier to maintain
   and test.
-- **Service Pattern:** The Service pattern was used to encapsulate business logic and rules. This pattern provides a set
-  of methods that any client application can use, and these methods implement the business rules and logic.
 - **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
   handle incoming requests, manipulate data using the model, and select views to render to the user
 
@@ -78,14 +74,13 @@ maintainability and scalability. These patterns include:
 The process of registering a new user in this system involves several components working together. Here's a step-by-step
 explanation
 
-- **User Interface (RegisterJobOpeningUI.java)**: The process starts in the RegisterJobOpeningUI class, which is
+- **User Interface (ListJobOpeningUI.java)**: The process starts in the ListJobOpeningUI class, which is
   responsible for interacting
   with the user. It prompts the user to enter the necessary information.
-  This class uses the RegisterJobOpeningController to handle the business logic.
-- **Controller (RegisterJobOpeningController.java):** The RegisterJobOpeningController class is the bridge between the
+  This class uses the ListJobOpeningController to handle the business logic.
+- **Controller (ListJobOpeningController.java):** The ListJobOpeningController class is the bridge between the
   UI and the business
-  logic. It uses the JobOpeningFactory to register the new job opening. It also uses the JobReferenceService to
-  generate a job reference for the new job opening.
+  logic. 
 - **Repository (JobOpeningRepository):** The JobOpeningRepository is an interface that defines the methods for
   interacting with the
   database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
@@ -100,17 +95,16 @@ or reinventing existing components.
 
 ### Demonstration
 
-To demonstrate the functionality and the handling of invalid inputs, follow the steps below:
+To demonstrate the functionality follow the steps below:
 
 1. Start the application and log in as a customer manager.
-2. Navigate to the job openings section and select the option to register job opening.
-3. In the form that appears, fill the required fields with valid information.
-4. Submit the form. The system displays a success message "Job opening was not registered."
-5. To confirm that the job opening was not created, navigate to the List Job Openings section under Job Opening. The new
-   job opening should not appear in the list.
+2. Navigate to the job openings section and select the option to list job openings.
+3. Select the desired listing filters.
+4. If there are job openings that match the selected filters, they will be displayed on the screen.
+5. If there are no job openings that match the selected filters, a message will be displayed indicating that there are no
+   job openings to display.
 
-This process demonstrates the system's ability to validate job openings input and successfully register a job opening
-with valid details.
+This process demonstrates the system's ability to list job openings based on the selected filters.
 
 ## 7. Observations
 
