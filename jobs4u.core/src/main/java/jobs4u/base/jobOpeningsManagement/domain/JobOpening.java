@@ -60,7 +60,33 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     }
 
+
     protected JobOpening() {
+    }
+
+    public JobReference jobReference(){
+        return jobReference;
+    }
+    public WorkingMode workingMode(){
+        return workingMode;
+    }
+    public NrVacancy nrVacancy(){
+        return nrVacancy;
+    }
+    public PostalAddress address(){
+        return address;
+    }
+    public Designation description(){
+        return description;
+    }
+    public Designation function(){
+        return function;
+    }
+    public ContractType contractType(){
+        return contractType;
+    }
+    public LocalDate creationDate(){
+        return creationDate;
     }
 
     @Override
