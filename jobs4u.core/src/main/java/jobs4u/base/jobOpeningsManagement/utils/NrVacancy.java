@@ -8,7 +8,7 @@ public class NrVacancy implements ValueObject {
     private final String nrVacancy;
 
     protected NrVacancy(final String nrVacancy) {
-        Preconditions.nonEmpty(nrVacancy, "Number of vacancies should neither be null nor empty");
+        Preconditions.isPositive(Long.parseLong(nrVacancy), "Number of vacancies should be a positive integer");
         this.nrVacancy = nrVacancy;
     }
 

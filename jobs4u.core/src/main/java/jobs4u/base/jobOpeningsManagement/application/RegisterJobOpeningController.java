@@ -14,12 +14,14 @@ import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 
+import java.time.LocalDate;
+
 @UseCaseController
 public class RegisterJobOpeningController {
 
     private JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
-    private  JobReferenceService jobReferenceService = new JobReferenceService();
-    private  JobOpeningFactory jobOpeningFactory = new JobOpeningFactory();
+    private JobReferenceService jobReferenceService = new JobReferenceService();
+    private JobOpeningFactory jobOpeningFactory = new JobOpeningFactory();
 
 
     public JobReference createJobReference(String clientCode) {
@@ -27,10 +29,10 @@ public class RegisterJobOpeningController {
         return jobReferenceService.createJobReference(ClientCode.valueOf(clientCode));
     }
 
-    public JobOpening registerJobOpening(WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, String clientCode) {
+    public JobOpening registerJobOpening(WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, String clientCode, LocalDate creationDate) {
 
         JobReference jobReference = createJobReference(clientCode);
-        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType);
+        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
 
         return saveJobOpening(jobOpening);
     }

@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.config.ConfigTreeConfigDataLoader;
 
+import java.time.LocalDate;
+
 public class RegisterJobOpeningUI extends AbstractUI {
 
 
@@ -44,7 +46,8 @@ public class RegisterJobOpeningUI extends AbstractUI {
 
 
         try {
-            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientCode);
+            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientCode, LocalDate.now());
+            System.out.println("Job Opening registered successfully.");
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println(
