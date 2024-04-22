@@ -1,5 +1,5 @@
 // Generated from C:/Users/rodri/Documents/sem4pi-23-24-2dj2/jobs4u.core/src/main/java/jobs4u/base/interviewManagement/lprog/Evaluation/Evaluation.g4 by ANTLR 4.13.1
-package jobs4u.base.interviewManagement.lprog.Evaluation;
+package jobs4u.base.lprog.Evaluation;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**

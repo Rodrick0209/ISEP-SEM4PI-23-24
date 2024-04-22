@@ -1,5 +1,5 @@
 // Generated from C:/Users/rodri/Documents/sem4pi-23-24-2dj2/jobs4u.core/src/main/java/jobs4u/base/interviewManagement/lprog/InterviewQuestionsManagement/Interview.g4 by ANTLR 4.13.1
-package jobs4u.base.interviewManagement.lprog.InterviewQuestionsManagement;
+package jobs4u.base.lprog.InterviewQuestionsManagement;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

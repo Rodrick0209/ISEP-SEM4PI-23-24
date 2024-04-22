@@ -1,0 +1,16 @@
+Answer: b,c,d
+
+Answer: Rubidio.
+
+Answer: 2.0
+
+Answer: true
+
+Answer:true
+
+Answer: 25/04/1974
+
+Answer: 18:17
+
+Answer: 10
+
