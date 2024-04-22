@@ -65,7 +65,7 @@ public class MainMenu extends AbstractUI {
     private static final int DISABLE_USER_OPTION = 4;
     //private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
 
-    // CUSTOMER
+    // CUSTOMERS
     private static final int ADD_CUSTOMER_OPTION = 1;
 
     // JOB OPENING
@@ -137,6 +137,17 @@ public class MainMenu extends AbstractUI {
             final Menu jobOpeningMenu = buildJobOpeningMenu();
             mainMenu.addSubMenu(JOB_OPENING_OPTION, jobOpeningMenu);
 
+            final Menu settingsMenu = buildAdminSettingsMenu();
+            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+
+        }
+
+        if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.OPERATOR)) {
+
+
+            final Menu settingsMenu = buildAdminSettingsMenu();
+            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -180,6 +191,9 @@ public class MainMenu extends AbstractUI {
 
         return menu;
     }
+
+
+
 
 
     private Menu buildJobOpeningMenu() {

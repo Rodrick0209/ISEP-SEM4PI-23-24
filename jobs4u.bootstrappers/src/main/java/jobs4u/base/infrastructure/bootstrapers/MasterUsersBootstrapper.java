@@ -37,12 +37,19 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerAdmin("admin@gmail.com", TestDataConstants.PASSWORD1, "Admin", "Doe Admin",
                 "admin@gmail.com");
 
-        registerCustomerManager("customermanager@gmail.com", TestDataConstants.PASSWORD1, "Customer", "Doe Admin",
+        registerCustomerManager("customermanager@gmail.com", TestDataConstants.PASSWORD1, "Customer", "Doe CustomerManager",
                 "customermanager@gmail.com");
+
+        registerOperator("operator@gmail.com", TestDataConstants.PASSWORD1, "operator", "Doe operator",
+                "operator@gmail.com");
+
+        registerCandidate("candidate@gmail.com", TestDataConstants.PASSWORD1, "candidate", "Doe candidate",
+                "candidate@gmail.com");
+
+        registerCustomer("customer@gmail.com", TestDataConstants.PASSWORD1, "customer", "Doe customer",
+                "customer@gmail.com");
+
         return true;
-
-
-
     }
 
     /**
@@ -63,4 +70,30 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
+
+    private void registerCandidate(final String username, final String password, final String firstName,
+                                         final String lastName, final String email) {
+        final Set<Role> roles = new HashSet<>();
+        roles.add(Jobs4uRoles.CANDIDATE);
+
+        registerUser(username, password, firstName, lastName, email, roles);
+    }
+
+    private void registerOperator(final String username, final String password, final String firstName,
+                                   final String lastName, final String email) {
+        final Set<Role> roles = new HashSet<>();
+        roles.add(Jobs4uRoles.OPERATOR);
+
+        registerUser(username, password, firstName, lastName, email, roles);
+    }
+
+    private void registerCustomer(final String username, final String password, final String firstName,
+                                  final String lastName, final String email) {
+        final Set<Role> roles = new HashSet<>();
+        roles.add(Jobs4uRoles.CUSTOMER);
+
+        registerUser(username, password, firstName, lastName, email, roles);
+    }
+
+
 }
