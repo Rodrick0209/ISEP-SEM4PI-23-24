@@ -73,7 +73,6 @@ public interface RepositoryFactory {
 
     JobOpeningRepository jobOpenings();
 
-
     ClientRepository clients();
 
 

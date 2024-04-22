@@ -1,10 +1,11 @@
 package jobs4u.base.jobOpeningsManagement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Version;
+import eapli.framework.time.util.CurrentTimeCalendars;
+import jakarta.persistence.*;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.NrVacancy;
@@ -14,6 +15,7 @@ import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
 
 @XmlRootElement
 @Entity
@@ -28,13 +30,24 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private WorkingMode workingMode;
     private NrVacancy nrVacancy;
     private PostalAddress address;
+    @AttributeOverrides({
+            @AttributeOverride(name="name",
+                    column=@Column(name="description",
+                            insertable=false, updatable=false))
+    })
     private Designation description;
+    @AttributeOverrides({
+            @AttributeOverride(name="name",
+                    column=@Column(name="description",
+                            insertable=false, updatable=false))
+    })
     private Designation function;
-    private ClientCode clientCode;
     private ContractType contractType;
+    private LocalDate creationDate;
 
 
-    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String  description, String function, ContractType contractType) {
+
+    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String  description, String function, ContractType contractType, LocalDate creationDate) {
 
         this.jobReference = jobReference;
         this.workingMode = workingMode;
@@ -43,9 +56,37 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.description = Designation.valueOf(description);
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
+        this.creationDate = creationDate == null ? LocalDate.now() : creationDate;;
+
     }
 
+
     protected JobOpening() {
+    }
+
+    public JobReference jobReference(){
+        return jobReference;
+    }
+    public WorkingMode workingMode(){
+        return workingMode;
+    }
+    public NrVacancy nrVacancy(){
+        return nrVacancy;
+    }
+    public PostalAddress address(){
+        return address;
+    }
+    public Designation description(){
+        return description;
+    }
+    public Designation function(){
+        return function;
+    }
+    public ContractType contractType(){
+        return contractType;
+    }
+    public LocalDate creationDate(){
+        return creationDate;
     }
 
     @Override
@@ -57,5 +98,12 @@ public class JobOpening implements AggregateRoot<JobReference> {
     public JobReference identity() {
         return jobReference;
     }
+
+    @Override
+    public boolean equals(final Object o) {
+        return DomainEntities.areEqual(this, o);
+    }
+
+
 
 }

@@ -2,10 +2,10 @@ package jobs4u.base.app.backoffice.console.presentation.costumerManagerUser;
 
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
+import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
-import jobs4u.base.jobOpeningsManagement.application.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningFactory;
 import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
@@ -16,15 +16,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.config.ConfigTreeConfigDataLoader;
 
+import java.time.LocalDate;
+
 public class RegisterJobOpeningUI extends AbstractUI {
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.RegisterJobOpeningUI.class);
-    private JobOpeningRepository jobOpeningRepository;
-    private JobReferenceService jobReferenceService;
-    private ClientCode clientCode;
 
-    private final RegisterJobOpeningController theController = new RegisterJobOpeningController(jobOpeningRepository, jobReferenceService, clientCode);
+
+    private final RegisterJobOpeningController theController = new RegisterJobOpeningController();
 
     @Override
     protected boolean doShow() {
@@ -46,7 +46,8 @@ public class RegisterJobOpeningUI extends AbstractUI {
 
 
         try {
-            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientCode);
+            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientCode, LocalDate.now());
+            System.out.println("Job Opening registered successfully.");
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println(

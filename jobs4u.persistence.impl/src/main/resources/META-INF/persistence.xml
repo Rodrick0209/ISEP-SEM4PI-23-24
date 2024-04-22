@@ -16,8 +16,9 @@
     <class>jobs4u.base.jobOpeningsManagement.domain.JobOpening</class>
     <class>jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess</class>
     <class>jobs4u.base.recruitmentProcessManagement.domain.Phase</class>
+      <class>jobs4u.base.interviewModel.domain.InterviewModel</class>
 
-    <properties>
+      <properties>
       <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->
       <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:~\base"/>
 
