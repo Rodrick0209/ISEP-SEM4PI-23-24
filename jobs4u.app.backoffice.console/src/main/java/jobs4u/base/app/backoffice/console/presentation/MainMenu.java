@@ -28,9 +28,7 @@ import jobs4u.base.app.backoffice.console.presentation.authz.EnableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.DisableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.ListUsersAction;
-import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientAction;
 import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientUI;
-import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.RegisterJobOpeningAction;
 import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.RegisterJobOpeningUI;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
@@ -86,6 +84,7 @@ public class MainMenu extends AbstractUI {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
+
     @Override
     public boolean show() {
         drawFormTitle();
@@ -97,7 +96,7 @@ public class MainMenu extends AbstractUI {
      */
     @Override
     public boolean doShow() {
-        final Menu menu = buildMainMenu();
+        Menu menu = buildMainMenu();
         final MenuRenderer renderer;
         if (Application.settings().isMenuLayoutHorizontal()) {
             renderer = new HorizontalMenuRenderer(menu, MenuItemRenderer.DEFAULT);
@@ -115,6 +114,11 @@ public class MainMenu extends AbstractUI {
     }
 
     private Menu buildMainMenu() {
+
+        if (!authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.BackgroundUserValues())){
+            throw new IllegalArgumentException("User not authorized to access this menu");
+        }
+
         final Menu mainMenu = new Menu();
 
         final Menu myUserMenu = new MyUserMenu();
@@ -143,7 +147,6 @@ public class MainMenu extends AbstractUI {
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.OPERATOR)) {
-
 
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
