@@ -19,5 +19,22 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>jobs4u.core</groupId>
+            <artifactId>jobs4u.core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jobs4u.app.common.console</groupId>
+            <artifactId>jobs4u.app.common.console</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jobs4u.persistence.impl</groupId>
+            <artifactId>jobs4u.persistence.impl</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 </project>
