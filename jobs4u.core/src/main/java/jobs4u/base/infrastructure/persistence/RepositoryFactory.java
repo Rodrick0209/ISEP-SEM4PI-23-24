@@ -23,6 +23,7 @@ package jobs4u.base.infrastructure.persistence;
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
+import jobs4u.base.jobRequirementSpecification.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.ClientUserRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -87,5 +88,7 @@ public interface RepositoryFactory {
      * @return
      */
     SignupRequestRepository signupRequests();
+
+    JobRequirementSpecificationRepository jobRequirementsSpecification();
 
 }
