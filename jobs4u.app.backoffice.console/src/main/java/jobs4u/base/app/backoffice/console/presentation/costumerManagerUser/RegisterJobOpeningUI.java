@@ -114,6 +114,9 @@ public class RegisterJobOpeningUI extends AbstractUI {
     private void printAllClients() {
         List<ClientDTO> clients = this.theController.getAllClients();
         int optionNumber = 1;
+        if (clients.isEmpty()) {
+            System.out.println("No clients found. You must register a client first");
+        }
         for (ClientDTO client : clients) {
             System.out.println(optionNumber + ". " + client.name);
             optionNumber++;
