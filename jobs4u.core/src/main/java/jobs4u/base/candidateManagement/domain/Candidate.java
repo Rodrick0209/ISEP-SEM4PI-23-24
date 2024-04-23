@@ -44,6 +44,10 @@ public class Candidate implements AggregateRoot<EmailAddress> {
         return name;
     }
 
+    public String nameString(){
+        return name.toString();
+    }
+
     public PhoneNumber phoneNumber(){
         return phoneNumber;
 
