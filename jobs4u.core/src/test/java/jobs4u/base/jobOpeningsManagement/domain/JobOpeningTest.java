@@ -3,12 +3,8 @@ package jobs4u.base.jobOpeningsManagement.domain;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
-import jobs4u.base.jobOpeningsManagement.utils.NrVacancy;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
-import jobs4u.base.jobRequirementSpecification.domain.JobRequirementSpecification;
 import jobs4u.base.utils.ClientCode;
-import jobs4u.base.utils.PostalAddress;
-import eapli.framework.general.domain.model.Designation;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

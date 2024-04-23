@@ -22,8 +22,9 @@ package jobs4u.base.persistence.impl.inmemory;
 
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
+import jobs4u.base.interviewModel.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
-import jobs4u.base.jobRequirementSpecification.repositories.JobRequirementSpecificationRepository;
+import jobs4u.base.jobRequirement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.ClientUserRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.SignupRequestRepository;
 import jobs4u.base.infrastructure.bootstrapers.BaseBootstrapper;
@@ -102,6 +103,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     @Override
     public JobRequirementSpecificationRepository jobRequirementsSpecification() {
         return new InMemoryJobRequirementSpecificationRepository();
+    }
+
+    @Override
+    public InterviewModelSpecificationRepository interviewModelsSpecification() {
+        return new InMemoryInterviewModelSpecificationRepository();
     }
 
     @Override
