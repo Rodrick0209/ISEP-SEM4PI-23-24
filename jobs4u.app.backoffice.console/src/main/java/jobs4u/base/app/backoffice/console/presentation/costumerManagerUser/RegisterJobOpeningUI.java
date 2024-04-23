@@ -5,6 +5,7 @@ import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningFactory;
@@ -32,7 +33,7 @@ public class RegisterJobOpeningUI extends AbstractUI {
     protected boolean doShow() {
 
 
-        final List<ClientDTO> clients = this.theController.getAllClients();
+        final List<Client> clients = this.theController.getAllClients();
 
         printAllClients();
 
@@ -112,13 +113,13 @@ public class RegisterJobOpeningUI extends AbstractUI {
     }
 
     private void printAllClients() {
-        List<ClientDTO> clients = this.theController.getAllClients();
+        List<Client> clients = this.theController.getAllClients();
         int optionNumber = 1;
         if (clients.isEmpty()) {
             System.out.println("No clients found. You must register a client first");
         }
-        for (ClientDTO client : clients) {
-            System.out.println(optionNumber + ". " + client.name);
+        for (Client client : clients) {
+            System.out.println(optionNumber + ". " + client.name());
             optionNumber++;
         }
     }
