@@ -103,11 +103,11 @@ public void ensureNotPossibleToSelectAInvalidJobRequirementSpecificationForAJobO
 The process of selecting a Job Requirement Specification for a Job Opening in this system involves several components working together. Here's a step-by-step
 explanation
 
-- **User Interface (SelectJobRequirementSpecificationUI.java)**: The process starts in the SelectJobRequirementSpecificationUI class, which is
+- **User Interface (SelectJobRequirementSpecificationForJobOpeningUI.java)**: The process starts in the SelectJobRequirementSpecificationForJobOpeningUI class, which is
   responsible for interacting
   with the user. It prompts the user to enter the necessary information.
-  This class uses the SelectJobRequirementSpecificationController to handle the business logic.
-- **Controller (SelectJobRequirementSpecificationController.java):** The SelectJobRequirementSpecificationController class is the bridge between the
+  This class uses the SelectJobRequirementSpecificationForJobOpeningController to handle the business logic.
+- **Controller (SelectJobRequirementSpecificationForJobOpeningController.java):** The SelectJobRequirementSpecificationForJobOpeningController class is the bridge between the
   UI and the business
   logic.
 - **Repository (JobOpeningRepository):** The JobOpeningRepository is an interface that defines the methods for

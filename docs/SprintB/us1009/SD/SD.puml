@@ -4,61 +4,61 @@
 
 actor CustomerManager
 
-participant SelectJobRequirementSpecificationUI <<presentation>>
-participant SelectJobRequirementSpecificationController <<application>>
+participant SelectJobRequirementSpecificationForJobOpeningUI <<presentation>>
+participant SelectJobRequirementSpecificationForJobOpeningController <<application>>
 participant PersistenceContext
 participant RepositoryFactory
 participant JobOpeningRepository <<repository>>
 participant JobRequirementSpecificationRepository <<repository>>
 participant JobOpening <<domain>>
 
--> SelectJobRequirementSpecificationUI: doShow()
-activate SelectJobRequirementSpecificationUI
-SelectJobRequirementSpecificationUI -> SelectJobRequirementSpecificationController : create
-SelectJobRequirementSpecificationUI -> SelectJobRequirementSpecificationController : listJobOpenings()
-activate SelectJobRequirementSpecificationController
-SelectJobRequirementSpecificationController -> PersistenceContext : repositories()
+-> SelectJobRequirementSpecificationForJobOpeningUI: doShow()
+activate SelectJobRequirementSpecificationForJobOpeningUI
+SelectJobRequirementSpecificationForJobOpeningUI -> SelectJobRequirementSpecificationForJobOpeningController : create
+SelectJobRequirementSpecificationForJobOpeningUI -> SelectJobRequirementSpecificationForJobOpeningController : listJobOpenings()
+activate SelectJobRequirementSpecificationForJobOpeningController
+SelectJobRequirementSpecificationForJobOpeningController -> PersistenceContext : repositories()
 PersistenceContext -> RepositoryFactory : create
 RepositoryFactory -> JobOpeningRepository : jobOpenings()
-SelectJobRequirementSpecificationController -> JobOpeningRepository : findAll()
+SelectJobRequirementSpecificationForJobOpeningController -> JobOpeningRepository : findAll()
 activate JobOpeningRepository
-JobOpeningRepository --> SelectJobRequirementSpecificationController : List<JobOpening>
+JobOpeningRepository --> SelectJobRequirementSpecificationForJobOpeningController : List<JobOpening>
 deactivate JobOpeningRepository
-SelectJobRequirementSpecificationController --> SelectJobRequirementSpecificationUI : List<JobOpening>
-deactivate SelectJobRequirementSpecificationController
+SelectJobRequirementSpecificationForJobOpeningController --> SelectJobRequirementSpecificationForJobOpeningUI : List<JobOpening>
+deactivate SelectJobRequirementSpecificationForJobOpeningController
 
-SelectJobRequirementSpecificationUI --> CustomerManager : shows list of Job Openings\nand asks to select one
-CustomerManager -> SelectJobRequirementSpecificationUI : selects one Job Opening
+SelectJobRequirementSpecificationForJobOpeningUI --> CustomerManager : shows list of Job Openings\nand asks to select one
+CustomerManager -> SelectJobRequirementSpecificationForJobOpeningUI : selects one Job Opening
 
-SelectJobRequirementSpecificationUI -> SelectJobRequirementSpecificationController : listJobRequirementsSpecification()
-activate SelectJobRequirementSpecificationController
-SelectJobRequirementSpecificationController -> PersistenceContext : repositories()
+SelectJobRequirementSpecificationForJobOpeningUI -> SelectJobRequirementSpecificationForJobOpeningController : listJobRequirementsSpecification()
+activate SelectJobRequirementSpecificationForJobOpeningController
+SelectJobRequirementSpecificationForJobOpeningController -> PersistenceContext : repositories()
 PersistenceContext -> RepositoryFactory : create
 RepositoryFactory -> JobRequirementSpecificationRepository : create
-SelectJobRequirementSpecificationController -> JobRequirementSpecificationRepository : findAll()
+SelectJobRequirementSpecificationForJobOpeningController -> JobRequirementSpecificationRepository : findAll()
 activate JobRequirementSpecificationRepository
-JobRequirementSpecificationRepository --> SelectJobRequirementSpecificationController : List<JobRequirementSpecification>
+JobRequirementSpecificationRepository --> SelectJobRequirementSpecificationForJobOpeningController : List<JobRequirementSpecification>
 deactivate JobRequirementSpecificationRepository
-SelectJobRequirementSpecificationController --> SelectJobRequirementSpecificationUI : List<JobRequirementSpecification>
-deactivate SelectJobRequirementSpecificationController
+SelectJobRequirementSpecificationForJobOpeningController --> SelectJobRequirementSpecificationForJobOpeningUI : List<JobRequirementSpecification>
+deactivate SelectJobRequirementSpecificationForJobOpeningController
 
-SelectJobRequirementSpecificationUI --> CustomerManager : shows list of Job Requirements\nSpecification and asks to select one
-CustomerManager -> SelectJobRequirementSpecificationUI : selects one Job \nRequirement Specification
+SelectJobRequirementSpecificationForJobOpeningUI --> CustomerManager : shows list of Job Requirements\nSpecification and asks to select one
+CustomerManager -> SelectJobRequirementSpecificationForJobOpeningUI : selects one Job \nRequirement Specification
 
-SelectJobRequirementSpecificationUI -> SelectJobRequirementSpecificationController : selectJobRequirementSpecificationForJobOpening(jobRequirementSpecification, jobOpening)
-activate SelectJobRequirementSpecificationController
-SelectJobRequirementSpecificationController -> JobOpening : selectJobRequirementSpecification(jobRequirementSpecification)
-SelectJobRequirementSpecificationController -> PersistenceContext : repositories()
+SelectJobRequirementSpecificationForJobOpeningUI -> SelectJobRequirementSpecificationForJobOpeningController : selectJobRequirementSpecificationForJobOpening(jobRequirementSpecification, jobOpening)
+activate SelectJobRequirementSpecificationForJobOpeningController
+SelectJobRequirementSpecificationForJobOpeningController -> JobOpening : selectJobRequirementSpecification(jobRequirementSpecification)
+SelectJobRequirementSpecificationForJobOpeningController -> PersistenceContext : repositories()
 PersistenceContext -> RepositoryFactory : create
 RepositoryFactory -> JobOpeningRepository : create
-SelectJobRequirementSpecificationController -> JobOpeningRepository : save(jobOpening)
+SelectJobRequirementSpecificationForJobOpeningController -> JobOpeningRepository : save(jobOpening)
 activate JobOpeningRepository
-JobOpeningRepository --> SelectJobRequirementSpecificationController : jobOpening
+JobOpeningRepository --> SelectJobRequirementSpecificationForJobOpeningController : jobOpening
 deactivate JobOpeningRepository
-SelectJobRequirementSpecificationController --> SelectJobRequirementSpecificationUI : jobOpening
-deactivate SelectJobRequirementSpecificationController
+SelectJobRequirementSpecificationForJobOpeningController --> SelectJobRequirementSpecificationForJobOpeningUI : jobOpening
+deactivate SelectJobRequirementSpecificationForJobOpeningController
 
-SelectJobRequirementSpecificationUI --> CustomerManager : backs to menu
+SelectJobRequirementSpecificationForJobOpeningUI --> CustomerManager : backs to menu
 
 
 
