@@ -3,6 +3,7 @@ package jobs4u.base.jobOpeningsManagement.domain;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
 import jakarta.persistence.*;
 import jobs4u.base.clientManagement.domain.Client;
@@ -28,6 +29,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @EmbeddedId
     private JobReference jobReference;
 
+    @Column(name="customerManager")
+    @OneToOne
+    private SystemUser responsibleUser;
+
     private WorkingMode workingMode;
     private NrVacancy nrVacancy;
     private PostalAddress address;
@@ -50,7 +55,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
 
 
-    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String  description, String function, ContractType contractType, LocalDate creationDate) {
+    public JobOpening(JobReference jobReference,SystemUser user, WorkingMode workingMode, String nrVacancy, String address, String  description, String function, ContractType contractType, LocalDate creationDate) {
 
         this.jobReference = jobReference;
         this.workingMode = workingMode;
@@ -59,7 +64,8 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.description = Designation.valueOf(description);
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
-        this.creationDate = creationDate == null ? LocalDate.now() : creationDate;;
+        this.creationDate = creationDate == null ? LocalDate.now() : creationDate;
+        this.responsibleUser = user;
 
     }
 
