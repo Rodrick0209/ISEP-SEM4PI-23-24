@@ -5,6 +5,7 @@ import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningFactory;
 import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.config.ConfigTreeConfigDataLoader;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class RegisterJobOpeningUI extends AbstractUI {
 
@@ -30,7 +32,11 @@ public class RegisterJobOpeningUI extends AbstractUI {
     protected boolean doShow() {
 
 
-        final String clientCode = Console.readLine("Client Code->");
+        final List<ClientDTO> clients = this.theController.getAllClients();
+
+        printAllClients();
+
+        final int option = Console.readOption(1, clients.size(), 0);
 
         final WorkingMode workingMode = requestWorkingMode();
 
@@ -46,7 +52,7 @@ public class RegisterJobOpeningUI extends AbstractUI {
 
 
         try {
-            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientCode, LocalDate.now());
+            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clients, option, LocalDate.now());
             System.out.println("Job Opening registered successfully.");
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
@@ -102,6 +108,15 @@ public class RegisterJobOpeningUI extends AbstractUI {
             default:
                 System.out.println("Invalid option. Please try again.");
                 return requestContractType();
+        }
+    }
+
+    private void printAllClients() {
+        List<ClientDTO> clients = this.theController.getAllClients();
+        int optionNumber = 1;
+        for (ClientDTO client : clients) {
+            System.out.println(optionNumber + ". " + client.name);
+            optionNumber++;
         }
     }
 }
