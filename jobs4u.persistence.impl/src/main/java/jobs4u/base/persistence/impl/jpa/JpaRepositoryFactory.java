@@ -23,8 +23,9 @@ package jobs4u.base.persistence.impl.jpa;
 import jobs4u.base.Application;
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
+import jobs4u.base.interviewModel.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
-import jobs4u.base.jobRequirementSpecification.repositories.JobRequirementSpecificationRepository;
+import jobs4u.base.jobRequirement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.SignupRequestRepository;
 import jobs4u.base.infrastructure.persistence.RepositoryFactory;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -88,6 +89,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public JobRequirementSpecificationRepository jobRequirementsSpecification() {
         return new JpaJobRequirementSpecificationRepository();
+    }
+
+    @Override
+    public InterviewModelSpecificationRepository interviewModelsSpecification() {
+        return new JpaInterviewModelSpecificationRepository();
     }
 
     @Override

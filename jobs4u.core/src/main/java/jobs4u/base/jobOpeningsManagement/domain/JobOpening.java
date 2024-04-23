@@ -12,7 +12,7 @@ import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.NrVacancy;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 
-import jobs4u.base.jobRequirementSpecification.domain.JobRequirementSpecification;
+import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 
