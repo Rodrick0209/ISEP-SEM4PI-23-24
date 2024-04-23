@@ -24,6 +24,7 @@ import jobs4u.base.Application;
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
+import jobs4u.base.jobRequirementSpecification.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.SignupRequestRepository;
 import jobs4u.base.infrastructure.persistence.RepositoryFactory;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -82,6 +83,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public SignupRequestRepository signupRequests() {
         return new JpaSignupRequestRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public JobRequirementSpecificationRepository jobRequirementsSpecification() {
+        return new JpaJobRequirementSpecificationRepository();
     }
 
     @Override

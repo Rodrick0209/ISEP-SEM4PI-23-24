@@ -11,6 +11,7 @@ import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.NrVacancy;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 
+import jobs4u.base.jobRequirementSpecification.domain.JobRequirementSpecification;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 
@@ -44,6 +45,8 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private Designation function;
     private ContractType contractType;
     private LocalDate creationDate;
+    @OneToOne
+    private JobRequirementSpecification jobRequirementSpecification;
 
 
 
@@ -102,6 +105,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Override
     public boolean equals(final Object o) {
         return DomainEntities.areEqual(this, o);
+    }
+
+    public void selectJobRequirementSpecification(JobRequirementSpecification jobRequirementSpecification){
+        this.jobRequirementSpecification = jobRequirementSpecification;
     }
 
 
