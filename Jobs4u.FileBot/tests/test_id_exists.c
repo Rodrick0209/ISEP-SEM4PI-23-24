@@ -1,20 +1,16 @@
-#include "assert_test.h"
+#include "../FileBot/header.h"
+#include "assert_test.c"
 #include <stdbool.h>
 
+int worker_children;
+int **pipes;       // Array of pipes, one for each child process
+int *child_status; // Array to keep track of whether each child is busy
+int num_ids;
+int fd[2];
+int *child_pids;
 int processed_ids[] = {1, 2};
 int num_ids = 2;
 
-bool id_exists(int id)
-{
-    for (int i = 0; i < num_ids; i++)
-    {
-        if (processed_ids[i] == id)
-        {
-            return true;
-        }
-    }
-    return false;
-}
 
 int main(int argc, char const *argv[])
 {
