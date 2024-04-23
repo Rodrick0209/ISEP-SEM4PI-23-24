@@ -68,6 +68,7 @@ public class MainMenu extends AbstractUI {
 
     // JOB OPENING
     private static final int REGISTER_JOB_OPENING = 1;
+    private static final int LIST_JOB_OPENING = 2;
 
 
     // SETTINGS
