@@ -59,6 +59,10 @@ public class Client implements AggregateRoot<ClientCode> {
         return address;
     }
 
+    public ClientCode clientCode() {
+        return clientCode;
+    }
+
     @Override
     public ClientCode identity() {
         return this.clientCode;
