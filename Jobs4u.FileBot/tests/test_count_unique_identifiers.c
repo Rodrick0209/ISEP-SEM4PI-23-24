@@ -19,11 +19,17 @@ void test_count_unique_identifiers()
 
     // Test 2: Directory with one "type" of file
     const char *directory_with_one_file = "one_type";
-    int result = count_unique_identifiers(directory_with_one_file);
+    result = count_unique_identifiers(directory_with_one_file);
     assert_test(result == 1, "Test 2");
 
     // Test case 3: Directory with three "types" of file
     const char *directory_with_three_files = "three_types";
-    int result = count_unique_identifiers(directory_with_three_files);
-    assert(result == 3, "Test 3");
+    result = count_unique_identifiers(directory_with_three_files);
+    assert_test(result == 3, "Test 3");
+}
+
+int main()
+{
+    test_count_unique_identifiers();
+    return 0;
 }
