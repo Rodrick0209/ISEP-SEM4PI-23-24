@@ -28,13 +28,13 @@ openings.
 - This US is directly related to the users of the backoffice.
 - To list job openings the user must be a customer manager.
 - The user must have an email, name, and password.
-- The customer manager must be able to list his job openings by date and choose if he wants to list all of his job openings or only the active ones.
+- The customer manager must be able to list his job openings by date and choose if he wants to list all of his job
+  openings or only the active ones.
 - The job opening must be identified by a job reference.
 
 ## 4. Design
 
 ### 4.1. Realization
-
 
 ### 4.2. Class Diagram
 
@@ -42,7 +42,6 @@ openings.
 
 In the development of this task, we utilized several design patterns to structure our code and ensure its
 maintainability and scalability. These patterns include:
-
 
 - **Repository Pattern:** The Repository pattern was used to create an abstraction layer between the data access layer
   and the business logic layer of the application. This helps to decouple the application and make it easier to maintain
@@ -52,22 +51,13 @@ maintainability and scalability. These patterns include:
 
 ### 4.4. Tests
 
-#### Test #1: Create job openings successfully
+#### Test #1: Ensure job openings are beings listed correctly
 
 1. Log in as customer manager
-2. Choose the Option Job Opening > Register Job Opening
-3. Fill the necessary information
-7. The system displays a success message "Job Opening created successfully."
-8. Confirm the job opening was created through List of job openings (Job Opening > List job openings)
+2. Choose the Option Job Opening > List Job Openings
+3. Choose the desired filters (By Date, Active/All)
+4. Confirm the job openings are being listed correwctly
 
-#### Test #2: Ensure job reference is unique
-
-1. Log in as customer manager
-2. Choose the Option Job Opening > Register Job Opening3. Fill the necessary information
-7. The system displays a success message "Job Opening created successfully."
-8. Repeat the process in order to create another job opening
-9. Confirm the job openings were created with different job references through List of job openings (Job Opening > List
-   job openings)
 
 ## 5. Implementation
 
@@ -80,7 +70,7 @@ explanation
   This class uses the ListJobOpeningController to handle the business logic.
 - **Controller (ListJobOpeningController.java):** The ListJobOpeningController class is the bridge between the
   UI and the business
-  logic. 
+  logic.
 - **Repository (JobOpeningRepository):** The JobOpeningRepository is an interface that defines the methods for
   interacting with the
   database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
@@ -101,7 +91,8 @@ To demonstrate the functionality follow the steps below:
 2. Navigate to the job openings section and select the option to list job openings.
 3. Select the desired listing filters.
 4. If there are job openings that match the selected filters, they will be displayed on the screen.
-5. If there are no job openings that match the selected filters, a message will be displayed indicating that there are no
+5. If there are no job openings that match the selected filters, a message will be displayed indicating that there are
+   no
    job openings to display.
 
 This process demonstrates the system's ability to list job openings based on the selected filters.
