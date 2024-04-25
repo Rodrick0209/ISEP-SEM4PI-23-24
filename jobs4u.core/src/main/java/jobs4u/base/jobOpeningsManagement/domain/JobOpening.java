@@ -29,7 +29,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @EmbeddedId
     private JobReference jobReference;
 
-    @Column(name="customerManager")
     @OneToOne
     private SystemUser responsibleUser;
 
@@ -50,6 +49,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private Designation function;
     private ContractType contractType;
     private LocalDate creationDate;
+
     @OneToOne
     private JobRequirementSpecification jobRequirementSpecification;
 

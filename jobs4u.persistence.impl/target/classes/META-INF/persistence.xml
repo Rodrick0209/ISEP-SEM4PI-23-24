@@ -13,6 +13,17 @@
     <class>jobs4u.base.jobs4uusermanagement.domain.Jobs4uUser</class>
     <class>jobs4u.base.jobs4uusermanagement.domain.SignupRequest</class>
     <class>jobs4u.base.clientManagement.domain.Client</class>
+    <class>jobs4u.base.jobOpeningsManagement.domain.JobOpening</class>
+    <class>jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess</class>
+    <class>jobs4u.base.recruitmentProcessManagement.domain.Phase</class>
+    <class>jobs4u.base.interviewModel.domain.InterviewModelSpecification</class>
+    <class>jobs4u.base.interviewModel.domain.InterviewModelSpecificationJarFile</class>
+    <class>jobs4u.base.interviewModel.domain.InterviewModelSpecificationIdentifier</class>
+    <class>jobs4u.base.interviewModel.domain.InterviewModelSpecificationJarFile</class>
+    <class>jobs4u.base.utils.Path</class>
+    <class>jobs4u.base.jobRequirement.domain.JobRequirementSpecification</class>
+    <class>jobs4u.base.jobRequirement.domain.JobRequirementSpecificationIdentifier</class>
+    <class>jobs4u.base.jobRequirement.domain.JobRequirementSpecificationJarFile</class>
 
     <properties>
       <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->

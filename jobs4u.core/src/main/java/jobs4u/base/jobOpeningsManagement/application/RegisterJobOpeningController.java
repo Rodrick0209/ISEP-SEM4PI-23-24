@@ -31,13 +31,12 @@ import java.util.Optional;
 @UseCaseController
 public class RegisterJobOpeningController {
 
-    private JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
-    private ClientRepository clientRepository = PersistenceContext.repositories().clients();
-    private JobReferenceService jobReferenceService = new JobReferenceService();
-    private JobOpeningFactory jobOpeningFactory = new JobOpeningFactory();
+    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
+    private final ClientRepository clientRepository = PersistenceContext.repositories().clients();
+    private final JobReferenceService jobReferenceService = new JobReferenceService();
+    private final JobOpeningFactory jobOpeningFactory = new JobOpeningFactory();
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final ClientMapper clientMapper = new ClientMapper();
-
 
 
     public List<ClientDTO> getAllClients() {
@@ -53,8 +52,6 @@ public class RegisterJobOpeningController {
     }
 
 
-
-
     public JobReference createJobReference(List<ClientDTO> clients, int option) {
 
         ClientDTO client = clients.get(option - 1);
@@ -64,13 +61,13 @@ public class RegisterJobOpeningController {
 
     public JobOpening registerJobOpening(WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, List<ClientDTO> clients, int option, LocalDate creationDate) {
 
-        Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER,Jobs4uRoles.POWER_USER);
+        Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER, Jobs4uRoles.POWER_USER);
 
 
         JobReference jobReference = createJobReference(clients, option);
 
 
-        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference,user.get(),workingMode, nrVacancy, address, description, function, contractType, creationDate);
+        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, user.get(), workingMode, nrVacancy, address, description, function, contractType, creationDate);
 
         return saveJobOpening(jobOpening);
     }
