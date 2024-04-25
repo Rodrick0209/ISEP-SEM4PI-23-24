@@ -27,9 +27,13 @@ import static org.apache.commons.lang3.BooleanUtils.forEach;
 public class ListJobOpeningContoller {
 
     private final JobOpeningMapper jobOpeningMapper = new JobOpeningMapper();
-    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    private JobOpeningRepository jobOpeningRepository;
+    private AuthorizationService authz;
 
+    public ListJobOpeningContoller(JobOpeningRepository jobOpeningRepository, AuthorizationService authz) {
+        this.jobOpeningRepository = jobOpeningRepository;
+        this.authz = authz;
+    }
 
     public List<JobOpening> jobOpeningsFromRepository() {
 

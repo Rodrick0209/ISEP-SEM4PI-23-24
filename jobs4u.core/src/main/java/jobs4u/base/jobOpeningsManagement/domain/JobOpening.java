@@ -108,6 +108,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
         return status;
     }
 
+    public SystemUser ResponsibleUser() {
+        return responsibleUser;
+    }
+
     @Override
     public boolean sameAs(Object other) {
         return false;

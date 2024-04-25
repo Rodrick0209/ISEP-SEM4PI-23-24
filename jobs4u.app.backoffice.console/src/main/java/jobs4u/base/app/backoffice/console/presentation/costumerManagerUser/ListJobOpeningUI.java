@@ -1,7 +1,9 @@
 package jobs4u.base.app.backoffice.console.presentation.costumerManagerUser;
 
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +19,7 @@ public class ListJobOpeningUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.ListJobOpeningUI.class);
 
-    private final ListJobOpeningContoller theController = new ListJobOpeningContoller();
+    private final ListJobOpeningContoller theController = new ListJobOpeningContoller(PersistenceContext.repositories().jobOpenings(), AuthzRegistry.authorizationService());
 
     @Override
     protected boolean doShow() {
