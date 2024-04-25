@@ -3,13 +3,12 @@ package jobs4u.base.candidateManagement.application;
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
-import jobs4u.base.candidateManagement.domain.CandidateDTO;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class DisplayCandidateController {
+public class ListCandidateController {
 
     private final CandidateMapper candidateMapper = new CandidateMapper();
 
