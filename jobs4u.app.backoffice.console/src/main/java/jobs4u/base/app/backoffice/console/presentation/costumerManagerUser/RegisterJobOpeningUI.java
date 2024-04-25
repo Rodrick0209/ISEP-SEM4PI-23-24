@@ -2,11 +2,14 @@ package jobs4u.base.app.backoffice.console.presentation.costumerManagerUser;
 
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
+import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningFactory;
 import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
@@ -29,17 +32,16 @@ public class RegisterJobOpeningUI extends AbstractUI {
     private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.RegisterJobOpeningUI.class);
 
 
-    private final RegisterJobOpeningController theController = new RegisterJobOpeningController();
+    private final RegisterJobOpeningController theController = new RegisterJobOpeningController(PersistenceContext.repositories().jobOpenings(),
+            PersistenceContext.repositories().clients(), AuthzRegistry.authorizationService());
 
     @Override
     protected boolean doShow() {
 
 
-        final List<ClientDTO> clients = this.theController.getAllClients();
 
-        printAllClients();
+        final ClientDTO client = selectClient(this.theController.getAllClients());
 
-        final int option = Console.readOption(1, clients.size(), 0);
 
         final WorkingMode workingMode = requestWorkingMode();
 
@@ -55,7 +57,7 @@ public class RegisterJobOpeningUI extends AbstractUI {
 
 
         try {
-            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clients, option, Calendar.getInstance(), JobOpeningStatus.INACTIVE);
+            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, client,  JobOpeningStatus.INACTIVE);
             System.out.println("Job Opening registered successfully.");
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
@@ -114,16 +116,21 @@ public class RegisterJobOpeningUI extends AbstractUI {
         }
     }
 
-    private void printAllClients() {
-        List<ClientDTO> clients = this.theController.getAllClients();
+    private ClientDTO selectClient(List<ClientDTO> clients) {
         int optionNumber = 1;
         if (clients.isEmpty()) {
-            System.out.println("No clients available. Please register a client first.") ;
+            System.out.println("No clients available. Please register a client first.");
+            return null; // return -1 or any invalid value to indicate no selection could be made
         }
 
         for (ClientDTO client : clients) {
             System.out.println(optionNumber + ". " + client.name + " (Code: "+client.clientCode+")");
             optionNumber++;
         }
+
+        System.out.println("Please select a client:");
+        int selectedOption = Console.readOption(1, clients.size(), -1); // read the user's selection
+
+        return clients.get(selectedOption - 1);
     }
 }

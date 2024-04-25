@@ -35,6 +35,7 @@ class EnableUserControllerTest {
             throw new UnauthorizedException(dummyUser("X"), actions);
         }
     };
+
     private final AuthorizationService authorizedAuthz = new AuthorizationService() {
         @Override
         public void ensureAuthenticatedUserHasAnyOf(final Role... actions) {

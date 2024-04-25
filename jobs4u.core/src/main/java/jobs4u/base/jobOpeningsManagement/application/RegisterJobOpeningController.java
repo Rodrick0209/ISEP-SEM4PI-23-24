@@ -5,6 +5,7 @@ import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
@@ -29,13 +30,19 @@ import java.util.Optional;
 @UseCaseController
 public class RegisterJobOpeningController {
 
-    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
-    private final ClientRepository clientRepository = PersistenceContext.repositories().clients();
+    private final JobOpeningRepository jobOpeningRepository;
+    private final ClientRepository clientRepository;
     private final JobReferenceService jobReferenceService = new JobReferenceService();
-    private final JobOpeningFactory jobOpeningFactory = new JobOpeningFactory();
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    private final AuthorizationService authz;
     private final ClientMapper clientMapper = new ClientMapper();
+    private final JobOpeningFactory jobOpeningFactory = new JobOpeningFactory();
 
+
+    public RegisterJobOpeningController(JobOpeningRepository jobOpeningRepository, ClientRepository clientRepository, AuthorizationService authz) {
+        this.jobOpeningRepository = jobOpeningRepository;
+        this.clientRepository = clientRepository;
+        this.authz = authz;
+    }
 
     public List<ClientDTO> getAllClients() {
 
@@ -50,28 +57,24 @@ public class RegisterJobOpeningController {
     }
 
 
-    public JobReference createJobReference(List<ClientDTO> clients, int option) {
-
-        ClientDTO client = clients.get(option - 1);
+    public JobReference createJobReference(ClientDTO client) {
         String clientCode = client.clientCode;
         return jobReferenceService.createJobReference(ClientCode.valueOf(clientCode));
     }
 
-    public JobOpening registerJobOpening(WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, List<ClientDTO> clients, int option, Calendar creationDate, JobOpeningStatus status) {
+    public JobOpening registerJobOpening(WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType,ClientDTO client, JobOpeningStatus status) {
 
         Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER, Jobs4uRoles.POWER_USER);
 
+        JobReference jobReference = createJobReference(client);
 
-        JobReference jobReference = createJobReference(clients, option);
-
-
-        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, user.get(), workingMode, nrVacancy, address, description, function, contractType, creationDate, status);
+        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, user.get(), workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), status);
 
         return saveJobOpening(jobOpening);
+
     }
 
     private JobOpening saveJobOpening(JobOpening jobOpening) {
-
         return this.jobOpeningRepository.save(jobOpening);
 
     }
