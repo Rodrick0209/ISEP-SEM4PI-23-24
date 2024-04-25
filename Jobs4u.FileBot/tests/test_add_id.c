@@ -1,14 +1,6 @@
 #include "../FileBot/header.h"
-#include "assert_test.c"
+#include "assert_test.h"
 
-int worker_children;
-int **pipes;       // Array of pipes, one for each child process
-int *child_status; // Array to keep track of whether each child is busy
-int num_ids;
-int fd[2];
-int *child_pids;
-int processed_ids[] = {1, 2};
-int num_ids = 2;
 
 void test_add_id()
 {
@@ -23,8 +15,4 @@ void test_add_id()
     assert_test(num_ids == 4, "Test 2.2");
 }
 
-int main()
-{
-    test_add_id();
-    return 0;
-}
+

@@ -13,6 +13,7 @@
 #include <ctype.h>
 
 
+
 #define CONFIG_FILE "configFile"
 #define MAX_CHILDREN 3
 #define MAX_FILENAME 256
@@ -79,5 +80,7 @@ void loadCandidateInfo();
 int countFilesInDirectory(const char *dirPath);
 void loadFilesInDirectory(const char *dirPath, char files[MAX_FILES][MAX_FILENAME]);
 void getEmailFromCandidateData(const char *filePath, char *email);
+
+
 
 #endif // MY_HEADER_H

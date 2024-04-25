@@ -1,5 +1,6 @@
 #include "../FileBot/header.h"
-#include "assert_test.c"
+#include "assert_test.h"
+
 
 int worker_children;
 int **pipes;       // Array of pipes, one for each child process
@@ -28,8 +29,3 @@ void test_count_unique_identifiers()
     assert_test(result == 3, "Test 3");
 }
 
-int main()
-{
-    test_count_unique_identifiers();
-    return 0;
-}
