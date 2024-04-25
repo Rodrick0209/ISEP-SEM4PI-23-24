@@ -15,16 +15,14 @@ import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningFactory;
 import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
-import jobs4u.base.jobOpeningsManagement.utils.ContractType;
-import jobs4u.base.jobOpeningsManagement.utils.JobReference;
-import jobs4u.base.jobOpeningsManagement.utils.NrVacancy;
-import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
+import jobs4u.base.jobOpeningsManagement.utils.*;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +57,7 @@ public class RegisterJobOpeningController {
         return jobReferenceService.createJobReference(ClientCode.valueOf(clientCode));
     }
 
-    public JobOpening registerJobOpening(WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, List<ClientDTO> clients, int option, LocalDate creationDate) {
+    public JobOpening registerJobOpening(WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, List<ClientDTO> clients, int option, Calendar creationDate, JobOpeningStatus status) {
 
         Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER, Jobs4uRoles.POWER_USER);
 
@@ -67,7 +65,7 @@ public class RegisterJobOpeningController {
         JobReference jobReference = createJobReference(clients, option);
 
 
-        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, user.get(), workingMode, nrVacancy, address, description, function, contractType, creationDate);
+        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, user.get(), workingMode, nrVacancy, address, description, function, contractType, creationDate, status);
 
         return saveJobOpening(jobOpening);
     }

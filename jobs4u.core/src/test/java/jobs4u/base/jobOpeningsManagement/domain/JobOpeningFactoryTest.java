@@ -1,15 +1,13 @@
 package jobs4u.base.jobOpeningsManagement.domain;
 
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import jobs4u.base.jobOpeningsManagement.utils.ContractType;
-import jobs4u.base.jobOpeningsManagement.utils.JobReference;
-import jobs4u.base.jobOpeningsManagement.utils.NrVacancy;
-import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
+import jobs4u.base.jobOpeningsManagement.utils.*;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,10 +25,11 @@ public class JobOpeningFactoryTest {
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
-        LocalDate creationDate = LocalDate.now();
+        Calendar creationDate = Calendar.getInstance();
+        JobOpeningStatus status = JobOpeningStatus.INACTIVE;
 
-        JobOpening expectedJobOpening = new JobOpening(jobReference, user, workingMode, nrVacancy, address, description, function, contractType, creationDate);
-        JobOpening actualJobOpening = jobOpeningFactory.createJobOpening(jobReference,user, workingMode, nrVacancy, address, description, function, contractType, creationDate);
+        JobOpening expectedJobOpening = new JobOpening(jobReference, user, workingMode, nrVacancy, address, description, function, contractType, creationDate, status);
+        JobOpening actualJobOpening = jobOpeningFactory.createJobOpening(jobReference,user, workingMode, nrVacancy, address, description, function, contractType, creationDate, status);
 
         assertEquals(expectedJobOpening, actualJobOpening);
     }

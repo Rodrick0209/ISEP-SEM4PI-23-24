@@ -7,10 +7,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
 import jakarta.persistence.*;
 import jobs4u.base.clientManagement.domain.Client;
-import jobs4u.base.jobOpeningsManagement.utils.ContractType;
-import jobs4u.base.jobOpeningsManagement.utils.JobReference;
-import jobs4u.base.jobOpeningsManagement.utils.NrVacancy;
-import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
+import jobs4u.base.jobOpeningsManagement.utils.*;
 
 import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
 import jobs4u.base.utils.ClientCode;
@@ -18,6 +15,7 @@ import jobs4u.base.utils.PostalAddress;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
+import java.util.Calendar;
 
 @XmlRootElement
 @Entity
@@ -36,26 +34,26 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private NrVacancy nrVacancy;
     private PostalAddress address;
     @AttributeOverrides({
-            @AttributeOverride(name="name",
-                    column=@Column(name="description",
-                            insertable=false, updatable=false))
+            @AttributeOverride(name = "name",
+                    column = @Column(name = "description",
+                            insertable = false, updatable = false))
     })
     private Designation description;
     @AttributeOverrides({
-            @AttributeOverride(name="name",
-                    column=@Column(name="description",
-                            insertable=false, updatable=false))
+            @AttributeOverride(name = "name",
+                    column = @Column(name = "description",
+                            insertable = false, updatable = false))
     })
     private Designation function;
     private ContractType contractType;
-    private LocalDate creationDate;
+    private Calendar creationDate;
+    private JobOpeningStatus status;
 
     @OneToOne
     private JobRequirementSpecification jobRequirementSpecification;
 
 
-
-    public JobOpening(JobReference jobReference,SystemUser user, WorkingMode workingMode, String nrVacancy, String address, String  description, String function, ContractType contractType, LocalDate creationDate) {
+    public JobOpening(JobReference jobReference, SystemUser user, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, JobOpeningStatus status) {
 
         this.jobReference = jobReference;
         this.workingMode = workingMode;
@@ -64,8 +62,9 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.description = Designation.valueOf(description);
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
-        this.creationDate = creationDate == null ? LocalDate.now() : creationDate;
+        this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
         this.responsibleUser = user;
+        this.status = JobOpeningStatus.INACTIVE;
 
     }
 
@@ -73,29 +72,40 @@ public class JobOpening implements AggregateRoot<JobReference> {
     protected JobOpening() {
     }
 
-    public JobReference jobReference(){
+    public JobReference jobReference() {
         return jobReference;
     }
-    public WorkingMode workingMode(){
+
+    public WorkingMode workingMode() {
         return workingMode;
     }
-    public NrVacancy nrVacancy(){
+
+    public NrVacancy nrVacancy() {
         return nrVacancy;
     }
-    public PostalAddress address(){
+
+    public PostalAddress address() {
         return address;
     }
-    public Designation description(){
+
+    public Designation description() {
         return description;
     }
-    public Designation function(){
+
+    public Designation function() {
         return function;
     }
-    public ContractType contractType(){
+
+    public ContractType contractType() {
         return contractType;
     }
-    public LocalDate creationDate(){
+
+    public Calendar creationDate() {
         return creationDate;
+    }
+
+    public JobOpeningStatus status() {
+        return status;
     }
 
     @Override
@@ -113,10 +123,9 @@ public class JobOpening implements AggregateRoot<JobReference> {
         return DomainEntities.areEqual(this, o);
     }
 
-    public void selectJobRequirementSpecification(JobRequirementSpecification jobRequirementSpecification){
+    public void selectJobRequirementSpecification(JobRequirementSpecification jobRequirementSpecification) {
         this.jobRequirementSpecification = jobRequirementSpecification;
     }
-
 
 
 }

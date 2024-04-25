@@ -56,7 +56,7 @@ maintainability and scalability. These patterns include:
 1. Log in as customer manager
 2. Choose the Option Job Opening > List Job Openings
 3. Choose the desired filters (By Date, Active/All)
-4. Confirm the job openings are being listed correwctly
+4. Confirm the job openings are being listed correctly
 
 
 ## 5. Implementation

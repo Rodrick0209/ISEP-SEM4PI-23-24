@@ -10,6 +10,7 @@ import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningControlle
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningFactory;
 import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
+import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import jobs4u.base.utils.ClientCode;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.config.ConfigTreeConfigDataLoader;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 
 public class RegisterJobOpeningUI extends AbstractUI {
@@ -52,7 +54,7 @@ public class RegisterJobOpeningUI extends AbstractUI {
 
 
         try {
-            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clients, option, LocalDate.now());
+            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clients, option, Calendar.getInstance(), JobOpeningStatus.INACTIVE);
             System.out.println("Job Opening registered successfully.");
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
