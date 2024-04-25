@@ -47,4 +47,9 @@ public final class PostalAddress implements ValueObject, Serializable {
     public int hashCode() {
         return this.address.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return this.address;
+    }
 }

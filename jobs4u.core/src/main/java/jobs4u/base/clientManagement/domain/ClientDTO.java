@@ -6,4 +6,8 @@ public class ClientDTO {
         public String name;
         public String address;
 
+        public String name(){
+            return name;
+        }
+
 }

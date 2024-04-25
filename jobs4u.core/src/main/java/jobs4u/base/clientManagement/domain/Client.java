@@ -67,4 +67,7 @@ public class Client implements AggregateRoot<ClientCode> {
     public ClientCode identity() {
         return this.clientCode;
     }
+
+
+
 }

@@ -5,6 +5,7 @@ import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningFactory;
@@ -119,8 +120,9 @@ public class RegisterJobOpeningUI extends AbstractUI {
         if (clients.isEmpty()) {
             System.out.println("No clients available. Please register a client first.") ;
         }
+
         for (ClientDTO client : clients) {
-            System.out.println(optionNumber + ". " + client.name);
+            System.out.println(optionNumber + ". " + client.name + " (Code: "+client.clientCode+")");
             optionNumber++;
         }
     }
