@@ -61,7 +61,7 @@ maintainability and scalability. These patterns include:
 
 ## 5. Implementation
 
-The process of registering a new user in this system involves several components working together. Here's a step-by-step
+The process of listing job openings involves several components working together. Here's a step-by-step
 explanation
 
 - **User Interface (ListJobOpeningUI.java)**: The process starts in the ListJobOpeningUI class, which is

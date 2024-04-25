@@ -55,22 +55,21 @@ maintainability and scalability. These patterns include:
 
 1. Log in as customer manager
 2. Choose the Option Candidate > Display Candidate Information
-3. Choose the desired filters (By Date, Active/All)
-4. Confirm the job openings are being listed correctly
+3. Confirm the candidate's information is being displayed correctly
 
 ## 5. Implementation
 
-The process of registering a new user in this system involves several components working together. Here's a step-by-step
+The process of displaying candidates information involves several components working together. Here's a step-by-step
 explanation
 
-- **User Interface (ListJobOpeningUI.java)**: The process starts in the ListJobOpeningUI class, which is
+- **User Interface (DisplayCandidateInfoUI.java)**: The process starts in the DisplayCandidateInfoUI class, which is
   responsible for interacting
   with the user. It prompts the user to enter the necessary information.
-  This class uses the ListJobOpeningController to handle the business logic.
-- **Controller (ListJobOpeningController.java):** The ListJobOpeningController class is the bridge between the
+  This class uses the DisplayCandidateInfoController to handle the business logic.
+- **Controller (DisplayCandidateInfoController.java):** The DisplayCandidateInfoController class is the bridge between the
   UI and the business
   logic.
-- **Repository (JobOpeningRepository):** The JobOpeningRepository is an interface that defines the methods for
+- **Repository (CandidateRepository):** The CandidateRepository is an interface that defines the methods for
   interacting with the
   database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
 
@@ -87,12 +86,12 @@ or reinventing existing components.
 To demonstrate the functionality follow the steps below:
 
 1. Start the application and log in as a customer manager.
-2. Navigate to the job openings section and select the option to list job openings.
-3. Select the desired listing filters.
-4. If there are job openings that match the selected filters, they will be displayed on the screen.
-5. If there are no job openings that match the selected filters, a message will be displayed indicating that there are
+2. Navigate to the candidate section and select the option to display candidate information.
+3. Select the desired way you want the candidates information to be displayed.
+4. If there are candidates , they will be displayed on the screen.
+5. If there are no candidates, a message will be displayed indicating that there are
    no
-   job openings to display.
+   candidates to display.
 
 This process demonstrates the system's ability to list job openings based on the selected filters.
 
