@@ -62,14 +62,13 @@ public class RegisterJobOpeningController {
         return jobReferenceService.createJobReference(ClientCode.valueOf(clientCode));
     }
 
-    public JobOpening registerJobOpening(WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType,ClientDTO client, JobOpeningStatus status) {
+    public JobOpening registerJobOpening(WorkingMode workingMode, Long nrVacancy, String address, String description, String function, ContractType contractType,ClientDTO client, JobOpeningStatus status) {
 
         Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER, Jobs4uRoles.POWER_USER);
 
         JobReference jobReference = createJobReference(client);
 
         final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, user.get(), workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), status);
-
         return saveJobOpening(jobOpening);
 
     }

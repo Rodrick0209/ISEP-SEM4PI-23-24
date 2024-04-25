@@ -10,7 +10,7 @@ import java.util.Calendar;
 
 public class JobOpeningFactory {
 
-    public JobOpening createJobOpening(JobReference jobReference, SystemUser user, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, JobOpeningStatus status) {
+    public JobOpening createJobOpening(JobReference jobReference, SystemUser user, WorkingMode workingMode, Long nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, JobOpeningStatus status) {
         return new JobOpening(jobReference,user, workingMode, nrVacancy, address, description, function, contractType, creationDate, status);
     }
 }

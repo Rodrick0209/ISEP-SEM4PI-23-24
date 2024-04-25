@@ -2,6 +2,7 @@ package jobs4u.base.jobOpeningsManagement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
+import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
@@ -33,17 +34,11 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private WorkingMode workingMode;
     private NrVacancy nrVacancy;
     private PostalAddress address;
-    @AttributeOverrides({
-            @AttributeOverride(name = "name",
-                    column = @Column(name = "description",
-                            insertable = false, updatable = false))
-    })
-    private Designation description;
-    @AttributeOverrides({
-            @AttributeOverride(name = "name",
-                    column = @Column(name = "description",
-                            insertable = false, updatable = false))
-    })
+
+    @Column(name = "description")
+    private Description description;
+
+    @Column(name = "function")
     private Designation function;
     private ContractType contractType;
     private Calendar creationDate;
@@ -53,13 +48,13 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private JobRequirementSpecification jobRequirementSpecification;
 
 
-    public JobOpening(JobReference jobReference, SystemUser user, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, JobOpeningStatus status) {
+    public JobOpening(JobReference jobReference, SystemUser user, WorkingMode workingMode, Long nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, JobOpeningStatus status) {
 
         this.jobReference = jobReference;
         this.workingMode = workingMode;
         this.nrVacancy = NrVacancy.valueOf(nrVacancy);
         this.address = PostalAddress.valueOf(address);
-        this.description = Designation.valueOf(description);
+        this.description = Description.valueOf(description);
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
@@ -88,7 +83,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
         return address;
     }
 
-    public Designation description() {
+    public Description description() {
         return description;
     }
 

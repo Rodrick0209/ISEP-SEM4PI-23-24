@@ -38,14 +38,14 @@ public class RegisterJobOpeningUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
-
-
         final ClientDTO client = selectClient(this.theController.getAllClients());
-
+        if (client == null) {
+            return false;
+        }
 
         final WorkingMode workingMode = requestWorkingMode();
 
-        final String nrVacancy = Console.readLine("Number of Vacancies->");
+        final Long nrVacancy = Console.readLong("Number of Vacancies->");
 
         final String address = Console.readLine("Client postal Address->");
 
@@ -59,6 +59,7 @@ public class RegisterJobOpeningUI extends AbstractUI {
         try {
             this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, client,  JobOpeningStatus.INACTIVE);
             System.out.println("Job Opening registered successfully.");
+
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println(

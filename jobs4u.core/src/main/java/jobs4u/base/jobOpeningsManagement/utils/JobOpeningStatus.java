@@ -1,6 +1,8 @@
 package jobs4u.base.jobOpeningsManagement.utils;
 
-public enum JobOpeningStatus {
+import eapli.framework.domain.model.ValueObject;
+
+public enum JobOpeningStatus implements ValueObject {
     ACTIVE,
     INACTIVE
 }

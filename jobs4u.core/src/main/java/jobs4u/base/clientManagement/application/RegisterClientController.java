@@ -7,6 +7,7 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.infrastructure.authz.domain.model.Password;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.pubsub.EventPublisher;
 import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedEvent;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
@@ -32,8 +33,7 @@ public class RegisterClientController {
 
 
     public Client registerClient(String code, String name, String emailAddress, String phoneNumber,String address, String representativeName, String representativeLastName) {
-        //TODO tenho que descomentar isto quando for para usar login
-        // authorizationService.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.CUSTOMER_MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.CUSTOMER_MANAGER);
         final Client client = new Client(code,name, address);
         return saveClient(client, representativeName,representativeLastName, emailAddress,phoneNumber);
     }
@@ -43,7 +43,6 @@ public class RegisterClientController {
         client = this.clientRepository.save(client);
         Jobs4uPasswordGenerator passwordGenerator = new Jobs4uPasswordGenerator();
         final String password = passwordGenerator.generatePassword();
-
         final DomainEvent event = new ClientRegistedEvent(client, Name.valueOf(firstName,lastName), emailAddress,password,phoneNumber);
         dispatcher.publish(event);
         return client;
