@@ -132,7 +132,7 @@ public class RegisterJobOpeningControllerTest {
 
         ClientMapper clientMapper = new ClientMapper();
         WorkingMode workingMode = WorkingMode.REMOTE;
-        Long nrVacancy = 5L;
+        String nrVacancy = "5";
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";
@@ -150,7 +150,7 @@ public class RegisterJobOpeningControllerTest {
 
         ClientMapper clientMapper = new ClientMapper();
         WorkingMode workingMode = WorkingMode.REMOTE;
-        Long nrVacancy = 5L;
+        String nrVacancy = "5";
         String address = "1234";
         String description = "Software Developer";
         String function = "Develop software";

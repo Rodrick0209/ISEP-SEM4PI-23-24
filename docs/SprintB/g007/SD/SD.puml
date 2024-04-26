@@ -1,0 +1,51 @@
+@startuml
+'http://plantuml.com/skinparam.html
+skinparam handwritten true
+skinparam monochrome true
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+actor User as Actor
+participant LoginUI as UI
+participant AuthenticationCredentialHandler as CH
+participant Authenticator as A
+
+
+Actor -> UI: select Login option
+activate UI
+UI -> UI: doShow()
+activate UI
+
+deactivate UI
+UI --> Actor: asks for an email
+Actor -> UI: enters email
+
+UI --> Actor: asks for a Password
+Actor -> UI: enters password
+
+UI->CH: authenticated(email, password)
+activate CH
+CH->A: authenticate(email, password)
+activate A
+A->CH:SystemUser
+deactivate A
+activate CH
+CH->CH: isPresente(SystemUser)
+deactivate CH
+CH -> UI: true/false
+deactivate CH
+
+
+alt true
+  UI-->Actor: Show the respective User Home Page
+else false
+  UI--> Actor: show error message
+end
+
+
+deactivate UI
+
+
+
+
+@enduml

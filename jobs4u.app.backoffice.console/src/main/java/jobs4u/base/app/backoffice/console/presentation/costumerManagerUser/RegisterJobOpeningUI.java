@@ -45,7 +45,7 @@ public class RegisterJobOpeningUI extends AbstractUI {
 
         final WorkingMode workingMode = requestWorkingMode();
 
-        final Long nrVacancy = Console.readLong("Number of Vacancies->");
+        final String nrVacancy = String.valueOf(Console.readLong("Number of Vacancies->"));
 
         final String address = Console.readLine("Client postal Address->");
 

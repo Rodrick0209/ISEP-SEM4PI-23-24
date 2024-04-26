@@ -91,14 +91,14 @@ public class ListJobOpeningControllerTest {
 
         ClientMapper clientMapper = new ClientMapper();
         WorkingMode workingMode = WorkingMode.REMOTE;
-        Long nrVacancy = 5L;
+        String nrVacancy = "5";
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123","ISEP", "4123-123");
 
-        JobReference jobReference = new JobReference(client.clientCode(),123);
+        JobReference jobReference = new JobReference(client.code().toString());
 
         return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
     }
@@ -107,14 +107,14 @@ public class ListJobOpeningControllerTest {
 
         ClientMapper clientMapper = new ClientMapper();
         WorkingMode workingMode = WorkingMode.REMOTE;
-        Long nrVacancy = 5L;
+        String nrVacancy = "5";
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123","ISEP", "4123-123");
 
-        JobReference jobReference = new JobReference(client.clientCode(),124);
+        JobReference jobReference = new JobReference(client.clientCode().code());
 
         return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
     }
