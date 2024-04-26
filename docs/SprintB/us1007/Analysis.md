@@ -37,8 +37,10 @@ cada job reference e é especifico de cada job reference. Em termos técnicos, s
 necessidade de um ID para o processo de recrutamento, não tenho nada contra que este
 seja igual ao job reference.
 
+
+
+
+
 ## Business Rules
 - The recruitment process must be sequential and not overlapping this means only a phase can be open at a time.
 - The customer manager will be able to close a phase of the recruitment process and it automatically opens the next one.
-
-## Unit Testsa
