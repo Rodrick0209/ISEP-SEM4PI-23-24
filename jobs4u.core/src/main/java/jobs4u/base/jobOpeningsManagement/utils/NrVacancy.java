@@ -5,11 +5,11 @@ import eapli.framework.validations.Preconditions;
 
 public class NrVacancy implements ValueObject {
     private static final long serialVersionUID = 1L;
-    private final String nrVacancy;
+    private final Long nrVacancy;
 
-    protected NrVacancy(final String nrVacancy) {
-        Preconditions.isPositive(Long.parseLong(nrVacancy), "Number of vacancies should be a positive integer");
-        this.nrVacancy = nrVacancy;
+    protected NrVacancy(final Long nrVacancy) {
+        Preconditions.isPositive((nrVacancy), "Number of vacancies should be a positive integer");
+        this.nrVacancy = Long.valueOf(nrVacancy);
     }
 
     @Override
@@ -24,12 +24,12 @@ public class NrVacancy implements ValueObject {
         }
     }
 
-    public static NrVacancy valueOf(final String nrVacancy) {
+    public static NrVacancy valueOf(final Long nrVacancy) {
         return new NrVacancy(nrVacancy);
     }
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(Integer.parseInt(this.nrVacancy));
+        return Integer.hashCode(Math.toIntExact(this.nrVacancy));
     }
 }

@@ -56,12 +56,12 @@ maintainability and scalability. These patterns include:
 1. Log in as customer manager
 2. Choose the Option Job Opening > List Job Openings
 3. Choose the desired filters (By Date, Active/All)
-4. Confirm the job openings are being listed correwctly
+4. Confirm the job openings are being listed correctly
 
 
 ## 5. Implementation
 
-The process of registering a new user in this system involves several components working together. Here's a step-by-step
+The process of listing job openings involves several components working together. Here's a step-by-step
 explanation
 
 - **User Interface (ListJobOpeningUI.java)**: The process starts in the ListJobOpeningUI class, which is

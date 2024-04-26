@@ -8,16 +8,12 @@ public class NrVacancyTest {
 
     @Test
     public void testValidNrVacancy() {
-        assertDoesNotThrow(() -> NrVacancy.valueOf("5"));
+        assertDoesNotThrow(() -> NrVacancy.valueOf(5L));
     }
 
     @Test
     public void testInvalidNrVacancy() {
-        assertThrows(IllegalArgumentException.class, () -> NrVacancy.valueOf("-7"));
+        assertThrows(IllegalArgumentException.class, () -> NrVacancy.valueOf(-7L));
     }
 
-    @Test
-    public void testNullNrVacancy() {
-        assertThrows(IllegalArgumentException.class, () -> NrVacancy.valueOf(null));
-    }
 }

@@ -1,15 +1,6 @@
 #include "../FileBot/header.h"
-#include "assert_test.c"
+#include "assert_test.h"
 #include <string.h>
-
-int worker_children;
-int **pipes;       // Array of pipes, one for each child process
-int *child_status; // Array to keep track of whether each child is busy
-int num_ids;
-int fd[2];
-int *child_pids;
-int processed_ids[] = {1, 2};
-int num_ids = 2;
 
 void test_remove_non_printable_chars()
 {
@@ -34,8 +25,3 @@ void test_remove_non_printable_chars()
     assert_test(strcmp(str5, "Hello,World!") == 0, "Test 5");
 }
 
-int main()
-{
-    test_remove_non_printable_chars();
-    return 0;
-}

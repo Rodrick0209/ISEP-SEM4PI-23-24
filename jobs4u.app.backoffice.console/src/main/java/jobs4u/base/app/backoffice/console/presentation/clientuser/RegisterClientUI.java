@@ -36,7 +36,7 @@ public class RegisterClientUI extends AbstractUI {
 
 
         try {
-        this.theController.registerClient(clientCode,clientName, clientRepresentativeMail, clientRepresentativePhone,address, clientRepresentativeName, clientRepresentativeLastName);
+            this.theController.registerClient(clientCode,clientName, clientRepresentativeMail, clientRepresentativePhone,address, clientRepresentativeName, clientRepresentativeLastName);
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println(
@@ -46,10 +46,6 @@ public class RegisterClientUI extends AbstractUI {
 
         return true;
     }
-
-
-
-
 
 
 

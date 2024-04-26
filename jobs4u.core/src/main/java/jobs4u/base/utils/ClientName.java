@@ -3,6 +3,7 @@ package jobs4u.base.utils;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.Embeddable;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -43,5 +44,10 @@ public final class ClientName implements ValueObject, Serializable {
     @Override
     public int hashCode() {
         return this.name.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

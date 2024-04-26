@@ -1,4 +1,5 @@
-#include <stdio.h>
+#include "../FileBot/header.h"
+#include "assert_test.h"
 
 void assert_test(int condition, const char *test_name)
 {

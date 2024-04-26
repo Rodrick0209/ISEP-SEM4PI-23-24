@@ -34,7 +34,7 @@ public class SetupRecruitmentProcessUI extends AbstractUI {
                 }
 
                 System.out.println("Enter the start date for the recruitment process and consequently its first phase in the format dd/MM/yyyy.");
-                System.out.print("Start date: ");
+                System.out.print("Start date(dd/MM/yyyy): ");
                 String firstStartDateInput = scanner.nextLine();
                 Date previousEndDate = Date.valueOf(firstStartDateInput);
 

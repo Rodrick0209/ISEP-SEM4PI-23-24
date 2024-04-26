@@ -53,4 +53,9 @@ public final class ClientCode implements ValueObject, Serializable, Comparable<C
     public int compareTo(ClientCode o) {
         return this.clientCode.compareTo(o.clientCode);
     }
+
+    @Override
+    public String toString() {
+        return this.clientCode;
+    }
 }

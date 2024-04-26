@@ -29,6 +29,7 @@ import jobs4u.base.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.DisableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.ListUsersAction;
 import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientUI;
+import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.ListJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.RegisterJobOpeningUI;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
@@ -141,6 +142,8 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(CUSTOMERS_OPTION, customersMenu);
             final Menu jobOpeningMenu = buildJobOpeningMenu();
             mainMenu.addSubMenu(JOB_OPENING_OPTION, jobOpeningMenu);
+//            final Menu  candidateMenu = buildCandidateMenu();
+//            mainMenu.addSubMenu(CANDIDATE_OPTION, candidateMenu);
 
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
@@ -204,6 +207,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Job Opening >");
 
         menu.addItem(REGISTER_JOB_OPENING, "Register Job Opening", new RegisterJobOpeningUI()::show);
+        menu.addItem(LIST_JOB_OPENING, "List Job Openings", new ListJobOpeningUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 

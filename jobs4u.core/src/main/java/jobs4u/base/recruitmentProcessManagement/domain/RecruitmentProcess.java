@@ -5,6 +5,8 @@ import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.recruitmentProcessManagement.domain.Phase;
+import jobs4u.base.recruitmentProcessManagement.utils.Phases;
+import jobs4u.base.recruitmentProcessManagement.utils.State;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,18 @@ public class RecruitmentProcess {
 
 
     }
+
+
+    public boolean hasRecruitmentStarted() {
+        for (Phase phase : phases) {
+            if (phase.state.equals(State.OPEN)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     private static void validatePhasesStartEndDates(List<Phase> phases) {
         for (int i = 0; i < phases.size() - 1; i++) {

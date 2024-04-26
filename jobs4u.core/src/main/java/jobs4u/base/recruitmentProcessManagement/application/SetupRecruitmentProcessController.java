@@ -1,9 +1,12 @@
 package jobs4u.base.recruitmentProcessManagement.application;
 
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import jobs4u.base.recruitmentProcessManagement.domain.Phase;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
+import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import org.springframework.cglib.core.Local;
 
 import java.sql.Date;
@@ -15,10 +18,14 @@ import java.util.Map;
 
 public class SetupRecruitmentProcessController {
 
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+
+    AuthzRegistry authzRegistry;
 
     public void createRecruitmentProcess(Map<Phases, Map<String, LocalDate>> phaseDates)
     {
         List<Phase> list = new ArrayList<>();
+        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.CUSTOMER_MANAGER,Jobs4uRoles.ADMIN);
         //TODO assegurar a autenticacao como customerManager
         for (Map.Entry<Phases, Map<String, LocalDate>> entry : phaseDates.entrySet()) {
             Phases phase = entry.getKey();

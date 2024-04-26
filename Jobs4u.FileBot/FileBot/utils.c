@@ -185,6 +185,11 @@ int getChildIndex()
 {
     int childIndex;
     int n = read(fd[0], &childIndex, sizeof(childIndex));
+    if (n < 0)
+    {
+        perror("Erro ao ler do pipe");
+        exit(EXIT_FAILURE);
+    }
     return childIndex;
 }
 
