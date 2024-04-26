@@ -10,6 +10,10 @@ public class TrueFalse extends Question {
         super(text, score, answer,questionNumber);
     }
 
+    public TrueFalse(final String text,  final Answer answer,final double questionNumber) {
+        super(text, answer,questionNumber);
+    }
+
     protected TrueFalse() {
         // for ORM only
     }

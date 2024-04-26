@@ -10,6 +10,12 @@ public class ShortAnswer extends Question {
         super(text, score, answer,questionNumber);
     }
 
+    public ShortAnswer(final String text, final Answer answer, final double questionNumber) {
+        super(text, answer,questionNumber);
+    }
+
+
+
     protected ShortAnswer() {
         // for ORM only
     }

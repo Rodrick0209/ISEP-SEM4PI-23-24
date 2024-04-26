@@ -1,6 +1,6 @@
 package jobs4u.base.lprog.InterviewEvaluation;
 
-import jobs4u.base.lprog.Utils.InterviewQuestions;
+import jobs4u.base.lprog.Utils.PluginQuestions;
 import jobs4u.base.lprog.Utils.MultipleChoice;
 import jobs4u.base.lprog.Utils.Question;
 
@@ -12,17 +12,17 @@ public class EvalVisitor extends EvaluationBaseVisitor<Object> {
 
     int numberAnswers = 0;
 
-    private InterviewQuestions interviewQuestions;
+    private PluginQuestions pluginQuestions;
 
     private final List<AnswerFromUser> answers = new ArrayList<>();
 
-    public void registerExam(InterviewQuestions examSolution) {
-        interviewQuestions = examSolution;
+    public void registerExam(PluginQuestions examSolution) {
+        pluginQuestions = examSolution;
     }
 
     public float getGrade() {
 
-        List<Question> questions = interviewQuestions.getQuestions();
+        List<Question> questions = pluginQuestions.getQuestions();
         int counter = 0;
         float grade = 0;
 

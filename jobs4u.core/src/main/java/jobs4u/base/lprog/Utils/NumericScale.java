@@ -8,6 +8,12 @@ public class NumericScale extends Question {
         super(text, score, answer,questionNumber);
     }
 
+
+    public NumericScale(final String text, final Answer answer, final double questionNumber) {
+        super(text,answer,questionNumber);
+    }
+
+
     @Override
     public String typeQuestionToString () {
         return "Numerical\n";

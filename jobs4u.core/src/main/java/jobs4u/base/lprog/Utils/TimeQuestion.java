@@ -5,7 +5,9 @@ public class        TimeQuestion extends Question {
     public TimeQuestion(final String text, final QuestionScore score, final Answer answer,final double questionNumber) {
         super(text, score, answer,questionNumber);
     }
-
+    public TimeQuestion(final String text, final Answer answer,final double questionNumber) {
+        super(text,answer,questionNumber);
+    }
     @Override
     public String typeQuestionToString () {
         return "Time\n";

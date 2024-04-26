@@ -10,6 +10,12 @@ public class Numerical extends Question {
         super(text, score, answer,questionNumber);
     }
 
+
+    public Numerical(final String text, final Answer answer,final double questionNumber) {
+        super(text, answer,questionNumber);
+    }
+
+
     protected Numerical() {
         // for ORM only
     }

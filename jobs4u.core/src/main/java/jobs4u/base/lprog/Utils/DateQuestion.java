@@ -6,6 +6,10 @@ public class DateQuestion extends Question {
         super(text, score, answer,questionNumber);
     }
 
+
+    public DateQuestion(final String text, final Answer answer, double questionNumber) {
+        super(text, answer,questionNumber);
+    }
     @Override
     public String typeQuestionToString () {
         return "Date\n";

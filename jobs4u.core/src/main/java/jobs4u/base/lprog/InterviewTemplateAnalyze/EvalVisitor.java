@@ -10,13 +10,13 @@ import java.util.Map;
 public class EvalVisitor extends InterviewBaseVisitor<Object> {
 
 
-    private InterviewQuestions exam;
+    private PluginQuestions exam;
 
     public EvalVisitor() {
         this.exam = null;
     }
 
-    public InterviewQuestions getExam() {
+    public PluginQuestions getExam() {
         return this.exam;
     }
 
@@ -33,7 +33,7 @@ public class EvalVisitor extends InterviewBaseVisitor<Object> {
             throw new IllegalStateException("The total score of the exam is not 20");
         }
 
-        InterviewQuestions exam = new InterviewQuestions(questions);
+        PluginQuestions exam = new PluginQuestions(questions);
         return this.exam = exam;
     }
 

@@ -1,7 +1,7 @@
 package jobs4u.base.lprog.InterviewEvaluation;
 
 import jobs4u.base.lprog.Exceptions.ErrorInFileException;
-import jobs4u.base.lprog.Utils.InterviewQuestions;
+import jobs4u.base.lprog.Utils.PluginQuestions;
 import jobs4u.base.lprog.InterviewTemplateAnalyze.InterviewModelMain;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -13,13 +13,13 @@ import java.io.IOException;
 
 public class EvaluationMain {
     public static void main(String[] args) throws IOException {
-        InterviewQuestions exam = InterviewModelMain.parseWithVisitor("C:\\Users\\rodri\\Documents\\sem4pi-23-24-2dj2\\jobs4u.core\\src\\main\\java\\jobs4u\\base\\lprog\\TestFiles\\test.txt");
+        PluginQuestions exam = InterviewModelMain.parseWithVisitor("C:\\Users\\rodri\\Documents\\sem4pi-23-24-2dj2\\jobs4u.core\\src\\main\\java\\jobs4u\\base\\lprog\\TestFiles\\test.txt");
         System.out.println(parseWithVisitor("C:\\Users\\rodri\\Documents\\sem4pi-23-24-2dj2\\jobs4u.core\\src\\main\\java\\jobs4u\\base\\lprog\\TestFiles\\textCorrection.txt", exam));
         //   System.out.println(parseWithVisitor("files/incorrect_resolution.txt", exam));
      //   System.out.println(parseWithVisitor("files/incomplete_resolution.txt", exam));
     }
 
-    public static float parseWithVisitor(final String resolutionFilePath, InterviewQuestions interviewQuestions) {
+    public static float parseWithVisitor(final String resolutionFilePath, PluginQuestions pluginQuestions) {
         try {
             FileInputStream fileInputStream = new FileInputStream(resolutionFilePath);
             EvaluationLexer lexer = new EvaluationLexer(CharStreams.fromStream(fileInputStream));
@@ -28,7 +28,7 @@ public class EvaluationMain {
             EvalVisitor visitor = new EvalVisitor();
 
             ParseTree tree = parser.answers();
-            visitor.registerExam(interviewQuestions);
+            visitor.registerExam(pluginQuestions);
             visitor.visit(tree);
             return visitor.getGrade();
         } catch (FileNotFoundException e) {

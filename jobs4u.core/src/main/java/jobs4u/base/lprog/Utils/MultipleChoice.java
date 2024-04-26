@@ -19,6 +19,13 @@ public class MultipleChoice extends Question {
         this.options = options;
     }
 
+
+    public MultipleChoice(final String text, final Answer answer, final Map<String, String> options, final double questionNumber) {
+        super(text,answer,questionNumber);
+
+        Preconditions.noneNull(options, "Options cannot be null");
+        this.options = options;
+    }
     protected MultipleChoice() {
         // for ORM only
     }

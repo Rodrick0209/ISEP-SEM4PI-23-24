@@ -2,6 +2,11 @@ package jobs4u.base.lprog.Utils;
 
 public class SingleChoiceQuestion extends Question{
 
+
+    public SingleChoiceQuestion(final String text,final QuestionScore questionScore ,final Answer answer, final double questionNumber) {
+        super(text,questionScore,answer,questionNumber);
+    }
+
     public SingleChoiceQuestion(final String text, final Answer answer, final double questionNumber) {
         super(text,answer,questionNumber);
     }
