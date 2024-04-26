@@ -57,7 +57,7 @@ public class RegisterJobOpeningUI extends AbstractUI {
 
 
         try {
-            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, client,  JobOpeningStatus.INACTIVE);
+            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, client);
             System.out.println("Job Opening registered successfully.");
 
         } catch (IntegrityViolationException | ConcurrencyException ex) {

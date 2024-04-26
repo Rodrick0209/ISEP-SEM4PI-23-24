@@ -20,7 +20,7 @@ public class JobOpeningFactoryTest {
         JobReference jobReference = new JobReference(ClientCode.valueOf("isep"), 1);
         SystemUser user = null;
         WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
+        Long nrVacancy = 5L;
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";
@@ -28,8 +28,8 @@ public class JobOpeningFactoryTest {
         Calendar creationDate = Calendar.getInstance();
         JobOpeningStatus status = JobOpeningStatus.INACTIVE;
 
-        JobOpening expectedJobOpening = new JobOpening(jobReference, user, workingMode, nrVacancy, address, description, function, contractType, creationDate, status);
-        JobOpening actualJobOpening = jobOpeningFactory.createJobOpening(jobReference,user, workingMode, nrVacancy, address, description, function, contractType, creationDate, status);
+        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
+        JobOpening actualJobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
 
         assertEquals(expectedJobOpening, actualJobOpening);
     }

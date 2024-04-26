@@ -28,8 +28,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @EmbeddedId
     private JobReference jobReference;
 
-    @OneToOne
-    private SystemUser responsibleUser;
 
     private WorkingMode workingMode;
     private NrVacancy nrVacancy;
@@ -48,7 +46,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private JobRequirementSpecification jobRequirementSpecification;
 
 
-    public JobOpening(JobReference jobReference, SystemUser user, WorkingMode workingMode, Long nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, JobOpeningStatus status) {
+    public JobOpening(JobReference jobReference, WorkingMode workingMode, Long nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate) {
 
         this.jobReference = jobReference;
         this.workingMode = workingMode;
@@ -58,7 +56,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
-        this.responsibleUser = user;
         this.status = JobOpeningStatus.INACTIVE;
 
     }
@@ -103,9 +100,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
         return status;
     }
 
-    public SystemUser ResponsibleUser() {
-        return responsibleUser;
-    }
 
     @Override
     public boolean sameAs(Object other) {

@@ -132,14 +132,14 @@ public class RegisterJobOpeningControllerTest {
 
         ClientMapper clientMapper = new ClientMapper();
         WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
+        Long nrVacancy = 5L;
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123","ISEP", "4123-123");
 
-        JobOpening jobOpening = controller.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType,clientMapper.toDTO(client), JobOpeningStatus.INACTIVE);
+        JobOpening jobOpening = controller.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType,clientMapper.toDTO(client));
         assertNotNull(jobOpening);
         assertEquals(1, jobOpeningRepository.size());
     }
@@ -150,7 +150,7 @@ public class RegisterJobOpeningControllerTest {
 
         ClientMapper clientMapper = new ClientMapper();
         WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
+        Long nrVacancy = 5L;
         String address = "1234";
         String description = "Software Developer";
         String function = "Develop software";
@@ -159,7 +159,7 @@ public class RegisterJobOpeningControllerTest {
 
         // Attempt to register a job opening with invalid input
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            controller.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType,clientMapper.toDTO(client), JobOpeningStatus.INACTIVE);
+            controller.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType,clientMapper.toDTO(client));
         });
 
         // Verify that the exception was thrown

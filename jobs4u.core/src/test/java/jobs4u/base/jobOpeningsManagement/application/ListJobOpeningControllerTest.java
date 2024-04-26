@@ -71,11 +71,7 @@ public class ListJobOpeningControllerTest {
         @Override
         public List<JobOpening> findByCustomerManager(SystemUser customer) {
             List<JobOpening> jobsReturn = new ArrayList<>();
-            for (JobOpening jobOpening : jobOpenings) {
-                if (jobOpening.ResponsibleUser().equals(customer)) {
-                    jobsReturn.add(jobOpening);
-                }
-            }
+
             return jobsReturn;
         }
     };
@@ -95,7 +91,7 @@ public class ListJobOpeningControllerTest {
 
         ClientMapper clientMapper = new ClientMapper();
         WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
+        Long nrVacancy = 5L;
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";
@@ -104,14 +100,14 @@ public class ListJobOpeningControllerTest {
 
         JobReference jobReference = new JobReference(client.clientCode(),123);
 
-        return new JobOpening(jobReference,dummyUser(), workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), JobOpeningStatus.INACTIVE);
+        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
     }
 
     public static JobOpening jobOpening2() {
 
         ClientMapper clientMapper = new ClientMapper();
         WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
+        Long nrVacancy = 5L;
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";
@@ -120,7 +116,7 @@ public class ListJobOpeningControllerTest {
 
         JobReference jobReference = new JobReference(client.clientCode(),124);
 
-        return new JobOpening(jobReference,anotherDummyUser(), workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), JobOpeningStatus.INACTIVE);
+        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
     }
 
 
