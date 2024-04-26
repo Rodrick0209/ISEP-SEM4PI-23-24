@@ -37,8 +37,8 @@ public class JobRequirementSpecificationJarFile implements ValueObject, Serializ
         }
     }
 
-    public static JobRequirementSpecificationJarFile valueOf(final JobRequirementSpecificationJarFile jarFile) {
-        return new JobRequirementSpecificationJarFile(jarFile.value);
+    public static JobRequirementSpecificationJarFile valueOf(final String jarFile) {
+        return new JobRequirementSpecificationJarFile(jarFile);
     }
 
     @Override
