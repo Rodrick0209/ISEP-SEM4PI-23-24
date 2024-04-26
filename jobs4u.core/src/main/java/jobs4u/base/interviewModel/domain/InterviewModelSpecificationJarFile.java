@@ -1,7 +1,6 @@
 package jobs4u.base.interviewModel.domain;
 
 import eapli.framework.domain.model.ValueObject;
-import eapli.framework.strings.util.StringPredicates;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -17,35 +16,42 @@ public class InterviewModelSpecificationJarFile implements ValueObject, Serializ
 
     private static final long serialVersionUID = 1L;
 
-    private final File jarFile;
-    private final File configFile;
+    @Column(name="InterviewModelSpecificationJarFile")
+    private final String value;
 
 
     protected InterviewModelSpecificationJarFile() {
         // for ORM
-        jarFile = null;
-        configFile = null;
+        value = null;
     }
 
-    protected InterviewModelSpecificationJarFile(final File jarFile, final File configFile) {
-        Preconditions.ensure(jarFile != null, "jar file should not be null");
-        Preconditions.ensure(configFile != null, "config file should not be null");
-        this.jarFile = jarFile;
-        this.configFile = configFile;
+    protected InterviewModelSpecificationJarFile(final String value) {
+        Preconditions.ensure(value != null, "jar file should not be null");
+        Preconditions.ensure(isAFile(value), "jar file should exist in the system");
+        this.value = value;
+    }
+
+    private boolean isAFile(String value){
+        try {
+            File file = new File(value);
+            return file.exists();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static InterviewModelSpecificationJarFile valueOf(final InterviewModelSpecificationJarFile jarFile) {
-        return new InterviewModelSpecificationJarFile(jarFile.jarFile, jarFile.configFile);
+        return new InterviewModelSpecificationJarFile(jarFile.value);
     }
 
     @Override
     public String toString() {
-        return jarFile.getName() + " " + configFile.getName();
+        return value;
     }
 
     @Override
     public int compareTo(final InterviewModelSpecificationJarFile o) {
-        return jarFile.compareTo(o.jarFile);
+        return value.compareTo(o.value);
     }
 
 
