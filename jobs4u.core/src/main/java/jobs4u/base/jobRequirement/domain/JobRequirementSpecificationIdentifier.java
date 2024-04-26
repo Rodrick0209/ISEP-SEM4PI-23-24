@@ -35,8 +35,8 @@ public class JobRequirementSpecificationIdentifier implements ValueObject, Seria
      *
      * @return a new Username object
      */
-    public static JobRequirementSpecificationIdentifier valueOf(final JobRequirementSpecificationIdentifier identifier) {
-        return new JobRequirementSpecificationIdentifier(identifier.value);
+    public static JobRequirementSpecificationIdentifier valueOf(final String identifier) {
+        return new JobRequirementSpecificationIdentifier(identifier);
     }
 
     @Override
