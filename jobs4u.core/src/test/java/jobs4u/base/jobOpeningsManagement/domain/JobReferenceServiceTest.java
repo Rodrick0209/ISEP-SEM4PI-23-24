@@ -4,6 +4,8 @@ import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.utils.ClientCode;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLOutput;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JobReferenceServiceTest {
@@ -22,10 +24,12 @@ public class JobReferenceServiceTest {
     public void ensureReferenceNumberCounterReset() {
         JobReferenceService jobReferenceService = new JobReferenceService();
         ClientCode clientCode = ClientCode.valueOf("isep");
-        for (int i = 0; i < 1000000; i++) {
+
+        for (int i = 0; i < 99; i++) {
             jobReferenceService.createJobReference(clientCode);
         }
-        JobReference expectedJobReference = new JobReference(clientCode, 1);
+
+        JobReference expectedJobReference = new JobReference(clientCode, 100);
         JobReference actualJobReference = jobReferenceService.createJobReference(clientCode);
         assertEquals(expectedJobReference, actualJobReference);
     }

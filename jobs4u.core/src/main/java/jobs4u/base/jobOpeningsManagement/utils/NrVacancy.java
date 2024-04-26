@@ -5,6 +5,7 @@ import eapli.framework.validations.Preconditions;
 
 public class NrVacancy implements ValueObject {
     private static final long serialVersionUID = 1L;
+
     private final Long nrVacancy;
 
     protected NrVacancy(final Long nrVacancy) {
@@ -31,5 +32,10 @@ public class NrVacancy implements ValueObject {
     @Override
     public int hashCode() {
         return Integer.hashCode(Math.toIntExact(this.nrVacancy));
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.nrVacancy);
     }
 }
