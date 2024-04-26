@@ -1,0 +1,30 @@
+Numerical: (1) Number of years of experience?
+Requirement: 2
+
+
+Single Choice: (2) What degree do you have?
+a) None
+b) Bachelor's
+c) Master's
+d) Doctorate
+Requirement: c
+
+
+Multiple Choice: (3) What programming languages do you know?
+a) Python
+b) Java
+c) C++
+d) Ruby
+Requirement: a, b, c
+
+
+Yes/No: (4) Are you willing to relocate?
+Requirement: Yes
+
+
+Yes/No: (5) Are you willing to work on weekends?
+Requirement: No
+
+
+Yes/No: (6) Are you fluent in English?
+

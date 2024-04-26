@@ -1,0 +1,42 @@
+Multiple Choice: (1) What is my dog's name?
+a) Bea
+b) Antonio
+c) Luna
+d) Bobi
+
+Score: 3.0
+Correct answer: b,c
+
+
+Short Answer: (2) What is the 37th element in the periodic table?
+Score: 1.0
+Correct answer: Rubidio.
+
+
+Numerical: (3) How much is one plus one?
+Score: 4.0
+Correct answer: 2.0
+
+
+True/False: (4) Sporting is a good club.
+Score: 2.0
+Correct answer: true
+
+
+True/False: (5) Is the moon made of cheese?
+Score: 2.0
+Correct answer:true
+
+Date: (6) When was 25 of abril?
+Score: 1.0
+Correct answer: 25/04/1974
+
+
+Time: (7) When is the next solar eclipse?
+Score: 1.0
+Correct answer:18:17
+
+
+Numeric Scale: (8) How much do you like this quiz from 1 to 10?
+Score: 6.0
+Correct answer: 10
