@@ -1,16 +1,26 @@
 package jobs4u.base.jobOpeningsManagement.utils;
 
 import eapli.framework.domain.model.ValueObject;
+import eapli.framework.strings.StringMixin;
 import eapli.framework.validations.Preconditions;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
+import jakarta.persistence.Embeddable;
 
-public class NrVacancy implements ValueObject {
-    private static final long serialVersionUID = 1L;
+import java.io.Serializable;
 
-    private final Long nrVacancy;
+@Embeddable
+public class NrVacancy implements ValueObject, Serializable, StringMixin {
 
-    protected NrVacancy(final Long nrVacancy) {
-        Preconditions.isPositive((nrVacancy), "Number of vacancies should be a positive integer");
-        this.nrVacancy = Long.valueOf(nrVacancy);
+    private final String nrVacancy;
+
+    protected NrVacancy(final String nrVacancy) {
+        Preconditions.isPositive(Long.parseLong((nrVacancy)), "Number of vacancies should be a positive integer");
+        this.nrVacancy = nrVacancy;
+    }
+
+    public NrVacancy() {
+        this.nrVacancy = null;
     }
 
     @Override
@@ -25,17 +35,19 @@ public class NrVacancy implements ValueObject {
         }
     }
 
-    public static NrVacancy valueOf(final Long nrVacancy) {
+    public static NrVacancy valueOf(final String nrVacancy) {
         return new NrVacancy(nrVacancy);
     }
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(Math.toIntExact(this.nrVacancy));
+        return Integer.hashCode(Math.toIntExact(Long.parseLong(this.nrVacancy)));
     }
 
     @Override
     public String toString() {
         return String.valueOf(this.nrVacancy);
     }
+
+
 }

@@ -17,10 +17,10 @@ public class JobOpeningFactoryTest {
     public void testCreateJobOpening() {
         JobOpeningFactory jobOpeningFactory = new JobOpeningFactory();
 
-        JobReference jobReference = new JobReference(ClientCode.valueOf("isep"), 1);
+        JobReference jobReference = new JobReference(ClientCode.valueOf("isep").code());
         SystemUser user = null;
         WorkingMode workingMode = WorkingMode.REMOTE;
-        Long nrVacancy = 5L;
+        String nrVacancy = "5";
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";

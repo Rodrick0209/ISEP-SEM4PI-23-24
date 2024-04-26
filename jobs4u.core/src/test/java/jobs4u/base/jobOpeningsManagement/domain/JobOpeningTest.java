@@ -18,10 +18,10 @@ public class JobOpeningTest {
 
     @Test
     public void testCreateJobOpening() {
-        JobReference jobReference = new JobReference(ClientCode.valueOf("isep"), 1);
+        JobReference jobReference = new JobReference("Isep-0001");
         SystemUser user = null;
         WorkingMode workingMode = WorkingMode.REMOTE;
-        Long nrVacancy = 5L;
+        String nrVacancy = "5";
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";
@@ -63,10 +63,10 @@ public class JobOpeningTest {
 
     @Test
     public void ensureNotPossibleToSelectAInvalidJobRequirementSpecificationForAJobOpening() {
-        JobReference jobReference = new JobReference(ClientCode.valueOf("isep"), 1);
+        JobReference jobReference = new JobReference("Isep-0001");
         SystemUser user = null;
         WorkingMode workingMode = WorkingMode.REMOTE;
-        Long nrVacancy = 5L;
+        String nrVacancy = "5";
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";

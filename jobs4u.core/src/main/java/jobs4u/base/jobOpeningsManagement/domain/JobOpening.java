@@ -47,7 +47,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private JobRequirementSpecification jobRequirementSpecification;
 
 
-    public JobOpening(JobReference jobReference, WorkingMode workingMode, Long nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate) {
+    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate) {
 
         this.jobReference = jobReference;
         this.workingMode = workingMode;
