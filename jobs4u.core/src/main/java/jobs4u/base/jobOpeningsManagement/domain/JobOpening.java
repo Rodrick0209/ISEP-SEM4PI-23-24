@@ -6,6 +6,7 @@ import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
+import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobOpeningsManagement.utils.*;
@@ -117,6 +118,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     }
 
     public void selectJobRequirementSpecification(JobRequirementSpecification jobRequirementSpecification) {
+        Preconditions.ensure(jobRequirementSpecification != null, "job requirement specification should not be null");
         this.jobRequirementSpecification = jobRequirementSpecification;
     }
 

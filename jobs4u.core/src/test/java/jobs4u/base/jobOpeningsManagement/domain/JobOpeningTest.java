@@ -5,6 +5,7 @@ import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
+import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
 import jobs4u.base.utils.ClientCode;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +36,7 @@ public class JobOpeningTest {
         assertEquals(expectedJobOpening, actualJobOpening);
     }
 
-    /* @Test
+  /*  @Test
     public void ensurePossibleToSelectAJobRequirementSpecificationForAJobOpening() {
         JobReference jobReference = new JobReference(ClientCode.valueOf("isep"), 1);
         WorkingMode workingMode = WorkingMode.REMOTE;
@@ -47,37 +48,37 @@ public class JobOpeningTest {
         LocalDate creationDate = LocalDate.now();
 
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
-        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification(...);
+        JobRequirementSpecificationIdentifier jobRequirementSpecificationIdentifier = JobRequirementSpecificationIdentifier.valueOf("teste recrutamento");
+        JobRequirementSpecificationJarFile jobRequirementSpecificationJarFile = JobRequirementSpecificationJarFile.valueOf("...");
+        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification(jobRequirementSpecificationIdentifier, jobRequirementSpecificationJarFile);
         jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
     }
-     */
 
-    /*@Test
+    @Test
     public void ensureNotPossibleToSelectAJobRequirementSpecificationForAInvalidJobOpening() {
         JobOpening jobOpening = null;
         JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification(...);
         assertThrows(NullPointerException.class, jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
-    }
-     */
+    }*/
 
-    /*
     @Test
     public void ensureNotPossibleToSelectAInvalidJobRequirementSpecificationForAJobOpening() {
         JobReference jobReference = new JobReference(ClientCode.valueOf("isep"), 1);
+        SystemUser user = null;
         WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
+        Long nrVacancy = 5L;
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
-        LocalDate creationDate = LocalDate.now();
+        Calendar creationDate = Calendar.getInstance();
+        JobOpeningStatus status = JobOpeningStatus.INACTIVE;
 
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
         JobRequirementSpecification jobRequirementSpecification = null;
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
         });
     }
-*/
 
 }
