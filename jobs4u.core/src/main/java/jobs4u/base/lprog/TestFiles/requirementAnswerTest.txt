@@ -1,0 +1,13 @@
+1-Answer: 10
+
+2-Answer: a
+
+3-Answer: a,b,c
+
+4-Answer: Yes
+
+5-Answer: Yes
+
+6-Answer: Yes
+
+7-Answer: 2

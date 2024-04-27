@@ -15,11 +15,6 @@ public class Answer  {
 
 
     public Answer(final String correctAnswer) {
-        if (!StringPredicates.isPhrase(correctAnswer)) {
-            throw new IllegalArgumentException("The answer is invalid");
-        }
-
-
         this.correctAnswer = correctAnswer;
     }
 

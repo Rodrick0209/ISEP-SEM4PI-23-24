@@ -32,10 +32,9 @@ public abstract class Question {
     }
 
     public Question(final String text, final Answer answer, final double questionNumber) {
-        Preconditions.noneNull(text, score, answer, "Question must not contain null or empty attributes");
+        Preconditions.noneNull(text, answer, "Question must not contain null or empty attributes");
 
         this.text = text;
-        this.score = score;
         this.answer = answer;
         this.questionNumber = questionNumber;
     }
