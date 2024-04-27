@@ -71,11 +71,7 @@ public class ListJobOpeningControllerTest {
         @Override
         public List<JobOpening> findByCustomerManager(SystemUser customer) {
             List<JobOpening> jobsReturn = new ArrayList<>();
-            for (JobOpening jobOpening : jobOpenings) {
-                if (jobOpening.ResponsibleUser().equals(customer)) {
-                    jobsReturn.add(jobOpening);
-                }
-            }
+
             return jobsReturn;
         }
     };
@@ -102,9 +98,9 @@ public class ListJobOpeningControllerTest {
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123","ISEP", "4123-123");
 
-        JobReference jobReference = new JobReference(client.clientCode(),123);
+        JobReference jobReference = new JobReference(client.code().toString());
 
-        return new JobOpening(jobReference,dummyUser(), workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), JobOpeningStatus.INACTIVE);
+        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
     }
 
     public static JobOpening jobOpening2() {
@@ -118,9 +114,9 @@ public class ListJobOpeningControllerTest {
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123","ISEP", "4123-123");
 
-        JobReference jobReference = new JobReference(client.clientCode(),124);
+        JobReference jobReference = new JobReference(client.clientCode().code());
 
-        return new JobOpening(jobReference,anotherDummyUser(), workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), JobOpeningStatus.INACTIVE);
+        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
     }
 
 

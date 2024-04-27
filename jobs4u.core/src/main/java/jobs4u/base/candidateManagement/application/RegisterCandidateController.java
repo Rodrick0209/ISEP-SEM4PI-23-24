@@ -8,6 +8,7 @@ import jobs4u.base.candidateManagement.application.eventhandlers.CandidateRegist
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordGenerator;
+import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 
 public class RegisterCandidateController {
 
@@ -25,7 +26,7 @@ public class RegisterCandidateController {
 
     public Candidate registerCandidate(String email, String firstname, String surname, String phoneNumber){
 
-        // authorizationService.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.OPERATOR);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.OPERATOR);
         final Candidate candidate = new Candidate(firstname, surname, email, phoneNumber);
         return saveCandidate(candidate, email, firstname, surname, phoneNumber);
     }

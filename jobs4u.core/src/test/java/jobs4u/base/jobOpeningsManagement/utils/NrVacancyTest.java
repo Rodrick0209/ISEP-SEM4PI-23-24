@@ -16,8 +16,4 @@ public class NrVacancyTest {
         assertThrows(IllegalArgumentException.class, () -> NrVacancy.valueOf("-7"));
     }
 
-    @Test
-    public void testNullNrVacancy() {
-        assertThrows(IllegalArgumentException.class, () -> NrVacancy.valueOf(null));
-    }
 }

@@ -6,6 +6,7 @@ import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
+import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobOpeningsManagement.utils.*;
@@ -28,8 +29,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @EmbeddedId
     private JobReference jobReference;
 
-    @OneToOne
-    private SystemUser responsibleUser;
 
     private WorkingMode workingMode;
     private NrVacancy nrVacancy;
@@ -48,7 +47,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private JobRequirementSpecification jobRequirementSpecification;
 
 
-    public JobOpening(JobReference jobReference, SystemUser user, WorkingMode workingMode, Long nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, JobOpeningStatus status) {
+    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate) {
 
         this.jobReference = jobReference;
         this.workingMode = workingMode;
@@ -58,7 +57,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
-        this.responsibleUser = user;
         this.status = JobOpeningStatus.INACTIVE;
 
     }
@@ -103,9 +101,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
         return status;
     }
 
-    public SystemUser ResponsibleUser() {
-        return responsibleUser;
-    }
 
     @Override
     public boolean sameAs(Object other) {
@@ -123,6 +118,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     }
 
     public void selectJobRequirementSpecification(JobRequirementSpecification jobRequirementSpecification) {
+        Preconditions.ensure(jobRequirementSpecification != null, "job requirement specification should not be null");
         this.jobRequirementSpecification = jobRequirementSpecification;
     }
 

@@ -26,7 +26,7 @@ public class RecruimentProcessTest {
         phases.add(phase2);
         phases.add(phase4);
         phases.add(phase5);
-        assertDoesNotThrow(() -> new RecruitmentProcess(phases, new JobReference(ClientCode.valueOf("isep"), 1)));
+        assertDoesNotThrow(() -> new RecruitmentProcess(phases, new JobReference("isep")));
 
     }
 
@@ -43,7 +43,7 @@ public class RecruimentProcessTest {
         phases.add(phase6);
         phases.add(phase4);
         phases.add(phase5);
-        assertDoesNotThrow(() -> new RecruitmentProcess(phases, new JobReference(ClientCode.valueOf("isep"), 1)));
+        assertDoesNotThrow(() -> new RecruitmentProcess(phases, new JobReference("isep")));
 
     }
     @Test
@@ -62,7 +62,7 @@ public class RecruimentProcessTest {
         phases.add(phase5);
         phases.add(phase1);
         assertThrows(IllegalArgumentException.class, () ->
-                new RecruitmentProcess(phases, new JobReference(ClientCode.valueOf("isep"), 1)));
+                new RecruitmentProcess(phases, new JobReference("isep")));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class RecruimentProcessTest {
         phases.add(phase6);
         phases.add(phase7);
         assertThrows(IllegalArgumentException.class, () ->
-                new RecruitmentProcess(phases, new JobReference(ClientCode.valueOf("isep"), 1)));
+                new RecruitmentProcess(phases, new JobReference("isep")));
 
     }
 
@@ -100,7 +100,7 @@ public class RecruimentProcessTest {
         phases.add(phase4);
         phases.add(phase5);
         assertThrows(IllegalArgumentException.class, () ->
-                new RecruitmentProcess(phases, new JobReference(ClientCode.valueOf("isep"), 1)));
+                new RecruitmentProcess(phases, new JobReference("isep")));
 
     }
 
@@ -116,7 +116,7 @@ public class RecruimentProcessTest {
         phases.add(phase4);
         phases.add(phase5);
         assertThrows(IllegalArgumentException.class, () ->
-                new RecruitmentProcess(phases, new JobReference(ClientCode.valueOf("isep"), 1)));
+                new RecruitmentProcess(phases, new JobReference("isep")));
 
     }
 
@@ -134,7 +134,7 @@ public class RecruimentProcessTest {
         phases.add(phase4);
         phases.add(phase5);
         assertThrows(IllegalArgumentException.class, () ->
-                new RecruitmentProcess(phases, new JobReference(ClientCode.valueOf("isep"), 1)));
+                new RecruitmentProcess(phases, new JobReference("isep")));
 
 
     }
@@ -152,7 +152,7 @@ public class RecruimentProcessTest {
         phases.add(phase4);
         phases.add(phase5);
         assertThrows(IllegalArgumentException.class, () ->
-                new RecruitmentProcess(phases, new JobReference(ClientCode.valueOf("isep"), 1)));
+                new RecruitmentProcess(phases, new JobReference("isep")));
     }
 
 

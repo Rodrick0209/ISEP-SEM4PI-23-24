@@ -40,8 +40,8 @@ public class InterviewModelSpecificationJarFile implements ValueObject, Serializ
         }
     }
 
-    public static InterviewModelSpecificationJarFile valueOf(final InterviewModelSpecificationJarFile jarFile) {
-        return new InterviewModelSpecificationJarFile(jarFile.value);
+    public static InterviewModelSpecificationJarFile valueOf(final String jarFile) {
+        return new InterviewModelSpecificationJarFile(jarFile);
     }
 
     @Override

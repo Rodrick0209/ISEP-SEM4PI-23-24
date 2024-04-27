@@ -45,7 +45,7 @@ public class RegisterJobOpeningUI extends AbstractUI {
 
         final WorkingMode workingMode = requestWorkingMode();
 
-        final Long nrVacancy = Console.readLong("Number of Vacancies->");
+        final String nrVacancy = String.valueOf(Console.readLong("Number of Vacancies->"));
 
         final String address = Console.readLine("Client postal Address->");
 
@@ -57,7 +57,7 @@ public class RegisterJobOpeningUI extends AbstractUI {
 
 
         try {
-            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, client,  JobOpeningStatus.INACTIVE);
+            this.theController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, client);
             System.out.println("Job Opening registered successfully.");
 
         } catch (IntegrityViolationException | ConcurrencyException ex) {

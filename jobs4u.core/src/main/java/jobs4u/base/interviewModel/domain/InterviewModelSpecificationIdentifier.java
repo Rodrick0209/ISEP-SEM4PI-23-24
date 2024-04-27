@@ -37,8 +37,8 @@ public class InterviewModelSpecificationIdentifier implements ValueObject, Seria
      *
      * @return a new Username object
      */
-    public static InterviewModelSpecificationIdentifier valueOf(final InterviewModelSpecificationIdentifier identifier) {
-        return new InterviewModelSpecificationIdentifier(identifier.value);
+    public static InterviewModelSpecificationIdentifier valueOf(final String identifier) {
+        return new InterviewModelSpecificationIdentifier(identifier);
     }
 
     @Override

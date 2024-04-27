@@ -14,6 +14,17 @@ public class JobRequirementSpecification implements AggregateRoot<JobRequirement
     private JobRequirementSpecificationIdentifier identifier;
     private JobRequirementSpecificationJarFile jarFile;
 
+    protected JobRequirementSpecification(){
+        // for ORM
+        identifier = null;
+        jarFile = null;
+    }
+
+    public JobRequirementSpecification(JobRequirementSpecificationIdentifier identifier, JobRequirementSpecificationJarFile jarFile){
+        this.identifier = identifier;
+        this.jarFile = jarFile;
+    }
+
     @Override
     public boolean sameAs(Object other) {
         return false;

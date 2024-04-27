@@ -11,22 +11,23 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
 
     private static final long serialVersionUID = 1L;
 
-    private final ClientCode clientCode;
-    private final int referenceNumber;
+    private final String jobReference;
 
-    public JobReference(ClientCode clientCode, int referenceNumber) {
-        this.clientCode = clientCode;
-        this.referenceNumber = referenceNumber;
+    public JobReference(String jobReference) {
+        this.jobReference = jobReference;
     }
 
     protected JobReference() {
-        this.clientCode = null;
-        this.referenceNumber = 0;
+        this.jobReference = null;
+    }
+
+    public JobReference valueOf(String jobReference) {
+        return new JobReference(jobReference);
     }
 
     @Override
     public String toString() {
-        return this.clientCode.code() + "-" + String.format("%06d", this.referenceNumber);
+        return this.jobReference;
     }
 
     @Override
