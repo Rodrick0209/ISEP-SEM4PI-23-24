@@ -1,17 +1,20 @@
 package jobs4u.base.lprog.InterviewManagement.InterviewGenerator.utils;
 
-public enum InterviewQuestionsType {
+public enum QuestionType {
     MULTIPLE_CHOICE("Multiple Choice"),
     SHORT_ANSWER("Short Answer"),
     NUMERICAL("Numerical"),
     TRUE_FALSE("True/False"),
     DATE("Date"),
     TIME("Time"),
-    NUMERIC_SCALE("Numeric Scale");
+    NUMERIC_SCALE("Numeric Scale"),
+    YES_NO("Yes/No"),
+    MINIMUN_REQUIREMENTS("Minimum Requirement"),
+    SINGLE_CHOICE("Single Choice");
 
     private final String label;
 
-    InterviewQuestionsType(String label) {
+    QuestionType(String label) {
         this.label = label;
     }
 
@@ -20,8 +23,8 @@ public enum InterviewQuestionsType {
     }
 
     // Método para obter o enum pelo número ordinal
-    public static InterviewQuestionsType getByOrdinal(int ordinal) {
-        for (InterviewQuestionsType type : InterviewQuestionsType.values()) {
+    public static QuestionType getByOrdinal(int ordinal) {
+        for (QuestionType type : QuestionType.values()) {
             if (type.ordinal() == ordinal - 1) {
                 return type;
             }
