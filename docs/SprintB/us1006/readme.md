@@ -23,7 +23,7 @@ candidate's information.
 - O product owner espera que o sistema aplique as melhores práticas de UI/UX mas, não sendo especialista nessa área
   técnica, não arrisca sugerir soluções.
 - Será toda a informação pessoal de um candidato que o sistema tenha registado.
-- 
+
 
 ## Business Rules
 
