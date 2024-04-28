@@ -26,6 +26,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Version
     private Long version;
 
+    @Id
     @EmbeddedId
     private JobReference jobReference;
 

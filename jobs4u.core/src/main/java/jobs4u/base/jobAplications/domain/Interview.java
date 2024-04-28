@@ -1,16 +1,30 @@
 package jobs4u.base.jobAplications.domain;
 
-import java.util.Date;
+import eapli.framework.domain.model.ValueObject;
+import jakarta.persistence.Embeddable;
 
-public class Interview {
-
+@Embeddable
+public class Interview implements ValueObject {
     private Date date;
-    private Date time;
+    private Time time;
 
 
-    public Interview(Date date, Date time) {
+    public Interview(Date date, Time time) {
         this.date = date;
         this.time = time;
     }
+
+    protected Interview() {
+        // for ORM
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
 
 }

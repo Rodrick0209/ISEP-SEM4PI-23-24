@@ -43,7 +43,6 @@ public class RegisterClientUI extends AbstractUI {
                     "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
         }
 
-
         return true;
     }
 

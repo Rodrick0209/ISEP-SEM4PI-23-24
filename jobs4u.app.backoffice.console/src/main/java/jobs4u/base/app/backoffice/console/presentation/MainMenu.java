@@ -24,6 +24,7 @@
 package jobs4u.base.app.backoffice.console.presentation;
 
 import jobs4u.base.Application;
+import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.RegisterApplicationUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.EnableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.DisableUserAction;
@@ -71,6 +72,8 @@ public class MainMenu extends AbstractUI {
     private static final int REGISTER_JOB_OPENING = 1;
     private static final int LIST_JOB_OPENING = 2;
 
+    // APPLICATIONS
+    private static final int REGISTER_APPLICATION = 1;
 
     // SETTINGS
     private static final int Option = 1;
@@ -80,7 +83,8 @@ public class MainMenu extends AbstractUI {
     private static final int USERS_OPTION = 2;
     private static final int CUSTOMERS_OPTION = 3;
     private static final int JOB_OPENING_OPTION = 4;
-    private static final int SETTINGS_OPTION = 5;
+    private static final int APPLICATION_OPTION = 5;
+    private static final int SETTINGS_OPTION = 6;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -151,11 +155,13 @@ public class MainMenu extends AbstractUI {
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.OPERATOR)) {
-
+            final Menu applicationMenu = buildApplicationsMenu();
+            mainMenu.addSubMenu(APPLICATION_OPTION, applicationMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
-
         }
+
+
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
@@ -183,7 +189,6 @@ public class MainMenu extends AbstractUI {
         menu.addItem(LIST_USERS_OPTION, "List all Users", new ListUsersAction());
         menu.addItem(ACTIVATE_USER_OPTION, "Activate User", new EnableUserAction());
         menu.addItem(DISABLE_USER_OPTION, "Deactivate User", new DisableUserAction());
-        //menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",new AcceptRefuseSignupRequestAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
@@ -201,13 +206,21 @@ public class MainMenu extends AbstractUI {
 
 
 
-
-
     private Menu buildJobOpeningMenu() {
         final Menu menu = new Menu("Job Opening >");
 
         menu.addItem(REGISTER_JOB_OPENING, "Register Job Opening", new RegisterJobOpeningUI()::show);
         menu.addItem(LIST_JOB_OPENING, "List Job Openings", new ListJobOpeningUI()::show);
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildApplicationsMenu() {
+        final Menu menu = new Menu("Applications >");
+
+        menu.addItem(REGISTER_JOB_OPENING, "Register Applicationa", new RegisterApplicationUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 

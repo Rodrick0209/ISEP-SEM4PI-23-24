@@ -73,7 +73,7 @@ public class Phase {
 
     private void validatePhasesDates(LocalDate startDate, LocalDate endDate) {
         if (startDate.isAfter(endDate)) {
-            throw new IllegalArgumentException("Invalid Date, start date should be before after date");
+            throw new IllegalArgumentException("Invalid jobs4u.base.jobAplications.domain.domain.Date, start date should be before after date");
         }
     }
 

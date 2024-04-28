@@ -28,4 +28,5 @@ class JpaJobOpeningRepository extends BasepaRepositoryBase<JobOpening, JobRefere
 
     }
 
+
 }

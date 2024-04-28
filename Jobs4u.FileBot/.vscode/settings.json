@@ -3,6 +3,8 @@
     "header.h": "c",
     "string.h": "c",
     "stat.h": "c",
-    "unistd.h": "c"
+    "unistd.h": "c",
+    "assert_test.h": "c",
+    "types.h": "c"
   }
 }

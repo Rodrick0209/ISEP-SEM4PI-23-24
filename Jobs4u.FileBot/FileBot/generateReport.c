@@ -1,10 +1,9 @@
 #include "header.h"
 
 
-
 // Structure to hold candidate information
 struct Candidate {
-    char email[MAX_FILENAME]; 
+    char email[MAX_FILENAME];
     char number[MAX_FILENAME];
     char jobReference[MAX_FILENAME]; // Added to store job reference
     char files[MAX_FILES][MAX_FILENAME];
@@ -13,17 +12,17 @@ struct Candidate {
 };
 
 struct Candidate report_data[MAX_CANDIDATES];
-
-
 int candidateCount;
-
 
 // Function to generate the report file
 void generateReport() {
     candidateCount = countCandidatures();
     loadCandidateInfo();
 
-    FILE *reportFile = fopen("report.txt", "w");
+    char reportFilePath[MAX_FILENAME];
+    sprintf(reportFilePath, "%s/report.txt", output_directory); // Construct report file path
+
+    FILE *reportFile = fopen(reportFilePath, "w");
     if (reportFile == NULL) {
         perror("Failed to open report file");
         return;
@@ -33,9 +32,9 @@ void generateReport() {
 
     // Iterate through each candidate and write their information to the report
     for (int i = 0; i < candidateCount; i++) {
-        fprintf(reportFile, "Candidate Email: %s\n", report_data[i].email); 
-        fprintf(reportFile, "Candidate Number: %s\n", report_data[i].number);
+        fprintf(reportFile, "Candidate Email: %s\n", report_data[i].email);
         fprintf(reportFile, "Job Reference: %s\n", report_data[i].jobReference);
+        fprintf(reportFile, "Candidate Number: %s\n", report_data[i].number);
         fprintf(reportFile, "Path: %s\n", report_data[i].path);
 
         fprintf(reportFile, "Files:\n");
@@ -47,7 +46,6 @@ void generateReport() {
 
     fclose(reportFile);
 }
-
 
 int countCandidatures() {
     DIR *rootDir;

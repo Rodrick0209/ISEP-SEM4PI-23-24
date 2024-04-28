@@ -103,6 +103,5 @@ public final class BaseBootstrap extends BaseApplication {
     @Override
     protected void doSetupEventHandlers(final EventDispatcher dispatcher) {
         dispatcher.subscribe(new NewUserRegisteredFromClientRegistedWatchDog(), NewUserRegisteredFromClientRegistedEvent.class);
-        dispatcher.subscribe(new NewUserRegisteredFromClientRegistedWatchDog(), NewUserRegisteredFromClientRegistedEvent.class);
     }
 }

@@ -1,4 +1,9 @@
 package jobs4u.base.jobAplications.domain;
 
-public class JobApplicationState {
+import eapli.framework.domain.model.ValueObject;
+import jakarta.persistence.Embeddable;
+
+public enum JobApplicationState implements ValueObject {
+    ACCEPTED,
+    REJECTED,
 }

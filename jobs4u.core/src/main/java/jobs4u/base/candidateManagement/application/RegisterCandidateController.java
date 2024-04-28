@@ -31,6 +31,8 @@ public class RegisterCandidateController {
         return saveCandidate(candidate, email, firstname, surname, phoneNumber);
     }
 
+
+
     private Candidate saveCandidate(Candidate candidate, String email, String firstname, String surname, String phoneNumber){
 
         candidate = this.candidateRepository.save(candidate);

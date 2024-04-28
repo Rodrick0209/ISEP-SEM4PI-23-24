@@ -45,9 +45,10 @@ public class NewUserRegisteredFromClientRegistedWatchDog implements EventHandler
 
         final NewUserRegisteredFromClientRegistedEvent event = (NewUserRegisteredFromClientRegistedEvent) domainevent;
 
-        final AddClientUserOnClientRegistedController
-                controller = new AddClientUserOnClientRegistedController();
+        final AddClientUserOnClientRegistedController controller = new AddClientUserOnClientRegistedController();
+
         controller.addClientUser(event);
+
         System.out.println("New user created with success!");
     }
 }

@@ -92,13 +92,13 @@ public final class BaseBackoffice extends BaseApplication {
         AuthzRegistry.configure(PersistenceContext.repositories().users(), new Jobs4uPasswordPolicy(),
                 new PlainTextEncoder());
     }
+
     @SuppressWarnings("unchecked")
     @Override
     protected void doSetupEventHandlers(final EventDispatcher dispatcher) {
-        dispatcher.subscribe(new NewUserRegisteredFromClientRegistedWatchDog(),
-                NewUserRegisteredFromClientRegistedEvent.class);
-
         dispatcher.subscribe(new ClientRegistedWatchDog(), ClientRegistedEvent.class);
+        dispatcher.subscribe(new NewUserRegisteredFromClientRegistedWatchDog(), NewUserRegisteredFromClientRegistedEvent.class);
+
     }
 
 
