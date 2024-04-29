@@ -12,6 +12,7 @@ import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobOpeningsManagement.utils.*;
 
 import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
+import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
 
@@ -43,6 +44,9 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private ContractType contractType;
     private Calendar creationDate;
     private JobOpeningStatus status;
+
+    @OneToOne
+    private RecruitmentProcess recruitmentProcess;
 
     @OneToOne
     private JobRequirementSpecification jobRequirementSpecification;
@@ -121,6 +125,16 @@ public class JobOpening implements AggregateRoot<JobReference> {
     public void selectJobRequirementSpecification(JobRequirementSpecification jobRequirementSpecification) {
         Preconditions.ensure(jobRequirementSpecification != null, "job requirement specification should not be null");
         this.jobRequirementSpecification = jobRequirementSpecification;
+    }
+
+   public void validateCanAddOrChangeRecruitmentProcess() {
+        if (this.recruitmentProcess != null && this.recruitmentProcess.hasRecruitmentStarted()) {
+            throw new IllegalArgumentException("Recruitment process has already started");
+        }
+    }
+
+    public void addRecruitmentProcess(RecruitmentProcess recruitmentProcess) {
+        this.recruitmentProcess = recruitmentProcess;
     }
 
 

@@ -55,7 +55,6 @@ public abstract class BaseApplication {
         printHeader();
 
         try {
-            setupEventHandlers();
             doMain(args); // submeta a tarefa para o executor
 
             printFooter();

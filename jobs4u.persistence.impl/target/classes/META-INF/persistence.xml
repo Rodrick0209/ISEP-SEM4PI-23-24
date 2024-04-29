@@ -26,17 +26,10 @@
     <class>jobs4u.base.jobRequirement.domain.JobRequirementSpecification</class>
     <class>jobs4u.base.jobRequirement.domain.JobRequirementSpecificationIdentifier</class>
     <class>jobs4u.base.jobRequirement.domain.JobRequirementSpecificationJarFile</class>
-      <class>jobs4u.base.jobAplications.domain.JobApplication</class>
-    <class>jobs4u.base.jobAplications.domain.Interview</class>
-    <class>jobs4u.base.jobAplications.domain.Date</class>
-    <class>jobs4u.base.jobAplications.domain.Time</class>
-    <class>jobs4u.base.jobAplications.domain.InterviewAnswer</class>
-    <class>jobs4u.base.jobAplications.domain.InterviewPoints</class>
-    <class>jobs4u.base.jobAplications.domain.Answer</class>
-    <class>jobs4u.base.jobAplications.domain.JobApplicationFile</class>
-    <class>jobs4u.base.jobAplications.domain.JobApplicationState</class>
-    <class>jobs4u.base.jobAplications.domain.RequirementResult</class>
-    <class>jobs4u.base.jobAplications.domain.RequirementAnswer</class>
+    <class>jobs4u.base.jobOpeningsManagement.domain.JobOpening</class>
+    <class>jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess</class>
+    <class>jobs4u.base.recruitmentProcessManagement.domain.Phase</class>
+    <class>jobs4u.base.interviewModel.domain.InterviewModel</class>
 
     <properties>
       <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->

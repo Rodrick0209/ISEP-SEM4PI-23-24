@@ -31,6 +31,7 @@ public class AddUserOnClientRegistedController {
             final SystemUser newUser = userRepository.save(userBuilder.build());
 
             // notify interested parties
+
             final DomainEvent event = new NewUserRegisteredFromClientRegistedEvent(clientRegistedEvent.client().code(), newUser.username(),clientRegistedEvent.phoneNumber());
             dispatcher.publish(event);
             return newUser;

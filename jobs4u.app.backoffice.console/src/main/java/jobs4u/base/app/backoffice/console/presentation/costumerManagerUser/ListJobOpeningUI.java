@@ -58,7 +58,6 @@ public class ListJobOpeningUI extends AbstractUI {
 
     private void listAllJobOpenings() {
         List<JobOpening> allJobOpenings = theController.jobOpeningsFromRepository();
-        allJobOpenings.forEach(System.out::println);
     }
 
     private void listActiveJobOpenings() {
@@ -79,6 +78,44 @@ public class ListJobOpeningUI extends AbstractUI {
         List<JobOpening> activeJobOpeningsInDateRange = theController.activeJobOpeningsInDateRange(startDate, endDate);
         activeJobOpeningsInDateRange.forEach(System.out::println);
     }
+
+    public JobOpening selectJobOpeningFromList() {
+        System.out.println("1. Select from all job openings");
+        System.out.println("2. Select from active job openings");
+        System.out.println("3. Select from job openings in a date range");
+        System.out.println("4. Select from active job openings in a date range");
+
+        int option = Console.readOption(1, 4, -1);
+        List<JobOpening> jobOpenings;
+        switch (option) {
+            case 1:
+                jobOpenings = theController.jobOpeningsFromRepository();
+                break;
+            case 2:
+                jobOpenings = theController.activeJobOpenings();
+                break;
+            case 3:
+                Calendar startDate = Console.readCalendar("Enter the start date (dd-MM-yyyy): ");
+                Calendar endDate = Console.readCalendar("Enter the end date (dd-MM-yyyy): ");
+                jobOpenings = theController.jobOpeningsInDateRange(startDate, endDate);
+                break;
+            case 4:
+                startDate = Console.readCalendar("Enter the start date (dd-MM-yyyy): ");
+                endDate = Console.readCalendar("Enter the end date (dd-MM-yyyy): ");
+                jobOpenings = theController.activeJobOpeningsInDateRange(startDate, endDate);
+                break;
+            default:
+                System.out.println("Invalid option. Please try again.");
+                return null;
+        }
+
+        for (int i = 0; i < jobOpenings.size(); i++) {
+            System.out.println((i + 1) + ". " + jobOpenings.get(i));
+        }
+        int selectedOption = Console.readOption(1, jobOpenings.size(), -1);
+        return jobOpenings.get(selectedOption - 1);
+    }
+
 
 
     @Override

@@ -2,6 +2,7 @@ package jobs4u.base.clientManagement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
+import eapli.framework.general.domain.model.EmailAddress;
 import jakarta.persistence.*;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.ClientName;
@@ -21,15 +22,20 @@ public class Client implements AggregateRoot<ClientCode> {
     private ClientName name;
     private PostalAddress address;
 
+    private EmailAddress customerManagerEmail;
+
+
     public Client() {
 
     }
 
-    public Client(String clientCode, String clientName, String address) {
+    public Client(String clientCode, String clientName, String address, EmailAddress customerManagerEmail) {
 
         this.clientCode = ClientCode.valueOf(clientCode);
         this.name = ClientName.valueOf(clientName);
         this.address = PostalAddress.valueOf(address);
+        this.customerManagerEmail = customerManagerEmail;
+
     }
 
     public ClientCode code() {
@@ -67,7 +73,6 @@ public class Client implements AggregateRoot<ClientCode> {
     public ClientCode identity() {
         return this.clientCode;
     }
-
 
 
 }
