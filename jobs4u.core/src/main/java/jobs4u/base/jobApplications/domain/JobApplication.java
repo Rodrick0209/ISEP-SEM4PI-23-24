@@ -13,6 +13,7 @@ import java.util.List;
 
 @XmlRootElement
 @Entity
+@Getter
 public class JobApplication implements AggregateRoot<Long> {
 
     private static final long serialVersionUID = 1L;

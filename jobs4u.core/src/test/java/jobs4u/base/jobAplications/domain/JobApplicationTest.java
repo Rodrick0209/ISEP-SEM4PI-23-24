@@ -19,12 +19,12 @@ class JobApplicationTest {
     @BeforeEach
     void setUp() {
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-        jobApplication = new JobApplication(1L, files);
+        jobApplication = new JobApplication(1L, files,null);
     }
 
     @Test
     void shouldReturnCorrectId() {
-        assertEquals(1L, jobApplication.getId());
+        assertEquals(1L, jobApplication.identity());
     }
 
     @Test

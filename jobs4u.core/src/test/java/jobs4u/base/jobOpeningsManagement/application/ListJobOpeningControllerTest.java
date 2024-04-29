@@ -11,6 +11,7 @@ import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
+import jobs4u.base.utils.ClientCode;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -74,6 +75,11 @@ public class ListJobOpeningControllerTest {
 
             return jobsReturn;
         }
+
+        @Override
+        public int countForClientCode(ClientCode clientCode) {
+            return 0;
+        }
     };
 
 
@@ -96,8 +102,7 @@ public class ListJobOpeningControllerTest {
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123","ISEP", "4123-123");
-
+        Client client = new Client("ISEP123","ISEP", "4123-123",dummyUser().email());
         JobReference jobReference = new JobReference(client.code().toString());
 
         return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
@@ -112,7 +117,7 @@ public class ListJobOpeningControllerTest {
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123","ISEP", "4123-123");
+        Client client = new Client("ISEP123","ISEP", "4123-123",dummyUser().email());
 
         JobReference jobReference = new JobReference(client.clientCode().code());
 

@@ -1,5 +1,6 @@
 package jobs4u.base.jobOpeningsManagement.application;
 
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.*;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -79,6 +80,11 @@ public class RegisterJobOpeningControllerTest {
         public List<JobOpening> findByCustomerManager(SystemUser customer) {
             return List.of();
         }
+
+        @Override
+        public int countForClientCode(ClientCode clientCode) {
+            return 0;
+        }
     };
 
     private final ClientRepository clientRepository = new ClientRepository() {
@@ -137,7 +143,7 @@ public class RegisterJobOpeningControllerTest {
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123","ISEP", "4123-123");
+        Client client = new Client("ISEP123","ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
 
         JobOpening jobOpening = controller.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType,clientMapper.toDTO(client));
         assertNotNull(jobOpening);
@@ -155,7 +161,7 @@ public class RegisterJobOpeningControllerTest {
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123","ISEP", "4123-123");
+        Client client = new Client("ISEP123","ISEP", "4123-123",EmailAddress.valueOf("customermanager@gmail.com"));
 
         // Attempt to register a job opening with invalid input
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {

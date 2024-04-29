@@ -59,6 +59,11 @@ public class JobReferenceServiceTest {
         public List<JobOpening> findByCustomerManager(SystemUser customer) {
             return List.of();
         }
+
+        @Override
+        public int countForClientCode(ClientCode clientCode) {
+            return 0;
+        }
     };
 
     public static JobOpening jobOpening() {

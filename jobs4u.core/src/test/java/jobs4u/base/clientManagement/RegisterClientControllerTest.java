@@ -1,5 +1,6 @@
 package jobs4u.base.clientManagement;
 
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.pubsub.EventPublisher;
 import jobs4u.base.clientManagement.application.RegisterClientController;
@@ -31,7 +32,7 @@ public class RegisterClientControllerTest {
 
     @Test
     void ensureClientIsRegisteredAndClientRegisteredEventIsPublished() {
-        final Client client = new Client("code", "name", "4890-238");
+        final Client client = new Client("code", "name", "4890-238", EmailAddress.valueOf("customermanager@gmail.com"));
 
         when(clientRepository.save(client)).thenReturn(client);
 
