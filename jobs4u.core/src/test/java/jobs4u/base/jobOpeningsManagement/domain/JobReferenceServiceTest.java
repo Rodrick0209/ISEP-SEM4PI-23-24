@@ -62,8 +62,17 @@ public class JobReferenceServiceTest {
 
         @Override
         public int countForClientCode(ClientCode clientCode) {
-            return 0;
+            int count = 0;
+            String clientCodePrefix = clientCode.code() + "-"; // Add a hyphen to match with actual client codes
+            for (JobOpening jobOpening : jobOpenings) {
+                String jobOpeningClientCode = jobOpening.getJobReference().getJobReference();
+                if (jobOpeningClientCode.startsWith(clientCodePrefix)) {
+                    count++;
+                }
+            }
+            return count;
         }
+
     };
 
     public static JobOpening jobOpening() {
@@ -75,7 +84,7 @@ public class JobReferenceServiceTest {
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123","ISEP", "4123-123", EmailAddress.valueOf("email@gmail.com"));
+        Client client = new Client("isep","ISEP", "4123-123", EmailAddress.valueOf("email@gmail.com"));
 
         JobReference jobReference = new JobReference(client.code().toString());
 
@@ -96,19 +105,38 @@ public class JobReferenceServiceTest {
     @Test
     public void ensureReferenceNumberDoesntCounterReset() {
         JobReferenceService jobReferenceService = new JobReferenceService(jobOpeningRepository);
+
         ClientCode clientCode = ClientCode.valueOf("isep");
         JobReference expectedJobReference = new JobReference(clientCode.code()+"-1");
         JobReference actualJobReference = jobReferenceService.createJobReference(clientCode);
         assertEquals(expectedJobReference, actualJobReference);
+        JobOpening jobOpening = new JobOpening(actualJobReference, WorkingMode.REMOTE, "5", "1234-123", "Software Developer", "Develop software", ContractType.FULL_TIME, Calendar.getInstance(),null);
+        jobOpeningRepository.save(jobOpening);
 
-        jobOpeningRepository.save(jobOpening());
 
-        ClientCode clientCode1 = ClientCode.valueOf("isep");
-        JobReference expectedJobReference1 = new JobReference(clientCode1.code()+"-2");
+        ClientCode clientCode1 = ClientCode.valueOf("isep1");
+        JobReference expectedJobReference1 = new JobReference(clientCode1.code()+"-1");
         JobReference actualJobReference1 = jobReferenceService.createJobReference(clientCode1);
-
-
         assertEquals(expectedJobReference1, actualJobReference1);
+        JobOpening jobOpening1 = new JobOpening(actualJobReference1, WorkingMode.REMOTE, "5", "1234-123", "Software Developer", "Develop software", ContractType.FULL_TIME, Calendar.getInstance(),null);
+        jobOpeningRepository.save(jobOpening1);
+
+
+
+        ClientCode clientCode2 = ClientCode.valueOf("isep");
+        JobReference expectedJobReference2 = new JobReference(clientCode2.code()+"-2");
+        JobReference actualJobReference2 = jobReferenceService.createJobReference(clientCode2);
+        assertEquals(expectedJobReference2, actualJobReference2);
+        JobOpening jobOpening2 = new JobOpening(actualJobReference2, WorkingMode.REMOTE, "5", "1234-123", "Software Developer", "Develop software", ContractType.FULL_TIME, Calendar.getInstance(),null);
+        jobOpeningRepository.save(jobOpening2);
+
+
+        ClientCode clientCode3 = ClientCode.valueOf("isep1");
+        JobReference expectedJobReference3 = new JobReference(clientCode3.code()+"-2");
+        JobReference actualJobReference3 = jobReferenceService.createJobReference(clientCode3);
+        assertEquals(expectedJobReference3, actualJobReference3);
+        JobOpening jobOpening3 = new JobOpening(actualJobReference3, WorkingMode.REMOTE, "5", "1234-123", "Software Developer", "Develop software", ContractType.FULL_TIME, Calendar.getInstance(),null);
+        jobOpeningRepository.save(jobOpening3);
 
     }
 
