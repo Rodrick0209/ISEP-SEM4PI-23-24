@@ -1,24 +1,14 @@
 package jobs4u.base.app.backoffice.console.presentation.ApplicationManagement;
 
-import eapli.framework.actions.menu.Menu;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
-import jobs4u.base.jobAplications.application.GetApplicationDataService;
-import jobs4u.base.jobAplications.application.RegisterJobApplicationController;
-import jobs4u.base.jobAplications.domain.JobApplication;
-import jobs4u.base.jobAplications.domain.JobApplicationFile;
-import jobs4u.base.jobAplications.repositories.JobApplicationRepository;
-import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
+import jobs4u.base.jobApplications.application.RegisterJobApplicationController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
-import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
-import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
-import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +23,8 @@ public class RegisterApplicationUI extends AbstractUI {
     private final RegisterJobApplicationController theController = new RegisterJobApplicationController(
             PersistenceContext.repositories().jobApplications(),
             PersistenceContext.repositories().candidates(),
-            AuthzRegistry.authorizationService());
+            AuthzRegistry.authorizationService(),
+            PersistenceContext.repositories().jobOpenings());
 
     @Override
     protected boolean doShow() {
@@ -84,6 +75,7 @@ public class RegisterApplicationUI extends AbstractUI {
             System.out.println(i + ". " + jobOpening.jobReference());
             i++;
         }
+
         int option=Console.readOption(1,jobOpenings.size(),0);
         return jobOpenings.get(option-1);
     }

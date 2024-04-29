@@ -21,13 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jobs4u.base.jobAplications.application;
+package jobs4u.base.jobApplications.application;
 
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
-import jobs4u.base.jobAplications.domain.JobApplicationFile;
-import jobs4u.base.jobAplications.repositories.JobApplicationRepository;
+import jobs4u.base.jobApplications.domain.JobApplicationFile;
+import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;

@@ -5,10 +5,7 @@ import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.Name;
 import jakarta.persistence.*;
-import jobs4u.base.Application;
-import jobs4u.base.jobAplications.domain.JobApplication;
-import jobs4u.base.jobAplications.domain.JobApplicationFile;
-import jobs4u.base.utils.ClientName;
+import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.utils.PhoneNumber;
 
 
@@ -30,29 +27,25 @@ public class Candidate implements AggregateRoot<EmailAddress> {
 
     private Name name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Column(name = "Application")
-    private List<JobApplication> applications = new ArrayList<>();
 
     public Candidate(){}
-
-    public Candidate (String firstname, String surname, String email, String phoneNumber, List<JobApplication> applications){
-
-        this.email = EmailAddress.valueOf(email);
-        this.name = Name.valueOf(firstname, surname);
-        this.phoneNumber = PhoneNumber.valueOf(phoneNumber);
-        this.applications = applications;
-
-    }
 
     public Candidate (String firstname, String surname, String email, String phoneNumber){
 
         this.email = EmailAddress.valueOf(email);
         this.name = Name.valueOf(firstname, surname);
         this.phoneNumber = PhoneNumber.valueOf(phoneNumber);
-        this.applications = null;
 
     }
+
+    public Candidate (Candidate candidate){
+        this.email = candidate.email;
+        this.name = candidate.name;
+        this.phoneNumber = candidate.phoneNumber;
+
+
+    }
+
 
 
 
@@ -72,10 +65,7 @@ public class Candidate implements AggregateRoot<EmailAddress> {
         return phoneNumber;
 
     }
-    public JobApplication addApplication(JobApplication application){
-        applications.add(application);
-        return application;
-    }
+
 
 
     @Override

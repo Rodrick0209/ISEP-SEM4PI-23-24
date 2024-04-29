@@ -17,7 +17,7 @@ public class JobReferenceService {
     }
 
     public JobReference createJobReference(ClientCode clientCode) {
-        counter= (int) repo.count();
+        counter=  repo.countForClientCode(clientCode);
         int referenceNumber = ++counter;
         // Reset counter if it exceeds 999999
         if (counter >= 1000000) {

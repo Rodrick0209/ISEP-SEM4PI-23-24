@@ -20,15 +20,9 @@
  */
 package jobs4u.base.persistence.impl.inmemory;
 
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
-import jobs4u.base.jobAplications.domain.JobApplication;
-import jobs4u.base.jobAplications.repositories.JobApplicationRepository;
-import jobs4u.base.jobs4uusermanagement.domain.Jobs4uUser;
-import jobs4u.base.jobs4uusermanagement.repositories.ClientUserRepository;
-import jobs4u.base.utils.ClientCode;
-
-import java.util.Optional;
+import jobs4u.base.jobApplications.domain.JobApplication;
+import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 
 /**
  *

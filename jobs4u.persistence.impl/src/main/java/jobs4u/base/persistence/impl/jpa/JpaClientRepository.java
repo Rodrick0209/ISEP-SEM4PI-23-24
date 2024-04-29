@@ -11,7 +11,6 @@ import java.util.Optional;
 class JpaClientRepository extends BasepaRepositoryBase<Client,ClientCode,ClientCode> implements ClientRepository {
 
 
-
     public JpaClientRepository() {
         super("code");
     }

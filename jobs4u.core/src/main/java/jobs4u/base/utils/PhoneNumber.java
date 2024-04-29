@@ -47,4 +47,9 @@ public final class PhoneNumber implements ValueObject, Serializable {
     public int hashCode() {
         return this.number.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return this.number;
+    }
 }

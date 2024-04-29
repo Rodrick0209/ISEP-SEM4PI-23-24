@@ -33,8 +33,14 @@ public class RegisterClientController {
 
 
     public Client registerClient(String code, String name, String emailAddress, String phoneNumber, String address, String representativeName, String representativeLastName) {
-        authorizationService.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.CUSTOMER_MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.CUSTOMER_MANAGER,Jobs4uRoles.POWER_USER);
         EmailAddress emailAddress1 = authorizationService.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER).get().email();
+        final Client client = new Client(code, name, address, emailAddress1);
+        return saveClient(client, representativeName, representativeLastName, emailAddress, phoneNumber);
+    }
+
+    public Client registerClient(String code, String name, String emailAddress, String phoneNumber, String address, String representativeName, String representativeLastName,EmailAddress emailAddress1) {
+        authorizationService.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.CUSTOMER_MANAGER,Jobs4uRoles.POWER_USER);
         final Client client = new Client(code, name, address, emailAddress1);
         return saveClient(client, representativeName, representativeLastName, emailAddress, phoneNumber);
     }

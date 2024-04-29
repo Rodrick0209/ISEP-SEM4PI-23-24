@@ -1,6 +1,7 @@
-package jobs4u.base.jobAplications.domain;
+package jobs4u.base.jobApplications.domain;
 
 import eapli.framework.domain.model.ValueObject;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -19,8 +20,11 @@ public class JobApplicationFile implements ValueObject, Serializable {
     @GeneratedValue
     private Long id;
 
+    //UNIQUE
+    //@Column(unique = true)
     private String name;
 
+    //@Column(unique = true)
     private Path path;
 
     public JobApplicationFile(String name, Path path) {

@@ -49,6 +49,5 @@ public class NewUserRegisteredFromClientRegistedWatchDog implements EventHandler
 
         controller.addClientUser(event);
 
-        System.out.println("New user created with success!");
     }
 }

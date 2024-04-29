@@ -1,4 +1,4 @@
-package jobs4u.base.jobAplications.domain;
+package jobs4u.base.jobApplications.domain;
 
 import jakarta.persistence.Embeddable;
 

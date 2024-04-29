@@ -31,6 +31,12 @@ public class RegisterCandidateController {
         return saveCandidate(candidate, email, firstname, surname, phoneNumber);
     }
 
+    public Candidate registerCandidate(Candidate candidate1){
+        authorizationService.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.OPERATOR);
+        final Candidate candidate = new Candidate(candidate1);
+        return saveCandidate(candidate, candidate.emailAddress().toString(), candidate.name().firstName(), candidate.name().lastName(), candidate.phoneNumber().toString());
+    }
+
 
 
     private Candidate saveCandidate(Candidate candidate, String email, String firstname, String surname, String phoneNumber){

@@ -25,6 +25,10 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
         return new JobReference(jobReference);
     }
 
+    public String getJobReference() {
+        return jobReference;
+    }
+
     @Override
     public String toString() {
         return this.jobReference;

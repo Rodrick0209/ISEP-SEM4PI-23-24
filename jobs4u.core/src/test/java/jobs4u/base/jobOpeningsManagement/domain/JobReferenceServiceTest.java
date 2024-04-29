@@ -1,5 +1,6 @@
 package jobs4u.base.jobOpeningsManagement.domain;
 
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.domain.Client;
@@ -69,7 +70,7 @@ public class JobReferenceServiceTest {
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123","ISEP", "4123-123");
+        Client client = new Client("ISEP123","ISEP", "4123-123", EmailAddress.valueOf("email@gmail.com"));
 
         JobReference jobReference = new JobReference(client.code().toString());
 

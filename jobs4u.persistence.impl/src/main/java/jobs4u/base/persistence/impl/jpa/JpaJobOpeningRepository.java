@@ -28,5 +28,23 @@ class JpaJobOpeningRepository extends BasepaRepositoryBase<JobOpening, JobRefere
 
     }
 
+    @Override
+    public int countForClientCode(ClientCode clientCode) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("clientCode", clientCode.code() + "-"); // Append '-' to match the format
+
+        List<JobOpening> jobOpenings = match("e.jobReference.jobReference LIKE CONCAT(:clientCode, '%')", params);
+        return jobOpenings.size();
+    }
+
+
+
+
+
+
+
+
+
+
 
 }

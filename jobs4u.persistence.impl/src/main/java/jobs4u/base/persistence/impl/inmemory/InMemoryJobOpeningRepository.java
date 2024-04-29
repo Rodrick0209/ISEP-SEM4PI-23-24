@@ -5,6 +5,7 @@ import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainR
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
+import jobs4u.base.utils.ClientCode;
 
 import java.util.List;
 
@@ -20,4 +21,10 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
     public List<JobOpening> findByCustomerManager(SystemUser customer) {
         return List.of();
     }
+
+    @Override
+    public int countForClientCode(ClientCode clientCode) {
+        return 0;
+    }
+
 }

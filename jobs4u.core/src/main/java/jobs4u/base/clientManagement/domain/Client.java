@@ -7,10 +7,11 @@ import jakarta.persistence.*;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.ClientName;
 import jobs4u.base.utils.PostalAddress;
+import lombok.Getter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+@Getter
 @XmlRootElement
 @Table(name = "Client")
 @Entity
@@ -22,6 +23,7 @@ public class Client implements AggregateRoot<ClientCode> {
     private ClientName name;
     private PostalAddress address;
 
+    @Column(name = "customerManagerEmail")
     private EmailAddress customerManagerEmail;
 
 

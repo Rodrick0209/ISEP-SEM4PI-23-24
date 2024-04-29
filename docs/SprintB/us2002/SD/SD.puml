@@ -1,0 +1,45 @@
+@startuml
+
+actor Operator as op
+participant "RegisterApplicationUI" as UI
+participant "RegisterApplicationController" as controller
+participant "GetApplicationDataService" as service
+participant "Report.txt" as txt
+participant "JobOpeningRepository" as JobOpeningRepository
+participant " List<JobOpening> jobOpenings" as jobOpeningList
+
+op -> UI: Selects the register application option
+activate UI
+
+UI->controller: creates()
+
+UI -> UI: doShow()
+activate UI
+UI -> controller: getJobReferenceFromReportFile()
+activate controller
+
+controller -> service: getJobReferenceFromReportFile()
+
+activate service
+
+service -> jobOpeningList **:creates()
+service -> txt: readJobReferences()
+
+service -> JobOpeningRepository : containsOfIdentity(jobReference)
+activate JobOpeningRepository
+JobOpeningRepository --> service : true/false
+alt true
+deactivate JobOpeningRepository
+service -> JobOpeningRepository  : ofIdentity(jobReference)
+activate JobOpeningRepository
+
+JobOpeningRepository --> service : jobOpening
+
+deactivate JobOpeningRepository
+
+service -> jobOpeningList: add(jobOpening)
+end
+service --> controller : jobOpenings
+
+
+@enduml
