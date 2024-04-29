@@ -20,6 +20,7 @@
  */
 package jobs4u.base.infrastructure.bootstrapers;
 
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.domain.Client;
@@ -66,16 +67,16 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description", "Function", ContractType.FULL_TIME,
-                new Client("client123","client","1234-123"));
+                new Client("client123","client","1234-123", EmailAddress.valueOf("customermanager@gmail.com")));
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description", "Function", ContractType.FULL_TIME,
-                new Client("client2","client2","1234-123"));
+                new Client("client2","client2","1234-123", EmailAddress.valueOf("customermanager@gmail.com")));
 
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description", "Function", ContractType.FULL_TIME,
-                new Client("client3","client3","1234-123"));
+                new Client("client3","client3","1234-123", EmailAddress.valueOf("customermanager@gmail.com")));
 
         return true;
     }

@@ -9,6 +9,8 @@ import eapli.framework.time.util.CurrentTimeCalendars;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.jobAplications.domain.JobApplication;
+import jobs4u.base.jobAplications.domain.JobApplicationFile;
 import jobs4u.base.jobOpeningsManagement.utils.*;
 
 import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
@@ -18,7 +20,9 @@ import jobs4u.base.utils.PostalAddress;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 @XmlRootElement
 @Entity
@@ -45,6 +49,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private Calendar creationDate;
     private JobOpeningStatus status;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Column(name = "Applications")
+    private List<JobApplication> jobApplications = new ArrayList<>();
+
     @OneToOne
     private RecruitmentProcess recruitmentProcess;
 
@@ -63,7 +71,13 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
         this.status = JobOpeningStatus.INACTIVE;
+        this.jobApplications = new ArrayList<>();
+    }
 
+    public JobApplication addJobApplication(JobApplication jobApplication){
+        Preconditions.ensure(jobApplication != null, "job application should not be null");
+        this.jobApplications.add(jobApplication);
+        return jobApplication;
     }
 
 
@@ -104,6 +118,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     public JobOpeningStatus status() {
         return status;
+    }
+
+    public List<JobApplication> jobApplications() {
+        return jobApplications;
     }
 
 
