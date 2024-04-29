@@ -36,8 +36,7 @@ public class RegisterClientControllerTest {
 
         when(clientRepository.save(client)).thenReturn(client);
 
-        final var ret = subject.registerClient("code", "name", "rodrigo@gmail.com", "966270703", "4890-239", "representativeName", "representativeLastName");
-
+        final var ret = subject.registerClient("code", "name", "rodrigo@gmail.com", "966270703", "4890-239", "representativeName", "representativeLastName",EmailAddress.valueOf("customermanager@gmail.com"));
         assertNotNull(ret);
         verify(dispatcher).publish(ArgumentMatchers.any(ClientRegistedEvent.class));
     }

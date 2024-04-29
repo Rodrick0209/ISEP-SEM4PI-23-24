@@ -30,8 +30,8 @@ public class JobOpeningTest {
         JobOpeningStatus status = JobOpeningStatus.INACTIVE;
 
 
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
-        JobOpening actualJobOpening = new JobOpening(jobReference,  workingMode, nrVacancy, address, description, function, contractType, creationDate);
+        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate,null);
+        JobOpening actualJobOpening = new JobOpening(jobReference,  workingMode, nrVacancy, address, description, function, contractType, creationDate,null);
 
         assertEquals(expectedJobOpening, actualJobOpening);
     }
@@ -74,7 +74,7 @@ public class JobOpeningTest {
         Calendar creationDate = Calendar.getInstance();
         JobOpeningStatus status = JobOpeningStatus.INACTIVE;
 
-        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
+        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
         JobRequirementSpecification jobRequirementSpecification = null;
         assertThrows(IllegalArgumentException.class, () -> {
             jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);

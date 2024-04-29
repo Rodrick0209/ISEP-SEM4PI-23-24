@@ -28,8 +28,8 @@ public class JobOpeningFactoryTest {
         Calendar creationDate = Calendar.getInstance();
         JobOpeningStatus status = JobOpeningStatus.INACTIVE;
 
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
-        JobOpening actualJobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
+        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate,null);
+        JobOpening actualJobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate,null);
 
         assertEquals(expectedJobOpening, actualJobOpening);
     }

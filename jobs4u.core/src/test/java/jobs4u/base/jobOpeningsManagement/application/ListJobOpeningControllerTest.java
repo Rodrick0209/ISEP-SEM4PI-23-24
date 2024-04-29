@@ -105,7 +105,7 @@ public class ListJobOpeningControllerTest {
         Client client = new Client("ISEP123","ISEP", "4123-123",dummyUser().email());
         JobReference jobReference = new JobReference(client.code().toString());
 
-        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
+        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),null);
     }
 
     public static JobOpening jobOpening2() {
@@ -121,7 +121,7 @@ public class ListJobOpeningControllerTest {
 
         JobReference jobReference = new JobReference(client.clientCode().code());
 
-        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
+        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),null);
     }
 
 

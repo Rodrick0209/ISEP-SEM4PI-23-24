@@ -68,8 +68,10 @@ public class RegisterJobOpeningController {
         Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER, Jobs4uRoles.POWER_USER);
 
         JobReference jobReference = createJobReference(client);
+        ClientMapper clientMapper = new ClientMapper();
 
-        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
+
+        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),clientMapper.toEntity(client));
         return saveJobOpening(jobOpening);
 
     }

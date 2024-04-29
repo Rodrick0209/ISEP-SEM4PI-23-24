@@ -6,12 +6,14 @@ import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.utils.*;
 
 import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.utils.PostalAddress;
+import lombok.Getter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.List;
 
 @XmlRootElement
 @Entity
+@Getter
 public class JobOpening implements AggregateRoot<JobReference> {
 
     @Version
@@ -45,6 +48,9 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private Calendar creationDate;
     private JobOpeningStatus status;
 
+    @OneToOne
+    private Client client;
+
 
 
     @OneToOne
@@ -54,7 +60,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private JobRequirementSpecification jobRequirementSpecification;
 
 
-    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate) {
+    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate,Client client) {
 
         this.jobReference = jobReference;
         this.workingMode = workingMode;
@@ -66,6 +72,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
         this.status = JobOpeningStatus.INACTIVE;
         this.applications = new ArrayList<>();
+        this.client = client;
     }
 
     public JobApplication addJobApplication(JobApplication jobApplication){

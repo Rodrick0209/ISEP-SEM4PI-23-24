@@ -79,7 +79,7 @@ public class JobReferenceServiceTest {
 
         JobReference jobReference = new JobReference(client.code().toString());
 
-        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
+        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),null);
     }
 
     @Test
@@ -106,6 +106,8 @@ public class JobReferenceServiceTest {
         ClientCode clientCode1 = ClientCode.valueOf("isep");
         JobReference expectedJobReference1 = new JobReference(clientCode1.code()+"-2");
         JobReference actualJobReference1 = jobReferenceService.createJobReference(clientCode1);
+
+
         assertEquals(expectedJobReference1, actualJobReference1);
 
     }
