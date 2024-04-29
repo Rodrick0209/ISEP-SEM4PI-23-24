@@ -2,33 +2,36 @@
 
 ## 1. Context
 
-This task, identified as "US 2002", is part of the job application management system. The context for this task involves enabling operators, specifically those acting as administrators, to register job applications for candidates and import associated files. This functionality ensures that operators can efficiently manage the application process and access relevant candidate data. Additionally, integrating with the Application File Bot ensures seamless file processing and storage in a shared location, facilitating collaboration and data access across the system.
+This task, identified as "US 2002", is part of the Operator Management feature. The goal of this task is to allow the 
+operator to register application of candidates by importing automatically from files that candidate send by email and 
+were processed by the system.
 
 ## 2. Requirements
 
-**US 1000a** As Administrator, I want to be able to register users of the backoffice.
+**US 2002**As Operator, I want to register an application of a candidate for a job opening and
+import all files received.
 
 
 
 **Dependencies/References:**
 
-- Alternatively this can be achieved by a bootstrap process
+- Import the data from the file that was processed by the Application
+  File Bot in Req 2001. The files should be kept in the shared folder, but the Backoffice
+  application needs to know the references to the file locations.
 
 ## 3. Analysis
 
 
 ## Client Meeting
-- The Password should be automatically generated and sent to the users, but this last part is out of scope for this project.
-- The password must correspond to the password policy of the company.
+
+- The Operator registers the application. For this, it is the Operator who initiates the process, but the system must import the data resulting from the Application File Bot in an "automatic" way.
+- US2002 is for import of the applications from the data iin the files produced by the application file bot. If the candidate does not exist, it should be created. I think there is no registration of a candidate by the admin.
 
 ## Business Rules
 
-- This US is directly related to the users of the backoffice.
-- To add users of the backOffice, the user must be of the admin type.
-- The user must have an email, name, and password.
-- All the fields must be validated and the password must be generated according to the company's password policy.
-- The user must be created in the enable state.
-- Can't exist two users with the same email.
+- The operator must create applications by files processed by the Application File Bot.
+- The candidate must be created if it does not exist.
+- The operator must be able to import the data from the files processed by the Application File Bot.
 
 ## 4. Design
 
@@ -51,37 +54,17 @@ In the development of this task, we utilized several design patterns to structur
 - **Service Pattern:** The Service pattern was used to encapsulate business logic and rules. This pattern provides a set of methods that any client application can use, and these methods implement the business rules and logic.  
 - **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers handle incoming requests, manipulate data using the model, and select views to render to the user
 
+
+
 ### 4.4. Tests
 
 
 #### Test #1: Add user successfully
-1. Log in as admin
-2. Choose the Option Users > Add user
-3. Fill the email field
-4. Fill the first name field
-5. Fill the last name field
-6. Choose a role
-7. The system displays a success message "User created successfully."
-8. Confirm the user created through List users (User > List Users)
+1. 
+2. 
+3. 
 
-#### Test #2: Add user with same email
-1. Log in as admin
-2. Choose the Option Users > Add user
-3. Fill the email field wih an email that already exists
-4. Fill the first name field
-5. Fill the last name field
-6. Choose a role
-7. The system displays an error message "That email is already in use."
-8. Confirm the user was not created through List users (User > List Users)
 
-#### Test #3: Add user with invalid name
-1. Log in as admin
-2. Choose the Option Users > Add user
-3. Fill the email field
-4. Fill the first name field or the last name field with invalid characters
-5. Choose a role
-6. The system ends and displays an error message "That name inserted is invalid."
-7. Confirm the user was not created through List users (User > List Users)
 
 
 ## 5. Implementation
