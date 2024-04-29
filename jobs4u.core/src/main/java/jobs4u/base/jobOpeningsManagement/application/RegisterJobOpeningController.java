@@ -69,7 +69,6 @@ public class RegisterJobOpeningController {
 
         JobReference jobReference = createJobReference(client);
 
-        System.out.println("Job Reference: " + jobReference.toString());
         final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance());
         return saveJobOpening(jobOpening);
 
