@@ -16,7 +16,6 @@ import java.util.List;
 
 public class ListCandidateUI extends AbstractUI {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ListCandidateUI.class);
 
     private final ListCandidateController controller = new ListCandidateController();
 

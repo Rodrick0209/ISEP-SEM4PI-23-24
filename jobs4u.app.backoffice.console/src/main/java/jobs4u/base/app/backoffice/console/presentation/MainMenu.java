@@ -29,6 +29,7 @@ import jobs4u.base.app.backoffice.console.presentation.authz.EnableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.DisableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.ListUsersAction;
+import jobs4u.base.app.backoffice.console.presentation.candiateManagement.ListCandidateUI;
 import jobs4u.base.app.backoffice.console.presentation.candiateManagement.RegisterCandidateAction;
 import jobs4u.base.app.backoffice.console.presentation.candiateManagement.RegisterCandidateUI;
 import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientUI;
@@ -214,7 +215,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Operator >");
 
         menu.addItem(REGISTER_CANDIDATE, "Register Candidate", new RegisterCandidateUI()::show);
-        // menu.addItem(LIST_CANDIDATE, "List Candidates", new ListCandidateUI()::show);
+        menu.addItem(LIST_CANDIDATE, "List Candidates", new ListCandidateUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
