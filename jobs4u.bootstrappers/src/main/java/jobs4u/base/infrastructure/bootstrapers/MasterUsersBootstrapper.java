@@ -20,10 +20,22 @@
  */
 package jobs4u.base.infrastructure.bootstrapers;
 
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import jobs4u.base.clientManagement.application.ClientMapper;
+import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.clientManagement.domain.ClientDTO;
+import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
+import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
+import jobs4u.base.jobOpeningsManagement.utils.ContractType;
+import jobs4u.base.jobOpeningsManagement.utils.JobReference;
+import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
+import jobs4u.base.usermanagement.application.AddUserController;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,6 +43,9 @@ import java.util.Set;
  * @author Paulo Gandra Sousa
  */
 public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Action {
+
+    final RegisterJobOpeningController controller = new RegisterJobOpeningController(PersistenceContext.repositories().jobOpenings(),
+            PersistenceContext.repositories().clients(),AuthzRegistry.authorizationService());
 
     @Override
     public boolean execute() {
@@ -48,6 +63,19 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerCustomer("customer@gmail.com", TestDataConstants.PASSWORD1, "customer", "Doe customer",
                 "customer@gmail.com");
+
+        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+                "Description", "Function", ContractType.FULL_TIME,
+                new Client("client123","client","1234-123"));
+
+        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+                "Description", "Function", ContractType.FULL_TIME,
+                new Client("client2","client2","1234-123"));
+
+
+        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+                "Description", "Function", ContractType.FULL_TIME,
+                new Client("client3","client3","1234-123"));
 
         return true;
     }
@@ -95,5 +123,19 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerUser(username, password, firstName, lastName, email, roles);
     }
 
+
+
+    public void registerJobOpening(WorkingMode workingMode
+            , String nrVacancy
+            , String address
+            , String description
+            , String function
+            , ContractType contractType
+            , Client client) {
+
+        ClientDTO clientDTO = new ClientMapper().toDTO(client);
+
+        controller.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientDTO);
+    }
 
 }
