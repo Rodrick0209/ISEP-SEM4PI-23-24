@@ -22,46 +22,54 @@ the Operator.
 
 ## Client Meeting
 
-- A lot of questions for “a single question”. As stated in your question, the system should be kept in a consistent
-  state. Regarding duplicate files, there should not be any duplicate files (why would duplicate files exist?).
-  Regarding the report, there can be multiple report files, each one uniquely identified by some sort of timestamp.
-- Não está definido um número máximo, mas podem estabelecer um limite a configurar, por exemplo, num ficheiro de
-  configuração contendo um limite em tamanho (Mb) ou em número de anexos.
-- I am not a technical person, but I should say that the report should include information that is enough for
-  diagnosing problems in the import. I think some form of configuration of detail to be reported should be interesting,
-  like what is usually available for log files, with a default rule for maximum detail.
-- Penso que o documento que refere não é do documento principal de especificação do sistema, será um documento
-  complementar com especificação especifica de uma unidade curricular. Sendo assim, penso que devem esclarecer a questão
-  noutra fonte. Mas, sem querer condicionar a reposta “oficial” (que não é esta), penso que seja uma opção, e que cada
-  solução pode considerar qual a que segue.
-- Como product owner não tenho requisitos especificos sobre esse aspeto. Espero apenas que o Sistema mantenha sempre a
-  integridade dos dados estes não sejam “perdidos”.
+- There should not be any duplicate files.
+- Regarding the report, there can be multiple report files, each one uniquely identified by some sort of timestamp.
+- The report should include information that is enough for diagnosing problems in the import.
+- The system should maintain the integrity of the data and that they are not "lost".
 
 ## Business Rules
 
 - This US is directly related to the system.
 - Process the files produced by the Applications Email Bot is an automated process .
 - The files must be processed so that they can lately be imported by the operator into the system.
-- 
+
+
 ## 4. Tests
 
 
-OLIVEIRAOLIVEIRAOLIVEIRAOLIVEIRA
+#### Test #1: Execute the program with files previously inserted in the shared folder
+- **Test Steps:**
+  1. Insert files in the shared folder.
+  2. Execute the program.
+  3. Check if the files were processed.
+  4. Check if the files were moved to the processed folder.
+  5. Check if the report was generated.
 
-OLIVEIRAOLIVEIRAOLIVEIRAOLIVEIRA
+- **Expected Result:** The files are processed, moved to the processed folder and a report is generated.
 
+
+#### Test #2: Execute the program with files being inserted in the shared folder during execution
+- **Test Steps:**
+  1. Execute the program.
+  2. Insert files in the shared folder.
+  3. Check if the files were processed.
+  4. Check if the files were moved to the processed folder.
+  5. Check if the report was generated.
+
+- **Expected Result:** The files are processed, moved to the processed folder and a report is generated.
+
+#### Test #3: Execute the program with no files being inserted
+- **Test Steps:**
+  1. Execute the program.
+  2. Wait for his execution to finish.
+
+- **Expected Result:** The program finishes its execution without errors and the only process that executed it was the directory monitoring.
 
 ## 5. Implementation
 
-The process of processing the files produced by the Applications Email Bot involves several components working together. Here's a step-by-step
-explanation:
-
-
-OLIVEIRAOLIVEIRAOLIVEIRAOLIVEIRAOLIVEIRAOLIVEIRAOLIVEIRAOLIVEIRAOLIVEIRA
-OLIVEIRAOLIVEIRAOLIVEIRAOLIVEIRA
-OLIVEIRAOLIVEIRAOLIVEIRA
-OLIVEIRAOLIVEIRA
-
+- The file bot was implemented in C.
+- The program when executed, creates a child  process that monitors the shared folder for new files and other childs to process the files. When a new file is detected, the child program send a sign to the parent.
+- When the parent receives the signal, the parent process sends a signal to the child process that is responsible for processing the files. The child process then processes the files and generates a report.
 
 
 
@@ -69,9 +77,18 @@ OLIVEIRAOLIVEIRA
 
 ### Integration
 
-We seamlessly integrated our functionality by leveraging an existing service that included both a repository and a
-controller. This approach allowed us to efficiently integrate our solution into the system without duplicating efforts
-or reinventing existing components.
+To integrate this feature different parts of the code was divided into different files.
+- [configFile](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FconfigFile)
+- [destributeFiles.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FdestributeFiles.c)
+- [generateReport.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FgenerateReport.c)
+- [handleSignals.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FhandleSignals.c)
+- [header.h](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2Fheader.h)
+- [main.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2Fmain.c)
+- [makefile](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2Fmakefile)
+- [monitor_directory.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2Fmonitor_directory.c)
+- [ProcessFile.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FProcessFile.c)
+- [readConfig.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FreadConfig.c)
+- [utils.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2Futils.c)
 
 ### Demonstration
 
@@ -79,6 +96,7 @@ Since this funcitonality is a background process, there isn't a way to demonstra
 
 ## 7. Observations
 
-- Nothing to add.
+- When te process read all the files, generate the report with all information read.
+- The report is generated in the same folder as the output files.
 
-```
+
