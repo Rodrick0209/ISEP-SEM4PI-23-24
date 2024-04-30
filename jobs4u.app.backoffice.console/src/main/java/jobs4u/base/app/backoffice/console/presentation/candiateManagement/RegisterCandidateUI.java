@@ -7,6 +7,7 @@ import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 
+import jobs4u.base.candidateManagement.domain.Candidate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,8 @@ public class RegisterCandidateUI extends AbstractUI{
         final String candidatePhoneNumber = Console.readLine("Candidate Phone Number->");
 
         try {
-            this.controller.registerCandidate(candidateName, candidateLastName, candidateEmail, candidatePhoneNumber);
+            Candidate candidate = new Candidate(candidateName, candidateLastName, candidateEmail, candidatePhoneNumber);
+            this.controller.registerCandidate(candidate);
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println(

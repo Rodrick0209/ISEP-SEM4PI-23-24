@@ -20,7 +20,7 @@ public class ListApplicationsUI extends AbstractUI{
             System.out.printf("\t\t%s\n", j.getId());
             System.out.printf("\t\t%s\n", j.getCandidate().emailAddress());
             System.out.printf("\t\t%s\n", j.getCandidate().nameString());
-            System.out.printf("\t\t%s\n", j.getState());
+            System.out.printf("\t\t%s\n", j.getState().toString());
         }
 
         return true;

@@ -92,7 +92,8 @@ public class MainMenu extends AbstractUI {
     private static final int CUSTOMERS_OPTION = 3;
     private static final int JOB_OPENING_OPTION = 4;
     private static final int APPLICATION_OPTION = 5;
-    private static final int SETTINGS_OPTION = 6;
+    private static final int CANDIDATE_OPTION = 6;
+    private static final int SETTINGS_OPTION = 7;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -163,8 +164,12 @@ public class MainMenu extends AbstractUI {
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.OPERATOR)) {
+
+
             final Menu applicationMenu = buildApplicationsMenu();
             mainMenu.addSubMenu(APPLICATION_OPTION, applicationMenu);
+            final Menu candidateMenu = buildOperatorMenu();
+            mainMenu.addSubMenu(CANDIDATE_OPTION, candidateMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
