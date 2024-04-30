@@ -71,6 +71,9 @@ public class JobApplication implements AggregateRoot<Long> {
     public Candidate candidate() {
         return candidate;
     }
+    public JobApplicationState state() {
+        return state;
+    }
 
     @Override
     public boolean equals(final Object o) {

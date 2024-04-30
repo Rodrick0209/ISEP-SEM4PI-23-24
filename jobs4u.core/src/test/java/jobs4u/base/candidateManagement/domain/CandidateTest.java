@@ -1,7 +1,5 @@
-package jobs4u.base.candidateManagement;
+package jobs4u.base.candidateManagement.domain;
 
-import jobs4u.base.candidateManagement.domain.Candidate;
-import jobs4u.base.clientManagement.domain.Client;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
