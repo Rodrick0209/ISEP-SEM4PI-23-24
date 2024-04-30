@@ -20,12 +20,46 @@ public class RegisterCandidateUI extends AbstractUI{
     @Override
     protected boolean doShow() {
 
-        final String candidateName = Console.readLine("Candidate First Name->");
-        final String candidateLastName = Console.readLine("Candidate surname->");
+        String candidateName;
 
-        final String candidateEmail = Console.readLine("Candidate Email Address->");
+        do {
+            candidateName = Console.readLine("Candidate First Name->");
+            // check if name doesnt include numbers
+            if(candidateName.matches(".*\\d.*")){
+                System.out.println("\nInvalid first name. Please insert a valid first name.\n");
+            }
+        }while (candidateName.matches(".*\\d.*"));
 
-        final String candidatePhoneNumber = Console.readLine("Candidate Phone Number->");
+        String candidateLastName;
+
+        do {
+            candidateLastName = Console.readLine("Candidate Last Name->");
+            // check if name doesnt include numbers
+            if(candidateLastName.matches(".*\\d.*")){
+                System.out.println("\nInvalid last name. Please insert a valid last name.\n");
+            }
+        }while (candidateLastName.matches(".*\\d.*"));
+
+        String candidateEmail;
+
+        do {
+            candidateEmail = Console.readLine("Candidate Email->");
+            // check if email is valid
+            if(!candidateEmail.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")){
+                System.out.println("\nInvalid email. Please insert a valid email.\n");
+            }
+        }while (!candidateEmail.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"));
+
+
+        String candidatePhoneNumber;
+
+        do {
+            candidatePhoneNumber = Console.readLine("Candidate Phone Number->");
+            // check if phone number is valid
+            if(!candidatePhoneNumber.matches("^9[0-9]{8}$")){
+                System.out.println("\nInvalid phone number. Please insert a valid phone number.\n");
+            }
+        }while (!candidatePhoneNumber.matches("^9[0-9]{8}$"));
 
         try {
             Candidate candidate = new Candidate(candidateName, candidateLastName, candidateEmail, candidatePhoneNumber);
