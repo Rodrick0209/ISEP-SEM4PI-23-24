@@ -22,8 +22,6 @@ import static org.junit.Assert.assertNotNull;
 
 public class SelectJobRequirementSpecificationForJobOpeningControllerTest {
     private SelectJobRequirementSpecificationForJobOpeningController theController;
-    private JobReferenceService jobReferenceService;
-    private ClientMapper clientMapper;
 
     private final AuthorizationService authz = new AuthorizationService(){
         @Override
@@ -124,19 +122,13 @@ public class SelectJobRequirementSpecificationForJobOpeningControllerTest {
     void setUp(){
         JobOpeningRepository jobOpeningRepo = jobOpeningRepository;
         JobRequirementSpecificationRepository jobRequirementSpecificationRepo = jobRequirementSpecificationRepository;
-        jobReferenceService = new JobReferenceService(jobOpeningRepo);
-        clientMapper = new ClientMapper();
         theController = new SelectJobRequirementSpecificationForJobOpeningController(jobRequirementSpecificationRepo, jobOpeningRepo, authz);
-    }
-
-    public JobReference createJobReference(ClientDTO client) {
-        String clientCode = client.clientCode;
-        return jobReferenceService.createJobReference(ClientCode.valueOf(clientCode));
     }
 
    /*
     @Test
     public void ensureSelectingJobRequirementSpecificationForJobOpeningWorks(){
+        JobReference jobReference = new JobReference("String123");
         WorkingMode workingMode = WorkingMode.REMOTE;
         String nrVacancy = "5";
         String address = "1234";
@@ -144,7 +136,6 @@ public class SelectJobRequirementSpecificationForJobOpeningControllerTest {
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123","ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        JobReference jobReference = createJobReference(clientMapper.toDTO(client));
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), client);
 
         JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification();
