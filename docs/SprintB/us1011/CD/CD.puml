@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class SelectInterviewModelSpecificationForJobOpeningUI <<presentation>>
+class SelectInterviewModelSpecificationForJobOpeningController <<application>>
+class PersistenceContext
+interface RepositoryFactory
+interface JobOpeningRepository <<repository>>
+interface InterviewModelSpecificationRepository <<repository>>
+class InMemoryJobOpeningRepository <<persistence>>
+class JpaJobOpeningRepository <<persistence>>
+class InMemoryInterviewModelSpecificationRepository <<persistence>>
+class JpaInterviewModelSpecificationRepository <<persistence>>
+class JobOpening <<domain>>
+class InterviewModelSpecification <<domain>>
+
+SelectInterviewModelSpecificationForJobOpeningUI -> SelectInterviewModelSpecificationForJobOpeningController
+SelectInterviewModelSpecificationForJobOpeningController -> PersistenceContext
+PersistenceContext --> RepositoryFactory
+SelectInterviewModelSpecificationForJobOpeningController ..> JobOpeningRepository
+SelectInterviewModelSpecificationForJobOpeningController ..> InterviewModelSpecificationRepository
+RepositoryFactory --> JobOpeningRepository
+RepositoryFactory --> InterviewModelSpecificationRepository
+SelectInterviewModelSpecificationForJobOpeningController ..> JobOpening
+JobOpeningRepository --> JobOpening
+InterviewModelSpecificationRepository --> InterviewModelSpecification
+JpaJobOpeningRepository --|> JobOpeningRepository
+InMemoryJobOpeningRepository --|> JobOpeningRepository
+InMemoryInterviewModelSpecificationRepository --|> InterviewModelSpecificationRepository
+JpaInterviewModelSpecificationRepository --|> InterviewModelSpecificationRepository
+JobOpening --> InterviewModelSpecification
+
+@enduml
