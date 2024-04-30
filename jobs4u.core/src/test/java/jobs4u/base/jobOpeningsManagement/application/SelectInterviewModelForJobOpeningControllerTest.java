@@ -8,6 +8,7 @@ import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.interviewModel.domain.InterviewModelSpecification;
 import jobs4u.base.interviewModel.domain.InterviewModelSpecificationIdentifier;
+import jobs4u.base.interviewModel.domain.InterviewModelSpecificationJarFile;
 import jobs4u.base.interviewModel.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
@@ -132,23 +133,23 @@ public class SelectInterviewModelForJobOpeningControllerTest {
         theController = new SelectInterviewModelSpecificationForJobOpeningController(jobOpeningRepo, interviewModelSpecificationRepo, authz);
     }
 
-    /*
     @Test
     public void ensureSelectingJobRequirementSpecificationForJobOpeningWorks() {
         JobReference jobReference = new JobReference("String123");
         WorkingMode workingMode = WorkingMode.REMOTE;
         String nrVacancy = "5";
-        String address = "1234";
+        String address = "4123-123";
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), client);
 
-        InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification();
+        InterviewModelSpecificationIdentifier identifier = InterviewModelSpecificationIdentifier.valueOf("teste");
+        InterviewModelSpecificationJarFile jarFile = InterviewModelSpecificationJarFile.valueOf("src/test/resources/test.jar");
+        InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification(identifier, jarFile);
         theController.selectInterviewModelSpecificationForJobOpening(interviewModelSpecification, jobOpening);
         assertNotNull(jobOpening);
     }
-     */
 
 }
