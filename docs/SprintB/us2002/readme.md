@@ -70,22 +70,23 @@ In the development of this task, we utilized several design patterns to structur
 ## 5. Implementation
 The process of registering a new user in this system involves several components working together. Here's a step-by-step explanation
 
-- **User Interface (AddUserUI.java)**: The process starts in the AddUserUI class, which is responsible for interacting with the user. It prompts the user to enter the necessary information such as email, first name, last name, and role. This class uses the AddUserController to handle the business logic.  
-- **Controller (AddUserController.java):** The AddUserController class is the bridge between the UI and the business logic. It uses the UserManagementService to register the new user. It also uses the Jobs4uPasswordGenerator to generate a password for the new user.  
-- **Service (UserManagementService.java):** The UserManagementService class is where the actual business logic for user management resides. It uses the UserRepository to interact with the database. When a new user is registered, it creates a new SystemUser object and saves it to the database using the UserRepository.  
-- **Repository (UserRepository):** The UserRepository is an interface that defines the methods for interacting with the database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.  
+
+- **User Interface (RegisterApplicationUI.java):** The process starts in the RegisterApplicationUI class, which is responsible for interacting with the operator. It prompts the operator to select a job opening and a job application. This class uses the RegisterJobApplicationController to handle the business logic.
+- **Controller (RegisterJobApplicationController.java):** The RegisterJobApplicationController class is the bridge between the UI and the business logic. It uses the GetApplicationDataService to retrieve job openings and job applications from the report file. It also uses the RegisterCandidateController to register a candidate if they do not exist.
+- **Service (GetApplicationDataService.java):** The GetApplicationDataService class is where the actual business logic for retrieving job openings and job applications resides. It reads the report file and returns a list of job openings and job applications. It also retrieves the application files and candidate information from the report file.
+- **Repository (JobApplicationRepository and JobOpeningRepository):** These repositories are interfaces that define the methods for interacting with the database. They extend the DomainRepository interface, which provides methods for basic CRUD operations. When a new job application is registered, it creates a new JobApplication object and saves it to the database using the JobApplicationRepository. It also updates the JobOpening object in the database using the JobOpeningRepository
+
 
 ## 6. Integration/Demonstration
 
 ### Integration
 
-We seamlessly integrated our functionality by leveraging an existing service that included both a repository and a controller. This approach allowed us to efficiently integrate our solution into the system without duplicating efforts or reinventing existing components.
 
 ### Demonstration
 
 To demonstrate the functionality and the handling of invalid inputs, follow the steps below:  
-1. Start the application and log in as an admin.
-2. Navigate to the Users section and select the option to Add a user.
+1. Start the application and log in as an operator.
+2. Navigate to the  section and select the option to Add a user.
 3. In the form that appears, fill the required fields with valid information. 
 4. Submit the form. The system displays a success message "User created successfully."
 5. To confirm that the user was not created, navigate to the List Users section under Users. The new user with the invalid name should not appear in the list.
