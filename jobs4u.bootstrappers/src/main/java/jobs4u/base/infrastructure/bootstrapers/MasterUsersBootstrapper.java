@@ -64,6 +64,9 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                 "919112222", "1224-123", "Second",
                 "Last", EmailAddress.valueOf("customermanager@gmail.com"));
 
+        Client client2 = clientController.registerClient("uio1", "uio", "client@gmail.com",
+                "919111222", "1234-123", "First",
+                "Last", EmailAddress.valueOf("customermanager1@gmail.com"));
 
         registerAdmin("admin@gmail.com", TestDataConstants.PASSWORD1, "Admin", "Doe Admin",
                 "admin@gmail.com");
@@ -90,8 +93,12 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description", "Function", ContractType.FULL_TIME, client1);
+
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description1", "Function", ContractType.FULL_TIME, client);
+
+        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+                "Description1", "Function", ContractType.FULL_TIME, client2);
 
         return true;
     }

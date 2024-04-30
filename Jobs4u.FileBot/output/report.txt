@@ -1,0 +1,46 @@
+Candidate Report
+
+Candidate Email: johndoe@email.com
+Job Reference: IBM-000123
+Candidate Number: 1
+Path: ../output/IBM-000123/1
+Files:
+   - 1-email.txt
+   - 1-cv.txt
+   - 1-big-file-1.txt
+   - 1-candidate-data.txt
+   - 1-report-1.txt
+
+Candidate Email: janedoe@email.com
+Job Reference: IBM-000123
+Candidate Number: 2
+Path: ../output/IBM-000123/2
+Files:
+   - 2-letter.txt
+   - 2-cv.txt
+   - 2-candidate-data.txt
+   - 2-big-file1.txt
+   - 2-email.txt
+
+Candidate Email: janedoe@email.com
+Job Reference: uio1-1
+Candidate Number: 4
+Path: ../output/uio1-1/4
+Files:
+   - 4-big-file1.txt
+   - 4-letter.txt
+   - 4-cv.txt
+   - 4-candidate-data.txt
+   - 4-email.txt
+
+Candidate Email: johndoe@email.com
+Job Reference: uio1-1
+Candidate Number: 3
+Path: ../output/uio1-1/3
+Files:
+   - 3-cv.txt
+   - 3-report-1.txt
+   - 3-big-file-1.txt
+   - 3-candidate-data.txt
+   - 3-email.txt
+
