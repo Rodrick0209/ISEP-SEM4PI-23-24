@@ -66,17 +66,6 @@ public abstract class BaseApplication {
             clearEventHandlers();
         }
 
-
-        //TODO this code is not a good practice just here to test the create client and user, to change
-        try {
-            // Pause for 4 seconds
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            // This part is executed when an exception (in this case InterruptedException) occurs
-            System.out.println("Sleep was interrupted");
-        }
-
-        // exiting the application, closing all threads
         System.exit(0);
     }
 
