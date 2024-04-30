@@ -170,10 +170,10 @@ public class MainMenu extends AbstractUI {
         if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.OPERATOR)) {
 
 
-            final Menu applicationMenu = buildApplicationsMenu();
-            mainMenu.addSubMenu(APPLICATION_OPTION, applicationMenu);
             final Menu candidateMenu = buildOperatorMenu();
             mainMenu.addSubMenu(CANDIDATE_OPTION, candidateMenu);
+            final Menu applicationMenu = buildApplicationsMenu();
+            mainMenu.addSubMenu(APPLICATION_OPTION, applicationMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
