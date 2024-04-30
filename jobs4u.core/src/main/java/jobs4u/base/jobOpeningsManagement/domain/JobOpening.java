@@ -7,6 +7,7 @@ import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.interviewModel.domain.InterviewModelSpecification;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.utils.*;
 
@@ -57,6 +58,9 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     @OneToOne
     private JobRequirementSpecification jobRequirementSpecification;
+
+    @OneToOne
+    private InterviewModelSpecification interviewModelSpecification;
 
 
     public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate,Client client) {
@@ -155,5 +159,13 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.recruitmentProcess = recruitmentProcess;
     }
 
+    public void selectInterviewModelSpecification(InterviewModelSpecification interviewModelSpecification){
+        Preconditions.ensure(interviewModelSpecification != null, "interview model specification should not be null");
+        this.interviewModelSpecification = interviewModelSpecification;
+    }
 
+    @Override
+    public String toString() {
+        return "jobReference:"+jobReference;
+    }
 }

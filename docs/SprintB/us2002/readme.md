@@ -59,11 +59,25 @@ In the development of this task, we utilized several design patterns to structur
 ### 4.4. Tests
 
 
-#### Test #1: Add user successfully
-1. 
-2. 
-3. 
+#### Test #1: Successful Registration of Application
+1. Start the application and log in as an operator.
+2. Navigate to the *Applications* section and select the option to *Register Application*.
+3. In the form that appears, select a job opening that exists in the system.
+4. In the next step, select a jobApplication that exists in the File Bot output file and doest exists in the repository.
+5. After selecting a jobApplication, the system will automatically create a new candidate with the information from the file. A success message will be displayed on the screen.
 
+
+
+#### Test #2: There are no job openings available
+1. Start the application and log in as an operator.
+2. Navigate to the *Applications* section and select the option to *Register Application*.
+3. The system displays the message "There are no job openings available."
+
+#### Test #3: There are no job applications available
+1. Start the application and log in as an operator.
+2. Navigate to the *Applications* section and select the option to *Register Application*.
+3. In the form that appears, select a job opening that exists in the system.
+4. The system displays the message "There are no job application available."
 
 
 
@@ -86,13 +100,13 @@ The process of registering a new user in this system involves several components
 
 To demonstrate the functionality and the handling of invalid inputs, follow the steps below:  
 1. Start the application and log in as an operator.
-2. Navigate to the  section and select the option to Add a user.
-3. In the form that appears, fill the required fields with valid information. 
-4. Submit the form. The system displays a success message "User created successfully."
-5. To confirm that the user was not created, navigate to the List Users section under Users. The new user with the invalid name should not appear in the list.
+2. Navigate to the *Applications* section and select the option to *Register Application*.
+3. In the form that appears, select a job opening that exists in the system.
+4. In the next step, select a jobApplication that exists in the File Bot output file and doest exists in the repository.
+5. After selecting a jobApplication, the system will automatically create a new candidate with the information from the file. A success message will be displayed on the screen.
 
 This process demonstrates the system's ability to validate user input and successfully create a user with valid details.
 
 ## 7. Observations
 
-One observation to note is that the password generated for the new user is not displayed on the screen. The method by which the new user gains access to their password is currently out of the scope of this project. 
+The creation and save of the application is executed by a transaction.

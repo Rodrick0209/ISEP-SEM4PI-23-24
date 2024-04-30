@@ -145,6 +145,7 @@ public class RegisterJobOpeningControllerTest {
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123","ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
 
+
         JobOpening jobOpening = controller.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType,clientMapper.toDTO(client));
         assertNotNull(jobOpening);
         assertEquals(1, jobOpeningRepository.size());

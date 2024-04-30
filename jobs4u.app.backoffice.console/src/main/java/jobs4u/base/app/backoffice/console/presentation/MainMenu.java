@@ -33,8 +33,7 @@ import jobs4u.base.app.backoffice.console.presentation.candiateManagement.ListCa
 import jobs4u.base.app.backoffice.console.presentation.candiateManagement.RegisterCandidateAction;
 import jobs4u.base.app.backoffice.console.presentation.candiateManagement.RegisterCandidateUI;
 import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientUI;
-import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.ListJobOpeningUI;
-import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.RegisterJobOpeningUI;
+import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.*;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Actions;
@@ -75,9 +74,15 @@ public class MainMenu extends AbstractUI {
     private static final int REGISTER_CANDIDATE = 1;
     private static final int LIST_CANDIDATE = 2;
 
+
+    // CANDIDATE
+    private static final int DISPLAY_CANDIDATE_INFO = 1;
+
     // JOB OPENING
     private static final int REGISTER_JOB_OPENING = 1;
     private static final int LIST_JOB_OPENING = 2;
+    private static final int SELECT_JOB_REQUIREMENT_SPECIFICATION_FOR_JOB_OPENING = 3;
+    private static final int SELECT_INTERVIEW_MODEL_SPECIFICATION_FOR_JOB_OPENING = 4;
 
     // APPLICATIONS
     private static final int REGISTER_APPLICATION = 1;
@@ -89,9 +94,10 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
     private static final int CUSTOMERS_OPTION = 3;
-    private static final int JOB_OPENING_OPTION = 4;
-    private static final int APPLICATION_OPTION = 5;
-    private static final int SETTINGS_OPTION = 6;
+    private static final int CANDIDATE_OPTION = 4;
+    private static final int JOB_OPENING_OPTION = 5;
+    private static final int APPLICATION_OPTION = 6;
+    private static final int SETTINGS_OPTION = 7;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -128,7 +134,7 @@ public class MainMenu extends AbstractUI {
 
     private Menu buildMainMenu() {
 
-        if (!authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.BackgroundUserValues())){
+        if (!authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.BackgroundUserValues())) {
             throw new IllegalArgumentException("User not authorized to access this menu");
         }
 
@@ -153,8 +159,8 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(CUSTOMERS_OPTION, customersMenu);
             final Menu jobOpeningMenu = buildJobOpeningMenu();
             mainMenu.addSubMenu(JOB_OPENING_OPTION, jobOpeningMenu);
-//            final Menu  candidateMenu = buildCandidateMenu();
-//            mainMenu.addSubMenu(CANDIDATE_OPTION, candidateMenu);
+            final Menu candidateMenu = buildCandidateMenu();
+            mainMenu.addSubMenu(CANDIDATE_OPTION, candidateMenu);
 
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
@@ -162,12 +168,15 @@ public class MainMenu extends AbstractUI {
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.OPERATOR)) {
+
+
             final Menu applicationMenu = buildApplicationsMenu();
             mainMenu.addSubMenu(APPLICATION_OPTION, applicationMenu);
+            final Menu candidateMenu = buildOperatorMenu();
+            mainMenu.addSubMenu(CANDIDATE_OPTION, candidateMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
-
 
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -223,12 +232,13 @@ public class MainMenu extends AbstractUI {
     }
 
 
-
     private Menu buildJobOpeningMenu() {
         final Menu menu = new Menu("Job Opening >");
 
         menu.addItem(REGISTER_JOB_OPENING, "Register Job Opening", new RegisterJobOpeningUI()::show);
         menu.addItem(LIST_JOB_OPENING, "List Job Openings", new ListJobOpeningUI()::show);
+        menu.addItem(SELECT_JOB_REQUIREMENT_SPECIFICATION_FOR_JOB_OPENING, "Select Job Requirement Specification for Job Opening", new SelectJobRequirementSpecificationForJobOpeningUI()::show);
+        menu.addItem(SELECT_INTERVIEW_MODEL_SPECIFICATION_FOR_JOB_OPENING, "Select Interview Model Specification for Job Opening", new SelectInterviewModelSpecificationForJobOpeningUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
@@ -239,6 +249,18 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Applications >");
 
         menu.addItem(REGISTER_JOB_OPENING, "Register Application", new RegisterApplicationUI()::show);
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+
+    private Menu buildCandidateMenu() {
+        final Menu menu = new Menu("Candidate >");
+
+        menu.addItem(DISPLAY_CANDIDATE_INFO, "Display Candidate Information", new DisplayCandidateInfoUI()::show);
+
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 

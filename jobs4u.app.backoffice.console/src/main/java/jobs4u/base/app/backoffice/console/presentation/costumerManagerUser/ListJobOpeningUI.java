@@ -57,7 +57,10 @@ public class ListJobOpeningUI extends AbstractUI {
     }
 
     private void listAllJobOpenings() {
+        System.out.println("Job Opening List:");
         List<JobOpening> allJobOpenings = theController.jobOpeningsFromRepository();
+        allJobOpenings.forEach(System.out::println);
+        System.out.println("\n");
     }
 
     private void listActiveJobOpenings() {
