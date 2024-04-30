@@ -3,6 +3,7 @@ package jobs4u.base.jobRequirement.domain;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jobs4u.base.jobRequirement.infrastructure.RequirementEvaluation;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.lang.reflect.InvocationTargetException;
@@ -39,13 +40,13 @@ public class JobRequirementSpecification implements AggregateRoot<JobRequirement
 
 
     private void buildEvaluator(){
-       /* try {
-           Plugin plugin = (Plugin) Class.forName(className).getDeclaredConstructor().newInstance();
-
+        try {
+           RequirementEvaluation plugin = (RequirementEvaluation) Class.forName(className).getDeclaredConstructor().newInstance();
+            //TODO quando for preciso é aqui q se chama as funcoes de evaluation
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException |
                  NoSuchMethodException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
     }
 

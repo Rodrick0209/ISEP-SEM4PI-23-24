@@ -13,15 +13,15 @@ import org.slf4j.LoggerFactory;
 public class ConfigureJobRequirementPluginUI extends AbstractUI {
     private final ConfigureJobRequirementPluginController theController = new ConfigureJobRequirementPluginController(PersistenceContext.repositories().jobRequirementsSpecification(), AuthzRegistry.authorizationService());
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureJobRequirementPluginUI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureJobRequirementPluginUI.class);
     @Override
     protected boolean doShow() {
-       final String identifier = Console.readLine("Name->");
+       final String identifier = Console.readLine("Requirement Identifier->");
 
-       final String jarFile = Console.readLine("Plugin (Jar File)->");
+       final String className = Console.readLine("Class name->");
 
         try{
-            this.theController.configurePlugin(identifier, jarFile);
+            this.theController.configurePlugin(identifier, className);
             System.out.println("Job Requirement Specification configured successfully.");
         } catch (IntegrityViolationException | ConcurrencyException ex){
             LOGGER.error("Error performing the operation", ex);
