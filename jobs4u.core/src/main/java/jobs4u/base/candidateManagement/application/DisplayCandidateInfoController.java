@@ -57,8 +57,8 @@ public class DisplayCandidateInfoController {
         StringBuilder info = new StringBuilder();
 
         info.append("Application ID: ").append(jobApplication.identity().toString()).append("\n");
-        info.append("Application State: ").append(jobApplication.getState().toString()).append("\n");
-        info.append("Registration Date: ").append(jobApplication.getCreationDate().toString()).append("\n");
+        info.append("Application State: ").append(jobApplication.state().toString()).append("\n");
+        info.append("Registration Date: ").append(jobApplication.creationDate().toString()).append("\n");
 
         return info.toString();
     }
