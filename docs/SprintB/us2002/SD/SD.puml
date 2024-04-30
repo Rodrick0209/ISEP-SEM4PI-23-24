@@ -2,11 +2,18 @@
 
 actor Operator as op
 participant "RegisterApplicationUI" as UI
-participant "RegisterApplicationController" as controller
+participant "RegisterJobApplicationController" as controller
 participant "GetApplicationDataService" as service
 participant "Report.txt" as txt
 participant "JobOpeningRepository" as JobOpeningRepository
-participant " List<JobOpening> jobOpenings" as jobOpeningList
+participant "JobApplicationRepository" as JobApplicationRepository
+participant "RegisterCandidateController" as candidateController
+participant "CandidateRepository" as CandidateRepository
+participant "List<JobOpening> jobOpenings" as jobOpeningList
+participant "List<JobApplication> jobApplication" as jobApplicationList
+participant "AuthorizationService" as auth
+participant "Candidate" as Candidate
+participant JobOpening
 
 op -> UI: Selects the register application option
 activate UI
@@ -23,7 +30,9 @@ controller -> service: getJobReferenceFromReportFile()
 activate service
 
 service -> jobOpeningList **:creates()
-service -> txt: readJobReferences()
+service -> txt: readJobReferences
+activate txt
+deactivate txt
 
 service -> JobOpeningRepository : containsOfIdentity(jobReference)
 activate JobOpeningRepository
@@ -40,6 +49,111 @@ deactivate JobOpeningRepository
 service -> jobOpeningList: add(jobOpening)
 end
 service --> controller : jobOpenings
+deactivate service
+
+controller --> UI:jobOpenings
+deactivate controller
+
+UI-->op:show jobOpenings and asks to select one
+
+op -> UI: Selects a job opening
+
+UI -> controller: getApplicationFromReportFile(jobOpening.jobReference)
+activate controller
+
+controller -> service: getApplicationFromReportFile(jobOpening.jobReference)
+activate service
+service -> jobApplicationList**: creates()
+service -> txt: readApplications
+activate txt
+deactivate txt
+
+service -> JobApplicationRepository : containsOfIdentity(jobApplication)
+activate JobApplicationRepository
+JobApplicationRepository --> service : true/false
+
+alt false
+
+deactivate JobApplicationRepository
+
+
+service -> jobApplicationList: add(jobOpening)
+end
+
+service-->controller: jobApplications
+deactivate service
+
+controller-->UI: jobApplications
+deactivate controller
+
+UI-->op:show job Applications and asks to select one
+op -> UI: Selects a job application
+
+UI -> controller: registerApplication(jobApplication, jobOpening)
+activate controller
+controller->auth:ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.OPERATOR, Jobs4uRoles.POWER_USER);
+activate auth
+deactivate auth
+
+
+
+controller -> service: getApplicationFiles(jobApplication,jobApplication)
+activate service
+service -> txt: read application files
+activate txt
+deactivate txt
+deactivate service
+
+
+controller -> service: getCandidateInfo(file)
+activate service
+service --> controller: candidateInfo
+deactivate service
+
+controller->controller:createCandidateIfCandidateDoestExists(clientInfo)
+activate controller
+controller->CandidateRepository: containsOfIdentity(candidateInfo.email)
+activate CandidateRepository
+CandidateRepository-->controller: true/false
+deactivate CandidateRepository
+
+
+alt false
+    controller->Candidate: create(firstName, lastName, email,phoneNumber)
+    activate Candidate
+    Candidate-->controller: candidate
+    deactivate Candidate
+
+end
+controller->controller: candidate
+deactivate controller
+
+controller->candidateController: registerCandidate(candidate)
+activate candidateController
+candidateController->CandidateRepository: save(candidate)
+activate CandidateRepository
+CandidateRepository-->candidateController: candidate
+deactivate CandidateRepository
+candidateController-->controller: candidate
+deactivate candidateController
+
+controller->JobOpening: addJobApplication(jobApplication)
+activate JobOpening
+JobOpening-->controller: jobOpening
+deactivate JobOpening
+
+controller->JobOpeningRepository: save(jobOpening)
+activate JobOpeningRepository
+JobOpeningRepository-->controller: jobOpening
+deactivate JobOpeningRepository
+
+controller->UI:JobApplication
+deactivate controller
+deactivate UI
+
+UI->op:JobApplication registered
+deactivate UI
+
 
 
 @enduml

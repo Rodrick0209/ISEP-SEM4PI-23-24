@@ -1,0 +1,64 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor CustomerManager
+
+participant SelectInterviewModelSpecificationForJobOpeningUI <<presentation>>
+participant SelectInterviewModelSpecificationForJobOpeningController <<application>>
+participant PersistenceContext
+participant RepositoryFactory
+participant JobOpeningRepository <<repository>>
+participant InterviewModelSpecificationRepository <<repository>>
+participant JobOpening <<domain>>
+
+-> SelectInterviewModelSpecificationForJobOpeningUI: doShow()
+activate SelectInterviewModelSpecificationForJobOpeningUI
+SelectInterviewModelSpecificationForJobOpeningUI -> SelectInterviewModelSpecificationForJobOpeningController : create
+SelectInterviewModelSpecificationForJobOpeningUI -> SelectInterviewModelSpecificationForJobOpeningController : listJobOpenings()
+activate SelectInterviewModelSpecificationForJobOpeningController
+SelectInterviewModelSpecificationForJobOpeningController -> PersistenceContext : repositories()
+PersistenceContext -> RepositoryFactory : create
+RepositoryFactory -> JobOpeningRepository : jobOpenings()
+SelectInterviewModelSpecificationForJobOpeningController -> JobOpeningRepository : findAll()
+activate JobOpeningRepository
+JobOpeningRepository --> SelectInterviewModelSpecificationForJobOpeningController : List<JobOpening>
+deactivate JobOpeningRepository
+SelectInterviewModelSpecificationForJobOpeningController --> SelectInterviewModelSpecificationForJobOpeningUI : List<JobOpening>
+deactivate SelectInterviewModelSpecificationForJobOpeningController
+
+SelectInterviewModelSpecificationForJobOpeningUI --> CustomerManager : shows list of Job Openings\nand asks to select one
+CustomerManager -> SelectInterviewModelSpecificationForJobOpeningUI : selects one Job Opening
+
+SelectInterviewModelSpecificationForJobOpeningUI -> SelectInterviewModelSpecificationForJobOpeningController : listInterviewModelsSpecification()
+activate SelectInterviewModelSpecificationForJobOpeningController
+SelectInterviewModelSpecificationForJobOpeningController -> PersistenceContext : repositories()
+PersistenceContext -> RepositoryFactory : create
+RepositoryFactory -> InterviewModelSpecificationRepository : create
+SelectInterviewModelSpecificationForJobOpeningController -> InterviewModelSpecificationRepository : findAll()
+activate InterviewModelSpecificationRepository
+InterviewModelSpecificationRepository --> SelectInterviewModelSpecificationForJobOpeningController : List<InterviewModelSpecification>
+deactivate InterviewModelSpecificationRepository
+SelectInterviewModelSpecificationForJobOpeningController --> SelectInterviewModelSpecificationForJobOpeningUI : List<InterviewModelSpecification>
+deactivate SelectInterviewModelSpecificationForJobOpeningController
+
+SelectInterviewModelSpecificationForJobOpeningUI --> CustomerManager : shows list of Job Requirements\nSpecification and asks to select one
+CustomerManager -> SelectInterviewModelSpecificationForJobOpeningUI : selects one Interview \nModel Specification
+
+SelectInterviewModelSpecificationForJobOpeningUI -> SelectInterviewModelSpecificationForJobOpeningController : selectInterviewModelSpecificationForJobOpening(interviewModelSpecification, jobOpening)
+activate SelectInterviewModelSpecificationForJobOpeningController
+SelectInterviewModelSpecificationForJobOpeningController -> JobOpening : selectInterviewModelSpecification(interviewModelSpecification)
+SelectInterviewModelSpecificationForJobOpeningController -> PersistenceContext : repositories()
+PersistenceContext -> RepositoryFactory : create
+RepositoryFactory -> JobOpeningRepository : create
+SelectInterviewModelSpecificationForJobOpeningController -> JobOpeningRepository : save(jobOpening)
+activate JobOpeningRepository
+JobOpeningRepository --> SelectInterviewModelSpecificationForJobOpeningController : jobOpening
+deactivate JobOpeningRepository
+SelectInterviewModelSpecificationForJobOpeningController --> SelectInterviewModelSpecificationForJobOpeningUI : jobOpening
+deactivate SelectInterviewModelSpecificationForJobOpeningController
+
+SelectInterviewModelSpecificationForJobOpeningUI --> CustomerManager : backs to menu
+
+@enduml

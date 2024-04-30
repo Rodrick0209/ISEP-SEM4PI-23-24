@@ -73,7 +73,7 @@ public class RegisterJobApplicationController {
 
         txCtx.commit();
 
-        return jobApplication;//jobApplicationRepository.save(jobApplication);
+        return jobApplication;
     }
 
 
