@@ -10,8 +10,6 @@ import java.util.List;
 
 public class ListCandidateController {
 
-    private final CandidateMapper candidateMapper = new CandidateMapper();
-
     private final CandidateRepository candidateRepository = PersistenceContext.repositories().candidates();
 
     public List<Candidate> candidates(){
