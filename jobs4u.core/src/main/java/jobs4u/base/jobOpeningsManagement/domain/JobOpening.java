@@ -165,5 +165,8 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.interviewModelSpecification = interviewModelSpecification;
     }
 
-
+    @Override
+    public String toString() {
+        return "jobReference:"+jobReference;
+    }
 }
