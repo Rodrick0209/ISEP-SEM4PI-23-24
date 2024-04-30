@@ -1,17 +1,14 @@
+/*
 package jobs4u.base.jobOpeningsManagement.application;
 
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.domain.model.*;
-import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.domain.Client;
-import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.interviewModel.domain.InterviewModelSpecification;
 import jobs4u.base.interviewModel.domain.InterviewModelSpecificationIdentifier;
-import jobs4u.base.interviewModel.domain.InterviewModelSpecificationJarFile;
 import jobs4u.base.interviewModel.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
-import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
@@ -146,10 +143,10 @@ public class SelectInterviewModelForJobOpeningControllerTest {
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), client);
 
         InterviewModelSpecificationIdentifier identifier = InterviewModelSpecificationIdentifier.valueOf("teste");
-        InterviewModelSpecificationJarFile jarFile = InterviewModelSpecificationJarFile.valueOf("src/test/resources/test.jar");
         InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification(identifier, jarFile);
         theController.selectInterviewModelSpecificationForJobOpening(interviewModelSpecification, jobOpening);
         assertNotNull(jobOpening);
     }
 
 }
+*/

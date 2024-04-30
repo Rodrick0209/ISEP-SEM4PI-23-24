@@ -13,16 +13,16 @@ import org.slf4j.LoggerFactory;
 
 public class ConfigureInterviewModelPluginUI extends AbstractUI {
     private final ConfigureInterviewModelPluginController theController = new ConfigureInterviewModelPluginController(PersistenceContext.repositories().interviewModelsSpecification(), AuthzRegistry.authorizationService());
-    private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureJobRequirementPluginUI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureJobRequirementPluginUI.class);
 
     @Override
     protected boolean doShow() {
-        final String identifier = Console.readLine("Name->");
+        final String identifier = Console.readLine("Interview identifier->");
 
-        final String jarFile = Console.readLine("Plugin (Jar File)->");
+        final String className = Console.readLine("Class name->");
 
         try{
-            this.theController.configurePlugin(identifier, jarFile);
+            this.theController.configurePlugin(identifier, className);
             System.out.println("Interview Model Specification configured successfully.");
         } catch (IntegrityViolationException | ConcurrencyException ex){
             LOGGER.error("Error performing the operation", ex);

@@ -4,6 +4,7 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jobs4u.base.interviewModel.infrastructure.InterviewEvaluation;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -14,17 +15,17 @@ public class InterviewModelSpecification implements AggregateRoot<InterviewModel
     @EmbeddedId
     private final InterviewModelSpecificationIdentifier identifier;
 
-    private final InterviewModelSpecificationJarFile jarFile;
+    private final String className;
 
-    protected InterviewModelSpecification(){
+    protected InterviewModelSpecification() {
         // for ORM
         identifier = null;
-        jarFile = null;
+        className = null;
     }
 
-    public InterviewModelSpecification(final InterviewModelSpecificationIdentifier identifier, InterviewModelSpecificationJarFile jarFile) {
+    public InterviewModelSpecification(final InterviewModelSpecificationIdentifier identifier, String className) {
         this.identifier = identifier;
-        this.jarFile = jarFile;
+        this.className = className;
     }
 
     @Override
@@ -35,5 +36,15 @@ public class InterviewModelSpecification implements AggregateRoot<InterviewModel
     @Override
     public InterviewModelSpecificationIdentifier identity() {
         return this.identifier;
+    }
+
+    private void buildEvaluator() {
+        try {
+            InterviewEvaluation plugin = (InterviewEvaluation) Class.forName(className).getDeclaredConstructor().newInstance();
+            //TODO quando for preciso é aqui q se chama as funcoes de evaluation
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

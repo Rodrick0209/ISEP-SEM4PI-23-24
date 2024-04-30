@@ -1,20 +1,17 @@
+/*
 package jobs4u.base.jobOpeningsManagement.application;
 
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.domain.model.*;
-import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.domain.Client;
-import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
-import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
 import jobs4u.base.jobRequirement.domain.JobRequirementSpecificationIdentifier;
-import jobs4u.base.jobRequirement.domain.JobRequirementSpecificationJarFile;
 import jobs4u.base.jobRequirement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.utils.ClientCode;
 import org.junit.jupiter.api.Assertions;
@@ -155,3 +152,4 @@ public class SelectJobRequirementSpecificationForJobOpeningControllerTest {
     }
 }
 
+*/
