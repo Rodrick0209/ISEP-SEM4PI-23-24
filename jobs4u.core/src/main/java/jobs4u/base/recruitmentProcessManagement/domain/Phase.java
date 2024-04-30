@@ -2,10 +2,7 @@ package jobs4u.base.recruitmentProcessManagement.domain;
 
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.recruitmentProcessManagement.utils.State;
 import org.springframework.cglib.core.Local;
@@ -16,7 +13,7 @@ import java.util.Date;
 @Entity
 public class Phase {
 
-    @Id
+    @EmbeddedId
     private Designation designation;
 
     private LocalDate startDate;

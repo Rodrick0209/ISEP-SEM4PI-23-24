@@ -29,7 +29,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Version
     private Long version;
 
-    @Id
     @EmbeddedId
     private JobReference jobReference;
 
@@ -54,7 +53,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
 
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private RecruitmentProcess recruitmentProcess;
 
     @OneToOne

@@ -12,11 +12,11 @@ import java.io.Serializable;
 
 @Embeddable
 @EqualsAndHashCode
-public class InterviewModelSpecificationJarFile implements ValueObject, Serializable, Comparable<InterviewModelSpecificationJarFile>  {
+public class InterviewModelSpecificationJarFile implements ValueObject, Serializable, Comparable<InterviewModelSpecificationJarFile> {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name="InterviewModelSpecificationJarFile")
+    @Column(name = "InterviewModelSpecificationJarFile")
     private final String value;
 
 
@@ -31,7 +31,7 @@ public class InterviewModelSpecificationJarFile implements ValueObject, Serializ
         this.value = value;
     }
 
-    private boolean isAFile(String value){
+    private boolean isAFile(String value) {
         try {
             File file = new File(value);
             return file.exists();
@@ -55,5 +55,4 @@ public class InterviewModelSpecificationJarFile implements ValueObject, Serializ
     }
 
 
-
-    }
+}

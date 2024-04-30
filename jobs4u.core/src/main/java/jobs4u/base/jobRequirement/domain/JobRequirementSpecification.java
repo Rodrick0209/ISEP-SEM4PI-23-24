@@ -3,6 +3,8 @@ package jobs4u.base.jobRequirement.domain;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import org.springframework.javapoet.ClassName;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,17 +14,17 @@ public class JobRequirementSpecification implements AggregateRoot<JobRequirement
 
     @EmbeddedId
     private JobRequirementSpecificationIdentifier identifier;
-    private JobRequirementSpecificationJarFile jarFile;
+
+    private String className;
 
     protected JobRequirementSpecification(){
         // for ORM
         identifier = null;
-        jarFile = null;
+        className = null;
     }
 
     public JobRequirementSpecification(JobRequirementSpecificationIdentifier identifier, JobRequirementSpecificationJarFile jarFile){
         this.identifier = identifier;
-        this.jarFile = jarFile;
     }
 
     @Override

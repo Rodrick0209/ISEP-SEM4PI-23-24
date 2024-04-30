@@ -72,7 +72,8 @@ public final class BaseBackoffice extends BaseApplication {
             // go to main menu
             final MainMenu menu = new MainMenu();
             doSetupEventHandlers(InProcessPubSub.dispatcher());
-
+            SetupRecruitmentProcessAction setupRecruitmentProcessAction = new SetupRecruitmentProcessAction();
+            setupRecruitmentProcessAction.execute();
             menu.mainLoop();
         }
     }

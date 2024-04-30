@@ -20,7 +20,6 @@ import java.io.IOException;
 public class RequirementService implements Plugin {
 
 
-    @Override
     public PluginQuestions checkTemplateSyntax(String filePath) {
         try {
             FileInputStream fileInputStream = new FileInputStream(filePath);
