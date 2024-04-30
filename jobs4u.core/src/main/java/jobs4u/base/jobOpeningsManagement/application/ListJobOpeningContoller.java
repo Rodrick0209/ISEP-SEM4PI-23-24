@@ -39,7 +39,6 @@ public class ListJobOpeningContoller {
 
         Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER, Jobs4uRoles.POWER_USER);
         ArrayList<JobOpening> jobOpenings = new ArrayList<>();
-
         jobOpeningRepository.findByCustomerManager(user.get()).forEach(jobOpening -> {
             jobOpenings.add(jobOpening);
         });

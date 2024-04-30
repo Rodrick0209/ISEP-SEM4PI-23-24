@@ -48,7 +48,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private Calendar creationDate;
     private JobOpeningStatus status;
 
-    @OneToOne
+    @ManyToOne
     private Client client;
 
 

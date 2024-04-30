@@ -1,5 +1,6 @@
 package jobs4u.base.persistence.impl.jpa;
 
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
@@ -19,12 +20,16 @@ class JpaJobOpeningRepository extends BasepaRepositoryBase<JobOpening, JobRefere
     }
 
 
-    @Override
-    public List<JobOpening> findByCustomerManager(SystemUser customer) {
+    public List<JobOpening> findByCustomerManager(SystemUser customerManager) {
 
-        final Map<String, Object> params = new HashMap<>();
-        params.put("customerEmail", customer.email());
-        return match("e.customerManager = :customerEmail", params);
+            EmailAddress managerEmail = customerManager.email();
+
+            // Consultar JobOpenings associados ao cliente do gerente de cliente logado
+            final Map<String, Object> params = new HashMap<>();
+            params.put("managerEmail", managerEmail);
+
+            // Consultar usando a query JPQL adequada
+            return match("e.client.customerManagerEmail = :managerEmail", params);
 
     }
 

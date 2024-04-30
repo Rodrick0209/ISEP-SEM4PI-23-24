@@ -110,7 +110,7 @@ public class ListJobOpeningUI extends AbstractUI {
         }
 
         for (int i = 0; i < jobOpenings.size(); i++) {
-            System.out.println((i + 1) + ". " + jobOpenings.get(i));
+            System.out.println((i + 1) + ". " + jobOpenings.get(i).jobReference() + " - " + jobOpenings.get(i).function());
         }
         int selectedOption = Console.readOption(1, jobOpenings.size(), -1);
         return jobOpenings.get(selectedOption - 1);

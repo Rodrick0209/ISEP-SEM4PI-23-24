@@ -47,26 +47,29 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
 
     final RegisterJobOpeningController jobOpeningController = new RegisterJobOpeningController(PersistenceContext.repositories().jobOpenings(),
-            PersistenceContext.repositories().clients(),AuthzRegistry.authorizationService());
+            PersistenceContext.repositories().clients(), AuthzRegistry.authorizationService());
 
     final RegisterClientController clientController = new RegisterClientController(PersistenceContext.repositories().clients(),
             AuthzRegistry.authorizationService(), InProcessPubSub.publisher());
 
 
-
     @Override
     public boolean execute() {
 
-        Client client = clientController.registerClient("client1","client1","client@gmail.com",
-                "919111222","1234-123","First",
-                "Last",EmailAddress.valueOf("customermanager@gmail.com"));
+        Client client = clientController.registerClient("client1", "client1", "client@gmail.com",
+                "919111222", "1234-123", "First",
+                "Last", EmailAddress.valueOf("customermanager1@gmail.com"));
+
+        Client client1 = clientController.registerClient("client2", "client2", "client2@gmail.com",
+                "919112222", "1224-123", "Second",
+                "Last", EmailAddress.valueOf("customermanager@gmail.com"));
 
 
         registerAdmin("admin@gmail.com", TestDataConstants.PASSWORD1, "Admin", "Doe Admin",
                 "admin@gmail.com");
 
-       // registerCustomerManager("customermanager@gmail.com", TestDataConstants.PASSWORD1, "Customer", "Doe CustomerManager",
-         //       "customermanager@gmail.com");
+        registerCustomerManager("customermanager@gmail.com", TestDataConstants.PASSWORD1, "Customer", "Doe CustomerManager",
+                "customermanager@gmail.com");
 
         registerOperator("operator@gmail.com", TestDataConstants.PASSWORD1, "operator", "Doe operator",
                 "operator@gmail.com");
@@ -80,27 +83,16 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description", "Function", ContractType.FULL_TIME, client);
 
-        /*
-        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
-                "Description", "Function", ContractType.FULL_TIME,
-                new Client("client2","client2","1234-123", EmailAddress.valueOf("customermanager@gmail.com")));
-
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
-                "Description", "Function", ContractType.FULL_TIME,
-                new Client("client3","client3","1234-123", EmailAddress.valueOf("customermanager@gmail.com")));
-
-        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
-                "Description1", "Function", ContractType.FULL_TIME,
-                new Client("client3","client3","1234-123", EmailAddress.valueOf("customermanager@gmail.com")));
+                "Description", "Function", ContractType.FULL_TIME, client1);
 
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
-                "Description", "Function", ContractType.FULL_TIME,
-                new Client("uio1","uio","1234-123", EmailAddress.valueOf("customermanager@gmail.com")));
+                "Description", "Function", ContractType.FULL_TIME, client1);
+        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+                "Description1", "Function", ContractType.FULL_TIME, client);
 
-
-         */
         return true;
     }
 
@@ -108,7 +100,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
      *
      */
     private void registerAdmin(final String username, final String password, final String firstName,
-            final String lastName, final String email) {
+                               final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.ADMIN);
 
@@ -116,7 +108,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerCustomerManager(final String username, final String password, final String firstName,
-                               final String lastName, final String email) {
+                                         final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.CUSTOMER_MANAGER);
 
@@ -124,7 +116,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerCandidate(final String username, final String password, final String firstName,
-                                         final String lastName, final String email) {
+                                   final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.CANDIDATE);
 
@@ -132,7 +124,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerOperator(final String username, final String password, final String firstName,
-                                   final String lastName, final String email) {
+                                  final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.OPERATOR);
 
@@ -146,7 +138,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
-
 
 
     public void registerJobOpening(WorkingMode workingMode
