@@ -74,6 +74,10 @@ public class MainMenu extends AbstractUI {
     private static final int REGISTER_CANDIDATE = 1;
     private static final int LIST_CANDIDATE = 2;
 
+
+    // CANDIDATE
+    private static final int DISPLAY_CANDIDATE_INFO = 1;
+
     // JOB OPENING
     private static final int REGISTER_JOB_OPENING = 1;
     private static final int LIST_JOB_OPENING = 2;
@@ -90,9 +94,9 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
     private static final int CUSTOMERS_OPTION = 3;
-    private static final int JOB_OPENING_OPTION = 4;
-    private static final int APPLICATION_OPTION = 5;
-    private static final int CANDIDATE_OPTION = 6;
+    private static final int CANDIDATE_OPTION = 4;
+    private static final int JOB_OPENING_OPTION = 5;
+    private static final int APPLICATION_OPTION = 6;
     private static final int SETTINGS_OPTION = 7;
 
     private static final String SEPARATOR_LABEL = "--------------";
@@ -130,7 +134,7 @@ public class MainMenu extends AbstractUI {
 
     private Menu buildMainMenu() {
 
-        if (!authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.BackgroundUserValues())){
+        if (!authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.BackgroundUserValues())) {
             throw new IllegalArgumentException("User not authorized to access this menu");
         }
 
@@ -155,8 +159,8 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(CUSTOMERS_OPTION, customersMenu);
             final Menu jobOpeningMenu = buildJobOpeningMenu();
             mainMenu.addSubMenu(JOB_OPENING_OPTION, jobOpeningMenu);
-//            final Menu  candidateMenu = buildCandidateMenu();
-//            mainMenu.addSubMenu(CANDIDATE_OPTION, candidateMenu);
+            final Menu candidateMenu = buildCandidateMenu();
+            mainMenu.addSubMenu(CANDIDATE_OPTION, candidateMenu);
 
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
@@ -173,7 +177,6 @@ public class MainMenu extends AbstractUI {
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
-
 
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -229,7 +232,6 @@ public class MainMenu extends AbstractUI {
     }
 
 
-
     private Menu buildJobOpeningMenu() {
         final Menu menu = new Menu("Job Opening >");
 
@@ -247,6 +249,18 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Applications >");
 
         menu.addItem(REGISTER_JOB_OPENING, "Register Application", new RegisterApplicationUI()::show);
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+
+    private Menu buildCandidateMenu() {
+        final Menu menu = new Menu("Candidate >");
+
+        menu.addItem(DISPLAY_CANDIDATE_INFO, "Display Candidate Information", new DisplayCandidateInfoUI()::show);
+
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 

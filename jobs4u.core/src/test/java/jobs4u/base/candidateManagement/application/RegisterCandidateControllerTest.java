@@ -1,8 +1,7 @@
-package jobs4u.base.candidateManagement;
+package jobs4u.base.candidateManagement.application;
 
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.pubsub.EventPublisher;
-import jobs4u.base.candidateManagement.application.RegisterCandidateController;
 import jobs4u.base.candidateManagement.application.eventhandlers.CandidateRegisteredEvent;
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.candidateManagement.domain.Candidate;

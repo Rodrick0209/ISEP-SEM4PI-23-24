@@ -71,6 +71,12 @@ public class JobApplication implements AggregateRoot<Long> {
     public Candidate candidate() {
         return candidate;
     }
+    public JobApplicationState state() {
+        return state;
+    }
+    public Calendar creationDate() {
+        return creationDate;
+    }
 
     @Override
     public boolean equals(final Object o) {
