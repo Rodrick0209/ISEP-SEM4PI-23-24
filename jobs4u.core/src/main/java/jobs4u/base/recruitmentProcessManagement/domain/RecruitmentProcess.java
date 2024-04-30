@@ -18,11 +18,10 @@ public class RecruitmentProcess {
     @Version
     private Long version;
 
-
     @Id
-    private JobReference jobReference;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    //TODO jakart ou hibernate import??
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Phase> phases;
 
@@ -30,9 +29,8 @@ public class RecruitmentProcess {
     protected RecruitmentProcess() {
     }
 
-    public RecruitmentProcess(List<Phase> phases, JobReference jobReference) {
+    public RecruitmentProcess(List<Phase> phases) {
         validatePhases(phases);
-        this.jobReference = jobReference;
         this.phases = phases;
     }
 

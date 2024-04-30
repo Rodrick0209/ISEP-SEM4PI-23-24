@@ -18,7 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class InterviewService implements Plugin {
-    @Override
+
     public PluginQuestions checkTemplateSyntax(String template) throws Exception {
         try {
             FileInputStream fileInputStream = new FileInputStream(template);
@@ -43,6 +43,7 @@ public class InterviewService implements Plugin {
 
     @Override
     public void evaluate(String templatePath, String answerPath) throws Exception {
+
         PluginQuestions pluginQuestions = checkTemplateSyntax(templatePath);
         try {
             FileInputStream fileInputStream = new FileInputStream(answerPath);

@@ -8,6 +8,7 @@ import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.jar.JarFile;
 
 @Embeddable
 @EqualsAndHashCode
