@@ -72,6 +72,11 @@ public class ListJobOpeningControllerTest {
         @Override
         public List<JobOpening> findByCustomerManager(SystemUser customer) {
             List<JobOpening> jobsReturn = new ArrayList<>();
+            for (JobOpening job : jobOpenings) {
+                if (job.getClient().getCustomerManagerEmail().equals(customer.email())) {
+                    jobsReturn.add(job);
+                }
+            }
 
             return jobsReturn;
         }
@@ -90,7 +95,7 @@ public class ListJobOpeningControllerTest {
 
     public static SystemUser anotherDummyUser() {
         final var userBuilder = new SystemUserBuilder(new NilPasswordPolicy(), new PlainTextEncoder());
-        return userBuilder.with("test1", "duMMy1", "dummy", "dummy", "a@b.ro").withRoles(Jobs4uRoles.CUSTOMER_MANAGER).build();
+        return userBuilder.with("test1", "duMMy1", "dummy", "dummy", "teste@gmail.com").withRoles(Jobs4uRoles.CUSTOMER_MANAGER).build();
     }
 
     public static JobOpening jobOpening() {
@@ -105,7 +110,7 @@ public class ListJobOpeningControllerTest {
         Client client = new Client("ISEP123","ISEP", "4123-123",dummyUser().email());
         JobReference jobReference = new JobReference(client.code().toString());
 
-        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),null);
+        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),client);
     }
 
     public static JobOpening jobOpening2() {
@@ -117,11 +122,11 @@ public class ListJobOpeningControllerTest {
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123","ISEP", "4123-123",dummyUser().email());
+        Client client = new Client("ISEP123","ISEP", "4123-123",anotherDummyUser().email());
 
         JobReference jobReference = new JobReference(client.clientCode().code());
 
-        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),null);
+        return new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),client);
     }
 
 
@@ -142,7 +147,6 @@ public class ListJobOpeningControllerTest {
 
         List<JobOpening> jobOpenings = controller.jobOpeningsFromRepository();
 
-
         assertEquals(1, jobOpenings.size());
 
     }
@@ -153,6 +157,7 @@ public class ListJobOpeningControllerTest {
         jobOpeningRepository.save(jobOpening2());
 
         controller = new ListJobOpeningContoller(jobOpeningRepository, authorizedAuthz);
+
 
         List<JobOpening> jobOpenings = controller.jobOpeningsFromRepository();
 
