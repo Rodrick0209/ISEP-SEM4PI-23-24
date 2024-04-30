@@ -21,6 +21,7 @@
 package jobs4u.base.persistence.impl.inmemory;
 
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
+import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 
@@ -37,4 +38,8 @@ public class InMemoryJobApplicationRepository
     }
 
 
+    @Override
+    public Iterable<JobApplication> findJobApplicationsByCandidate(Candidate candidate) {
+        return null;
+    }
 }

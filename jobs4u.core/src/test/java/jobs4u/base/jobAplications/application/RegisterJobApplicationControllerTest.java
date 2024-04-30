@@ -29,6 +29,11 @@ class RegisterJobApplicationControllerTest {
 
     private JobApplicationRepository  jobApplicationRepository = new JobApplicationRepository() {
         @Override
+        public Iterable<JobApplication> findJobApplicationsByCandidate(Candidate candidate) {
+            return null;
+        }
+
+        @Override
         public <S extends JobApplication> S save(S entity) {
             return null;
         }
