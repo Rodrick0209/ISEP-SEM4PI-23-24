@@ -3,10 +3,9 @@ package jobs4u.base.jobRequirement.domain;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
-import org.springframework.javapoet.ClassName;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.lang.reflect.InvocationTargetException;
 
 @XmlRootElement
 @Entity
@@ -23,8 +22,9 @@ public class JobRequirementSpecification implements AggregateRoot<JobRequirement
         className = null;
     }
 
-    public JobRequirementSpecification(JobRequirementSpecificationIdentifier identifier, JobRequirementSpecificationJarFile jarFile){
+    public JobRequirementSpecification(JobRequirementSpecificationIdentifier identifier, String className){
         this.identifier = identifier;
+        this.className = className;
     }
 
     @Override
@@ -36,4 +36,19 @@ public class JobRequirementSpecification implements AggregateRoot<JobRequirement
     public JobRequirementSpecificationIdentifier identity() {
         return identifier;
     }
+
+
+    private void buildEvaluator(){
+       /* try {
+           Plugin plugin = (Plugin) Class.forName(className).getDeclaredConstructor().newInstance();
+
+        } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException |
+                 NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }*/
+
+    }
+
+
+
 }
