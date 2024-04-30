@@ -9,6 +9,7 @@ import lombok.Getter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @XmlRootElement
@@ -38,6 +39,7 @@ public class JobApplication implements AggregateRoot<Long> {
     @OneToOne
     private Candidate candidate;
 
+    private Calendar creationDate;
 
     protected JobApplication() {
         // for ORM
@@ -51,6 +53,7 @@ public class JobApplication implements AggregateRoot<Long> {
         this.requirementAnswer = requirementAnswer;
         this.interview = interview;
         this.candidate = candidate;
+        this.creationDate=Calendar.getInstance();
     }
 
     public JobApplication(Long id, List<JobApplicationFile> file,Candidate candidate) {
@@ -61,6 +64,8 @@ public class JobApplication implements AggregateRoot<Long> {
         this.requirementAnswer = new RequirementAnswer();
         this.interview = new Interview();
         this.candidate = candidate;
+        this.creationDate=Calendar.getInstance();
+
     }
 
     @Override
