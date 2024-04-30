@@ -68,6 +68,10 @@ public class JobApplication implements AggregateRoot<Long> {
 
     }
 
+    public Candidate candidate() {
+        return candidate;
+    }
+
     @Override
     public boolean equals(final Object o) {
         return DomainEntities.areEqual(this, o);
