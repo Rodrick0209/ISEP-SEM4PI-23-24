@@ -1,19 +1,27 @@
 package jobs4u.base.jobOpeningsManagement.application;
 
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import jobs4u.base.clientManagement.application.ClientMapper;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
+import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
+import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
 import jobs4u.base.jobRequirement.domain.JobRequirementSpecificationIdentifier;
+import jobs4u.base.jobRequirement.domain.JobRequirementSpecificationJarFile;
 import jobs4u.base.jobRequirement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.utils.ClientCode;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -23,10 +31,11 @@ import static org.junit.Assert.assertNotNull;
 public class SelectJobRequirementSpecificationForJobOpeningControllerTest {
     private SelectJobRequirementSpecificationForJobOpeningController theController;
 
-    private final AuthorizationService authz = new AuthorizationService(){
+    private final AuthorizationService authz = new AuthorizationService() {
         @Override
         public void ensureAuthenticatedUserHasAnyOf(final Role... actions) {
         }
+
         @Override
         public Optional<SystemUser> loggedinUserWithPermissions(Role... roles) {
             return Optional.of(dummyUser("test", roles));
@@ -45,6 +54,7 @@ public class SelectJobRequirementSpecificationForJobOpeningControllerTest {
         }
 
         private HashSet<JobOpening> jobOpenings = new HashSet<>();
+
         @Override
         public <S extends JobOpening> S save(S entity) {
             jobOpenings.add(entity);
@@ -119,31 +129,29 @@ public class SelectJobRequirementSpecificationForJobOpeningControllerTest {
     }
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         JobOpeningRepository jobOpeningRepo = jobOpeningRepository;
         JobRequirementSpecificationRepository jobRequirementSpecificationRepo = jobRequirementSpecificationRepository;
         theController = new SelectJobRequirementSpecificationForJobOpeningController(jobRequirementSpecificationRepo, jobOpeningRepo, authz);
     }
 
-   /*
     @Test
-    public void ensureSelectingJobRequirementSpecificationForJobOpeningWorks(){
+    public void ensureSelectingJobRequirementSpecificationForJobOpeningWorks() {
         JobReference jobReference = new JobReference("String123");
         WorkingMode workingMode = WorkingMode.REMOTE;
         String nrVacancy = "5";
-        String address = "1234";
+        String address = "4123-123";
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123","ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
+        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), client);
 
-        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification();
+        JobRequirementSpecificationIdentifier jobRequirementSpecificationIdentifier = JobRequirementSpecificationIdentifier.valueOf("teste");
+        JobRequirementSpecificationJarFile jobRequirementSpecificationJarFile = JobRequirementSpecificationJarFile.valueOf("src/test/resources/test.jar");
+        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification(jobRequirementSpecificationIdentifier, jobRequirementSpecificationJarFile);
         theController.selectJobRequirementSpecificationForJobOpening(jobRequirementSpecification, jobOpening);
         Assertions.assertNotNull(jobOpening);
     }
-
-    */
-
-    }
+}
 

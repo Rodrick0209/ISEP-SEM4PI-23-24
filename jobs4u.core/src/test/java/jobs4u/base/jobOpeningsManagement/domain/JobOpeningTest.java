@@ -12,6 +12,8 @@ import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
+import jobs4u.base.jobRequirement.domain.JobRequirementSpecificationIdentifier;
+import jobs4u.base.jobRequirement.domain.JobRequirementSpecificationJarFile;
 import jobs4u.base.utils.ClientCode;
 import org.junit.jupiter.api.Test;
 
@@ -42,20 +44,20 @@ public class JobOpeningTest {
         assertEquals(expectedJobOpening, actualJobOpening);
     }
 
-  /*  @Test
+    @Test
     public void ensurePossibleToSelectAJobRequirementSpecificationForAJobOpening() {
-        JobReference jobReference = new JobReference(ClientCode.valueOf("isep"), 1);
+        JobReference jobReference = new JobReference("Isep-0001");
         WorkingMode workingMode = WorkingMode.REMOTE;
         String nrVacancy = "5";
         String address = "1234-123";
         String description = "Software Developer";
         String function = "Develop software";
         ContractType contractType = ContractType.FULL_TIME;
-        LocalDate creationDate = LocalDate.now();
+        Client client = new Client("ISEP123","ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
 
-        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate);
-        JobRequirementSpecificationIdentifier jobRequirementSpecificationIdentifier = JobRequirementSpecificationIdentifier.valueOf("teste recrutamento");
-        JobRequirementSpecificationJarFile jobRequirementSpecificationJarFile = JobRequirementSpecificationJarFile.valueOf("...");
+        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), client);
+        JobRequirementSpecificationIdentifier jobRequirementSpecificationIdentifier = JobRequirementSpecificationIdentifier.valueOf("teste");
+        JobRequirementSpecificationJarFile jobRequirementSpecificationJarFile = JobRequirementSpecificationJarFile.valueOf("src/test/resources/test.jar");
         JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification(jobRequirementSpecificationIdentifier, jobRequirementSpecificationJarFile);
         jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
     }
@@ -63,9 +65,13 @@ public class JobOpeningTest {
     @Test
     public void ensureNotPossibleToSelectAJobRequirementSpecificationForAInvalidJobOpening() {
         JobOpening jobOpening = null;
-        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification(...);
-        assertThrows(NullPointerException.class, jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
-    }*/
+        JobRequirementSpecificationIdentifier jobRequirementSpecificationIdentifier = JobRequirementSpecificationIdentifier.valueOf("teste");
+        JobRequirementSpecificationJarFile jobRequirementSpecificationJarFile = JobRequirementSpecificationJarFile.valueOf("src/test/resources/test.jar");
+        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification(jobRequirementSpecificationIdentifier, jobRequirementSpecificationJarFile);
+        assertThrows(NullPointerException.class, () -> {
+            jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
+        });
+    }
 
     @Test
     public void ensureNotPossibleToSelectAInvalidJobRequirementSpecificationForAJobOpening() {
@@ -79,15 +85,15 @@ public class JobOpeningTest {
         ContractType contractType = ContractType.FULL_TIME;
         Calendar creationDate = Calendar.getInstance();
         JobOpeningStatus status = JobOpeningStatus.INACTIVE;
+        Client client = new Client("ISEP123","ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
 
-        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
+        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client);
         JobRequirementSpecification jobRequirementSpecification = null;
         assertThrows(IllegalArgumentException.class, () -> {
             jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
         });
     }
 
-    /*
     @Test
     public void ensurePossibleToSelectAInterviewModelSpecificationForAJobOpening() {
         JobReference jobReference = new JobReference("String123");
@@ -100,8 +106,8 @@ public class JobOpeningTest {
         Client client = new Client("ISEP123","ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
 
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), client);
-        InterviewModelSpecificationIdentifier identifier = InterviewModelSpecificationIdentifier.valueOf("teste recrutamento");
-        InterviewModelSpecificationJarFile jarFile = InterviewModelSpecificationJarFile.valueOf("...");
+        InterviewModelSpecificationIdentifier identifier = InterviewModelSpecificationIdentifier.valueOf("teste");
+        InterviewModelSpecificationJarFile jarFile = InterviewModelSpecificationJarFile.valueOf("src/test/resources/test.jar");
         InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification(identifier, jarFile);
         jobOpening.selectInterviewModelSpecification(interviewModelSpecification);
     }
@@ -109,13 +115,13 @@ public class JobOpeningTest {
     @Test
     public void ensureNotPossibleToSelectAInterviewModelSpecificationForAInvalidJobOpening() {
         JobOpening jobOpening = null;
-        InterviewModelSpecificationIdentifier identifier = InterviewModelSpecificationIdentifier.valueOf("teste recrutamento");
-        InterviewModelSpecificationJarFile jarFile = InterviewModelSpecificationJarFile.valueOf("...");
+        InterviewModelSpecificationIdentifier identifier = InterviewModelSpecificationIdentifier.valueOf("teste");
+        InterviewModelSpecificationJarFile jarFile = InterviewModelSpecificationJarFile.valueOf("src/test/resources/test.jar");
         InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification(identifier, jarFile);
-        assertThrows(NullPointerException.class, jobOpening.selectInterviewModelSpecification(interviewModelSpecification);
+        assertThrows(NullPointerException.class, () -> {
+            jobOpening.selectInterviewModelSpecification(interviewModelSpecification);
+        });
     }
-
-     */
 
     @Test
     public void ensureNotPossibleToSelectAInvalidInterviewModelSpecificationForAJobOpening() {
