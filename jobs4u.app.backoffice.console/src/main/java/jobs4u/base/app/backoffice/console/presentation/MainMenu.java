@@ -33,8 +33,7 @@ import jobs4u.base.app.backoffice.console.presentation.candiateManagement.ListCa
 import jobs4u.base.app.backoffice.console.presentation.candiateManagement.RegisterCandidateAction;
 import jobs4u.base.app.backoffice.console.presentation.candiateManagement.RegisterCandidateUI;
 import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientUI;
-import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.ListJobOpeningUI;
-import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.RegisterJobOpeningUI;
+import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.*;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Actions;
@@ -78,6 +77,8 @@ public class MainMenu extends AbstractUI {
     // JOB OPENING
     private static final int REGISTER_JOB_OPENING = 1;
     private static final int LIST_JOB_OPENING = 2;
+    private static final int SELECT_JOB_REQUIREMENT_SPECIFICATION_FOR_JOB_OPENING = 3;
+    private static final int SELECT_INTERVIEW_MODEL_SPECIFICATION_FOR_JOB_OPENING = 4;
 
     // APPLICATIONS
     private static final int REGISTER_APPLICATION = 1;
@@ -229,6 +230,8 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(REGISTER_JOB_OPENING, "Register Job Opening", new RegisterJobOpeningUI()::show);
         menu.addItem(LIST_JOB_OPENING, "List Job Openings", new ListJobOpeningUI()::show);
+        menu.addItem(SELECT_JOB_REQUIREMENT_SPECIFICATION_FOR_JOB_OPENING, "Select Job Requirement Specification for Job Opening", new SelectJobRequirementSpecificationForJobOpeningUI()::show);
+        menu.addItem(SELECT_INTERVIEW_MODEL_SPECIFICATION_FOR_JOB_OPENING, "Select Interview Model Specification for Job Opening", new SelectInterviewModelSpecificationForJobOpeningUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 

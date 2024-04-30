@@ -53,6 +53,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
             AuthzRegistry.authorizationService(), InProcessPubSub.publisher());
 
 
+
     @Override
     public boolean execute() {
 
@@ -71,8 +72,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerAdmin("admin@gmail.com", TestDataConstants.PASSWORD1, "Admin", "Doe Admin",
                 "admin@gmail.com");
 
-        registerCustomerManager("customermanager@gmail.com", TestDataConstants.PASSWORD1, "Customer", "Doe CustomerManager",
-                "customermanager@gmail.com");
+       registerCustomerManager("customermanager@gmail.com", TestDataConstants.PASSWORD1, "Customer", "Doe CustomerManager",
+               "customermanager@gmail.com");
 
         registerOperator("operator@gmail.com", TestDataConstants.PASSWORD1, "operator", "Doe operator",
                 "operator@gmail.com");
@@ -107,7 +108,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
      *
      */
     private void registerAdmin(final String username, final String password, final String firstName,
-                               final String lastName, final String email) {
+            final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.ADMIN);
 
@@ -115,7 +116,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerCustomerManager(final String username, final String password, final String firstName,
-                                         final String lastName, final String email) {
+                               final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.CUSTOMER_MANAGER);
 
@@ -123,7 +124,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerCandidate(final String username, final String password, final String firstName,
-                                   final String lastName, final String email) {
+                                         final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.CANDIDATE);
 
@@ -131,7 +132,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerOperator(final String username, final String password, final String firstName,
-                                  final String lastName, final String email) {
+                                   final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.OPERATOR);
 
@@ -145,6 +146,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
+
 
 
     public void registerJobOpening(WorkingMode workingMode
