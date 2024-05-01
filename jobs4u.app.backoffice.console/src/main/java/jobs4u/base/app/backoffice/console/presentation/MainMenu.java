@@ -140,9 +140,13 @@ public class MainMenu extends AbstractUI {
 
     private Menu buildMainMenu() {
 
-        if (!authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.BackgroundUserValues())) {
+
+        if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.CUSTOMER, Jobs4uRoles.CANDIDATE)){
             throw new IllegalArgumentException("User not authorized to access this menu");
         }
+
+
+        System.out.println(authz.hasSession());
 
         final Menu mainMenu = new Menu();
 
