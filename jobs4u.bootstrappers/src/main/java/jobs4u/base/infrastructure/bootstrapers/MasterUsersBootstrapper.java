@@ -84,6 +84,9 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerCustomer("customer@gmail.com", TestDataConstants.PASSWORD1, "customer", "Doe customer",
                 "customer@gmail.com");
 
+        registerLanguageEngineer("language@gmail.com", TestDataConstants.PASSWORD1, "languageEngineer", "Doe LanguageEngineer",
+                "language@gmail.com");
+
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description", "Function", ContractType.FULL_TIME, client);
 
@@ -100,6 +103,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description1", "Function", ContractType.FULL_TIME, client2);
+
 
         return true;
     }
@@ -143,6 +147,14 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                                   final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.CUSTOMER);
+
+        registerUser(username, password, firstName, lastName, email, roles);
+    }
+
+    private void registerLanguageEngineer(final String username, final String password, final String firstName,
+                                          final String lastName, final String email){
+        final Set<Role> roles = new HashSet<>();
+        roles.add(Jobs4uRoles.LANGUAGE_ENGINEER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
