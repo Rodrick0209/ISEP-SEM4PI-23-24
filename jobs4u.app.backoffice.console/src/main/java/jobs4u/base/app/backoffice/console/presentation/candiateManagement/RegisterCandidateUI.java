@@ -64,7 +64,7 @@ public class RegisterCandidateUI extends AbstractUI{
         try {
             Candidate candidate = new Candidate(candidateName, candidateLastName, candidateEmail, candidatePhoneNumber);
             this.controller.registerCandidate(candidate);
-        } catch (IntegrityViolationException | ConcurrencyException ex) {
+        } catch (Exception ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println(
                     "Unfortunately there was an unexpected error in the application. Please try again and if the problem persists, contact your system administrator.");

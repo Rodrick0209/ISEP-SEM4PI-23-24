@@ -32,7 +32,7 @@ public class ListCandidateUI extends AbstractUI {
         List<Candidate> candidates = controller.candidates();
 
         for (int i = 0; i < candidates.size(); i++) {
-            System.out.printf("%dddd.\n\t\t%s\n ", (i + 1), candidates.get(i).emailAddress().toString());
+            System.out.printf("%4d.\n\t\t%s\n ", (i + 1), candidates.get(i).emailAddress().toString());
             System.out.printf("\t\t%s\n\n", candidates.get(i).nameString());
 
         }

@@ -1,6 +1,7 @@
 package jobs4u.base.candidateManagement.application;
 
 import eapli.framework.domain.events.DomainEvent;
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.infrastructure.pubsub.EventPublisher;
@@ -28,12 +29,28 @@ public class RegisterCandidateController {
 
         authorizationService.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.OPERATOR);
         final Candidate candidate = new Candidate(firstname, surname, email, phoneNumber);
+        try {
+            if (candidateRepository.containsOfIdentity(candidate.emailAddress())) {
+                throw new IllegalArgumentException("Candidate with email " + email + " already exists.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
         return saveCandidate(candidate, email, firstname, surname, phoneNumber);
     }
 
     public Candidate registerCandidate(Candidate candidate1){
         authorizationService.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.OPERATOR);
         final Candidate candidate = new Candidate(candidate1);
+        try {
+            if (candidateRepository.containsOfIdentity(candidate.emailAddress())) {
+                throw new IllegalArgumentException("Candidate with email " + candidate.emailAddress() + " already exists.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
         return saveCandidate(candidate, candidate.emailAddress().toString(), candidate.name().firstName(), candidate.name().lastName(), candidate.phoneNumber().toString());
     }
 
@@ -51,5 +68,4 @@ public class RegisterCandidateController {
         return candidate;
 
     }
-
 }

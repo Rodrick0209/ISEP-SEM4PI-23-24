@@ -16,7 +16,7 @@ public class ListApplicationsUI extends AbstractUI{
 
         for (JobApplication j: jobApplications) {
             i++;
-            System.out.printf("%dddd.\n", i);
+            System.out.printf("%4d.\n", i);
             System.out.printf("\t\t%s\n", j.getId());
             System.out.printf("\t\t%s\n", j.getCandidate().emailAddress());
             System.out.printf("\t\t%s\n", j.getCandidate().nameString());
