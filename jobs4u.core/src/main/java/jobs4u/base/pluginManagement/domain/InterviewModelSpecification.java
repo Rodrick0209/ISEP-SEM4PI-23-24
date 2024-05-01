@@ -63,4 +63,9 @@ public class InterviewModelSpecification implements AggregateRoot<InterviewModel
         }
 
     }
+
+    @Override
+    public String toString() {
+        return identifier.toString();
+    }
 }

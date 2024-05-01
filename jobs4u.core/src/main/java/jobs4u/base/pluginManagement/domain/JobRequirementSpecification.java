@@ -64,5 +64,8 @@ public class JobRequirementSpecification implements AggregateRoot<JobRequirement
 
     }
 
-
+    @Override
+    public String toString() {
+        return identifier.toString();
+    }
 }
