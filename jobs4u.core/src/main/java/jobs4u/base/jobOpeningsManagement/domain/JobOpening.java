@@ -7,12 +7,13 @@ import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.clientManagement.domain.Client;
-import jobs4u.base.interviewModel.domain.InterviewModelSpecification;
+import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.utils.*;
 
-import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
+import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.utils.PostalAddress;
 import lombok.Getter;
 
@@ -51,8 +52,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @ManyToOne
     private Client client;
 
-
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private RecruitmentProcess recruitmentProcess;
 
     @OneToOne
@@ -61,8 +61,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @OneToOne
     private InterviewModelSpecification interviewModelSpecification;
 
-
-    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate,Client client) {
+    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, Client client) {
 
         this.jobReference = jobReference;
         this.workingMode = workingMode;
@@ -77,7 +76,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.client = client;
     }
 
-    public JobApplication addJobApplication(JobApplication jobApplication){
+    public JobApplication addJobApplication(JobApplication jobApplication) {
         Preconditions.ensure(jobApplication != null, "job application should not be null");
         this.applications.add(jobApplication);
         return jobApplication;
@@ -148,7 +147,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.jobRequirementSpecification = jobRequirementSpecification;
     }
 
-   public void validateCanAddOrChangeRecruitmentProcess() {
+    public void validateCanAddOrChangeRecruitmentProcess() {
         if (this.recruitmentProcess != null && this.recruitmentProcess.hasRecruitmentStarted()) {
             throw new IllegalArgumentException("Recruitment process has already started");
         }
@@ -158,13 +157,24 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.recruitmentProcess = recruitmentProcess;
     }
 
-    public void selectInterviewModelSpecification(InterviewModelSpecification interviewModelSpecification){
+    public void selectInterviewModelSpecification(InterviewModelSpecification interviewModelSpecification) {
         Preconditions.ensure(interviewModelSpecification != null, "interview model specification should not be null");
         this.interviewModelSpecification = interviewModelSpecification;
     }
 
     @Override
     public String toString() {
-        return "jobReference:"+jobReference;
+        return "jobReference:" + jobReference;
     }
+
+    /**
+     * Method that verifies if applications can be added to the job opening
+     * @return true if applications can be added, false otherwise
+     */
+    public boolean canApplicationsBeaAdded() {
+        return recruitmentProcess.returnActivePhase().designation().toString().equals(Phases.APPLICATION.name());
+
+    }
+
+
 }

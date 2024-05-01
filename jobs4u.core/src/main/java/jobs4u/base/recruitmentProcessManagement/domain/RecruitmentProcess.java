@@ -35,6 +35,11 @@ public class RecruitmentProcess {
     }
 
 
+    /**
+     * this is the domain validation of the phases
+     * @param phases recruitment process phases
+     */
+
     private void validatePhases(List<Phase> phases) {
         Preconditions.nonEmpty(phases);
         validatePhasesOrder(phases);
@@ -42,7 +47,12 @@ public class RecruitmentProcess {
     }
 
 
+    /**
+     * validate if the phases are in one of the possible orders
+     * @param phases list of phases
+     */
     private void validatePhasesOrder(List<Phase> phases) {
+        //TODO criar enumerado para os tipo de processo de recrutamento
         List<String> expectedPhaseIfInterview = List.of("application", "resume_screen", "interviews", "analysis", "result");
         List<String> expectedPhaseIfNotInterview = List.of("application", "resume_screen", "analysis", "result");
         List<String> currentPhases = new ArrayList<>();
@@ -58,7 +68,37 @@ public class RecruitmentProcess {
 
     }
 
+    /**
+     * @return the active phase of the recruitment process
+     */
+    public Phase returnActivePhase(){
+        for (Phase phase : phases) {
+            if (phase.state.equals(State.OPEN)) {
+                return phase;
+            }
+        }
+        return null;
 
+    }
+
+    /**
+     * Método que ativa a próxima fase do processo de recrutamento fechando a anterior
+     */
+    public void activateNextPhase() {
+        for (int i = 0; i < phases.size(); i++) {
+            if (phases.get(i).state.equals(State.OPEN)) {
+                phases.get(i).state = State.CLOSED;
+                phases.get(i + 1).state = State.OPEN;
+                return;
+            }
+        }
+    }
+
+
+    /**
+     * Método verifies if the recruitment process has already started
+     * @return true if the recruitment process has already started, false otherwise
+     */
     public boolean hasRecruitmentStarted() {
         for (Phase phase : phases) {
             if (phase.state.equals(State.OPEN)) {
@@ -69,6 +109,11 @@ public class RecruitmentProcess {
         return false;
     }
 
+
+    /**
+     * this is the domain validation of the phases start and end dates
+     * @param phases list of recruitment process phases
+     */
 
     private static void validatePhasesStartEndDates(List<Phase> phases) {
         for (int i = 0; i < phases.size() - 1; i++) {

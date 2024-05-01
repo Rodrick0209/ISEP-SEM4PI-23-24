@@ -4,8 +4,8 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
-import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
-import jobs4u.base.jobRequirement.repositories.JobRequirementSpecificationRepository;
+import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 
 @UseCaseController

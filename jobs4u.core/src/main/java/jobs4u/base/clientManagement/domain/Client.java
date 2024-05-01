@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Client implements AggregateRoot<ClientCode> {
 
 
-    @Id
+    @EmbeddedId
     private ClientCode clientCode;
     private ClientName name;
     private PostalAddress address;

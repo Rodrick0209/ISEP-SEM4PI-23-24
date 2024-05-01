@@ -2,11 +2,10 @@ package jobs4u.base.jobOpeningsManagement.application;
 
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import jobs4u.base.interviewModel.domain.InterviewModelSpecification;
-import jobs4u.base.interviewModel.repositories.InterviewModelSpecificationRepository;
+import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
+import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
-import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 
 @UseCaseController

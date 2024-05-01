@@ -6,7 +6,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
-import jobs4u.base.interviewModel.domain.InterviewModelSpecification;
+import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.jobOpeningsManagement.application.SelectInterviewModelSpecificationForJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import org.slf4j.Logger;

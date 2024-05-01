@@ -6,7 +6,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
-import jobs4u.base.interviewModel.application.ConfigureInterviewModelPluginController;
+import jobs4u.base.pluginManagement.application.ConfigureInterviewModelPluginController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

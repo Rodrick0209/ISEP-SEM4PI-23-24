@@ -8,7 +8,7 @@ import eapli.framework.presentation.console.SelectWidget;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.SelectJobRequirementSpecificationForJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
-import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
