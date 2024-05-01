@@ -52,7 +52,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private Client client;
 
 
-
     @OneToOne(cascade=CascadeType.ALL)
     private RecruitmentProcess recruitmentProcess;
 
