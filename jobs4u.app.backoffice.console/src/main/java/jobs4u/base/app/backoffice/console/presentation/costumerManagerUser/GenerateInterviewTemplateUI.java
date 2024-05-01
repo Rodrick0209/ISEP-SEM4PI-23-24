@@ -3,8 +3,10 @@ package jobs4u.base.app.backoffice.console.presentation.costumerManagerUser;
 
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import jobs4u.base.QuimicoInterview.InterviewManagement.InterviewGenerator.application.GenerateInterviewTemplateController;
-import jobs4u.base.QuimicoInterview.InterviewManagement.InterviewGenerator.utils.QuestionType;
+import jobs4u.base.pluginGeneration.InterviewGenerator.application.GenerateInterviewTemplateController;
+import jobs4u.base.pluginGeneration.InterviewGenerator.service.InterviewGenerator;
+import jobs4u.base.pluginGeneration.InterviewGenerator.utils.QuestionType;
+
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -142,7 +142,7 @@ public class SelectInterviewModelForJobOpeningControllerTest {
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), client);
 
         InterviewModelSpecificationIdentifier identifier = InterviewModelSpecificationIdentifier.valueOf("teste");
-        InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification(identifier, "com.example.Teste");
+        InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification(identifier.toString(), "com.example.Teste");
         theController.selectInterviewModelSpecificationForJobOpening(interviewModelSpecification, jobOpening);
         assertNotNull(jobOpening);
     }

@@ -2,10 +2,11 @@ package jobs4u.base.interviewModel.application;
 
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.domain.model.*;
-import jobs4u.base.interviewModel.domain.InterviewModelSpecification;
-import jobs4u.base.interviewModel.domain.InterviewModelSpecificationIdentifier;
-import jobs4u.base.interviewModel.repositories.InterviewModelSpecificationRepository;
-import jobs4u.base.jobRequirement.domain.JobRequirementSpecificationIdentifier;
+import jobs4u.base.pluginManagement.application.ConfigureInterviewModelPluginController;
+import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
+import jobs4u.base.pluginManagement.domain.InterviewModelSpecificationIdentifier;
+import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
+import jobs4u.base.pluginManagement.domain.JobRequirementSpecificationIdentifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

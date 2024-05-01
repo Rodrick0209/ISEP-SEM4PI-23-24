@@ -2,9 +2,10 @@ package jobs4u.base.jobRequirement.application;
 
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.domain.model.*;
-import jobs4u.base.jobRequirement.domain.JobRequirementSpecification;
-import jobs4u.base.jobRequirement.domain.JobRequirementSpecificationIdentifier;
-import jobs4u.base.jobRequirement.repositories.JobRequirementSpecificationRepository;
+import jobs4u.base.pluginManagement.application.ConfigureJobRequirementPluginController;
+import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.domain.JobRequirementSpecificationIdentifier;
+import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
