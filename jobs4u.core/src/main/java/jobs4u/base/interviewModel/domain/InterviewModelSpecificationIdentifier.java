@@ -25,8 +25,8 @@ public class InterviewModelSpecificationIdentifier implements ValueObject, Seria
     }
 
     protected InterviewModelSpecificationIdentifier(final String identifier) {
-        Preconditions.ensure(StringPredicates.isSingleWord(identifier),
-                "username should neither be null nor empty");
+        Preconditions.ensure(identifier != null && !identifier.isEmpty(),
+                "name should neither be null nor empty");
         value = identifier;
     }
 

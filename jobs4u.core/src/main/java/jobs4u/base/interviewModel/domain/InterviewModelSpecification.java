@@ -24,6 +24,7 @@ public class InterviewModelSpecification implements AggregateRoot<InterviewModel
     }
 
     public InterviewModelSpecification(final InterviewModelSpecificationIdentifier identifier, String className) {
+        Preconditions.ensure(className != null, "class name should not be null");
         this.identifier = identifier;
         this.className = className;
     }
