@@ -76,6 +76,22 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.client = client;
     }
 
+    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, Client client,RecruitmentProcess recruitmentProcess) {
+
+        this.jobReference = jobReference;
+        this.workingMode = workingMode;
+        this.nrVacancy = NrVacancy.valueOf(nrVacancy);
+        this.address = PostalAddress.valueOf(address);
+        this.description = Description.valueOf(description);
+        this.function = Designation.valueOf(function);
+        this.contractType = contractType;
+        this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
+        this.status = JobOpeningStatus.ACTIVE;
+        this.applications = new ArrayList<>();
+        this.client = client;
+        this.recruitmentProcess = recruitmentProcess;
+    }
+
     public JobApplication addJobApplication(JobApplication jobApplication) {
         Preconditions.ensure(jobApplication != null, "job application should not be null");
         this.applications.add(jobApplication);
@@ -172,7 +188,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
      * @return true if applications can be added, false otherwise
      */
     public boolean canApplicationsBeaAdded() {
-        return recruitmentProcess.returnActivePhase().designation().toString().equals(Phases.APPLICATION.name());
+        return  status.equals(JobOpeningStatus.ACTIVE) && recruitmentProcess.returnActivePhase().designation().toString().equals(Phases.APPLICATION.toString());
 
     }
 

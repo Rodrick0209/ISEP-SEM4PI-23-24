@@ -1,8 +1,13 @@
 package jobs4u.base.jobApplications.domain;
 
+import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
 
 
 @Embeddable
-public class InterviewAnswer {
+public class InterviewAnswer implements ValueObject {
+
+    private InterviewPoints points;
+
+    private Answer answer;
 }

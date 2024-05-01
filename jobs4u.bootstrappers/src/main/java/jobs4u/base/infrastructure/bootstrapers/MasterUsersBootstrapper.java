@@ -20,6 +20,7 @@
  */
 package jobs4u.base.infrastructure.bootstrapers;
 
+import eapli.framework.general.domain.model.Designation;
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -31,12 +32,18 @@ import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
+import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
+import jobs4u.base.recruitmentProcessManagement.domain.Phase;
+import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
+import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Action;
 
+import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -101,8 +108,17 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description1", "Function", ContractType.FULL_TIME, client);
 
-        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
-                "Description1", "Function", ContractType.FULL_TIME, client2);
+
+        List<Phase> phases = List.of(
+                new Phase(Phases.APPLICATION, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 5, 1)),
+                new Phase(Phases.RESUME_SCREEN, LocalDate.of(2024, 5, 2), LocalDate.of(2024, 6, 1)),
+                new Phase(Phases.ANALYSIS, LocalDate.of(2024, 6, 2), LocalDate.of(2024, 7, 1)),
+                new Phase(Phases.RESULT, LocalDate.of(2024, 7, 2), LocalDate.of(2024, 8, 1)));
+
+        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
+
+        JobOpening jobOpening = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+                "Description1", "Function", ContractType.FULL_TIME, client2,recruitmentProcess);
 
 
         return true;
@@ -161,7 +177,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
 
 
-    public void registerJobOpening(WorkingMode workingMode
+    public JobOpening registerJobOpening(WorkingMode workingMode
             , String nrVacancy
             , String address
             , String description
@@ -171,7 +187,21 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         ClientDTO clientDTO = new ClientMapper().toDTO(client);
 
-        jobOpeningController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientDTO);
+        return jobOpeningController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientDTO);
+    }
+
+    public JobOpening registerJobOpening(WorkingMode workingMode
+            , String nrVacancy
+            , String address
+            , String description
+            , String function
+            , ContractType contractType
+            , Client client
+            , RecruitmentProcess recruitmentProcess){
+
+        ClientDTO clientDTO = new ClientMapper().toDTO(client);
+
+        return jobOpeningController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientDTO,recruitmentProcess);
     }
 
 }

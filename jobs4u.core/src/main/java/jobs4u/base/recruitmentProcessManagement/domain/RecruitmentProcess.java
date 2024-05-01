@@ -52,16 +52,27 @@ public class RecruitmentProcess {
      * @param phases list of phases
      */
     private void validatePhasesOrder(List<Phase> phases) {
-        //TODO criar enumerado para os tipo de processo de recrutamento
-        List<String> expectedPhaseIfInterview = List.of("application", "resume_screen", "interviews", "analysis", "result");
-        List<String> expectedPhaseIfNotInterview = List.of("application", "resume_screen", "analysis", "result");
+        List<String> expectedPhaseIfInterview = List.of(
+                Phases.APPLICATION.name(),
+                Phases.RESUME_SCREEN.name(),
+                Phases.INTERVIEWS.name(),
+                Phases.ANALYSIS.name(),
+                Phases.RESULT.name());
+
+        List<String> expectedPhaseIfNotInterview = List.of(
+                Phases.APPLICATION.name(),
+                Phases.RESUME_SCREEN.name(),
+                Phases.ANALYSIS.name(),
+                Phases.RESULT.name());
+
+
         List<String> currentPhases = new ArrayList<>();
 
         for (Phase phase : phases) {
-            currentPhases.add(phase.designation().toString().toLowerCase());
+            currentPhases.add(phase.designation().toString().toUpperCase());
         }
 
-        if (!currentPhases.equals(expectedPhaseIfInterview) && !currentPhases.equals(expectedPhaseIfNotInterview)) {
+        if (!currentPhases.equals(Phases.getExpectedPhases(false)) && !currentPhases.equals(Phases.getExpectedPhases(true))) {
             throw new IllegalArgumentException("Phases are not in the correct order");
         }
 
@@ -120,14 +131,17 @@ public class RecruitmentProcess {
             Phase currentPhase = phases.get(i);
             Phase nextPhase = phases.get(i + 1);
 
+            /*
             // Verifica se a data final da fase atual é igual à data inicial da próxima fase
             if (!currentPhase.endDate().isEqual(nextPhase.startDate())) {
                 throw new IllegalArgumentException("Error in the dates setup ");
 
             }
 
+             */
+
             // Verifica se não há datas de fases anteriores que ocorrem após as datas das fases seguintes
-            if (i > 0 && currentPhase.startDate().isAfter(phases.get(i - 1).endDate())) {
+            if (i > 0 && currentPhase.startDate().isBefore(phases.get(i - 1).endDate())) {
                 throw new IllegalArgumentException("Error in the dates setup ");
             }
         }

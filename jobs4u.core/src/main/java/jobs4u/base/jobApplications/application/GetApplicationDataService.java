@@ -76,7 +76,9 @@ public class GetApplicationDataService {
                     if (jobOpeningRepository.containsOfIdentity(jobReference)) {
                         JobOpening jobOpening = jobOpeningRepository.ofIdentity(jobReference).get();
                         if (!result.contains(jobOpening)) {
-                            result.add(jobOpening);
+                            if (jobOpening.canApplicationsBeaAdded()){
+                                result.add(jobOpening);
+                            }
                         }
                     }
                 }

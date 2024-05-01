@@ -13,8 +13,11 @@ import java.util.Date;
 @Entity
 public class Phase {
 
-    @EmbeddedId
-    private Designation designation;
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private Phases designation;
 
     private LocalDate startDate;
     private LocalDate endDate;
@@ -27,22 +30,27 @@ public class Phase {
     }
 
 
-    public Phase(Designation designation, LocalDate startDate, LocalDate endDate) {
+    public Phase(Phases designation, LocalDate startDate, LocalDate endDate) {
         Preconditions.noneNull(designation, startDate, endDate);
         validations(designation, startDate, endDate);
         this.designation = designation;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.state = State.CLOSED;
+
+        if ((LocalDate.now().isAfter(startDate) && LocalDate.now().isBefore(endDate))
+                || LocalDate.now().isEqual(startDate) || LocalDate.now().isEqual(endDate))
+            this.state = State.OPEN;
+        else
+            this.state = State.CLOSED;
     }
 
 
-    private void validations(Designation designation, LocalDate startDate, LocalDate endDate) {
+    private void validations(Phases designation, LocalDate startDate, LocalDate endDate) {
         validateDesignationPhase(designation);
         validatePhasesDates(startDate, endDate);
     }
 
-    public Designation designation() {
+    public Phases designation() {
         return designation;
     }
 
@@ -54,7 +62,7 @@ public class Phase {
         return endDate;
     }
 
-    private void validateDesignationPhase(Designation designation) {
+    private void validateDesignationPhase(Phases designation) {
         boolean isValidPhase = false;
 
         for (Phases phase : Phases.values()) {

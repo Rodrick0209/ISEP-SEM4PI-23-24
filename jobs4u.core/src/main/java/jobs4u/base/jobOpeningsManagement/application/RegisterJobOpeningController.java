@@ -17,6 +17,7 @@ import jobs4u.base.jobOpeningsManagement.domain.JobOpeningFactory;
 import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.*;
+import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.PostalAddress;
@@ -72,6 +73,19 @@ public class RegisterJobOpeningController {
 
 
         final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),clientMapper.toEntity(client));
+        return saveJobOpening(jobOpening);
+
+    }
+
+    public JobOpening registerJobOpening(WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, ClientDTO client, RecruitmentProcess recruitmentProcess) {
+
+        Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER, Jobs4uRoles.POWER_USER);
+
+        JobReference jobReference = createJobReference(client);
+        ClientMapper clientMapper = new ClientMapper();
+
+
+        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),clientMapper.toEntity(client), recruitmentProcess);
         return saveJobOpening(jobOpening);
 
     }

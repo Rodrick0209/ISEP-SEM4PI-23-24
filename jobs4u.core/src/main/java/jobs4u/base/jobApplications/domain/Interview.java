@@ -7,6 +7,8 @@ import jakarta.persistence.Embeddable;
 public class Interview implements ValueObject {
     private Date date;
     private Time time;
+    private InterviewAnswer interviewAnswer;
+
 
 
     public Interview(Date date, Time time) {

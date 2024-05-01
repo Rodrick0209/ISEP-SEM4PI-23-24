@@ -45,7 +45,7 @@ public class SetupRecruitmentProcessController {
             Map<String, LocalDate> dates = entry.getValue();
             LocalDate startDate = dates.get("start");
             LocalDate endDate = dates.get("end");
-            Phase newPhase = new Phase(Designation.valueOf(phase.name()), startDate, endDate);
+            Phase newPhase = new Phase(phase, startDate, endDate);
             list.add(newPhase);
         }
         RecruitmentProcess recruitmentProcess = new RecruitmentProcess(list);
