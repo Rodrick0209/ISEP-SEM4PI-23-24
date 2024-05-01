@@ -1,6 +1,7 @@
 package jobs4u.base.jobRequirement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.validations.Preconditions;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jobs4u.base.jobRequirement.infrastructure.RequirementEvaluation;
@@ -25,6 +26,7 @@ public class JobRequirementSpecification implements AggregateRoot<JobRequirement
 
     public JobRequirementSpecification(JobRequirementSpecificationIdentifier identifier, String className){
         this.identifier = identifier;
+        Preconditions.ensure(className != null, "class name should not be null");
         this.className = className;
     }
 

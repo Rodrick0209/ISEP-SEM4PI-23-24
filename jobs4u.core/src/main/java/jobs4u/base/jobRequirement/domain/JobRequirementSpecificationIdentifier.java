@@ -24,7 +24,7 @@ public class JobRequirementSpecificationIdentifier implements ValueObject, Seria
     }
 
     protected JobRequirementSpecificationIdentifier(final String identifier) {
-        Preconditions.ensure(StringPredicates.isSingleWord(identifier),
+        Preconditions.ensure(identifier != null && !identifier.isEmpty(),
                 "username should neither be null nor empty");
         value = identifier;
     }

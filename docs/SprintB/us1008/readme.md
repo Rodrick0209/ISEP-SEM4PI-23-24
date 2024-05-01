@@ -97,26 +97,30 @@ or reinventing existing components.
 
 ### Demonstration
 
-#### For a Job Requirement Specification Plugin
-
 To demonstrate the functionality follow the steps below:
 
-1. Start the application and log in as a language engineer.
-2. Navigate to the plugins section.
-3. Select the configure a Job Requirement Specification plugin option.
-4. Input the name for the Plugin.
-5. Input the path of the Jar File.
+#### 1. Deploying the plugin
 
-#### For a Interview Model Specification Plugin
+- Move the jar file to the **target/dependency** path.
 
-To demonstrate the functionality follow the steps below:
+#### 2. Registering/configuring the plugin
 
-1. Start the application and log in as a language engineer.
-2. Navigate to the plugins section.
-3. Select the configure a Interview Model Specification plugin option.
-4. Input the name for the Plugin.
-5. Input the path of the Jar File.
+**For a Job Requirement Specification Plugin**
+
+- Start the application and log in as a language engineer.
+- Navigate to the plugins section.
+- Select the configure a Job Requirement Specification plugin option.
+- Input the name for the Plugin.
+- Input the class name that initializes the Plugin. 
+
+**For a Interview Model Specification Plugin**
+
+- Start the application and log in as a language engineer.
+- Navigate to the plugins section.
+- Select the configure a Interview Model Specification plugin option.
+- Input the name for the Plugin.
+- Input the class that initializes the Plugin.
 
 ## 7. Observations
 
-- In this document, only has present the part of registering the plugin in the database. The "build-up" of the jar file in the plugin is outside the scope of the backoffice application (e.g. in another project). 
+- In this document, only has present the part of deploying and registering the plugin in the system. The "build-up" of the jar file in the plugin is outside the scope of the project, where has ANTLR grammars and internal plugin classes.

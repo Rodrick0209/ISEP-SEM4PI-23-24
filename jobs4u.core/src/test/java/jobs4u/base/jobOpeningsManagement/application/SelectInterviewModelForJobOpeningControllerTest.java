@@ -1,4 +1,3 @@
-/*
 package jobs4u.base.jobOpeningsManagement.application;
 
 import eapli.framework.general.domain.model.EmailAddress;
@@ -143,10 +142,9 @@ public class SelectInterviewModelForJobOpeningControllerTest {
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), client);
 
         InterviewModelSpecificationIdentifier identifier = InterviewModelSpecificationIdentifier.valueOf("teste");
-        InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification(identifier, jarFile);
+        InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification(identifier, "com.example.Teste");
         theController.selectInterviewModelSpecificationForJobOpening(interviewModelSpecification, jobOpening);
         assertNotNull(jobOpening);
     }
 
 }
-*/
