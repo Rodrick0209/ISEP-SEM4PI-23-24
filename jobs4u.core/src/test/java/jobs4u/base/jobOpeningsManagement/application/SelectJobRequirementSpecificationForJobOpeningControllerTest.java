@@ -1,4 +1,3 @@
-/*
 package jobs4u.base.jobOpeningsManagement.application;
 
 import eapli.framework.general.domain.model.EmailAddress;
@@ -145,11 +144,8 @@ public class SelectJobRequirementSpecificationForJobOpeningControllerTest {
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(), client);
 
         JobRequirementSpecificationIdentifier jobRequirementSpecificationIdentifier = JobRequirementSpecificationIdentifier.valueOf("teste");
-        JobRequirementSpecificationJarFile jobRequirementSpecificationJarFile = JobRequirementSpecificationJarFile.valueOf("src/test/resources/test.jar");
-        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification(jobRequirementSpecificationIdentifier, jobRequirementSpecificationJarFile);
+        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification(jobRequirementSpecificationIdentifier, "com.example.Teste");
         theController.selectJobRequirementSpecificationForJobOpening(jobRequirementSpecification, jobOpening);
         Assertions.assertNotNull(jobOpening);
     }
 }
-
-*/
