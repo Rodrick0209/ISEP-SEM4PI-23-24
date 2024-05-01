@@ -99,11 +99,12 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
     private static final int CUSTOMERS_OPTION = 3;
-    private static final int CANDIDATE_OPTION = 4;
-    private static final int JOB_OPENING_OPTION = 5;
-    private static final int APPLICATION_OPTION = 6;
-    private static final int PLUGIN_OPTION = 7;
-    private static final int SETTINGS_OPTION = 8;
+    private static final int OPERATOR_CANDIDATE_OPTION = 4;
+    private static final int CUSTOMER_MANAGER_CANDIDATE_OPTION = 5;
+    private static final int JOB_OPENING_OPTION = 6;
+    private static final int APPLICATION_OPTION = 7;
+    private static final int PLUGIN_OPTION = 8;
+    private static final int SETTINGS_OPTION = 9;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -166,7 +167,7 @@ public class MainMenu extends AbstractUI {
             final Menu jobOpeningMenu = buildJobOpeningMenu();
             mainMenu.addSubMenu(JOB_OPENING_OPTION, jobOpeningMenu);
             final Menu candidateMenu = buildCustomerManagerCandidateMenu();
-            mainMenu.addSubMenu(CANDIDATE_OPTION, candidateMenu);
+            mainMenu.addSubMenu(CUSTOMER_MANAGER_CANDIDATE_OPTION, candidateMenu);
 
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
@@ -177,7 +178,7 @@ public class MainMenu extends AbstractUI {
 
 
             final Menu candidateMenu = buildOperatorCandidateMenu();
-            mainMenu.addSubMenu(CANDIDATE_OPTION, candidateMenu);
+            mainMenu.addSubMenu(OPERATOR_CANDIDATE_OPTION, candidateMenu);
             final Menu applicationMenu = buildApplicationsMenu();
             mainMenu.addSubMenu(APPLICATION_OPTION, applicationMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
