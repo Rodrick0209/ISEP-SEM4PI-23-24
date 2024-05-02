@@ -54,13 +54,19 @@ public class DisplayCandidateInfoUI extends AbstractUI {
 
     private void selectCandidateFromList() {
         List<Candidate> candidates = theController.candidates();
+        if (candidates.isEmpty()) {
+            System.out.println("There are no candidates to display.");
+            return;
+        }
         for (int i = 0; i < candidates.size(); i++) {
             System.out.println((i + 1) + ". " + candidates.get(i).name());
         }
+
         int selectedOption = Console.readOption(1, candidates.size(), -1);
+
         Candidate selectedCandidate = candidates.get(selectedOption - 1);
         System.out.println(theController.getCandidateInfo(selectedCandidate));
-        selectApplicationFromList(selectedCandidate);
+        //selectApplicationFromList(selectedCandidate);
     }
 
     private void selectApplicationFromList(Candidate candidate) {
@@ -77,6 +83,10 @@ public class DisplayCandidateInfoUI extends AbstractUI {
 
     private void selectCandidateByJobOpening() {
         List<JobOpening> jobOpenings = theController.jobOpeningsFromRepository();
+        if (jobOpenings.isEmpty()) {
+            System.out.println("There are no jobOpenings to display.");
+            return;
+        }
         for (int i = 0; i < jobOpenings.size(); i++) {
             System.out.println((i + 1) + ". " + jobOpenings.get(i).jobReference() + " - " + jobOpenings.get(i).function());
         }
@@ -87,9 +97,14 @@ public class DisplayCandidateInfoUI extends AbstractUI {
 
     private void selectApplicationFromJobOpeningList(JobOpening jobOpening) {
         List<JobApplication> applications = theController.getCandidateApplicationsFromJobOpening(jobOpening);
+        if (applications.isEmpty()) {
+            System.out.println("There are no applications to display.");
+            return;
+        }
         for (int i = 0; i < applications.size(); i++) {
             System.out.println((i + 1) + ". " + applications.get(i).identity() + " - " + applications.get(i).candidate().name());
         }
+
         int selectedOption = Console.readOption(1, applications.size(), -1);
         JobApplication selectedApplication = applications.get(selectedOption - 1);
         System.out.println(theController.getJobApplicationInfo(selectedApplication));

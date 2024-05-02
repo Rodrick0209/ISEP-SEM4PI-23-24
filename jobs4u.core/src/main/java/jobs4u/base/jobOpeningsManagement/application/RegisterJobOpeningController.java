@@ -12,6 +12,7 @@ import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningFactory;
@@ -95,6 +96,8 @@ public class RegisterJobOpeningController {
 
     }
 
+
+
     public JobOpening registerJobOpening(WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, ClientDTO client, RecruitmentProcess recruitmentProcess) {
 
         Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER, Jobs4uRoles.POWER_USER);
@@ -111,5 +114,12 @@ public class RegisterJobOpeningController {
     private JobOpening saveJobOpening(JobOpening jobOpening) {
         return this.jobOpeningRepository.save(jobOpening);
 
+    }
+
+
+    public JobApplication addJobApplicationToJobOpening(JobOpening jobOpening, JobApplication jobApplication) {
+        jobOpening.addJobApplication(jobApplication);
+        saveJobOpening(jobOpening);
+        return jobApplication;
     }
 }

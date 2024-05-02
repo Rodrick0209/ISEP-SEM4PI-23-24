@@ -26,11 +26,18 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
+import jobs4u.base.Application;
+import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
+import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.application.RegisterClientController;
 import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobApplications.application.RegisterJobApplicationController;
+import jobs4u.base.jobApplications.domain.JobApplication;
+import jobs4u.base.jobApplications.domain.JobApplicationFile;
+import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
@@ -40,6 +47,7 @@ import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Action;
+import jobs4u.base.utils.Path;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -59,7 +67,13 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     final RegisterClientController clientController = new RegisterClientController(PersistenceContext.repositories().clients(),
             AuthzRegistry.authorizationService(), InProcessPubSub.publisher());
 
+    final RegisterJobApplicationController jobApplicationController = new RegisterJobApplicationController(PersistenceContext.repositories().jobApplications(),
+            PersistenceContext.repositories().candidates(), AuthzRegistry.authorizationService(), PersistenceContext.repositories().jobOpenings());
 
+
+    final CandidateRepository candidateRepository = PersistenceContext.repositories().candidates();
+
+    final JobApplicationRepository jobApplicationRepository = PersistenceContext.repositories().jobApplications();
 
     @Override
     public boolean execute() {
@@ -71,6 +85,17 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         Client client1 = clientController.registerClient("client2", "client2", "client2@gmail.com",
                 "919112222", "1224-123", "Second",
                 "Last", EmailAddress.valueOf("customermanager@gmail.com"));
+
+
+        List<JobApplicationFile> file = List.of(new JobApplicationFile("file1", new Path("file1")));
+
+        Candidate candidate = new Candidate("First", "Last","candidate@gmail.com","919111222");
+        candidateRepository.save(candidate);
+        Candidate candidate1 = new Candidate("Doe", "asd","candidat2e@gmail.com","919111222");
+        candidateRepository.save(candidate1);
+        JobApplication jobApplication = new JobApplication(1L,file,candidate);
+        jobApplicationRepository.save(jobApplication);
+
 
         Client client2 = clientController.registerClient("uio1", "uio", "client@gmail.com",
                 "919111222", "1234-123", "First",
@@ -98,8 +123,10 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                 "Description", "Function", ContractType.FULL_TIME, client);
 
 
-        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+        JobOpening jobOpening = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description", "Function", ContractType.FULL_TIME, client1);
+
+        jobOpeningController.addJobApplicationToJobOpening(jobOpening, jobApplication);
 
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
@@ -117,7 +144,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
 
-        JobOpening jobOpening = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description1", "Function", ContractType.FULL_TIME, client2,recruitmentProcess);
 
 

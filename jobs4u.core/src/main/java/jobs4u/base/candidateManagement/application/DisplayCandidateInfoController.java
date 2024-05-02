@@ -11,6 +11,7 @@ import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -54,11 +55,17 @@ public class DisplayCandidateInfoController {
     }
 
     public String getJobApplicationInfo(JobApplication jobApplication) {
-        StringBuilder info = new StringBuilder();
+        // Create a SimpleDateFormat instance with your desired date format
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+        // Format the Calendar instance using the SimpleDateFormat
+        String formattedDate = sdf.format(jobApplication.creationDate().getTime());
+
+        StringBuilder info = new StringBuilder();
+        info.append("From JobOpening:\n");
         info.append("Application ID: ").append(jobApplication.identity().toString()).append("\n");
         info.append("Application State: ").append(jobApplication.state().toString()).append("\n");
-        info.append("Registration Date: ").append(jobApplication.creationDate().toString()).append("\n");
+        info.append("Registration Date: ").append(formattedDate).append("\n");
 
         return info.toString();
     }
