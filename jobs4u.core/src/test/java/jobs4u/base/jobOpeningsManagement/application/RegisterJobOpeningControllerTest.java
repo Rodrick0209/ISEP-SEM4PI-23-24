@@ -8,6 +8,7 @@ import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
+import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
@@ -84,6 +85,11 @@ public class RegisterJobOpeningControllerTest {
         @Override
         public int countForClientCode(ClientCode clientCode) {
             return 0;
+        }
+
+        @Override
+        public JobOpening findByJobApplication(JobApplication jobApplication) {
+            return null;
         }
     };
 

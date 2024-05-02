@@ -4,6 +4,7 @@ import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecificationIdentifier;
 import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
@@ -46,6 +47,11 @@ public class SelectInterviewModelForJobOpeningControllerTest {
         @Override
         public int countForClientCode(ClientCode clientCode) {
             return 0;
+        }
+
+        @Override
+        public JobOpening findByJobApplication(JobApplication jobApplication) {
+            return null;
         }
 
         private HashSet<JobOpening> jobOpenings = new HashSet<>();

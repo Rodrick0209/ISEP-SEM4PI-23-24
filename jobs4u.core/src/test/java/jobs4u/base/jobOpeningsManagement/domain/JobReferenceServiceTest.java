@@ -4,6 +4,7 @@ import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
@@ -71,6 +72,11 @@ public class JobReferenceServiceTest {
                 }
             }
             return count;
+        }
+
+        @Override
+        public JobOpening findByJobApplication(JobApplication jobApplication) {
+            return null;
         }
 
     };
