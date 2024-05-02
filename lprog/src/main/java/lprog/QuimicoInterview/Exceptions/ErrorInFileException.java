@@ -1,4 +1,4 @@
-package jobs4u.base.QuimicoInterview.Exceptions;
+package lprog.QuimicoInterview.Exceptions;
 
 /**
  * Representa exceções de quando existe um erro na sintaxe do ficheiro.

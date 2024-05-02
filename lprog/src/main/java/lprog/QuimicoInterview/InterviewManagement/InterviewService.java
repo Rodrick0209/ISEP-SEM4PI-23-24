@@ -1,18 +1,18 @@
-package jobs4u.base.QuimicoInterview.InterviewManagement;
+package lprog.QuimicoInterview.InterviewManagement;
 
-import jobs4u.base.QuimicoInterview.InterviewManagement.Evaluation.EvalVisitorEvaluation;
-import jobs4u.base.interviewModel.infrastructure.InterviewEvaluation;
-import jobs4u.base.QuimicoInterview.Exceptions.ErrorInFileException;
-import jobs4u.base.QuimicoInterview.Exceptions.InvalidScoreException;
-import jobs4u.base.QuimicoInterview.InterviewManagement.Evaluation.EvaluationLexer;
-import jobs4u.base.QuimicoInterview.InterviewManagement.Evaluation.EvaluationParser;
-import jobs4u.base.QuimicoInterview.InterviewManagement.InterviewTemplateAnalyze.EvalVisitor;
-import jobs4u.base.QuimicoInterview.InterviewManagement.InterviewTemplateAnalyze.InterviewLexer;
-import jobs4u.base.QuimicoInterview.InterviewManagement.InterviewTemplateAnalyze.InterviewParser;
-import jobs4u.base.QuimicoInterview.Utils.PluginQuestions;
+import lprog.QuimicoInterview.InterviewManagement.Evaluation.EvalVisitorEvaluation;
+import lprog.QuimicoInterview.Exceptions.ErrorInFileException;
+import lprog.QuimicoInterview.Exceptions.InvalidScoreException;
+import lprog.QuimicoInterview.InterviewManagement.Evaluation.EvaluationLexer;
+import lprog.QuimicoInterview.InterviewManagement.Evaluation.EvaluationParser;
+import lprog.QuimicoInterview.InterviewManagement.InterviewTemplateAnalyze.EvalVisitor;
+import lprog.QuimicoInterview.InterviewManagement.InterviewTemplateAnalyze.InterviewLexer;
+import lprog.QuimicoInterview.InterviewManagement.InterviewTemplateAnalyze.InterviewParser;
+import lprog.QuimicoInterview.Utils.PluginQuestions;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import jobs4u.base.pluginManagement.application.InterviewEvaluation;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

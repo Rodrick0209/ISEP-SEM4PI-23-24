@@ -1,8 +1,6 @@
 // Generated from C:/Users/rodri/Documents/sem4pi-23-24-2dj2/jobs4u.core/src/main/java/jobs4u/base/lprog/InterviewEvaluation/Evaluation.g4 by ANTLR 4.13.1
 package lprog.Programador2AnosExperienciaRequirement.RequirementManagement.Evaluation;
 
-import lprog..InterviewManagement.Evaluation.EvaluationListener;
-import lprog.QuimicoInterview.InterviewManagement.Evaluation.EvaluationParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;

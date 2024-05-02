@@ -29,4 +29,12 @@ public class JobRequirementSpecificationTest {
             new JobRequirementSpecification(identifier.toString(), null);
         });
     }
+
+    @Test
+    public void testIsRecognisingPlugin(){
+        JobRequirementSpecificationIdentifier identifier = JobRequirementSpecificationIdentifier.valueOf("teste");
+        JobRequirementSpecification specification = new JobRequirementSpecification(identifier.toString(), "");
+        assertNotNull(specification.buildEvaluator());
+    }
+
 }

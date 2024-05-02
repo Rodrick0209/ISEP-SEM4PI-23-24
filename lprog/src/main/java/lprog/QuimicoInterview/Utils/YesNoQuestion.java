@@ -1,4 +1,4 @@
-package jobs4u.base.QuimicoInterview.Utils;
+package lprog.QuimicoInterview.Utils;
 
 public class YesNoQuestion extends Question {
 

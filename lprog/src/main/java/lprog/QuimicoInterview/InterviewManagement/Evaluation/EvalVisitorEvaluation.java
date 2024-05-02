@@ -1,8 +1,11 @@
-package jobs4u.base.QuimicoInterview.InterviewManagement.Evaluation;
+package lprog.QuimicoInterview.InterviewManagement.Evaluation;
 
-import jobs4u.base.QuimicoInterview.Utils.PluginQuestions;
-import jobs4u.base.QuimicoInterview.Utils.MultipleChoice;
-import jobs4u.base.QuimicoInterview.Utils.Question;
+import lprog.QuimicoInterview.Utils.PluginQuestions;
+import lprog.QuimicoInterview.Utils.MultipleChoice;
+import lprog.QuimicoInterview.Utils.Question;
+import lprog.QuimicoInterview.Utils.MultipleChoice;
+import lprog.QuimicoInterview.Utils.PluginQuestions;
+import lprog.QuimicoInterview.Utils.Question;
 
 import java.util.ArrayList;
 import java.util.Arrays;

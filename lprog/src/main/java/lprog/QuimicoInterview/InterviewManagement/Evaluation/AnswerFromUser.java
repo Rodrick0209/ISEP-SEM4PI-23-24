@@ -1,4 +1,4 @@
-package jobs4u.base.QuimicoInterview.InterviewManagement.Evaluation;
+package lprog.QuimicoInterview.InterviewManagement.Evaluation;
 
 import java.util.Objects;
 

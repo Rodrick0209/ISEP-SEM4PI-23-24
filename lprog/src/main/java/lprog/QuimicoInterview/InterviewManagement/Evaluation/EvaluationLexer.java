@@ -1,5 +1,5 @@
 // Generated from C:/Users/rodri/Documents/sem4pi-23-24-2dj2/jobs4u.core/src/main/java/jobs4u/base/lprog/InterviewEvaluation/Evaluation.g4 by ANTLR 4.13.1
-package jobs4u.base.QuimicoInterview.InterviewManagement.Evaluation;
+package lprog.QuimicoInterview.InterviewManagement.Evaluation;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.*;

@@ -1,4 +1,4 @@
-package jobs4u.base.QuimicoInterview.Utils;
+package lprog.QuimicoInterview.Utils;
 
 public class MinimumRequirementQuestion extends Question {
 

@@ -1,9 +1,9 @@
 package lprog.Programador2AnosExperienciaRequirement.RequirementManagement.Evaluation;
 
 
-import jobs4u.base.Programador2AnosExperienciaRequirement.Utils.MultipleChoice;
-import jobs4u.base.Programador2AnosExperienciaRequirement.Utils.PluginQuestions;
-import jobs4u.base.Programador2AnosExperienciaRequirement.Utils.Question;
+import lprog.Programador2AnosExperienciaRequirement.Utils.MultipleChoice;
+import lprog.Programador2AnosExperienciaRequirement.Utils.PluginQuestions;
+import lprog.Programador2AnosExperienciaRequirement.Utils.Question;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package jobs4u.base.QuimicoInterview.Exceptions;
+package lprog.QuimicoInterview.Exceptions;
 
 public class InvalidScoreException extends RuntimeException {
 

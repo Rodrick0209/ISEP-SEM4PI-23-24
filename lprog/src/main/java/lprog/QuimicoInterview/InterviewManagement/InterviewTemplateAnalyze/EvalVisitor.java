@@ -1,6 +1,7 @@
-package jobs4u.base.QuimicoInterview.InterviewManagement.InterviewTemplateAnalyze;
+package lprog.QuimicoInterview.InterviewManagement.InterviewTemplateAnalyze;
 
-import jobs4u.base.QuimicoInterview.Utils.*;
+
+import lprog.QuimicoInterview.Utils.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

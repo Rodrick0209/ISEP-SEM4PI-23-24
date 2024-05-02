@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * operations with no return type.
  */
 @SuppressWarnings("CheckReturnValue")
-public class EvaluationBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements jobs4u.base.Programador2AnosExperienciaRequirement.RequirementManagement.Evaluation.EvaluationVisitor<T> {
+public class EvaluationBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements EvaluationVisitor<T> {
 	/**
 	 * {@inheritDoc}
 	 *
