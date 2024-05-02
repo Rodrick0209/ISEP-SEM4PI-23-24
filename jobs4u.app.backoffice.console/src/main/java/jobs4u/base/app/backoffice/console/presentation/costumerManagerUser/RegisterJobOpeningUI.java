@@ -38,7 +38,7 @@ public class RegisterJobOpeningUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
-        final ClientDTO client = selectClient(this.theController.getAllClients());
+        final ClientDTO client = selectClient(this.theController.getClientsForCustomerManager());
         if (client == null) {
             return false;
         }

@@ -2,6 +2,7 @@ package jobs4u.base.jobOpeningsManagement.application;
 
 import eapli.framework.application.UseCaseController;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -55,6 +56,23 @@ public class RegisterJobOpeningController {
         });
 
         return clients;
+
+    }
+
+
+    public List<ClientDTO> getClientsForCustomerManager() {
+
+        List<ClientDTO> clients = getAllClients();
+        List<ClientDTO> result = new ArrayList<>();
+        String email = AuthzRegistry.authorizationService().loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER, Jobs4uRoles.POWER_USER).get().email().toString();
+
+        for (ClientDTO client : clients) {
+            if (client.customerManagerEmail.equals(email)) {
+                result.add(client);
+            }
+        }
+
+        return result;
 
     }
 
