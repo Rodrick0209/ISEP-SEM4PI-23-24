@@ -2,6 +2,7 @@ package jobs4u.base.jobOpeningsManagement.repositories;
 
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.utils.ClientCode;
@@ -14,4 +15,6 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
     List<JobOpening> findByCustomerManager(SystemUser customer);
 
     int countForClientCode(ClientCode clientCode);
+
+    JobOpening findByJobApplication(JobApplication jobApplication);
 }

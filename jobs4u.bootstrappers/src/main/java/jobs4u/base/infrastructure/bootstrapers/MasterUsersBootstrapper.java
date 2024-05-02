@@ -88,13 +88,14 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
 
         List<JobApplicationFile> file = List.of(new JobApplicationFile("file1", new Path("file1")));
+        List<JobApplicationFile> file1 = List.of(new JobApplicationFile("file2", new Path("file1")));
+
 
         Candidate candidate = new Candidate("First", "Last","candidate@gmail.com","919111222");
         candidateRepository.save(candidate);
         Candidate candidate1 = new Candidate("Doe", "asd","candidat2e@gmail.com","919111222");
         candidateRepository.save(candidate1);
-        JobApplication jobApplication = new JobApplication(1L,file,candidate);
-        jobApplicationRepository.save(jobApplication);
+
 
 
         Client client2 = clientController.registerClient("uio1", "uio", "client@gmail.com",
@@ -126,7 +127,11 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpening jobOpening = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "Description", "Function", ContractType.FULL_TIME, client1);
 
-        jobOpeningController.addJobApplicationToJobOpening(jobOpening, jobApplication);
+
+        JobApplication jobApplication = new JobApplication(1L,file,candidate);
+        JobApplication jobApplication1 = new JobApplication(2L,file1,candidate);
+
+        jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1));
 
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",

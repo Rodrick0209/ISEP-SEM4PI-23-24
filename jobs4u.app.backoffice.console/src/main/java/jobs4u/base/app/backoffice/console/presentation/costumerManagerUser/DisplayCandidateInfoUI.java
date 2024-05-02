@@ -66,13 +66,18 @@ public class DisplayCandidateInfoUI extends AbstractUI {
 
         Candidate selectedCandidate = candidates.get(selectedOption - 1);
         System.out.println(theController.getCandidateInfo(selectedCandidate));
-        //selectApplicationFromList(selectedCandidate);
+        selectApplicationFromList(selectedCandidate);
     }
 
     private void selectApplicationFromList(Candidate candidate) {
         List<JobApplication> applications = theController.getCandidateApplications(candidate);
+        if (applications.isEmpty()) {
+            System.out.println("There are no applications to display.");
+            return;
+        }
         for (int i = 0; i < applications.size(); i++) {
-            System.out.println((i + 1) + ". " + applications.get(i).identity() + " - " + applications.get(i).candidate().name());
+            JobOpening jobOpening = theController.getJobOpeningByJobApplication(applications.get(i));
+            System.out.println((i + 1) + ". " + jobOpening.identity());
         }
         int selectedOption = Console.readOption(1, applications.size(), -1);
         JobApplication selectedApplication = applications.get(selectedOption - 1);

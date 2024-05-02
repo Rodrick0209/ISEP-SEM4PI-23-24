@@ -8,6 +8,7 @@ import jobs4u.base.candidateManagement.domain.Candidate;
 import lombok.Getter;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -15,12 +16,14 @@ import java.util.List;
 @XmlRootElement
 @Entity
 @Getter
-public class JobApplication implements AggregateRoot<Long> {
+public class JobApplication implements AggregateRoot<Long>, Serializable {
 
-    private static final long serialVersionUID = 1L;
+
 
     @Id
     private Long id;
+    @Version
+    private Long version;
 
     @Getter
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -36,10 +39,12 @@ public class JobApplication implements AggregateRoot<Long> {
     @Column(name = "Interview")
     private Interview interview;
 
-    @OneToOne
+    @ManyToOne
     private Candidate candidate;
 
     private Calendar creationDate;
+
+
 
     protected JobApplication() {
         // for ORM

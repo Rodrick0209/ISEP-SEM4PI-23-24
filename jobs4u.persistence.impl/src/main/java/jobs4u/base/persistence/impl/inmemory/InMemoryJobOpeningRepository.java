@@ -2,6 +2,7 @@ package jobs4u.base.persistence.impl.inmemory;
 
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
+import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
@@ -25,6 +26,11 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
     @Override
     public int countForClientCode(ClientCode clientCode) {
         return 0;
+    }
+
+    @Override
+    public JobOpening findByJobApplication(JobApplication jobApplication) {
+        return null;
     }
 
 }

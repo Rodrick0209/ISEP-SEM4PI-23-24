@@ -1,6 +1,8 @@
 package jobs4u.base.jobOpeningsManagement.application;
 
 import eapli.framework.application.UseCaseController;
+import eapli.framework.domain.repositories.ConcurrencyException;
+import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
@@ -8,6 +10,7 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import jakarta.transaction.Transactional;
 import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.clientManagement.domain.ClientDTO;
@@ -111,15 +114,17 @@ public class RegisterJobOpeningController {
 
     }
 
-    private JobOpening saveJobOpening(JobOpening jobOpening) {
+
+    private synchronized JobOpening saveJobOpening(JobOpening jobOpening) {
         return this.jobOpeningRepository.save(jobOpening);
 
     }
 
+    @Transactional
+    public void addJobApplicationToJobOpening(JobOpening jobOpening, List<JobApplication> jobApplication) {
 
-    public JobApplication addJobApplicationToJobOpening(JobOpening jobOpening, JobApplication jobApplication) {
-        jobOpening.addJobApplication(jobApplication);
+        jobApplication.forEach(jobOpening::addJobApplication);
         saveJobOpening(jobOpening);
-        return jobApplication;
+
     }
 }

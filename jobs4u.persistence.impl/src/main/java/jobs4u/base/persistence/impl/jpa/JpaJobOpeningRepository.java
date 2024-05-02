@@ -2,6 +2,7 @@ package jobs4u.base.persistence.impl.jpa;
 
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
@@ -42,14 +43,31 @@ class JpaJobOpeningRepository extends BasepaRepositoryBase<JobOpening, JobRefere
         return jobOpenings.size();
     }
 
+    @Override
+    public JobOpening findByJobApplication(JobApplication jobApplication) {
+        // Ensure the jobApplication is not null
+        if (jobApplication == null) {
+            throw new IllegalArgumentException("JobApplication cannot be null");
+        }
 
+        // JPQL query
+        String jpql = "SELECT jo FROM JobOpening jo " +
+                "JOIN jo.applications ja " +
+                "WHERE ja = :jobApplication";
 
+        // Execute the query
+        List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
+                .setParameter("jobApplication", jobApplication)
+                .getResultList();
 
+        // If there are no jobOpenings found, return null
+        if (jobOpenings.isEmpty()) {
+            return null;
+        }
 
-
-
-
-
+        // Otherwise, return the first JobOpening found
+        return jobOpenings.get(0);
+    }
 
 
 }

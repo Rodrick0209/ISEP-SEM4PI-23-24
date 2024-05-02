@@ -18,6 +18,7 @@ import jobs4u.base.utils.PostalAddress;
 import lombok.Getter;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -25,13 +26,14 @@ import java.util.List;
 @XmlRootElement
 @Entity
 @Getter
-public class JobOpening implements AggregateRoot<JobReference> {
+public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
-    @Version
-    private Long version;
 
     @EmbeddedId
     private JobReference jobReference;
+
+    @Version
+    private Long version;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<JobApplication> applications = new ArrayList<>();
