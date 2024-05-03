@@ -79,6 +79,7 @@ public class DisplayCandidateInfoUI extends AbstractUI {
         }
         int selectedOption = Console.readOption(1, applications.size(), -1);
         JobApplication selectedApplication = applications.get(selectedOption - 1);
+        System.out.println("From job opening: \n");
         System.out.println(theController.getJobApplicationInfo(selectedApplication));
     }
 
@@ -110,6 +111,7 @@ public class DisplayCandidateInfoUI extends AbstractUI {
 
         int selectedOption = Console.readOption(1, applications.size(), -1);
         JobApplication selectedApplication = applications.get(selectedOption - 1);
+        System.out.println("From job opening: \n");
         System.out.println(theController.getJobApplicationInfo(selectedApplication));
         System.out.println("From candidate: ");
         System.out.println(theController.getCandidateInfo(selectedApplication.candidate()));

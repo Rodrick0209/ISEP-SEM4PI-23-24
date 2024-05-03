@@ -62,7 +62,6 @@ public class DisplayCandidateInfoController {
         String formattedDate = sdf.format(jobApplication.creationDate().getTime());
 
         StringBuilder info = new StringBuilder();
-        info.append("From JobOpening:\n");
         info.append("Application ID: ").append(jobApplication.identity().toString()).append("\n");
         info.append("Application State: ").append(jobApplication.state().toString()).append("\n");
         info.append("Registration Date: ").append(formattedDate).append("\n");
