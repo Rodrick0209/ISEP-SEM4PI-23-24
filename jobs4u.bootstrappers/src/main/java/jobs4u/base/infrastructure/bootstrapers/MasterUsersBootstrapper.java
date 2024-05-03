@@ -124,14 +124,24 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                 "Description", "Function", ContractType.FULL_TIME, client);
 
 
+        List<Phase> phases1 = List.of(
+                new Phase(Phases.APPLICATION, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 5, 4)),
+                new Phase(Phases.RESUME_SCREEN, LocalDate.of(2024, 5, 5), LocalDate.of(2024, 6, 1)),
+                new Phase(Phases.ANALYSIS, LocalDate.of(2024, 6, 2), LocalDate.of(2024, 7, 1)),
+                new Phase(Phases.RESULT, LocalDate.of(2024, 7, 2), LocalDate.of(2024, 8, 1)));
+
+        RecruitmentProcess recruitmentProcess1 = new RecruitmentProcess(phases1);
+
+
         JobOpening jobOpening = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
-                "Description", "Function", ContractType.FULL_TIME, client1);
+                "Description", "Function", ContractType.FULL_TIME, client1,recruitmentProcess1);
 
 
         JobApplication jobApplication = new JobApplication(1L,file,candidate);
         JobApplication jobApplication1 = new JobApplication(2L,file1,candidate);
 
         jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1));
+
 
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",

@@ -33,8 +33,11 @@ the Operator.
 - Process the files produced by the Applications Email Bot is an automated process .
 - The files must be processed so that they can lately be imported by the operator into the system.
 
+## 4. Diagram
 
-## 4. Tests
+![CD](diagram.jpg)
+
+## 5. Tests
 
 
 #### Test #1: Execute the program with files previously inserted in the shared folder
@@ -65,7 +68,7 @@ the Operator.
 
 - **Expected Result:** The program finishes its execution without errors and the only process that executed it was the directory monitoring.
 
-## 5. Implementation
+## 6. Implementation
 
 - The file bot was implemented in C.
 - The program when executed, creates a child  process that monitors the shared folder for new files and other childs to process the files. When a new file is detected, the child program send a sign to the parent.
@@ -73,7 +76,7 @@ the Operator.
 
 
 
-## 6. Integration/Demonstration
+## 7. Integration/Demonstration
 
 ### Integration
 
@@ -94,7 +97,7 @@ To integrate this feature different parts of the code was divided into different
 
 Since this funcitonality is a background process, there isn't a way to demonstrate it directly. 
 
-## 7. Observations
+## 8. Observations
 
 - When te process read all the files, generate the report with all information read.
 - The report is generated in the same folder as the output files.

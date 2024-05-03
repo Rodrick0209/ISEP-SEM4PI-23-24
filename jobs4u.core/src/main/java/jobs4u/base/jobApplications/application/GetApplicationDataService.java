@@ -48,6 +48,7 @@ import java.util.regex.Pattern;
  */
 public class GetApplicationDataService {
 
+    String filePath = "SCOMP/output/report.txt"; // Path to the report file
     private final AuthorizationService authz =
             AuthzRegistry.authorizationService();
 
@@ -60,7 +61,6 @@ public class GetApplicationDataService {
 
 
     public List<JobOpening> getJobReferencesFromFileBot() {
-        String filePath = "Jobs4u.FileBot/output/report.txt"; // Path to the report file
         List<JobOpening> result = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -92,7 +92,6 @@ public class GetApplicationDataService {
 
 
     public List<String> getApplicationFromFileBot(String jobReference) {
-        String filePath = "Jobs4u.FileBot/output/report.txt"; // Path to the report file
         List<String> applications = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -123,7 +122,6 @@ public class GetApplicationDataService {
 
 
     public List<JobApplicationFile> getApplicationFiles(String jobReference, String candidateNumber) {
-        String filePath = "Jobs4u.FileBot/output/report.txt"; // Path to the report file
         List<JobApplicationFile> fileNames = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -149,7 +147,7 @@ public class GetApplicationDataService {
 
 
                     String fileName = matcherFile.group(1);
-                    String dir = "Jobs4u.FileBot/output/"+jobReference+"/"+candidateNumber+"/"+fileName;
+                    String dir = "SCOMP/output/"+jobReference+"/"+candidateNumber+"/"+fileName;
                     Path path = new Path(dir);
 
                     JobApplicationFile jobApplicationFile = new JobApplicationFile(fileName, path);

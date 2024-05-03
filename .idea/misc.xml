@@ -41,12 +41,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/../lprog_sem4pi-23-24-2dj2/lprog/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/../lprog_sem4pi-23-24-2dj2/lprog/pom.xml" />
         <option value="$PROJECT_DIR$/lprog/pom.xml" />
       </set>
     </option>
