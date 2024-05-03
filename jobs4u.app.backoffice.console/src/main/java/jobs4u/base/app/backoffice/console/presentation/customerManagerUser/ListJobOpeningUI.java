@@ -1,4 +1,4 @@
-package jobs4u.base.app.backoffice.console.presentation.costumerManagerUser;
+package jobs4u.base.app.backoffice.console.presentation.customerManagerUser;
 
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.io.util.Console;
@@ -9,15 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import jobs4u.base.jobOpeningsManagement.application.ListJobOpeningContoller;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class ListJobOpeningUI extends AbstractUI {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.ListJobOpeningUI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.customerManagerUser.ListJobOpeningUI.class);
 
     private final ListJobOpeningContoller theController = new ListJobOpeningContoller(PersistenceContext.repositories().jobOpenings(), AuthzRegistry.authorizationService());
 

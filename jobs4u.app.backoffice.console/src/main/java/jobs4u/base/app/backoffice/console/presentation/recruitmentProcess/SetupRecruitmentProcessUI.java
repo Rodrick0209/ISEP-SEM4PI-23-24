@@ -4,7 +4,7 @@ import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.presentation.console.AbstractUI;
-import jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.ListJobOpeningUI;
+import jobs4u.base.app.backoffice.console.presentation.customerManagerUser.ListJobOpeningUI;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.recruitmentProcessManagement.application.SetupRecruitmentProcessController;
@@ -12,7 +12,6 @@ import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;

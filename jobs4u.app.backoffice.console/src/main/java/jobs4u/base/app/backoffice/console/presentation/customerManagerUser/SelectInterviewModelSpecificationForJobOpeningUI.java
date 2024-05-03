@@ -1,4 +1,4 @@
-package jobs4u.base.app.backoffice.console.presentation.costumerManagerUser;
+package jobs4u.base.app.backoffice.console.presentation.customerManagerUser;
 
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SelectInterviewModelSpecificationForJobOpeningUI extends AbstractUI {
-    private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.SelectInterviewModelSpecificationForJobOpeningUI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.customerManagerUser.SelectInterviewModelSpecificationForJobOpeningUI.class);
     private final SelectInterviewModelSpecificationForJobOpeningController theController = new SelectInterviewModelSpecificationForJobOpeningController(PersistenceContext.repositories().jobOpenings(), PersistenceContext.repositories().interviewModelsSpecification(), AuthzRegistry.authorizationService());
     @Override
     protected boolean doShow() {

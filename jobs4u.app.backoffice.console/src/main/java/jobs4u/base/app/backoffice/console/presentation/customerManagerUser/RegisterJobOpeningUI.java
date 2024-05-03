@@ -1,35 +1,24 @@
-package jobs4u.base.app.backoffice.console.presentation.costumerManagerUser;
+package jobs4u.base.app.backoffice.console.presentation.customerManagerUser;
 
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import jobs4u.base.clientManagement.application.ClientMapper;
-import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
-import jobs4u.base.jobOpeningsManagement.domain.JobOpeningFactory;
-import jobs4u.base.jobOpeningsManagement.domain.JobReferenceService;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
-import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
-import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
-import jobs4u.base.utils.ClientCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.config.ConfigTreeConfigDataLoader;
 
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.List;
 
 public class RegisterJobOpeningUI extends AbstractUI {
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.costumerManagerUser.RegisterJobOpeningUI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.customerManagerUser.RegisterJobOpeningUI.class);
 
 
     private final RegisterJobOpeningController theController = new RegisterJobOpeningController(PersistenceContext.repositories().jobOpenings(),
