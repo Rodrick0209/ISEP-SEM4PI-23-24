@@ -9,7 +9,11 @@
         <version>0.1.0</version>
     </parent>
 
-    <artifactId>lprog</artifactId>
+
+    <groupId>jobs4u</groupId>
+    <artifactId>jobs4u.integration.plugins</artifactId>
+    <packaging>jar</packaging>
+    <name>jobs4u.integration.plugins</name>
 
     <properties>
         <maven.compiler.source>20</maven.compiler.source>
@@ -18,16 +22,22 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>jobs4u.core</groupId>
-            <artifactId>jobs4u.core</artifactId>
-            <version>0.1.0</version>
-        </dependency>
         <!-- ANTLR Support -->
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4</artifactId>
             <version>4.13.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jobs4u.core</groupId>
+            <artifactId>jobs4u.core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lprog</groupId>
+            <artifactId>lprog</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -47,9 +57,8 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
-
-
 
 </project>

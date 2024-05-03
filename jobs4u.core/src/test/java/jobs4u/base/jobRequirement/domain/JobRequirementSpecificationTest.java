@@ -4,8 +4,7 @@ import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
 import jobs4u.base.pluginManagement.domain.JobRequirementSpecificationIdentifier;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JobRequirementSpecificationTest {
     @Test
@@ -31,9 +30,9 @@ public class JobRequirementSpecificationTest {
     }
 
     @Test
-    public void testIsRecognisingPlugin(){
+    public void testIsRecognisingPlugin() {
         JobRequirementSpecificationIdentifier identifier = JobRequirementSpecificationIdentifier.valueOf("teste");
-        JobRequirementSpecification specification = new JobRequirementSpecification(identifier.toString(), "");
+        JobRequirementSpecification specification = new JobRequirementSpecification(identifier.toString(), "jobs4u.integration.plugins.Programador2AnosExperienciaRequirement.RequirementManagement.RequirementService");
         assertNotNull(specification.buildEvaluator());
     }
 
