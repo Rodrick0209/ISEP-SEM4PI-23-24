@@ -4,7 +4,7 @@ import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecificationIdentifier;
 import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
 
-public class JpaInterviewModelSpecificationRepository extends BasepaRepositoryBase<InterviewModelSpecification, InterviewModelSpecificationIdentifier, InterviewModelSpecificationIdentifier> implements InterviewModelSpecificationRepository {
+public class JpaInterviewModelSpecificationRepository extends BaseJpaRepositoryBase<InterviewModelSpecification, InterviewModelSpecificationIdentifier, InterviewModelSpecificationIdentifier> implements InterviewModelSpecificationRepository {
     JpaInterviewModelSpecificationRepository() {
         super("identifier");
     }

@@ -6,15 +6,13 @@ import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
-import jobs4u.base.jobs4uusermanagement.domain.Jobs4uUser;
 import jobs4u.base.utils.ClientCode;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
-class JpaJobOpeningRepository extends BasepaRepositoryBase<JobOpening, JobReference,JobReference> implements JobOpeningRepository {
+class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobReference,JobReference> implements JobOpeningRepository {
 
     public JpaJobOpeningRepository() {
         super("jobReference");
