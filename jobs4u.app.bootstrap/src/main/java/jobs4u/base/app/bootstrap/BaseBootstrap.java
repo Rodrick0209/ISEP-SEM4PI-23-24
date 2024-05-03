@@ -21,12 +21,12 @@
 package jobs4u.base.app.bootstrap;
 
 import jobs4u.base.app.common.console.BaseApplication;
+import jobs4u.base.infrastructure.bootstrapers.BaseBootstrapper;
+import jobs4u.base.infrastructure.smoketests.BaseDemoSmokeTester;
 import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromClientRegistedWatchDog;
 import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
-import jobs4u.base.infrastructure.bootstrapers.BaseBootstrapper;
 import jobs4u.base.infrastructure.bootstrapers.demo.BaseDemoBootstrapper;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
-import jobs4u.base.infrastructure.smoketests.BaseDemoSmokeTester;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
 import eapli.framework.collections.util.ArrayPredicates;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -57,19 +57,19 @@ public final class BaseBootstrap extends BaseApplication {
 
     @Override
     protected void doMain(final String[] args) {
-        handleArgs(args);
+        //   handleArgs(args);
 
-        System.out.println("\n\n------- MASTER DATA -------");
-        new BaseBootstrapper().execute();
+    //    System.out.println("\n\n------- MASTER DATA -------");
+      //  new BaseBootstrapper().execute();
 
-        if (isToBootstrapDemoData) {
-            System.out.println("\n\n------- DEMO DATA -------");
-            new BaseDemoBootstrapper().execute();
-        }
-        if (isToRunSampleE2E) {
+        // if (isToBootstrapDemoData) {
+      //  System.out.println("\n\n------- DEMO DATA -------");
+       // new BaseDemoBootstrapper().execute();
+        //   }
+        //  if (isToRunSampleE2E) {
             System.out.println("\n\n------- BASIC SCENARIO -------");
-            new BaseDemoSmokeTester().execute();
-        }
+        new BaseDemoSmokeTester().execute();
+        //}
     }
 
     private void handleArgs(final String[] args) {
@@ -96,7 +96,6 @@ public final class BaseBootstrap extends BaseApplication {
         AuthzRegistry.configure(PersistenceContext.repositories().users(), new Jobs4uPasswordPolicy(),
                 new PlainTextEncoder());
     }
-
 
 
     @SuppressWarnings("unchecked")

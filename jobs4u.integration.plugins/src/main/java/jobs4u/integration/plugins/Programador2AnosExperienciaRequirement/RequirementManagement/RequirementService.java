@@ -23,7 +23,7 @@ public class RequirementService implements RequirementEvaluation {
     String templatePath = "jobs4u.integration.plugins.Programador2AnosExperienciaRequirement/Programador2AnosExperienciaRequirement/TemplateFile/requirementTemplate.txt";
 
 
-    public PluginQuestions checkTemplateSyntax() {
+    /*public PluginQuestions checkTemplateSyntax() {
         try {
             FileInputStream fileInputStream = new FileInputStream(templatePath);
             RequirementLexer lexer = new RequirementLexer(CharStreams.fromStream(fileInputStream));
@@ -43,13 +43,13 @@ public class RequirementService implements RequirementEvaluation {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
 
 
     @Override
     public boolean evaluate(String answerPath) {
-        PluginQuestions pluginQuestions = checkTemplateSyntax();
+       /* PluginQuestions pluginQuestions = checkTemplateSyntax();
         try {
             FileInputStream fileInputStream = new FileInputStream(answerPath);
             EvaluationLexer lexer = new EvaluationLexer(CharStreams.fromStream(fileInputStream));
@@ -69,6 +69,8 @@ public class RequirementService implements RequirementEvaluation {
             throw new RuntimeException(e.getMessage());
         } catch (Exception e) {
             throw new ErrorInFileException("The resolution does not follow the required format!.");
-        }
+        }*/
+        System.out.println("Esta a funcionar");
+        return true;
     }
 }
