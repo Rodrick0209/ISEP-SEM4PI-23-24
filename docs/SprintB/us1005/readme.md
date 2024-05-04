@@ -2,35 +2,28 @@
 
 ## 1. Context
 
-This task, identified as "US 1006", is being assigned for the first time. The context for this task is to display all
-candidate's information.
+This task, identified as "US 1005", is being assigned for the first time. The context for this task is to display all job application.
 
 ## 2. Requirements
 
-**US 1006** As Customer Manager, I want to display all the personal data of a candidate.
+**US 1005** As Operator, I want to list all applications for a job opening.
 
 **Dependencies/References:**
 
-- Just the candidate details
+- N/A
 
 ## 3. Analysis
 
 ## Client Meeting
 
-- À partida diria que seria o nome, tal como foi recebido na application que fez (página 6, “name of the candidate”)
-- No contexto actual vamos assumir que o Customer Manager pode aceder (consultar) os dados pessoais de qualquer
-  candidato.
-- O product owner espera que o sistema aplique as melhores práticas de UI/UX mas, não sendo especialista nessa área
-  técnica, não arrisca sugerir soluções.
-- Será toda a informação pessoal de um candidato que o sistema tenha registado.
-
+- Tal como refere a descrição da US, devem ser listadas todas as candidaturas para um job opening. Faz sentido mostrar
+  todas as candidaturas, independentemente do seu estado. Assim, para cada cada candidatura deve ser identificado o candidato e o estado da sua candidatura
 
 ## Business Rules
 
-- This US is directly related to the candidates of the backoffice.
-- To see the candidates information the user must be a customer manager.
-- The user must have an email, name, and password.
-- The customer manager must be able to see all the personal data of a candidate.
+- This user story should only be accessible to the Operator users.
+- The user must be able to see all the applications for a job opening.
+- When listing the applications, the user must be able to see the candidate and the application data.te.
 
 ## 4. Design
 
@@ -53,9 +46,10 @@ maintainability and scalability. These patterns include:
 
 #### Test #1: Ensure candidates information is being displayed correctly
 
-1. Log in as customer manager
-2. Choose the Option Candidate > Display Candidate Information
-3. Confirm the candidate's information is being displayed correctly
+1. Log in as operator
+2. Choose the Applications > List Applications options
+3. Choose the job opening
+4. Display all the applications (candidate and application data)
 
 ## 5. Implementation
 
@@ -98,5 +92,3 @@ This process demonstrates the system's ability to list job openings based on the
 ## 7. Observations
 
 - Nothing to add.
-
-```
