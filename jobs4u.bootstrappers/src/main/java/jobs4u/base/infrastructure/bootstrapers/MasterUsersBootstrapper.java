@@ -206,8 +206,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         JobApplication jobApplication = new JobApplication(1L,file,candidate);
         JobApplication jobApplication1 = new JobApplication(2L,file1,candidate);
-
-        //jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1));
+        jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1));
 
 
         return true;

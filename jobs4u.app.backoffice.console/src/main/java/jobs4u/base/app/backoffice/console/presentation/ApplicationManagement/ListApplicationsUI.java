@@ -17,10 +17,11 @@ public class ListApplicationsUI extends AbstractUI{
         for (JobApplication j: jobApplications) {
             i++;
             System.out.printf("%4d.\n", i);
-            System.out.printf("\t\t%s\n", j.getId());
-            System.out.printf("\t\t%s\n", j.getCandidate().emailAddress());
-            System.out.printf("\t\t%s\n", j.getCandidate().nameString());
-            System.out.printf("\t\t%s\n", j.getState().toString());
+            System.out.printf("\t\tJobReference: %s\n", controller.getJobOpeningForJobApplication(j).identity().getJobReference());
+            System.out.printf("\t\tid: %s\n", j.getId());
+            System.out.printf("\t\temail: %s\n", j.getCandidate().emailAddress());
+            System.out.printf("\t\tnome: %s\n", j.getCandidate().nameString());
+            System.out.printf("\t\tstatus: %s\n", j.getState().toString());
         }
 
         return true;
