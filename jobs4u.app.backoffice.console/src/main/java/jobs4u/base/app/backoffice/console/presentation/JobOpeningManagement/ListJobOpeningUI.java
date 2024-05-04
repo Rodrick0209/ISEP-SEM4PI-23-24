@@ -1,4 +1,4 @@
-package jobs4u.base.app.backoffice.console.presentation.customerManagerUser;
+package jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement;
 
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.io.util.Console;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ListJobOpeningUI extends AbstractUI {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.customerManagerUser.ListJobOpeningUI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ListJobOpeningUI.class);
 
     private final ListJobOpeningContoller theController = new ListJobOpeningContoller(PersistenceContext.repositories().jobOpenings(), AuthzRegistry.authorizationService());
 
