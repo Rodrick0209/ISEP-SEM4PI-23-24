@@ -22,6 +22,7 @@ package jobs4u.base.persistence.impl.inmemory;
 
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
+import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
 import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
@@ -57,7 +58,6 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public ClientUserRepository clientUsers(final TransactionalContext tx) {
-
         return new InMemoryClientUserRepository();
     }
 
@@ -90,31 +90,34 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
          return clients(null);
     }
 
-
+    @Override
     public ClientRepository clients(final TransactionalContext tx) {
         return new InMemoryClientRepository();
     }
 
 
     @Override
-    public SignupRequestRepository signupRequests() {
-        return signupRequests(null);
-    }
-
-    @Override
-    public JobRequirementSpecificationRepository jobRequirementsSpecification() {
+    public JobRequirementSpecificationRepository jobRequirementsSpecification(final TransactionalContext tx) {
         return new InMemoryJobRequirementSpecificationRepository();
     }
 
     @Override
-    public InterviewModelSpecificationRepository interviewModelsSpecification() {
+    public JobRequirementSpecificationRepository jobRequirementsSpecification() {
+        return jobRequirementsSpecification(null);
+    }
+
+
+    @Override
+    public InterviewModelSpecificationRepository interviewModelsSpecification(final TransactionalContext tx) {
         return new InMemoryInterviewModelSpecificationRepository();
     }
 
     @Override
-    public SignupRequestRepository signupRequests(final TransactionalContext tx) {
-        return new InMemorySignupRequestRepository();
+    public InterviewModelSpecificationRepository interviewModelsSpecification() {
+        return interviewModelsSpecification(null);
     }
+
+
 
     @Override
     public TransactionalContext newTransactionalContext() {
@@ -125,7 +128,6 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JobApplicationRepository jobApplications(final TransactionalContext tx) {
-
         return new InMemoryJobApplicationRepository();
     }
 

@@ -51,6 +51,7 @@ public class JpaRepositoryFactory implements RepositoryFactory {
                 Application.settings().getExtendedPersistenceProperties());
     }
 
+
     @Override
     public JpaClientUserRepository clientUsers(final TransactionalContext autoTx) {
         return new JpaClientUserRepository(autoTx);
@@ -77,10 +78,18 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaJobApplicationRepository(Application.settings().getPersistenceUnitName());
     }
 
+
+
     @Override
     public ClientRepository clients() {
-        return new JpaClientRepository();
+        return new JpaClientRepository(Application.settings().getPersistenceUnitName());
     }
+
+    @Override
+    public ClientRepository clients(TransactionalContext autoTx) {
+        return new JpaClientRepository(autoTx);
+    }
+
 
     @Override
     public CandidateRepository candidates(final TransactionalContext autoTx) {
@@ -92,24 +101,28 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaCandidateRepository(Application.settings().getPersistenceUnitName());
     }
 
+
+
     @Override
-    public SignupRequestRepository signupRequests(final TransactionalContext autoTx) {
-        return new JpaSignupRequestRepository(autoTx);
+    public JpaJobRequirementSpecificationRepository jobRequirementsSpecification(final TransactionalContext autoTx) {
+        return new JpaJobRequirementSpecificationRepository(autoTx);
     }
 
     @Override
-    public SignupRequestRepository signupRequests() {
-        return new JpaSignupRequestRepository(Application.settings().getPersistenceUnitName());
+    public JpaJobRequirementSpecificationRepository jobRequirementsSpecification() {
+        return new JpaJobRequirementSpecificationRepository(Application.settings().getPersistenceUnitName());
     }
 
-    @Override
-    public JobRequirementSpecificationRepository jobRequirementsSpecification() {
-        return new JpaJobRequirementSpecificationRepository();
-    }
+
 
     @Override
     public InterviewModelSpecificationRepository interviewModelsSpecification() {
-        return new JpaInterviewModelSpecificationRepository();
+        return new JpaInterviewModelSpecificationRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public InterviewModelSpecificationRepository interviewModelsSpecification(TransactionalContext autoTx) {
+        return new JpaInterviewModelSpecificationRepository(autoTx);
     }
 
     @Override

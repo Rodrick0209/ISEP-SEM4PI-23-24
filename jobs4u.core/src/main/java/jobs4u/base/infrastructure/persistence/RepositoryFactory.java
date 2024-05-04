@@ -83,23 +83,19 @@ public interface RepositoryFactory {
 
     ClientRepository clients();
 
+    ClientRepository clients(TransactionalContext autoTx);
+
 
     CandidateRepository candidates();
 
     CandidateRepository candidates(TransactionalContext autoTx);
 
-
-    SignupRequestRepository signupRequests(TransactionalContext autoTx);
-
-    /**
-     * repository will be created in auto transaction mode
-     *
-     * @return
-     */
-    SignupRequestRepository signupRequests();
-
     JobRequirementSpecificationRepository jobRequirementsSpecification();
 
+    JobRequirementSpecificationRepository jobRequirementsSpecification(TransactionalContext autoTx);
+
     InterviewModelSpecificationRepository interviewModelsSpecification();
+
+    InterviewModelSpecificationRepository interviewModelsSpecification(TransactionalContext autoTx);
 
 }

@@ -1,12 +1,23 @@
 package jobs4u.base.persistence.impl.jpa;
 
+import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
+import jobs4u.base.Application;
 import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
 import jobs4u.base.pluginManagement.domain.JobRequirementSpecificationIdentifier;
 import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 
-public class JpaJobRequirementSpecificationRepository extends BaseJpaRepositoryBase<JobRequirementSpecification, JobRequirementSpecificationIdentifier, JobRequirementSpecificationIdentifier> implements JobRequirementSpecificationRepository {
+public class JpaJobRequirementSpecificationRepository
+        extends JpaAutoTxRepository<JobRequirementSpecification, JobRequirementSpecificationIdentifier, JobRequirementSpecificationIdentifier>
+        implements JobRequirementSpecificationRepository {
 
-    JpaJobRequirementSpecificationRepository() {
-        super("identifier");
+
+    public JpaJobRequirementSpecificationRepository(final TransactionalContext autoTx) {
+        super(autoTx, "identifier");
+    }
+
+    public JpaJobRequirementSpecificationRepository(final String puname) {
+        super(puname, Application.settings().getExtendedPersistenceProperties(),
+                "identifier");
     }
 }

@@ -8,6 +8,7 @@ import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.utils.ClientCode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, JobReference> implements JobOpeningRepository {
@@ -17,19 +18,35 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
         InMemoryInitializer.init();
     }
 
-    //TODO implement
     @Override
-    public List<JobOpening> findByCustomerManager(SystemUser customer) {
-        return List.of();
+    public List<JobOpening> findByCustomerManager(SystemUser customerManager) {
+        List<JobOpening> result = new ArrayList<>();
+        for (JobOpening jobOpening : this) {
+            if (jobOpening.getClient().getCustomerManagerEmail().equals(customerManager.email())) {
+                result.add(jobOpening);
+            }
+        }
+        return result;
     }
 
     @Override
     public int countForClientCode(ClientCode clientCode) {
-        return 0;
+        int count = 0;
+        for (JobOpening jobOpening : this) {
+            if (jobOpening.jobReference().getJobReference().startsWith(clientCode.code() + "-")) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
     public JobOpening findByJobApplication(JobApplication jobApplication) {
+        for (JobOpening jobOpening : this) {
+            if (jobOpening.jobApplications().contains(jobApplication)) {
+                return jobOpening;
+            }
+        }
         return null;
     }
 

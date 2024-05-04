@@ -25,6 +25,9 @@ import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
@@ -40,6 +43,12 @@ public class InMemoryJobApplicationRepository
 
     @Override
     public Iterable<JobApplication> findJobApplicationsByCandidate(Candidate candidate) {
-        return null;
+        List<JobApplication> result = new ArrayList<>();
+        for (JobApplication jobApplication : this) {
+            if (jobApplication.candidate().emailAddress().equals(candidate.emailAddress())) {
+                result.add(jobApplication);
+            }
+        }
+        return result;
     }
 }

@@ -20,6 +20,9 @@
  */
 package jobs4u.base.persistence.impl.inmemory;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Optional;
 
 import jobs4u.base.jobs4uusermanagement.domain.Jobs4uUser;
@@ -46,7 +49,17 @@ public class InMemoryClientUserRepository
         return matchOne(e -> e.user().username().equals(name));
     }
 
-
+    @Override
+    public Optional<Jobs4uUser> findByClientCode(final ClientCode number) {
+        Iterator<Jobs4uUser> iterator = findAll().iterator();
+        while (iterator.hasNext()) {
+            Jobs4uUser user = iterator.next();
+            if (user.clientCode().equals(number)) {
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
 
     @Override
     public Iterable<Jobs4uUser> findAllActive() {
