@@ -67,46 +67,20 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     final RegisterClientController clientController = new RegisterClientController(PersistenceContext.repositories().clients(),
             AuthzRegistry.authorizationService(), InProcessPubSub.publisher());
 
-    final RegisterJobApplicationController jobApplicationController = new RegisterJobApplicationController(PersistenceContext.repositories().jobApplications(),
-            PersistenceContext.repositories().candidates(), AuthzRegistry.authorizationService(), PersistenceContext.repositories().jobOpenings());
-
-
     final CandidateRepository candidateRepository = PersistenceContext.repositories().candidates();
 
-    final JobApplicationRepository jobApplicationRepository = PersistenceContext.repositories().jobApplications();
 
     @Override
     public boolean execute() {
 
-        Client client = clientController.registerClient("client1", "client1", "client@gmail.com",
-                "919111222", "1234-123", "First",
-                "Last", EmailAddress.valueOf("customermanager1@gmail.com"));
-
-        Client client1 = clientController.registerClient("client2", "client2", "client2@gmail.com",
-                "919112222", "1224-123", "Second",
-                "Last", EmailAddress.valueOf("customermanager@gmail.com"));
-
-
-        List<JobApplicationFile> file = List.of(new JobApplicationFile("file1", new Path("file1")));
-        List<JobApplicationFile> file1 = List.of(new JobApplicationFile("file2", new Path("file1")));
-
-
-        Candidate candidate = new Candidate("First", "Last","candidate@gmail.com","919111222");
-        candidateRepository.save(candidate);
-        Candidate candidate1 = new Candidate("Doe", "asd","candidat2e@gmail.com","919111222");
-        candidateRepository.save(candidate1);
-
-
-
-        Client client2 = clientController.registerClient("uio1", "uio", "client@gmail.com",
-                "919111222", "1234-123", "First",
-                "Last", EmailAddress.valueOf("customermanager1@gmail.com"));
-
+        //---------------------------------------------------------------------------------------------------
+        //Register user
+        //---------------------------------------------------------------------------------------------------
         registerAdmin("admin@gmail.com", TestDataConstants.PASSWORD1, "Admin", "Doe Admin",
                 "admin@gmail.com");
 
-       registerCustomerManager("customermanager@gmail.com", TestDataConstants.PASSWORD1, "Customer", "Doe CustomerManager",
-               "customermanager@gmail.com");
+        registerCustomerManager("customermanager@gmail.com", TestDataConstants.PASSWORD1, "Customer", "Doe CustomerManager",
+                "customermanager@gmail.com");
 
         registerOperator("operator@gmail.com", TestDataConstants.PASSWORD1, "operator", "Doe operator",
                 "operator@gmail.com");
@@ -120,21 +94,112 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerLanguageEngineer("language@gmail.com", TestDataConstants.PASSWORD1, "languageEngineer", "Doe LanguageEngineer",
                 "language@gmail.com");
 
-        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
-                "Description", "Function", ContractType.FULL_TIME, client);
+
+        //---------------------------------------------------------------------------------------------------
+        //Register clients
+        //---------------------------------------------------------------------------------------------------
+        Client client = clientController.registerClient("Isep1",
+                "instituto Superior de Engenharia do Porto",
+                "isep@gmail.com",
+                "919111222", "1234-123",
+                "Luis",
+                "Gonçalves",
+                EmailAddress.valueOf("customermanager@gmail.com"));
 
 
-        List<Phase> phases1 = List.of(
-                new Phase(Phases.APPLICATION, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 5, 4)),
-                new Phase(Phases.RESUME_SCREEN, LocalDate.of(2024, 5, 5), LocalDate.of(2024, 6, 1)),
-                new Phase(Phases.ANALYSIS, LocalDate.of(2024, 6, 2), LocalDate.of(2024, 7, 1)),
+        Client client1 = clientController.registerClient(
+                "MTN1",
+                "medicina do trabalho do Norte",
+                "mtn@gmail.com",
+                "919112223", "1224-133",
+                "Sergio",
+                "Augusto",
+                EmailAddress.valueOf("customermanager@gmail.com"));
+
+        Client client3 = clientController.registerClient(
+                "IBM",
+                "IBM",
+                "ibm@gmail.com",
+                "919112323", "1224-123",
+                "Sergio",
+                "Augusto",
+                EmailAddress.valueOf("customermanager@gmail.com"));
+
+
+        Client client2 = clientController.registerClient("MTN2",
+                "Ministerio da terra e natureza",
+                "mtneza@gmail.com",
+                "919111232",
+                "1434-123",
+                "Oscar",
+                "Cardoso",
+                EmailAddress.valueOf("anothercustomermanager@gmail.com"));
+
+
+
+
+
+        //---------------------------------------------------------------------------------------------------
+        //create Recruitment Process
+        //---------------------------------------------------------------------------------------------------
+        List<Phase> phases = List.of(
+                new Phase(Phases.APPLICATION, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 5, 30)),
+                new Phase(Phases.RESUME_SCREEN, LocalDate.of(2024, 6, 1), LocalDate.of(2024, 6, 5)),
+                new Phase(Phases.ANALYSIS, LocalDate.of(2024, 6, 6), LocalDate.of(2024, 7, 1)),
                 new Phase(Phases.RESULT, LocalDate.of(2024, 7, 2), LocalDate.of(2024, 8, 1)));
 
-        RecruitmentProcess recruitmentProcess1 = new RecruitmentProcess(phases1);
+        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
 
+
+
+
+        //---------------------------------------------------------------------------------------------------
+        //Register Job Openings
+        //---------------------------------------------------------------------------------------------------
+        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+                "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
+                "Software Engineer", ContractType.FULL_TIME, client,recruitmentProcess);
+
+        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+                "A Data Scientist analyzes and interprets complex data to inform business decision-making. They use statistical techniques and machine learning algorithms to extract insights from data",
+                "Data Scientist", ContractType.FULL_TIME, client1,recruitmentProcess);
+
+        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+                "A Marketing Manager develops and implements marketing strategies to promote products or services. They conduct market research, identify target audiences, and oversee advertising campaigns.",
+                "Marketing Manager", ContractType.FULL_TIME, client,recruitmentProcess);
+
+        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+                "A Financial Analyst evaluates financial data to provide insights and recommendations for business decision-making. They analyze market trends, assess investment opportunities, and prepare financial reports.",
+                "Financial Analyst", ContractType.FULL_TIME, client2);
 
         JobOpening jobOpening = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
-                "Description", "Function", ContractType.FULL_TIME, client1,recruitmentProcess1);
+                "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
+                "Software Engineer", ContractType.FULL_TIME, client1);
+
+
+        //Register IBM-000123 jobOpening
+        registerJobOpening("IBM-000123",WorkingMode.REMOTE, "1", "1234-123",
+                "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
+                "Software Engineer", ContractType.FULL_TIME, client3,recruitmentProcess);
+
+        //---------------------------------------------------------------------------------------------------
+        //Register Candidate
+        //---------------------------------------------------------------------------------------------------
+        Candidate candidate = new Candidate("Amilcar",
+                "Leitão","amilcar@gmail.com","919111228");
+        candidateRepository.save(candidate);
+
+
+        Candidate candidate1 = new Candidate("Sebastião", "Tobaldo","sebtob@gmail.com","919131222");
+        candidateRepository.save(candidate1);
+
+
+
+        //---------------------------------------------------------------------------------------------------
+        //Register Job Application
+        //---------------------------------------------------------------------------------------------------
+        List<JobApplicationFile> file = List.of(new JobApplicationFile("file1", new Path("file1.pdf")));
+        List<JobApplicationFile> file1 = List.of(new JobApplicationFile("file2", new Path("file1.pdf")));
 
 
         JobApplication jobApplication = new JobApplication(1L,file,candidate);
@@ -142,25 +207,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1));
 
-
-
-        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
-                "Description", "Function", ContractType.FULL_TIME, client1);
-
-        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
-                "Description1", "Function", ContractType.FULL_TIME, client);
-
-
-        List<Phase> phases = List.of(
-                new Phase(Phases.APPLICATION, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 5, 1)),
-                new Phase(Phases.RESUME_SCREEN, LocalDate.of(2024, 5, 2), LocalDate.of(2024, 6, 1)),
-                new Phase(Phases.ANALYSIS, LocalDate.of(2024, 6, 2), LocalDate.of(2024, 7, 1)),
-                new Phase(Phases.RESULT, LocalDate.of(2024, 7, 2), LocalDate.of(2024, 8, 1)));
-
-        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
-
-        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
-                "Description1", "Function", ContractType.FULL_TIME, client2,recruitmentProcess);
 
 
         return true;
@@ -244,6 +290,22 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         ClientDTO clientDTO = new ClientMapper().toDTO(client);
 
         return jobOpeningController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientDTO,recruitmentProcess);
+    }
+
+    public JobOpening registerJobOpening(
+            String JobReference
+            , WorkingMode workingMode
+            , String nrVacancy
+            , String address
+            , String description
+            , String function
+            , ContractType contractType
+            , Client client
+            , RecruitmentProcess recruitmentProcess){
+
+        ClientDTO clientDTO = new ClientMapper().toDTO(client);
+
+        return jobOpeningController.registerJobOpening(JobReference,workingMode, nrVacancy, address, description, function, contractType, clientDTO,recruitmentProcess);
     }
 
 }

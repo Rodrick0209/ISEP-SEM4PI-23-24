@@ -25,7 +25,6 @@ import jobs4u.base.infrastructure.bootstrapers.BaseBootstrapper;
 import jobs4u.base.infrastructure.smoketests.BaseDemoSmokeTester;
 import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromClientRegistedWatchDog;
 import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
-import jobs4u.base.infrastructure.bootstrapers.demo.BaseDemoBootstrapper;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
 import eapli.framework.collections.util.ArrayPredicates;
@@ -59,16 +58,16 @@ public final class BaseBootstrap extends BaseApplication {
     protected void doMain(final String[] args) {
         //   handleArgs(args);
 
-    //    System.out.println("\n\n------- MASTER DATA -------");
-      //  new BaseBootstrapper().execute();
+        System.out.println("\n\n------- MASTER DATA -------");
+        new BaseBootstrapper().execute();
 
         // if (isToBootstrapDemoData) {
       //  System.out.println("\n\n------- DEMO DATA -------");
        // new BaseDemoBootstrapper().execute();
         //   }
         //  if (isToRunSampleE2E) {
-            System.out.println("\n\n------- BASIC SCENARIO -------");
-        new BaseDemoSmokeTester().execute();
+         //   System.out.println("\n\n------- BASIC SCENARIO -------");
+        //new BaseDemoSmokeTester().execute();
         //}
     }
 

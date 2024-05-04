@@ -111,7 +111,18 @@ public class RegisterJobOpeningController {
 
         final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),clientMapper.toEntity(client), recruitmentProcess);
         return saveJobOpening(jobOpening);
+    }
 
+    public JobOpening registerJobOpening(String jobReference,WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, ClientDTO client, RecruitmentProcess recruitmentProcess) {
+
+        Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER, Jobs4uRoles.POWER_USER);
+
+        JobReference jobReference1 = new JobReference(jobReference);
+
+        ClientMapper clientMapper = new ClientMapper();
+
+        final JobOpening jobOpening = jobOpeningFactory.createJobOpening(jobReference1, workingMode, nrVacancy, address, description, function, contractType, Calendar.getInstance(),clientMapper.toEntity(client), recruitmentProcess);
+        return saveJobOpening(jobOpening);
     }
 
 
