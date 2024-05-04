@@ -1,4 +1,4 @@
-package jobs4u.base.app.backoffice.console.presentation.customerManagerUser;
+package jobs4u.base.app.backoffice.console.presentation.candiateManagement;
 
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.io.util.Console;
@@ -16,7 +16,7 @@ import java.util.List;
 public class DisplayCandidateInfoUI extends AbstractUI {
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.customerManagerUser.DisplayCandidateInfoUI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DisplayCandidateInfoUI.class);
 
 
     private final DisplayCandidateInfoController theController = new DisplayCandidateInfoController(PersistenceContext.repositories().candidates(), PersistenceContext.repositories().jobApplications(), PersistenceContext.repositories().jobOpenings(), AuthzRegistry.authorizationService());

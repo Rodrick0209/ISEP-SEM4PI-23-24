@@ -1,17 +1,16 @@
-package jobs4u.base.app.backoffice.console.presentation.customerManagerUser;
+package jobs4u.base.app.backoffice.console.presentation.InterviewManagement;
+
 
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.base.pluginGeneration.InterviewGenerator.application.GenerateInterviewTemplateController;
 import jobs4u.base.pluginGeneration.InterviewGenerator.utils.QuestionType;
 
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class GenerateRequirementTemplateUI extends AbstractUI {
-
-
-
+public class GenerateInterviewTemplateUI extends AbstractUI {
 
     Map<String, Map<String, String>> questions = new LinkedHashMap<>();
 
@@ -19,9 +18,9 @@ public class GenerateRequirementTemplateUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        System.out.println("Which name do you want to give to the requirement template?");
+        System.out.println("Which name do you want to give to the interview template?");
         String templateName = Console.readLine("Template name:");
-        System.out.println("Add question to the requirement template?");
+        System.out.println("Add question to the interview template?");
         System.out.println("1. Yes");
         System.out.println("2. No");
         int option = Console.readInteger("Please select an option:");
@@ -30,11 +29,11 @@ public class GenerateRequirementTemplateUI extends AbstractUI {
                 boolean flag = true;
                 int nrQuestao = 1;
                 while(flag) {
-                    String questionSelected = requestQuestionType();
+                    String questionSelected = requestInterviewQuestionType();
                     String questionFormated =questionSelected+": ("+nrQuestao+")";
                     questions.put(questionFormated, new LinkedHashMap<>());
 
-                    if (questionSelected.equals(QuestionType.MULTIPLE_CHOICE.getLabel()) || questionSelected.equals(QuestionType.SINGLE_CHOICE.getLabel())) {
+                    if (questionSelected.equals(QuestionType.MULTIPLE_CHOICE.getLabel())) {
                         String question = Console.readLine("Question:");
 
 
@@ -52,7 +51,8 @@ public class GenerateRequirementTemplateUI extends AbstractUI {
                     } else {
                         questions.get(questionFormated).put("Question", Console.readLine("Question:"));
                     }
-                    questions.get(questionFormated).put("Requirement", Console.readLine("Answer:"));
+                    questions.get(questionFormated).put("Score", Console.readLine("Score:"));
+                    questions.get(questionFormated).put("Correct answer", Console.readLine("Answer:"));
                     nrQuestao++;
                     System.out.println("Do you want to add more questions?");
                     System.out.println("1. Yes");
@@ -83,7 +83,7 @@ public class GenerateRequirementTemplateUI extends AbstractUI {
     }
 
 
-    private String requestQuestionType() {
+    private String requestInterviewQuestionType() {
         System.out.println("Please select the type of question you want to add to the interview template:");
 
         // Exibir opções dinamicamente com base no enum QuestionType
@@ -97,8 +97,11 @@ public class GenerateRequirementTemplateUI extends AbstractUI {
             return selectedType.getLabel();
         } else {
             System.out.println("Invalid option. Please try again.");
-            return requestQuestionType();
+            return requestInterviewQuestionType();
 
         }
     }
+
+
 }
+
