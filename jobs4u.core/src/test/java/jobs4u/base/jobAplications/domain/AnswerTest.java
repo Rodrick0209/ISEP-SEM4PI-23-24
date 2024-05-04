@@ -3,6 +3,11 @@ package jobs4u.base.jobAplications.domain;
 import jobs4u.base.jobApplications.domain.Answer;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.*;
 
 public class AnswerTest {
@@ -10,37 +15,42 @@ public class AnswerTest {
 
     @Test
     public void testIsRecognisingFileAnswer() {
-        Answer answer = new Answer("answerFromCandidate1Test.txt");
+        // Cria um mock da classe Answer
+        Answer answer = new Answer("answerFromCandidate1Test.answer");
+
+        InputStream inputStream;
         try {
-            // Supondo que "inputStream" seja seu InputStream
-            InputStream inputStream = answer.inputStreamFromResourceOrFile();
+            inputStream = answer.inputStreamFromResourceOrFile();
 
-            // Cria um BufferedReader para ler o InputStream
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            // Verifica se o InputStream retornado não é nulo
+            assertNotNull("InputStream não deve ser nulo", inputStream);
 
-            // Variável para armazenar cada linha lida
-            String line;
 
-            // Lê cada linha do InputStream até chegar ao fim
-            while ((line = reader.readLine()) != null) {
-                // Imprime a linha
-                System.out.println(line);
-            }
-
-            // Fecha o BufferedReader
-            reader.close();
         } catch (IOException e) {
+            // Se houver uma exceção, falha no teste
             e.printStackTrace();
         }
-
-
     }
 
+    @Test
+    public void testDoesntRecogniseInvalidFile() {
+        Answer answer = new Answer("erro.answer");
 
+        InputStream inputStream;
+        try {
+            inputStream = answer.inputStreamFromResourceOrFile();
 
+            assertThrows(FileNotFoundException.class, answer::inputStreamFromResourceOrFile);
 
+        } catch (IOException f) {
 
-
-
-
+        }
+    }
 }
+
+
+
+
+
+
+
