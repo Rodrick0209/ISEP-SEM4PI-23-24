@@ -77,7 +77,7 @@ class AuthorizationService {
 }
 
 
-Candidate "1" ..> "1" RegisterCandidateController : create
+Candidate "1" <.. "1" RegisterCandidateController : create
 RegisterCandidateController "1" <--o "1" RegisterCandidateUI
 RegisterCandidateController "1" -- "1" CandidateRegisteredEvent : create
 RegisterCandidateController "1" -..-> "1" Jobs4uPasswordGenerator : generatePassword

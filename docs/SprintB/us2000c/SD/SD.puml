@@ -1,0 +1,27 @@
+@startuml
+
+actor Operator as User
+
+boundary "ListCandidateUI" as UI
+control "ListCandidateController" as Controller
+database "CandidateRepository" as Candidate
+
+activate User
+User -> UI : asks to list all candidates
+activate UI
+UI -> Controller** : create()
+UI -> Controller : showAllCandidates()
+
+activate Controller
+Controller -> Candidate : candidates()
+activate Candidate
+Candidate --> Controller : list of candidates
+deactivate Candidate
+Controller --> UI : list of candidates
+deactivate Controller
+
+UI --> User : display candidates
+deactivate UI
+deactivate User
+
+@enduml

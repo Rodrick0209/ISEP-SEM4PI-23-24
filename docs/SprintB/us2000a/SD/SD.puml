@@ -4,7 +4,7 @@ actor Operator as op
 boundary "RegisterCandidateUI" as UI
 control "RegisterCandidateController" as Controller
 entity "Candidate" as Candidate
-entity "CandidateRepository" as Repository
+database "CandidateRepository" as Repository
 entity "Jobs4uPasswordGenerator" as PasswordGenerator
 entity "CandidateRegisteredEvent" as Event
 entity "AuthorizationService" as AuthService
