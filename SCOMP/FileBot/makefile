@@ -9,6 +9,7 @@ OBJ1 = monitor_directory.o
 
 main: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
+	make monitor_directory
 
 monitor_directory: $(OBJ1)
 	$(CC) -o $@ $^ $(CFLAGS)
@@ -18,6 +19,7 @@ monitor_directory: $(OBJ1)
 
 clean:
 	rm -f *.o main
+	rm -f *.o monitor_directory
 
 run:
 	./main

@@ -27,7 +27,5 @@
 Foram elaborados diversos testes unitários para testar as funcionalidades do programa. Estes testes encontram-se na pasta `test`.
 
 ## Outros aspetos relevantes
-A execução do programa ocorre da seguinte maneira:
-1. Dentro da pasta de SCOMP/FileBot é necessário fazer `make monitor_directory` para compilar a parte do monitoramento do diretório.
-2. Após a compilação, é necessário executar `make main`.
-3. O ultimo passo é executar o programa com o comando `./main`
+1. Para compilar o programa é necessário executar o comando `make` na pasta do projeto.
+2. O ultimo passo é executar o programa com o comando `./main`
