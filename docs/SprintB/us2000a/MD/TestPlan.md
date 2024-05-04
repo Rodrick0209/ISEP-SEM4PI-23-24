@@ -6,7 +6,7 @@
 
 ## Case #3: Test that a candidate cannot be created with an email that is already in use.
 
-## Case #4: Test that a password is automatically generated for the candidate.
+
 
 
 
