@@ -1,4 +1,4 @@
-package jobs4u.base.app.backoffice.console.presentation.customerManagerUser;
+package jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement;
 
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -18,7 +18,7 @@ import java.util.List;
 public class RegisterJobOpeningUI extends AbstractUI {
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(jobs4u.base.app.backoffice.console.presentation.customerManagerUser.RegisterJobOpeningUI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegisterJobOpeningUI.class);
 
 
     private final RegisterJobOpeningController theController = new RegisterJobOpeningController(PersistenceContext.repositories().jobOpenings(),

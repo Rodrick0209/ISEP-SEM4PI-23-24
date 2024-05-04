@@ -1,4 +1,4 @@
-package jobs4u.base.app.backoffice.console.presentation.customerManagerUser;
+package jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement;
 
 import eapli.framework.actions.Action;
 
