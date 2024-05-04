@@ -13,10 +13,7 @@ public class ListApplicationController {
         public Iterable<JobOpening> listJobOpenings() {
             return jobOpeningRepository.findAll();
         }
-
-        public Iterable<JobOpening> listApplications() {
-            return repository.findAll();
-        }
+        
 
         public Iterable<JobApplication> listApplications(JobOpening jobOpening) {
             return repository.ofIdentity(jobOpening.jobReference()).get().getApplications();
