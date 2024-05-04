@@ -12,11 +12,20 @@ public class ListApplicationController {
     private final JobOpeningRepository repository = PersistenceContext.repositories().jobOpenings();
 
     public Iterable<JobOpening> listJobOpenings() {
+    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
+
+    public Iterable<JobApplication> listApplications() {
         return repository.findAll();
     }
 
     public Iterable<JobApplication> listApplications(JobOpening jobOpening) {
         return repository.ofIdentity(jobOpening.jobReference()).get().getApplications();
     }
+    public JobOpening getJobOpeningForJobApplication(JobApplication jobApplication) {
+        return jobOpeningRepository.findByJobApplication(jobApplication);
+    }
+
+
+
 
 }
