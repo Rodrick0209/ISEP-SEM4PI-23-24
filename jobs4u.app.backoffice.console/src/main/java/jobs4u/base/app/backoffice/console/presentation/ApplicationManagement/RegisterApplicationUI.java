@@ -43,7 +43,7 @@ public class RegisterApplicationUI extends AbstractUI {
 
         try {
             this.theController.registerJobApplication(jobApplicationId, jobOpening.jobReference().toString());
-            System.out.println("Job Opening registered successfully.");
+            System.out.println("Job Application registered successfully.");
 
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);

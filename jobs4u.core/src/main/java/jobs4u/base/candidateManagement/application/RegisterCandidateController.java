@@ -34,7 +34,7 @@ public class RegisterCandidateController {
                 throw new IllegalArgumentException("Candidate with email " + email + " already exists.");
             }
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println(e.getMessage());
             return null;
         }
         return saveCandidate(candidate, email, firstname, surname, phoneNumber);
@@ -48,7 +48,7 @@ public class RegisterCandidateController {
                 throw new IllegalArgumentException("Candidate with email " + candidate.emailAddress() + " already exists.");
             }
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println(e.getMessage());
             return null;
         }
         return saveCandidate(candidate, candidate.emailAddress().toString(), candidate.name().firstName(), candidate.name().lastName(), candidate.phoneNumber().toString());

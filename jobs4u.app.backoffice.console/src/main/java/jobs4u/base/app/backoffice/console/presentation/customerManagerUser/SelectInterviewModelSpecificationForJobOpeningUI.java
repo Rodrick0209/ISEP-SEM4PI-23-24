@@ -26,7 +26,9 @@ public class SelectInterviewModelSpecificationForJobOpeningUI extends AbstractUI
         final SelectWidget<InterviewModelSpecification> interviewModelSpecificationSelector = new SelectWidget<>("Select a Interview Model Specification", interviewModelsSpecification);
         interviewModelSpecificationSelector.show();
         final InterviewModelSpecification interviewModelSpecification = interviewModelSpecificationSelector.selectedElement();
-
+        if (interviewModelSpecification == null || jobOpening == null) {
+            return false;
+        }
         try{
             theController.selectInterviewModelSpecificationForJobOpening(interviewModelSpecification, jobOpening);
             System.out.println("Interview Model Specification successfully selected for the Job Opening!");

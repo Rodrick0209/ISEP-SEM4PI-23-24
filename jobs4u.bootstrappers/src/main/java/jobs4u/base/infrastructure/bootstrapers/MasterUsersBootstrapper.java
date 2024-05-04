@@ -42,6 +42,8 @@ import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningControlle
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
+import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.recruitmentProcessManagement.domain.Phase;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
@@ -166,7 +168,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Marketing Manager develops and implements marketing strategies to promote products or services. They conduct market research, identify target audiences, and oversee advertising campaigns.",
-                "Marketing Manager", ContractType.FULL_TIME, client,recruitmentProcess);
+                "Marketing Manager", ContractType.FULL_TIME, client);
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Financial Analyst evaluates financial data to provide insights and recommendations for business decision-making. They analyze market trends, assess investment opportunities, and prepare financial reports.",
@@ -174,7 +176,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         JobOpening jobOpening = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
-                "Software Engineer", ContractType.FULL_TIME, client1);
+                "Software Engineer", ContractType.FULL_TIME, client1,recruitmentProcess);
 
 
         //Register IBM-000123 jobOpening
@@ -205,8 +207,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobApplication jobApplication = new JobApplication(1L,file,candidate);
         JobApplication jobApplication1 = new JobApplication(2L,file1,candidate);
 
-        jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1));
-
+        //jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1));
 
 
         return true;

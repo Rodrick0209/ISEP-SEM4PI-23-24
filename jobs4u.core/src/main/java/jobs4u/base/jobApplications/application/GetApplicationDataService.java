@@ -84,7 +84,7 @@ public class GetApplicationDataService {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error reading the file. Try to execute the FileBot. If the error persists, contact the support.");
         }
 
         return result;

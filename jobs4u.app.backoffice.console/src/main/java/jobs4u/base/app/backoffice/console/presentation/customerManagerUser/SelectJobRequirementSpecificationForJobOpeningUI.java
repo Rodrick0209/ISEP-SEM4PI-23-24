@@ -28,7 +28,9 @@ public class SelectJobRequirementSpecificationForJobOpeningUI extends AbstractUI
         final SelectWidget<JobRequirementSpecification> jobRequirementSpecificationSelector = new SelectWidget<>("Select a Job Requirement Specification", jobRequirementsSpecification);
         jobRequirementSpecificationSelector.show();
         final JobRequirementSpecification jobRequirementSpecification = jobRequirementSpecificationSelector.selectedElement();
-
+        if (jobRequirementSpecification == null || jobOpening == null) {
+            return false;
+        }
         try{
             theController.selectJobRequirementSpecificationForJobOpening(jobRequirementSpecification, jobOpening);
             System.out.println("Job Requirement Specification successfully selected for the Job Opening!");

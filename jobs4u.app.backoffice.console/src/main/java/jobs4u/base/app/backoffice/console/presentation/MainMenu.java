@@ -145,7 +145,7 @@ public class MainMenu extends AbstractUI {
         }
 
 
-        System.out.println(authz.hasSession());
+        //System.out.println(authz.hasSession());
 
         final Menu mainMenu = new Menu();
 
