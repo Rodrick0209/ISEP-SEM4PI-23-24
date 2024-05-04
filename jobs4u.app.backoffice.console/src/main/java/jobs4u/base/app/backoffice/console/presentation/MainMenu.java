@@ -24,6 +24,7 @@
 package jobs4u.base.app.backoffice.console.presentation;
 
 import jobs4u.base.Application;
+import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.ListApplicationsUI;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.RegisterApplicationUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.EnableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.AddUserUI;
@@ -90,6 +91,7 @@ public class MainMenu extends AbstractUI {
 
     // APPLICATIONS
     private static final int REGISTER_APPLICATION = 1;
+    private static final int LIST_APPLICATION = 2;
 
     // SETTINGS
     private static final int Option = 1;
@@ -253,6 +255,8 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Applications >");
 
         menu.addItem(REGISTER_JOB_OPENING, "Register Application", new RegisterApplicationUI()::show);
+
+        menu.addItem(LIST_JOB_OPENING, "List Applications", new ListApplicationsUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 

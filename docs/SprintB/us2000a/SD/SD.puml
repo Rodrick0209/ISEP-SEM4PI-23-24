@@ -1,0 +1,45 @@
+@startuml
+
+actor Operator as op
+boundary "RegisterCandidateUI" as UI
+control "RegisterCandidateController" as Controller
+entity "Candidate" as Candidate
+entity "CandidateRepository" as Repository
+entity "Jobs4uPasswordGenerator" as PasswordGenerator
+entity "CandidateRegisteredEvent" as Event
+entity "AuthorizationService" as AuthService
+
+activate op
+op -> UI : tries to register a candidate
+activate UI
+UI -> Controller** : create
+
+UI -> Controller : registerCandidate(email, firstname, surname, phoneNumber)
+activate Controller
+Controller -> AuthService : ensureAuthenticatedUserHasAnyOf()
+activate AuthService
+deactivate AuthService
+Controller -> Candidate** : create
+Controller -> Controller : saveCandidate()
+activate Controller
+Controller -> Repository : save(candidate)
+activate Repository
+Repository -> Repository : persist(candidate)
+Repository -> Controller : candidate
+deactivate Repository
+Controller -> PasswordGenerator** : create
+Controller -> PasswordGenerator : generatePassword()
+activate PasswordGenerator
+PasswordGenerator -> Controller : password
+deactivate PasswordGenerator
+Controller -> Event** : create
+activate Event
+deactivate Event
+deactivate Controller
+Controller -> UI : candidate
+deactivate Controller
+UI -> op : done
+deactivate UI
+deactivate op
+
+@enduml

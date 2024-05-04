@@ -1,0 +1,88 @@
+@startuml
+
+class Candidate {
+  -EmailAddress email
+  -PhoneNumber phoneNumber
+  -Name name
+  +Candidate(String firstname, String surname, String email, String phoneNumber)
+  +Candidate(Candidate candidate)
+  +emailAddress(): EmailAddress
+  +name(): Name
+  +nameString(): String
+  +phoneNumber(): PhoneNumber
+  +equals(Object o): boolean
+  +hashCode(): int
+  +sameAs(Object other): boolean
+  +identity(): EmailAddress
+}
+
+class RegisterCandidateController {
+  -CandidateRepository candidateRepository
+  -AuthorizationService authorizationService
+  -EventPublisher dispatcher
+  +RegisterCandidateController(CandidateRepository candidateRepository, AuthorizationService authorizationService, EventPublisher dispatcher)
+  +registerCandidate(String email, String firstname, String surname, String phoneNumber): Candidate
+  +registerCandidate(Candidate candidate1): Candidate
+  -saveCandidate(Candidate candidate, String email, String firstname, String surname, String phoneNumber): Candidate
+}
+
+class RegisterCandidateUI {
+  -RegisterCandidateController controller
+  +doShow(): boolean
+  +headline(): String
+}
+
+class Jobs4uPasswordGenerator {
+  -String CAPITAL_CHARS
+  -String NUMBERS
+  -int PASSWORD_LENGTH
+  -Jobs4uPasswordPolicy passwordPolicy
+  +generatePassword(): String
+  -validatePasswordPolicy(StringBuilder password): boolean
+}
+
+class CandidateRegisteredEvent {
+  -Candidate candidate
+  -EmailAddress emailAddress
+  -Name name
+  -PhoneNumber phoneNumber
+  -String password
+  +CandidateRegisteredEvent(Candidate candidate, Name name, String emailAddress, String password, String phoneNumber)
+  +candidate(): Candidate
+  +name(): Name
+  +emailAddress(): EmailAddress
+  +password(): String
+  +phoneNumber(): PhoneNumber
+  +toString(): String
+}
+
+class CandidateRepository {
+  +CandidateRepository()
+  +save(Candidate candidate): Candidate
+  +findByEmail(EmailAddress email): Optional<Candidate>
+  +findByIdentity(EmailAddress email): Optional<Candidate>
+}
+
+class AuthorizationService {
+  -Logger LOGGER
+  -UserSession theSession
+  +AuthorizationService()
+  +createSessionForUser(SystemUser user): Optional<UserSession>
+  +clearSession(): Optional<UserSession>
+  +hasSession(): boolean
+  +session(): Optional<UserSession>
+  +isAuthenticatedUserAuthorizedTo(Role... actions): boolean
+  +ensureAuthenticatedUserHasAnyOf(Role... actions): void
+  +loggedinUserWithPermissions(Role... actions): Optional<SystemUser>
+}
+
+
+Candidate "1" ..> "1" RegisterCandidateController : create
+RegisterCandidateController "1" <--o "1" RegisterCandidateUI
+RegisterCandidateController "1" -- "1" CandidateRegisteredEvent : create
+RegisterCandidateController "1" -..-> "1" Jobs4uPasswordGenerator : generatePassword
+RegisterCandidateUI -..> RegisterCandidateController : "create"
+RegisterCandidateController "1" o--> "1" AuthorizationService : authz  
+RegisterCandidateController "1" o--> "1" CandidateRepository : save
+
+@enduml
