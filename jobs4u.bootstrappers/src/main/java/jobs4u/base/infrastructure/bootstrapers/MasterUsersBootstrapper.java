@@ -43,7 +43,7 @@ import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
-import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.recruitmentProcessManagement.domain.Phase;
@@ -214,7 +214,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1));
 
 
-        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification("teste","com.example.class");
+        RequirementSpecification jobRequirementSpecification = new RequirementSpecification("teste","com.example.class");
         InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification("teste","com.example.class");
 
         jobRequirementSpecificationRepository.save(jobRequirementSpecification);
