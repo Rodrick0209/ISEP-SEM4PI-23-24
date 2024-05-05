@@ -1,0 +1,65 @@
+@startuml
+
+class JobOpening {
+  -JobReference jobReference
+  -Long version
+  -List<JobApplication> applications
+  -WorkingMode workingMode
+  -NrVacancy nrVacancy
+  -PostalAddress address
+  -Description description
+  -Designation function
+  -ContractType contractType
+  -Calendar creationDate
+  -JobOpeningStatus status
+  -Client client
+  -RecruitmentProcess recruitmentProcess
+  -JobRequirementSpecification jobRequirementSpecification
+  -InterviewModelSpecification interviewModelSpecification
+  +JobOpening(JobReference, WorkingMode, String, String, String, String, ContractType, Calendar, Client)
+  +JobOpening(JobReference, WorkingMode, String, String, String, String, ContractType, Calendar, Client, RecruitmentProcess)
+  +addJobApplication(JobApplication): JobApplication
+  +canApplicationsBeaAdded(): boolean
+}
+
+class JobApplication {
+  -Long id
+  -Long version
+  -List<JobApplicationFile> file
+  -JobApplicationState state
+  -RequirementAnswer requirementAnswer
+  -Interview interview
+  -Candidate candidate
+  -Calendar creationDate
+  +JobApplication(Long, List<JobApplicationFile>, RequirementAnswer, Interview, Candidate)
+  +JobApplication(Long, List<JobApplicationFile>, Candidate)
+}
+
+class ListApplicationController {
+  -JobOpeningRepository repository
+  -JobOpeningRepository jobOpeningRepository
+  +listJobOpenings(): Iterable<JobOpening>
+  +listApplications(JobOpening): Iterable<JobApplication>
+  +getJobOpeningForJobApplication(JobApplication): JobOpening
+}
+
+class ListApplicationsUI {
+  -ListApplicationController controller
+  +doShow(): boolean
+  +headline(): String
+}
+
+interface JobOpeningRepository {
+  +findByCustomerManager(SystemUser): List<JobOpening>
+  +countForClientCode(ClientCode): int
+  +findByJobApplication(JobApplication): JobOpening
+}
+
+JobOpening "1" *-- "0..*" JobApplication
+ListApplicationController o--> JobOpeningRepository
+ListApplicationController <--o ListApplicationsUI
+ListApplicationsUI ..-> ListApplicationController : "create"
+JobOpeningRepository --> JobOpening
+
+
+@enduml
