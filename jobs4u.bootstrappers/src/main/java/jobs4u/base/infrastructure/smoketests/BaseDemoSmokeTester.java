@@ -36,7 +36,7 @@ public class BaseDemoSmokeTester implements Action {
     @Override
     public boolean execute() {
         // TODO: Add your smoke test execute here
-        ChainedAction.first(new PluginIntegrationSmokeTest()).execute();
+        ChainedAction.first(new PluginRequirementIntegrationSmokeTest()).then(new PluginInterviewIntegrationSmokeTest()).execute();
         return true;
     }
 }

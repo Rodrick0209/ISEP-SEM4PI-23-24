@@ -52,7 +52,7 @@ public class InterviewModelSpecification implements AggregateRoot<InterviewModel
      *
      * @return evalutor-> InterviewEvaluation
      */
-    private InterviewEvaluation buildEvaluator() {
+    public InterviewEvaluation buildEvaluator() {
         try {
             return (InterviewEvaluation) Class.forName(className.toString()).getDeclaredConstructor().newInstance();
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException |

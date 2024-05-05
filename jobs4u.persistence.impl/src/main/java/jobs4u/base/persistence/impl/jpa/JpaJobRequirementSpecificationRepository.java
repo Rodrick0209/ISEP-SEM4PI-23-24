@@ -3,12 +3,12 @@ package jobs4u.base.persistence.impl.jpa;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.base.Application;
-import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.pluginManagement.domain.JobRequirementSpecificationIdentifier;
 import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 
 public class JpaJobRequirementSpecificationRepository
-        extends JpaAutoTxRepository<JobRequirementSpecification, JobRequirementSpecificationIdentifier, JobRequirementSpecificationIdentifier>
+        extends JpaAutoTxRepository<RequirementSpecification, JobRequirementSpecificationIdentifier, JobRequirementSpecificationIdentifier>
         implements JobRequirementSpecificationRepository {
 
 

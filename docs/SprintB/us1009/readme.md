@@ -66,8 +66,8 @@ maintainability and scalability. These patterns include:
 @Test(expected = success)
 public void ensurePossibleToSelectAJobRequirementSpecificationForAJobOpening() {
         JobOpening jobOpening = new JobOpening(...);
-        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification(...);
-        jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
+        JobRequirementSpecification requirementSpecification = new JobRequirementSpecification(...);
+        jobOpening.selectJobRequirementSpecification(requirementSpecification);
 }
 ```
 
@@ -80,8 +80,8 @@ public void ensurePossibleToSelectAJobRequirementSpecificationForAJobOpening() {
 @Test(expected = NullPointerException.class)
 public void ensureNotPossibleToSelectAJobRequirementSpecificationForAInvalidJobOpening() {
 	JobOpening jobOpening = null;
-	JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification(...);
-	jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
+	JobRequirementSpecification requirementSpecification = new JobRequirementSpecification(...);
+	jobOpening.selectJobRequirementSpecification(requirementSpecification);
 }
 ````
 
@@ -94,7 +94,7 @@ public void ensureNotPossibleToSelectAJobRequirementSpecificationForAInvalidJobO
 public void ensureNotPossibleToSelectAInvalidJobRequirementSpecificationForAJobOpening()
     JobOpening jobOpening = new JobOpening(...);
     JobRequirementSpecification = null;
-    jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
+    jobOpening.selectJobRequirementSpecification(requirementSpecification);
 }
 ```
 

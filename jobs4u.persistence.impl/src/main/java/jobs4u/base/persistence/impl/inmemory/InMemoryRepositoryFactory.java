@@ -22,13 +22,11 @@ package jobs4u.base.persistence.impl.inmemory;
 
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
-import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
 import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.jobs4uusermanagement.repositories.ClientUserRepository;
-import jobs4u.base.jobs4uusermanagement.repositories.SignupRequestRepository;
 import jobs4u.base.infrastructure.bootstrapers.BaseBootstrapper;
 import jobs4u.base.infrastructure.persistence.RepositoryFactory;
 import eapli.framework.domain.repositories.TransactionalContext;

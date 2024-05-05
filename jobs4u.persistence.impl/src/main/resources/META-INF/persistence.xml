@@ -22,7 +22,7 @@
     <class>jobs4u.base.pluginManagement.domain.InterviewModelSpecificationIdentifier</class>
     <class>jobs4u.base.pluginManagement.domain.FQClassName</class>
     <class>jobs4u.base.utils.Path</class>
-    <class>jobs4u.base.pluginManagement.domain.JobRequirementSpecification</class>
+    <class>jobs4u.base.pluginManagement.domain.RequirementSpecification</class>
     <class>jobs4u.base.pluginManagement.domain.JobRequirementSpecificationIdentifier</class>
     <class>jobs4u.base.jobApplications.domain.JobApplication</class>
     <class>jobs4u.base.jobApplications.domain.Interview</class>
