@@ -1,16 +1,16 @@
 package jobs4u.base.jobRequirement.domain;
 
-import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.pluginManagement.domain.JobRequirementSpecificationIdentifier;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class JobRequirementSpecificationTest {
+public class RequirementSpecificationTest {
     @Test
     public void ensureJobRequirementSpecificationIsConfiguredSuccessfully(){
         JobRequirementSpecificationIdentifier identifier = JobRequirementSpecificationIdentifier.valueOf("teste");
-        JobRequirementSpecification specification = new JobRequirementSpecification(identifier.toString(), "com.example.Teste");
+        RequirementSpecification specification = new RequirementSpecification(identifier.toString(), "com.example.Teste");
         assertNotNull(specification);
     }
 
@@ -25,14 +25,14 @@ public class JobRequirementSpecificationTest {
     public void ensureJobRequirementSpecificationNotConfiguredWithoutClassName(){
         JobRequirementSpecificationIdentifier identifier = JobRequirementSpecificationIdentifier.valueOf("teste");
         assertThrows(IllegalArgumentException.class, () -> {
-            new JobRequirementSpecification(identifier.toString(), null);
+            new RequirementSpecification(identifier.toString(), null);
         });
     }
 
     @Test
     public void testIsRecognisingPlugin() {
         JobRequirementSpecificationIdentifier identifier = JobRequirementSpecificationIdentifier.valueOf("teste");
-        JobRequirementSpecification specification = new JobRequirementSpecification(identifier.toString(), "jobs4u.integration.plugins.Programador2AnosExperienciaRequirement.RequirementManagement.RequirementService");
+        RequirementSpecification specification = new RequirementSpecification(identifier.toString(), "jobs4u.integration.plugins.Programador2AnosExperienciaRequirement.RequirementManagement.RequirementService");
         //assertNotNull(specification.buildEvaluator());
     }
 

@@ -10,11 +10,17 @@
     </parent>
 
 
-    <groupId>jobs4u</groupId>
+    <groupId>jobs4u.integration.plugins.QuimicoInterview</groupId>
+    <artifactId>jobs4u.integration.plugins.QuimicoInterview</artifactId>
+    <packaging>jar</packaging>
+    <name>jobs4u.integration.plugins.QuimicoInterview</name>
+
+
+   <!-- <groupId>jobs4u.integration.plugins.Programador2AnosExperienciaRequirement</groupId>
     <artifactId>jobs4u.integration.plugins.Programador2AnosExperienciaRequirement</artifactId>
     <packaging>jar</packaging>
     <name>jobs4u.integration.plugins.Programador2AnosExperienciaRequirement</name>
-
+-->
     <properties>
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>

@@ -7,7 +7,7 @@ import jakarta.persistence.Embeddable;
 public class Interview implements ValueObject {
     private Date date;
     private Time time;
-    private InterviewAnswer interviewAnswer;
+    private Answer interviewAnswer;
 
 
 
@@ -20,11 +20,11 @@ public class Interview implements ValueObject {
         // for ORM
     }
 
-    public Date getDate() {
+    public Date date() {
         return date;
     }
 
-    public Time getTime() {
+    public Time time() {
         return time;
     }
 

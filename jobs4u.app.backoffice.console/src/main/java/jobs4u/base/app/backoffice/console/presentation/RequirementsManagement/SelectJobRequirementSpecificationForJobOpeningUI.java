@@ -8,7 +8,7 @@ import eapli.framework.presentation.console.SelectWidget;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.SelectJobRequirementSpecificationForJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
-import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -24,15 +24,15 @@ public class SelectJobRequirementSpecificationForJobOpeningUI extends AbstractUI
         jobOpeningSelector.show();
         final JobOpening jobOpening = jobOpeningSelector.selectedElement();
 
-        final Iterable<JobRequirementSpecification> jobRequirementsSpecification = theController.listJobRequirementsSpecification();
-        final SelectWidget<JobRequirementSpecification> jobRequirementSpecificationSelector = new SelectWidget<>("Select a Job Requirement Specification", jobRequirementsSpecification);
+        final Iterable<RequirementSpecification> jobRequirementsSpecification = theController.listJobRequirementsSpecification();
+        final SelectWidget<RequirementSpecification> jobRequirementSpecificationSelector = new SelectWidget<>("Select a Job Requirement Specification", jobRequirementsSpecification);
         jobRequirementSpecificationSelector.show();
-        final JobRequirementSpecification jobRequirementSpecification = jobRequirementSpecificationSelector.selectedElement();
-        if (jobRequirementSpecification == null || jobOpening == null) {
+        final RequirementSpecification requirementSpecification = jobRequirementSpecificationSelector.selectedElement();
+        if (requirementSpecification == null || jobOpening == null) {
             return false;
         }
         try{
-            theController.selectJobRequirementSpecificationForJobOpening(jobRequirementSpecification, jobOpening);
+            theController.selectJobRequirementSpecificationForJobOpening(requirementSpecification, jobOpening);
             System.out.println("Job Requirement Specification successfully selected for the Job Opening!");
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);

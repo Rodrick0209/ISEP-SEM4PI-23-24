@@ -11,6 +11,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+
 import jobs4u.integration.plugins.Programador2AnosExperienciaRequirement.RequirementManagement.Evaluation.EvalVisitorEvaluation;
 import jobs4u.integration.plugins.Programador2AnosExperienciaRequirement.RequirementManagement.Evaluation.EvaluationParser;
 import jobs4u.integration.plugins.Programador2AnosExperienciaRequirement.RequirementManagement.RequirementTemplateAnalyze.EvalVisitor;
@@ -48,7 +50,7 @@ public class RequirementService implements RequirementEvaluation {
 
 
     @Override
-    public boolean evaluate(String answerPath) {
+    public boolean evaluate(InputStream answerPath) {
        /* PluginQuestions pluginQuestions = checkTemplateSyntax();
         try {
             FileInputStream fileInputStream = new FileInputStream(answerPath);
@@ -70,7 +72,7 @@ public class RequirementService implements RequirementEvaluation {
         } catch (Exception e) {
             throw new ErrorInFileException("The resolution does not follow the required format!.");
         }*/
-        System.out.println("Esta a funcionar");
+        System.out.println("Requirement 2 anos experiencia Plugin Integration is working");
         return true;
     }
 }

@@ -4,7 +4,7 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
-import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 
@@ -27,16 +27,16 @@ public class SelectJobRequirementSpecificationForJobOpeningController {
         return this.jobOpeningRepository.findAll();
     }
 
-    public Iterable<JobRequirementSpecification> listJobRequirementsSpecification(){
+    public Iterable<RequirementSpecification> listJobRequirementsSpecification(){
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN, Jobs4uRoles.CUSTOMER_MANAGER);
 
         return this.jobRequirementSpecificationRepository.findAll();
     }
 
-    public JobOpening selectJobRequirementSpecificationForJobOpening(JobRequirementSpecification jobRequirementSpecification, JobOpening jobOpening){
+    public JobOpening selectJobRequirementSpecificationForJobOpening(RequirementSpecification requirementSpecification, JobOpening jobOpening){
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN, Jobs4uRoles.CUSTOMER_MANAGER);
 
-        jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
+        jobOpening.selectJobRequirementSpecification(requirementSpecification);
         return this.jobOpeningRepository.save(jobOpening);
     }
 

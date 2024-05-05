@@ -1,31 +1,24 @@
 package jobs4u.base.jobOpeningsManagement.application;
 
-import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.domain.model.*;
-import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
-import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
-import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
-import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.pluginManagement.domain.JobRequirementSpecificationIdentifier;
 import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.utils.ClientCode;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertNotNull;
 
-public class SelectJobRequirementSpecificationForJobOpeningControllerTest {
+public class SelectJobRequirementSpecificationForOpeningControllerTest {
     private SelectJobRequirementSpecificationForJobOpeningController theController;
 
     private final AuthorizationService authz = new AuthorizationService() {
@@ -91,25 +84,25 @@ public class SelectJobRequirementSpecificationForJobOpeningControllerTest {
 
     private final JobRequirementSpecificationRepository jobRequirementSpecificationRepository = new JobRequirementSpecificationRepository() {
 
-        private HashSet<JobRequirementSpecification> jobRequirementsSpecification = new HashSet<>();
+        private HashSet<RequirementSpecification> jobRequirementsSpecification = new HashSet<>();
 
         @Override
-        public <S extends JobRequirementSpecification> S save(S entity) {
+        public <S extends RequirementSpecification> S save(S entity) {
             return null;
         }
 
         @Override
-        public Iterable<JobRequirementSpecification> findAll() {
+        public Iterable<RequirementSpecification> findAll() {
             return jobRequirementsSpecification;
         }
 
         @Override
-        public Optional<JobRequirementSpecification> ofIdentity(JobRequirementSpecificationIdentifier id) {
+        public Optional<RequirementSpecification> ofIdentity(JobRequirementSpecificationIdentifier id) {
             return Optional.empty();
         }
 
         @Override
-        public void delete(JobRequirementSpecification entity) {
+        public void delete(RequirementSpecification entity) {
 
         }
 

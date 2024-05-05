@@ -15,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 @XmlRootElement
 @Table(name = "JobRequirementSpecification")
 @Entity
-public class JobRequirementSpecification implements AggregateRoot<JobRequirementSpecificationIdentifier> {
+public class RequirementSpecification implements AggregateRoot<JobRequirementSpecificationIdentifier> {
 
     @EmbeddedId
     private JobRequirementSpecificationIdentifier identifier;
@@ -23,15 +23,15 @@ public class JobRequirementSpecification implements AggregateRoot<JobRequirement
     private FQClassName className;
 
 
-    private static final Logger LOGGER = LogManager.getLogger(JobRequirementSpecification.class);
+    private static final Logger LOGGER = LogManager.getLogger(RequirementSpecification.class);
 
-    protected JobRequirementSpecification() {
+    protected RequirementSpecification() {
         // for ORM
         identifier = null;
         className = null;
     }
 
-    public JobRequirementSpecification(String identifier, String className) {
+    public RequirementSpecification(String identifier, String className) {
         Preconditions.nonNull(identifier,className);
         this.identifier = JobRequirementSpecificationIdentifier.valueOf(identifier);
         this.className = FQClassName.valueOf(className);

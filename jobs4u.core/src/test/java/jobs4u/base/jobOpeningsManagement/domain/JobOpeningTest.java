@@ -4,14 +4,11 @@ import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
-import jobs4u.base.pluginManagement.domain.InterviewModelSpecificationIdentifier;
-import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
-import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
-import jobs4u.base.pluginManagement.domain.JobRequirementSpecificationIdentifier;
+import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
@@ -82,9 +79,9 @@ public class JobOpeningTest {
         Client client = new Client("ISEP123","ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
 
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client);
-        JobRequirementSpecification jobRequirementSpecification = null;
+        RequirementSpecification requirementSpecification = null;
         assertThrows(IllegalArgumentException.class, () -> {
-            jobOpening.selectJobRequirementSpecification(jobRequirementSpecification);
+            jobOpening.selectJobRequirementSpecification(requirementSpecification);
         });
     }
 

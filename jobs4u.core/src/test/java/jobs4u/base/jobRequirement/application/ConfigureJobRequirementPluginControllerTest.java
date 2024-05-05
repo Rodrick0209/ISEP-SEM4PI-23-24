@@ -3,7 +3,7 @@ package jobs4u.base.jobRequirement.application;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import jobs4u.base.pluginManagement.application.ConfigureJobRequirementPluginController;
-import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.pluginManagement.domain.JobRequirementSpecificationIdentifier;
 import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,25 +19,25 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class ConfigureJobRequirementPluginControllerTest {
     private ConfigureJobRequirementPluginController theController;
     private JobRequirementSpecificationRepository repository = new JobRequirementSpecificationRepository() {
-        private List<JobRequirementSpecification> jobRequirementsSpecification = new ArrayList<>();
+        private List<RequirementSpecification> jobRequirementsSpecification = new ArrayList<>();
         @Override
-        public <S extends JobRequirementSpecification> S save(S entity) {
+        public <S extends RequirementSpecification> S save(S entity) {
             jobRequirementsSpecification.add(entity);
             return entity;
         }
 
         @Override
-        public Iterable<JobRequirementSpecification> findAll() {
+        public Iterable<RequirementSpecification> findAll() {
             return null;
         }
 
         @Override
-        public Optional<JobRequirementSpecification> ofIdentity(JobRequirementSpecificationIdentifier id) {
+        public Optional<RequirementSpecification> ofIdentity(JobRequirementSpecificationIdentifier id) {
             return Optional.empty();
         }
 
         @Override
-        public void delete(JobRequirementSpecification entity) {
+        public void delete(RequirementSpecification entity) {
 
         }
 
@@ -77,7 +77,7 @@ public class ConfigureJobRequirementPluginControllerTest {
 
     @Test
     public void ensureJobRequirementPluginIsSuccessfullyConfigured(){
-        JobRequirementSpecification specification = theController.configurePlugin("teste", "com.example.Teste");
+        RequirementSpecification specification = theController.configurePlugin("teste", "com.example.Teste");
         assertNotNull(specification);
     }
 }

@@ -11,7 +11,7 @@ import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.utils.*;
 
-import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.utils.PostalAddress;
@@ -58,7 +58,7 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     private RecruitmentProcess recruitmentProcess;
 
     @OneToOne
-    private JobRequirementSpecification jobRequirementSpecification;
+    private RequirementSpecification requirementSpecification;
 
     @OneToOne
     private InterviewModelSpecification interviewModelSpecification;
@@ -160,9 +160,9 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         return DomainEntities.areEqual(this, o);
     }
 
-    public void selectJobRequirementSpecification(JobRequirementSpecification jobRequirementSpecification) {
-        Preconditions.ensure(jobRequirementSpecification != null, "job requirement specification should not be null");
-        this.jobRequirementSpecification = jobRequirementSpecification;
+    public void selectJobRequirementSpecification(RequirementSpecification requirementSpecification) {
+        Preconditions.ensure(requirementSpecification != null, "job requirement specification should not be null");
+        this.requirementSpecification = requirementSpecification;
     }
 
     public void validateCanAddOrChangeRecruitmentProcess() {
