@@ -20,10 +20,13 @@
  */
 package jobs4u.base.infrastructure.bootstrapers;
 
+import eapli.framework.general.domain.model.Designation;
 import eapli.framework.general.domain.model.EmailAddress;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
+import jobs4u.base.Application;
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.application.ClientMapper;
@@ -31,12 +34,18 @@ import jobs4u.base.clientManagement.application.RegisterClientController;
 import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobApplications.application.RegisterJobApplicationController;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobApplications.domain.JobApplicationFile;
+import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
+import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
+import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
+import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.recruitmentProcessManagement.domain.Phase;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
@@ -47,6 +56,7 @@ import jobs4u.base.utils.Path;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -62,6 +72,9 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
             AuthzRegistry.authorizationService(), InProcessPubSub.publisher());
 
     final CandidateRepository candidateRepository = PersistenceContext.repositories().candidates();
+
+    final JobRequirementSpecificationRepository jobRequirementSpecificationRepository = PersistenceContext.repositories().jobRequirementsSpecification();
+    final InterviewModelSpecificationRepository interviewModelSpecificationRepository = PersistenceContext.repositories().interviewModelsSpecification();
 
 
     @Override
@@ -200,6 +213,12 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobApplication jobApplication1 = new JobApplication(2L,file1,candidate);
         jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1));
 
+
+        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification("teste","com.example.class");
+        InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification("teste","com.example.class");
+
+        jobRequirementSpecificationRepository.save(jobRequirementSpecification);
+        interviewModelSpecificationRepository.save(interviewModelSpecification);
 
         return true;
     }
