@@ -42,7 +42,9 @@ import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningControlle
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
+import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.pluginManagement.domain.JobRequirementSpecification;
+import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.recruitmentProcessManagement.domain.Phase;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
@@ -70,6 +72,9 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
             AuthzRegistry.authorizationService(), InProcessPubSub.publisher());
 
     final CandidateRepository candidateRepository = PersistenceContext.repositories().candidates();
+
+    final JobRequirementSpecificationRepository jobRequirementSpecificationRepository = PersistenceContext.repositories().jobRequirementsSpecification();
+    final InterviewModelSpecificationRepository interviewModelSpecificationRepository = PersistenceContext.repositories().interviewModelsSpecification();
 
 
     @Override
@@ -208,6 +213,12 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobApplication jobApplication1 = new JobApplication(2L,file1,candidate);
         jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1));
 
+
+        JobRequirementSpecification jobRequirementSpecification = new JobRequirementSpecification("teste","com.example.class");
+        InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification("teste","com.example.class");
+
+        jobRequirementSpecificationRepository.save(jobRequirementSpecification);
+        interviewModelSpecificationRepository.save(interviewModelSpecification);
 
         return true;
     }
