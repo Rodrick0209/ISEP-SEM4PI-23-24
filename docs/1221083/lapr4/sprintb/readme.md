@@ -16,7 +16,7 @@
 
 **Selected Level:** 4
 
-**Justification and Evidences:** I helped in the construction/design of the domain model. I added the necessary plugins and structures in project.
+**Justification and Evidences:** I made the SD and CD for each necessary User Story, only not made in "non-functional cases" and simple cases of registering objects.
 
 ## Issues and Version Control
 
@@ -31,7 +31,7 @@
 
 **Selected Level:** 4
 
-**Justification and Evidences:** For the project structure development commits, I mentioned the tasks/issues.
+**Justification and Evidences:** In almost all cases, i reported the changes of my work and committed into the repository.
 
 ## Team Work
 
@@ -61,7 +61,7 @@
 
 **Selected Level:** 4
 
-**Justification and Evidences:** For this sprint is not needed to deploy the application, but the group is able to demonstrate the system without any execution failures during the demonstration.
+**Justification and Evidences:** The system runs outside of IDE, in all virtual machines, and without errors (except the part of running without building outside of IDE).
 
 ## Integration
 
