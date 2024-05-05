@@ -101,7 +101,7 @@ To demonstrate the functionality follow the steps below:
 
 #### 1. Deploying the plugin
 
-- Move the jar file to the **target/dependency** path.
+- Move the jar file to the **target/dependency** path in backoffice module or copy the path for your jar file for the **JOBS4U_CP** path in **run-backoffice.bat** script.
 
 #### 2. Registering/configuring the plugin
 
