@@ -14,9 +14,9 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" />
         </processorPath>
         <module name="jobs4u.bootstrappers" />
-        <module name="jobs4u.core" />
         <module name="jobs4u.app.candidate.console" />
         <module name="jobs4u.app.common.console" />
         <module name="jobs4u.persistence.impl" />
@@ -25,12 +25,20 @@
         <module name="jobs4u.app.backoffice.console" />
         <module name="jobs4u.infrastructure.application" />
       </profile>
-      <profile name="Annotation profile for jobs4u.integration.plugins" enabled="true">
+      <profile name="Annotation profile for jobs4u.core" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" />
+        </processorPath>
+        <module name="jobs4u.core" />
+      </profile>
+      <profile name="Annotation profile for jobs4u.integration.plugins" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" />
         </processorPath>
         <module name="jobs4u.integration.plugins" />
@@ -44,6 +52,7 @@
       <module name="jobs4u.app.user.console" target="11" />
       <module name="jobs4u.app1" target="11" />
       <module name="jobs4u.app2" target="11" />
+      <module name="jobs4u.integration" target="11" />
       <module name="lprog" target="20" />
     </bytecodeTargetLevel>
   </component>
