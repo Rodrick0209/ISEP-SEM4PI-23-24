@@ -59,8 +59,13 @@ curriculum, requirements answer and all files imported from [File Bot](../../Spr
 
 #### How the ranking is done?
 
-- 
+This approach is an idea from the client, after talking to him, he suggested that approach that our team gave priority.
 
+- The ranking is made ordering the candidates separated by a comma, similar to the way people enter recipients for an email. 
+- The customer manager should write the candidates email to identify the candidates.
+
+  - Example:
+    - candidate1@gmail.com,candidate2@gmail.com,candidate3@gmail.com
 
 ### Domain model
 
