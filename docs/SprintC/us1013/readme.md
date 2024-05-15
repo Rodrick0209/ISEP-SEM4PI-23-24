@@ -30,7 +30,7 @@ This user story have some dependencies with the following user stories:
 
 ### What is asked?
 
-The customer manager after [analyzing](#analise) the applications for a job Opening, should be able to rank the candidates. 
+The customer manager after [analyzing](#analise) the applications for a job Opening, should be able to [rank](#rank) the candidates. 
 
 To rank the candidates, the customer should [order](#order) the candidates by preference, being the first candidate the one that the customer manager thinks is the best for the job opening.
 
@@ -58,6 +58,7 @@ curriculum, requirements answer and all files imported from [File Bot](../../Spr
 
 
 #### How the ranking is done?
+<a id="rank"></a>
 
 This approach is an idea from the client, after talking to him, he suggested that approach that our team gave priority.
 
@@ -92,7 +93,7 @@ These clarifications were made with the client to better understand the requirem
 - It may work as a “long operation” be aware of when and how to conclude the “operation”.
 - The customer manager should be able to edit the ranking if none of the interested parties were yet notified of the results.
 
-### Doubts for the client
+### Doubts to the client
 
 
   - Rank the candidates for a job Opening is the same as rank the job Applications for a Job Opening, knowing that I can only know the candidates throw the job application? 
@@ -122,10 +123,32 @@ These clarifications were made with the client to better understand the requirem
   - The customer manager can change the rank of a candidate after assigning it?
     >  **Answer:** That should be possible if none of the interested parties were yet notified of the results.
 
+  - When the analysis phase ends, the ranking need to have all the candidates? or can the customer manager rank only some of the candidates?
+    >  **Answer:**
+  
 
-### SSD
+
 
 ### How is supposed to work?
+
+To rank the candidates of one job opening should follow the next steps:
+
+1. The user should be logged in as a Customer Manager.
+2. The customer manager selects the Job Opening option, and then one option to rank candidates
+3. The system will show to the customer manager all the job openings that are in the Analysis phase and are his responsibility.
+4. The customer manager selects the job opening that he wants to rank the candidates.
+5. A list of the candidates are shown to the customer manager. And the system wait for his ordered list.
+6. The customer manager writes the candidates email separated by a comma, in the order that he wants to rank the candidates.
+7. The system shows the rank and asks if the customer manager wants to save.
+8. The system saves the rank of the candidates.
+
+
+> - If the customer didn't rank all the candidates, the system should show a message to the customer manager asking if he wants to leave the ranking process and complete later.
+>
+> - The customer manager can edit the rank of the candidates if none of the interested parties were yet notified of the results.
+
+### SSD
+![ssd](SSD/ssd.svg)
 
 ### Dependencies to other user stories
 - [Dependencies table](#dependencias)
