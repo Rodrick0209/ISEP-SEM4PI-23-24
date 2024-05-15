@@ -73,8 +73,8 @@ This approach is an idea from the client, after talking to him, he suggested tha
 
 To implement this user story some changes are needed in the domain model.
 
-- A new Entity/Value Object is needed to represent the rank of a candidate in a job opening.
-- The Rank is inside of Job Opening aggregate. Each Job Opening can have zero or one rank (The rank only exists in the Analysis phase), and each rank has zero or multiple Job Application.
+- A new Entity is needed to represent the rank of a candidate in a job opening.
+- The Rank is inside of Job Opening aggregate. Each Job Opening can have zero or one rank (The rank only exists in the Analysis phase), and each rank has zero or multiple Candidates.
 
 ![Alt text](img/domain_model.jpeg)
 
