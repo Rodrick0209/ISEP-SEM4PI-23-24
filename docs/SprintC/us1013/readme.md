@@ -15,16 +15,15 @@ This is the first task that is directly related to the rank feature of the syste
 This user story have some dependencies with the following user stories:
 
 
-| US                                       | reason                                                                                                                                          |
-|------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| [G007](../../SprintB/g007/readme.md)     | Whe need the authentication to ensure is a customer manager that is logged                                                                      |
-| [1002](../../SprintB/us1002/readme.md)   | Each Job Opening has its rank, so we need jobOpening in the system                                                                              |
-| [2000a](../../SprintB/us2000a/readme.md) | The rank is related do applications, but to exist an application we need the candidate, do its indirectly related                               |
-| [2002](../../SprintB/us2002/readme.md)   | This us is responsible for adding applications in the system                                                                                    |
-| [1007](../../SprintB/us1007)             | This US is responsible for creating the phases of a job opening. Since ranking can only be done in the 'Analysis' phase, these USs are related. |
+| US                                                                                                          | Reason                                                                                                                                          |
+|-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| [G007](../../SprintB/g007/readme.md)                                                                        | Whe need the authentication to ensure is a customer manager that is logged                                                                      |
+| [1002](../../SprintB/us1002/readme.md)                                                                      | Each Job Opening has its rank, so we need jobOpening in the system                                                                              |
+| [2000a](../../SprintB/us2000a/readme.md)                                                                    | The rank is related to candidate,so we need to create candidates                                                                                |
+| [2002](../../SprintB/us2002/readme.md)                                                                      | This us is responsible for adding applications in the system, that are associated to job openings                                               |
+| [1007](../../SprintB/us1007)                                                                                | This US is responsible for creating the phases of a job opening. Since ranking can only be done in the 'Analysis' phase, these USs are related. |
+| [1009](../../SprintB/us1009/readme.md)<br/>[1011](../../SprintB/us1011/readme.md)<br/>[1012](../../SprintB) | To rank the candidate, the customer manager analyse the requirements and the interviews of the job Opening                                      |
 
-
-# adicionar dependencia para interview e requirements
 
 ## 3. Analysis
 
@@ -38,7 +37,7 @@ This process can only be done in the Analysis phase of the job opening.
 
 The customer manager should be able to edit the ranking if none of the interested parties were yet notified of the results.
 
-#### How the order of the rank works? 
+#### 1. How the order of the rank works? 
 <a id="order"></a>
 
 - The rank order represents the preference of the customer manager for the candidates.
@@ -48,7 +47,7 @@ in the Analysis phase.
 - There aren't two candidates with the same rank.
 
 
-#### How the analysis of candidates is done?
+#### 2. How the analysis of candidates is done?
 <a id="analise"></a>
 
 - During the recruitment process, in the phase of Analysis, the applications 
@@ -57,7 +56,7 @@ The analysis is done considering all available information like interviews,
 curriculum, requirements answer and all files imported from [File Bot](../../SprintB/us2002/readme.md).
 
 
-#### How the ranking is done?
+#### 3. How the ranking is done?
 <a id="rank"></a>
 
 This approach is an idea from the client, after talking to him, he suggested that approach that our team gave priority.
@@ -79,19 +78,6 @@ To implement this user story some changes are needed in the domain model.
 
 
 
-### Client Clarifications
-
-These clarifications were made with the client to better understand the requirements of the user story. All questions and aswers are available in this [file](https://myisepipp-my.sharepoint.com/:w:/g/personal/atb_isep_ipp_pt/EUuTReNeiM1NorupBbiS9hQB38kUh5TPLca7uDYEitSeZg?e=I5ymVX).
-
-
-
-- The order of the rank is responsibility of the Customer Manager.
-- The fact that there are no interviews does not affect the ranking of the candidates because the ranking does not depend explicitly on the interviews.
-- The ranking is a decision of the Customer Manager based on all the data that he/she may have during the process
-- The ranking of candidates is the responsibility of the customer manager. They may base it on interview results and other information, but the ranking is not automatic. There is no score or scale to use. The applications are simply ordered.
-- The client see this functionality similar to the way people enter recipients for an email, for instance. In the case of the recipients of an email I simply write their emails separated by a comma.
-- It may work as a “long operation” be aware of when and how to conclude the “operation”.
-- The customer manager should be able to edit the ranking if none of the interested parties were yet notified of the results.
 
 ### Doubts to the client
 
@@ -108,10 +94,8 @@ These clarifications were made with the client to better understand the requirem
                 - Rank the candidate1:
                 - Write the rank: 3
             
-            
                 - Rank the candidate2:
-                - Write the rank: 1
-            
+                - Write the rank: 1 
             
                 - Rank the candidate3:
                 - Write the rank: 4
@@ -127,7 +111,16 @@ These clarifications were made with the client to better understand the requirem
     >  **Answer:**
   
 
+### Client Clarifications
+These clarifications were made with the client to better understand the requirements of the user story. All questions and aswers are available in this [file](https://myisepipp-my.sharepoint.com/:w:/g/personal/atb_isep_ipp_pt/EUuTReNeiM1NorupBbiS9hQB38kUh5TPLca7uDYEitSeZg?e=I5ymVX).
 
+- The order of the rank is responsibility of the Customer Manager.
+- The fact that there are no interviews does not affect the ranking of the candidates because the ranking does not depend explicitly on the interviews.
+- The ranking is a decision of the Customer Manager based on all the data that he/she may have during the process
+- The ranking of candidates is the responsibility of the customer manager. They may base it on interview results and other information, but the ranking is not automatic. There is no score or scale to use. The applications are simply ordered.
+- The client see this functionality similar to the way people enter recipients for an email, for instance. In the case of the recipients of an email I simply write their emails separated by a comma.
+- It may work as a “long operation” be aware of when and how to conclude the “operation”.
+- The customer manager should be able to edit the ranking if none of the interested parties were yet notified of the results.
 
 ### How is supposed to work?
 
@@ -154,8 +147,9 @@ To rank the candidates of one job opening should follow the next steps:
 - [Dependencies table](#dependencias)
 
 
+### Impact in the business
 
-
+- After ranking is done, the customer can access to the list of candidates in the order that the customer manager thinks is the best for the job opening. This can be a good way to help the customer to select the best candidate for the job opening.
 
 
 ## 4. Design
