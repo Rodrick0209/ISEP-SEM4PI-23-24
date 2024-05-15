@@ -37,6 +37,8 @@ This process can only be done in the Analysis phase of the job opening.
 
 The customer manager should be able to edit the ranking if none of the interested parties were yet notified of the results.
 
+In the end of the analysis phase, the customer manager should have ranked all the candidates.
+
 #### 1. How the order of the rank works? 
 <a id="order"></a>
 
@@ -108,7 +110,7 @@ To implement this user story some changes are needed in the domain model.
     >  **Answer:** That should be possible if none of the interested parties were yet notified of the results.
 
   - When the analysis phase ends, the ranking need to have all the candidates? or can the customer manager rank only some of the candidates?
-    >  **Answer:**
+    >  **Answer:** All the candidates should be ranked before moving to the result phase.
   
 
 ### Client Clarifications
@@ -121,6 +123,7 @@ These clarifications were made with the client to better understand the requirem
 - The client see this functionality similar to the way people enter recipients for an email, for instance. In the case of the recipients of an email I simply write their emails separated by a comma.
 - It may work as a “long operation” be aware of when and how to conclude the “operation”.
 - The customer manager should be able to edit the ranking if none of the interested parties were yet notified of the results.
+- All the candidates should be ranked before moving to the result phase.
 
 ### How is supposed to work?
 
@@ -139,6 +142,7 @@ To rank the candidates of one job opening should follow the next steps:
 > - If the customer didn't rank all the candidates, the system should show a message to the customer manager asking if he wants to leave the ranking process and complete later.
 >
 > - The customer manager can edit the rank of the candidates if none of the interested parties were yet notified of the results.
+
 
 ### SSD
 ![ssd](SSD/ssd.svg)
