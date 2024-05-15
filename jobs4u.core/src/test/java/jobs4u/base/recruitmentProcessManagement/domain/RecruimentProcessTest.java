@@ -2,6 +2,7 @@ package jobs4u.base.recruitmentProcessManagement.domain;
 
 import eapli.framework.general.domain.model.Designation;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
+import jobs4u.base.recruitmentProcessManagement.dto.RecruitmentProcessDto;
 import jobs4u.base.recruitmentProcessManagement.utils.DateUtils;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.utils.ClientCode;
@@ -28,6 +29,91 @@ public class RecruimentProcessTest {
         phases.add(phase4);
         phases.add(phase5);
         assertDoesNotThrow(() -> new RecruitmentProcess(phases));
+
+    }
+
+
+    @Test
+    public void testCreateValidRecruitmentProcessWithInterviewBuilder() {
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto( DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"),
+                DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-07-2025"),
+                DateUtils.parseDate("18-08-2025"), DateUtils.parseDate("19-08-2025"),
+                DateUtils.parseDate("20-08-2025"), DateUtils.parseDate("21-08-2025"),
+                DateUtils.parseDate("22-08-2025"),DateUtils.parseDate("30-08-2025"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        assertDoesNotThrow(() -> recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto));
+
+    }
+
+    @Test
+    public void testCreateValidRecruitmentProcessWithoutInterviewBuilder() {
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto( DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"),
+                DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-07-2025"),
+                null, null,
+                DateUtils.parseDate("20-08-2025"), DateUtils.parseDate("21-08-2025"),
+                DateUtils.parseDate("22-08-2025"),DateUtils.parseDate("30-08-2025"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        assertDoesNotThrow(() -> recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto));
+
+    }
+
+
+    @Test
+    public void testWithInvalidPhasesDate(){
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto( DateUtils.parseDate("18-04-2025"),
+                DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-04-2025"),
+                DateUtils.parseDate("18-07-2025"), DateUtils.parseDate("18-08-2025"),
+                DateUtils.parseDate("19-08-2025"), DateUtils.parseDate("20-08-2025"),
+                DateUtils.parseDate("21-08-2025"),DateUtils.parseDate("22-08-2025"),DateUtils.parseDate("30-08-2025"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        assertThrows(IllegalArgumentException.class, () ->
+                recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto));
+
+    }
+
+    @Test
+    public void testWithInvalidPhasesDate2(){
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto( DateUtils.parseDate("18-04-2025"),
+                DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"),
+                DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-08-2025"),
+                DateUtils.parseDate("19-08-2025"), DateUtils.parseDate("20-08-2025"),
+                DateUtils.parseDate("21-08-2025"),DateUtils.parseDate("22-08-2025"),DateUtils.parseDate("30-08-2025"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        assertThrows(IllegalArgumentException.class, () ->
+                recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto));
+
+    }
+
+    @Test
+    public void testWithInvalidPhasesDate3(){
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto( DateUtils.parseDate("18-04-2025"),
+                DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"),
+                DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-08-2025"),
+                DateUtils.parseDate("19-08-2025"), DateUtils.parseDate("20-08-2025"),
+                DateUtils.parseDate("21-08-2025"),DateUtils.parseDate("22-08-2025"),DateUtils.parseDate("30-08-2025"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        assertThrows(IllegalArgumentException.class, () ->
+                recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto));
+
+    }
+
+
+    @Test
+    public void testWithInvalidPhasesDate4(){
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto( DateUtils.parseDate("18-04-2025"),
+                DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"),
+                DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-08-2025"),
+                DateUtils.parseDate("17-08-2025"), DateUtils.parseDate("20-08-2025"),
+                DateUtils.parseDate("21-08-2025"),DateUtils.parseDate("22-08-2025"),DateUtils.parseDate("30-08-2025"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        assertThrows(IllegalArgumentException.class, () ->
+                recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto));
 
     }
 

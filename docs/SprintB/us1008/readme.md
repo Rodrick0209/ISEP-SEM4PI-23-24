@@ -33,13 +33,8 @@ ment Specification or Interview Model) to be used by the system.
 
 ## 4. Design
 
-### 4.1. Realization
 
-
-### 4.2. Class Diagram
-
-
-### 4.3. Applied Patterns
+### 4.1. Applied Patterns
 
 In the development of this task, we utilized several design patterns to structure our code and ensure its
 maintainability and scalability. These patterns include:
@@ -51,7 +46,24 @@ maintainability and scalability. These patterns include:
 - **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
   handle incoming requests, manipulate data using the model, and select views to render to the user
 
-### 4.4. Tests
+### 4.2. Domain Classes
+
+- **JobRequirementSpecification:** This class represents the Job Requirement Specification plugin.
+- **InterviewModelSpecification:** This class represents the Interview Model Specification plugin.
+
+### 4.3. Controller
+
+- **ConfigureJobRequirementPluginController:** 
+- **ConfigureInterviewModelPluginController:**
+
+### 4.4. Repository
+
+- **JobRequirementSpecificationRepository:** This interface defines the methods for interacting with the database.
+- **InterviewModelSpecificationRepository:** This interface defines the methods for interacting with the database.
+
+### 4.2. Tests
+- For this us we did a smoker test just to test if our system could recognise the plugin and load it correctly. When the antlr functionality is implemented we will do a more extensive test.
+
 
 ## 5. Implementation
 
@@ -87,13 +99,7 @@ explanation
   interacting with the
   database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
 
-## 6. Integration/Demonstration
-
-### Integration
-
-We seamlessly integrated our functionality by leveraging an existing service that included both a repository and a
-controller. This approach allowed us to efficiently integrate our solution into the system without duplicating efforts
-or reinventing existing components.
+## 6. Demonstration
 
 ### Demonstration
 

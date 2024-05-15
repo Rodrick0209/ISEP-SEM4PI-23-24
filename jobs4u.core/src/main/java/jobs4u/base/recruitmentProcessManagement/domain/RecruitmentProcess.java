@@ -25,6 +25,21 @@ public class RecruitmentProcess {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Phase> phases;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Phase applicationPhase;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Phase resumeScreenPhase;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Phase interviewsPhase;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Phase analysisPhase;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Phase resultPhase;
+
 
     protected RecruitmentProcess() {
     }
@@ -37,6 +52,7 @@ public class RecruitmentProcess {
 
     /**
      * this is the domain validation of the phases
+     *
      * @param phases recruitment process phases
      */
 
@@ -49,6 +65,7 @@ public class RecruitmentProcess {
 
     /**
      * validate if the phases are in one of the possible orders
+     *
      * @param phases list of phases
      */
     private void validatePhasesOrder(List<Phase> phases) {
@@ -82,7 +99,7 @@ public class RecruitmentProcess {
     /**
      * @return the active phase of the recruitment process
      */
-    public Phase returnActivePhase(){
+    public Phase returnActivePhase() {
         for (Phase phase : phases) {
             if (phase.state.equals(State.OPEN)) {
                 return phase;
@@ -108,6 +125,7 @@ public class RecruitmentProcess {
 
     /**
      * Método verifies if the recruitment process has already started
+     *
      * @return true if the recruitment process has already started, false otherwise
      */
     public boolean hasRecruitmentStarted() {
@@ -123,6 +141,7 @@ public class RecruitmentProcess {
 
     /**
      * this is the domain validation of the phases start and end dates
+     *
      * @param phases list of recruitment process phases
      */
 
@@ -145,8 +164,50 @@ public class RecruitmentProcess {
                 throw new IllegalArgumentException("Error in the dates setup ");
             }
         }
-
-
     }
+
+    public Phase applicationPhase() {
+        return applicationPhase;
+    }
+
+    public Phase resumeScreenPhase() {
+        return resumeScreenPhase;
+    }
+
+    public Phase interviewsPhase() {
+        return interviewsPhase;
+    }
+
+    public Phase analysisPhase() {
+        return analysisPhase;
+    }
+
+    public Phase resultPhase() {
+        return resultPhase;
+    }
+
+    public void setResultPhase(Phase resultPhase) {
+        this.resultPhase = resultPhase;
+    }
+
+    public void setApplicationPhase(Phase applicationPhase) {
+        this.applicationPhase = applicationPhase;
+    }
+
+    public void setResumeScreenPhase(Phase resumeScreenPhase) {
+        this.resumeScreenPhase = resumeScreenPhase;
+    }
+
+    public void setInterviewsPhase(Phase interviewsPhase) {
+        this.interviewsPhase = interviewsPhase;
+    }
+
+    public void setAnalysisPhase(Phase analysisPhase) {
+        this.analysisPhase = analysisPhase;
+    }
+
+
+
+
 }
 

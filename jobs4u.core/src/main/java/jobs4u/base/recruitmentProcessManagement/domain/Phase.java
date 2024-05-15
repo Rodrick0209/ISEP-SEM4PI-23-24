@@ -17,6 +17,8 @@ public class Phase {
     @GeneratedValue
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    @Column(unique = true)
     private Phases designation;
 
     private LocalDate startDate;
@@ -36,12 +38,7 @@ public class Phase {
         this.designation = designation;
         this.startDate = startDate;
         this.endDate = endDate;
-
-        if ((LocalDate.now().isAfter(startDate) && LocalDate.now().isBefore(endDate))
-                || LocalDate.now().isEqual(startDate) || LocalDate.now().isEqual(endDate))
-            this.state = State.OPEN;
-        else
-            this.state = State.CLOSED;
+        this.state = State.CLOSED;
     }
 
 

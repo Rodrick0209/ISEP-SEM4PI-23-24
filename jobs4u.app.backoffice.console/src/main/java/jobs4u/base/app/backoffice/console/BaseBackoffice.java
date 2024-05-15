@@ -25,8 +25,6 @@ package jobs4u.base.app.backoffice.console;
 
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
 import jobs4u.base.app.backoffice.console.presentation.MainMenu;
-import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientAction;
-import jobs4u.base.app.backoffice.console.presentation.recruitmentProcess.SetupRecruitmentProcessAction;
 import jobs4u.base.app.common.console.BaseApplication;
 import jobs4u.base.app.common.console.authz.LoginUI;
 import jobs4u.base.authz.AuthenticationCredentialHandler;

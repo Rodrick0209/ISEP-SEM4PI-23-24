@@ -194,5 +194,12 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
     }
 
+    public List<List<Phases>> layoutsRecruitmentProcess() {
+        List<List<Phases>> layouts = new ArrayList<>();
+        layouts.add(List.of(Phases.APPLICATION, Phases.RESUME_SCREEN, Phases.ANALYSIS, Phases.RESULT));
+        layouts.add(List.of(Phases.APPLICATION, Phases.RESUME_SCREEN, Phases.INTERVIEWS, Phases.ANALYSIS, Phases.RESULT));
+        return layouts;
+    }
+
 
 }

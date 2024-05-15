@@ -40,6 +40,8 @@ import jobs4u.base.app.backoffice.console.presentation.candiateManagement.Regist
 import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientUI;
 import jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureInterviewModelPluginUI;
 import jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureJobRequirementPluginUI;
+import jobs4u.base.app.backoffice.console.presentation.recruitmentProcess.SetupRecruitmentProcessUI_DTO;
+import jobs4u.base.app.backoffice.console.presentation.recruitmentProcess.SetupRecruitmentProcessUI_DTO_Action;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Actions;
@@ -75,6 +77,7 @@ public class MainMenu extends AbstractUI {
 
     // CUSTOMERS
     private static final int ADD_CUSTOMER_OPTION = 1;
+    private static final int SETUP_RECRUITMENT_PROCESS = 2;
 
     // OPERATOR CANDIDATE
     private static final int REGISTER_CANDIDATE = 1;
@@ -236,7 +239,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Customers >");
 
         menu.addItem(ADD_CUSTOMER_OPTION, "Add Customer", new RegisterClientUI()::show);
-
+        menu.addItem(SETUP_RECRUITMENT_PROCESS,"SetupRecruitmentProcess",new SetupRecruitmentProcessUI_DTO()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

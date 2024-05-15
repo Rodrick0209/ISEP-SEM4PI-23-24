@@ -60,7 +60,6 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     public String nameString(){
         return name.toString();
     }
-
     public PhoneNumber phoneNumber(){
         return phoneNumber;
 
