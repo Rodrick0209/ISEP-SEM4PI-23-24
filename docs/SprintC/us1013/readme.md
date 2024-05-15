@@ -30,20 +30,26 @@ This user story have some dependencies with the following user stories:
 
 ### What is asked?
 
-the customer manager after analyzing the applications for a job Opening, should be able to rank the candidates. 
-The customer manager should attribute a rank number to each job application, the number must be unique.
+The customer manager after [analyzing](#analise) the applications for a job Opening, should be able to rank the candidates. 
+
+To rank the candidates, the customer should [order](#order) the candidates by preference, being the first candidate the one that the customer manager thinks is the best for the job opening.
+
 This process can only be done in the Analysis phase of the job opening.
 
-#### How the number of the rank works?
+The customer manager should be able to edit the ranking if none of the interested parties were yet notified of the results.
 
-- The rank is a number that represents the position of the candidate in the job opening.
-- The numbers should be sequential, being the first candidate ranked with 1, the second with 2, and so on.
+#### How the order of the rank works? 
+<a id="order"></a>
+
+- The rank order represents the preference of the customer manager for the candidates.
+- The first element of the rank is the candidate that the customer manager thinks is the best for the job opening, and the last element is the candidate that the customer manager thinks is the worst for the job opening.
 - The rank size list is the same as the number of applications in the job opening that are in *accepted* state 
 in the Analysis phase.
-- The number of the rank is unique for each job application.
+- There aren't two candidates with the same rank.
 
 
-#### How the analysis is done?
+#### How the analysis of candidates is done?
+<a id="analise"></a>
 
 - During the recruitment process, in the phase of Analysis, the applications 
 are analyzed and the customer manager can rank the candidates. 
@@ -58,13 +64,37 @@ curriculum, requirements answer and all files imported from [File Bot](../../Spr
 
 ### Domain model
 
+To implement this user story some changes are needed in the domain model.
+
+- A new Entity/Value Object is needed to represent the rank of a candidate in a job opening.
+- The Rank is inside of Job Opening aggregate. Each Job Opening can have zero or one rank (The rank only exists in the Analysis phase), and each rank has zero or multiple Job Application.
+
+![Alt text](img/domain_model.jpeg)
+
+
+
 ### Client Clarifications
 
+These clarifications were made with the client to better understand the requirements of the user story. All questions and aswers are available in this [file](https://myisepipp-my.sharepoint.com/:w:/g/personal/atb_isep_ipp_pt/EUuTReNeiM1NorupBbiS9hQB38kUh5TPLca7uDYEitSeZg?e=I5ymVX).
+
+
+
+- The order of the rank is responsibility of the Customer Manager.
+- The fact that there are no interviews does not affect the ranking of the candidates because the ranking does not depend explicitly on the interviews.
+- The ranking is a decision of the Customer Manager based on all the data that he/she may have during the process
+- The ranking of candidates is the responsibility of the customer manager. They may base it on interview results and other information, but the ranking is not automatic. There is no score or scale to use. The applications are simply ordered.
+- The client see this functionality similar to the way people enter recipients for an email, for instance. In the case of the recipients of an email I simply write their emails separated by a comma.
+- It may work as a “long operation” be aware of when and how to conclude the “operation”.
+- The customer manager should be able to edit the ranking if none of the interested parties were yet notified of the results.
 
 ### Doubts for the client
 
-- **15-05-2024**
+
   - Rank the candidates for a job Opening is the same as rank the job Applications for a Job Opening, knowing that I can only know the candidates throw the job application? 
+
+    > **Answer:** In the context of a job opening, a candidate is someone that made an application to that job opening. But the same person can be a candidate to other job openings.
+    
+
 
   - How is the ranking done? The customer manager selects a job opening and is shown the different candidates, and they assign a rank to each one. And the ranking process end when he assigns a rank to all candidates?
 
@@ -74,15 +104,18 @@ curriculum, requirements answer and all files imported from [File Bot](../../Spr
             
             
                 - Rank the candidate2:
-                  - Write the rank: 1
+                - Write the rank: 1
             
             
                 - Rank the candidate3:
-                  - Write the rank: 4
+                - Write the rank: 4
+
+    >  **Answer:** Once again, I do not have specific requirements for UI/UX. But I can provide some ideas. Being a console application limits the UI/UX. However, I see this functionality similar to the way people enter recipients for an email, for instance. In the case of the recipients of an email I simply write their emails separated by a comma. Could it be similar in this case?
 
   - When a customer manager starts the ranking process, he can stop and continue later? Or the ranking process must be done in one go?  
+    >  **Answer:** I guess it may depend on how you implement the solution. But, in the case it may work as a “long operation” be aware of when and how to conclude the “operation”.
   - The customer manager can change the rank of a candidate after assigning it?
-  
+    >  **Answer:** That should be possible if none of the interested parties were yet notified of the results.
 
 
 ### SSD
@@ -90,11 +123,7 @@ curriculum, requirements answer and all files imported from [File Bot](../../Spr
 ### How is supposed to work?
 
 ### Dependencies to other user stories
-- [Tabela de dependencias](#dependencias)
-
-### How to test?
-
-### How to implement?
+- [Dependencies table](#dependencias)
 
 
 
@@ -116,8 +145,6 @@ curriculum, requirements answer and all files imported from [File Bot](../../Spr
 
 
 ### 4.4. Tests
-
-
 
 
 
