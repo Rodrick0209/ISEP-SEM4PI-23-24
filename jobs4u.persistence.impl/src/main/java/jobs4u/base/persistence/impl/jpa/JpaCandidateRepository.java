@@ -27,7 +27,7 @@ public class JpaCandidateRepository
     @Override
     public Optional<Candidate> findByEmail(EmailAddress email) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("emailAddress", email);
+        params.put("emailAddress", email.toString());
         return matchOne("e.email.email=:emailAddress", params);
     }
 

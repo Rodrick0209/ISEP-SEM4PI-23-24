@@ -24,7 +24,9 @@ public class RankingService {
         List<Candidate> candidates = new ArrayList<>();
 
         for (EmailAddress email : emailList) {
+
             Optional<Candidate> candidate = candidateRepository.findByEmail(email);
+
             if (candidate.isPresent()) {
                 candidates.add(candidate.get());
             }else {
@@ -37,6 +39,8 @@ public class RankingService {
         if (candidates.size() > size) {
             System.out.println("The number of candidates is greater than the rank size");
             return null;
+        }else if (candidates.size() < size) {
+            System.out.println("The number of candidates is less than the rank size. Please finish the rank as soon as possible.");
         }
 
         return jobOpening.addRankList(candidates);
@@ -54,11 +58,11 @@ public class RankingService {
             return new ArrayList<>();
         }
 
+
         // Split the string by commas and trim any extra whitespace from each email
         String[] emailsArray = emailString.split(",");
         List<EmailAddress> emailList = new ArrayList<>();
         List<String> invalidEmails = new ArrayList<>();
-
 
         for (String email : emailsArray) {
             String trimmedEmail = email.trim();

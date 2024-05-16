@@ -53,7 +53,7 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     private Calendar creationDate;
     private JobOpeningStatus status;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Rank rank;
 
     @ManyToOne
@@ -81,6 +81,7 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.status = JobOpeningStatus.INACTIVE;
         this.applications = new ArrayList<>();
         this.client = client;
+        this.rank = new Rank();
     }
 
     public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, Client client,RecruitmentProcess recruitmentProcess) {
@@ -97,6 +98,7 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.applications = new ArrayList<>();
         this.client = client;
         this.recruitmentProcess = recruitmentProcess;
+        this.rank = new Rank();
     }
 
     public JobApplication addJobApplication(JobApplication jobApplication) {
@@ -216,7 +218,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     }
 
     public int getRankSize(){
-
         int size = calculateRankSize(rank.getMultiplier());
         rank.setRankSize(size);
         return size;

@@ -33,6 +33,7 @@ public class rankJobOpeningUI extends AbstractUI {
         }
         listCandidates(candidates);
 
+        System.out.println("Number of elements for the rank: " + jobOpening.getRankSize());
         String emails = readEmails();
 
         Rank rank = theController.rankCandidates(jobOpening, emails);
@@ -56,9 +57,6 @@ public class rankJobOpeningUI extends AbstractUI {
             return null;
         }
 
-        jobOpenings.forEach(System.out::println);
-        System.out.println("\n");
-
         for (int i = 0; i < jobOpenings.size(); i++) {
             System.out.println((i + 1) + ". " + jobOpenings.get(i).jobReference() + " - " + jobOpenings.get(i).function());
         }
@@ -68,19 +66,19 @@ public class rankJobOpeningUI extends AbstractUI {
     }
 
     private void listCandidates(List<Candidate> candidates) {
-        System.out.println("Job Candidates List:");
 
         if (candidates==null || candidates.isEmpty() ) {
             System.out.println("There are no candidates to be ranked.");
             return;
         }
 
-        candidates.forEach(System.out::println);
         System.out.println("\n");
+        System.out.println("Job Candidates List:");
 
         for (int i = 0; i < candidates.size(); i++) {
-            System.out.println((i + 1) + ". " + candidates.get(i).name() + " - " + candidates.get(i).emailAddress());
+            System.out.println(" - " + candidates.get(i).name() + " | " + candidates.get(i).emailAddress());
         }
+        System.out.println("\n");
 
     }
 

@@ -3,6 +3,7 @@ package jobs4u.base.rankManagement.domain;
 import jakarta.persistence.*;
 import jobs4u.base.candidateManagement.domain.Candidate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,9 +16,9 @@ public class Rank {
     private final int multiplier=2;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Candidate> rank;
+    private List<Candidate> rank = new ArrayList<>();
 
-    private int rankSize;
+    private int rankSize = 0;
 
 
     public Rank() {

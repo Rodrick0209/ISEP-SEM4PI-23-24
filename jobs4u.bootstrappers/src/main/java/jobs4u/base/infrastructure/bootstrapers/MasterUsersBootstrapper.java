@@ -200,6 +200,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         Candidate candidate1 = new Candidate("Sebastião", "Tobaldo","sebtob@gmail.com","919131222");
         candidateRepository.save(candidate1);
 
+        Candidate candidate2 = new Candidate("Carlos", "Tesmeão","cates@gmail.com","919131322");
+        candidateRepository.save(candidate2);
 
 
         //---------------------------------------------------------------------------------------------------
@@ -207,11 +209,13 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         //---------------------------------------------------------------------------------------------------
         List<JobApplicationFile> file = List.of(new JobApplicationFile("file1", new Path("file1.pdf")));
         List<JobApplicationFile> file1 = List.of(new JobApplicationFile("file2", new Path("file1.pdf")));
+        List<JobApplicationFile> file2 = List.of(new JobApplicationFile("file3", new Path("file3.pdf")));
 
 
         JobApplication jobApplication = new JobApplication(1L,file,candidate);
-        JobApplication jobApplication1 = new JobApplication(2L,file1,candidate);
-        jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1));
+        JobApplication jobApplication1 = new JobApplication(2L,file1,candidate1);
+        JobApplication jobApplication2 = new JobApplication(3L,file2,candidate2);
+        jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1,jobApplication2));
 
 
         RequirementSpecification jobRequirementSpecification = new RequirementSpecification("teste","com.example.class");
