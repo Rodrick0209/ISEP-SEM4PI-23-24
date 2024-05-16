@@ -191,12 +191,11 @@ To rank the candidates of one job opening should follow the next steps:
 #### 4.4.1. Unit Tests
 
 ##### Rank Class
-- **Test 1:** Test create a rank with a list of candidates
-- **Test 2:** Test create a rank with a list of candidates with a size bigger than the rank size list 
-- **Test 3:** Test create a rank with a list of candidates with a size smaller than the rank size list
-- **Test 4:** Test the ToString method 
-- **Test 5:** Test getMultiplier method
-- **Test 6:** Test calculateRankSize method
+- **Test 1:** Test set rank only works with rankSize set first
+- **Test 2:** Test create a rank with a list of candidates
+- **Test 3:** Test create a rank with a list of candidates with a size bigger than the rank size list 
+- **Test 4:** Test create a rank with a list of candidates with a size smaller than the rank size list
+- **Test 5:** Test the ToString method 
 
 
 #### 4.4.2. Integration Tests
