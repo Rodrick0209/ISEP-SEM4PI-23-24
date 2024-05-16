@@ -79,6 +79,11 @@ public class JobReferenceServiceTest {
             return null;
         }
 
+        @Override
+        public List<JobOpening> findByCustomerManagerAndInAnalysisPhase(SystemUser customermanager) {
+            return List.of();
+        }
+
     };
 
     public static JobOpening jobOpening() {

@@ -54,6 +54,11 @@ public class SelectInterviewModelForJobOpeningControllerTest {
             return null;
         }
 
+        @Override
+        public List<JobOpening> findByCustomerManagerAndInAnalysisPhase(SystemUser customermanager) {
+            return List.of();
+        }
+
         private HashSet<JobOpening> jobOpenings = new HashSet<>();
 
         @Override

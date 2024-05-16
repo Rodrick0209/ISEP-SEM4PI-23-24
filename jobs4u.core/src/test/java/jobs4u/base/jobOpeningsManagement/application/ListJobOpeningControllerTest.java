@@ -91,6 +91,11 @@ public class ListJobOpeningControllerTest {
         public JobOpening findByJobApplication(JobApplication jobApplication) {
             return null;
         }
+
+        @Override
+        public List<JobOpening> findByCustomerManagerAndInAnalysisPhase(SystemUser customermanager) {
+            return List.of();
+        }
     };
 
 
