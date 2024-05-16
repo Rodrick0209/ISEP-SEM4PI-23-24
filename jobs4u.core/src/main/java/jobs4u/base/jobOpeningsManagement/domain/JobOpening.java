@@ -6,12 +6,14 @@ import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
+import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.utils.*;
 
 import jobs4u.base.pluginManagement.domain.RequirementSpecification;
+import jobs4u.base.rankManagement.domain.Rank;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.utils.PostalAddress;
@@ -50,6 +52,9 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     private ContractType contractType;
     private Calendar creationDate;
     private JobOpeningStatus status;
+
+    @OneToOne
+    private Rank rank;
 
     @ManyToOne
     private Client client;
@@ -202,4 +207,28 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     }
 
 
+    public List<Candidate> getCandidates() {
+        List<Candidate> candidates = new ArrayList<>();
+        for (JobApplication application : applications) {
+            candidates.add(application.candidate());
+        }
+        return candidates;
+    }
+
+    public int getRankSize(){
+
+        int size = calculateRankSize(rank.getMultiplier());
+        rank.setRankSize(size);
+        return size;
+    }
+
+
+    private int calculateRankSize(int multiplier){
+        return multiplier * Integer.parseInt(nrVacancy.toString());
+    }
+
+
+    public Rank addRankList(List<Candidate> candidates){
+       return this.rank.valueOf(candidates);
+    }
 }

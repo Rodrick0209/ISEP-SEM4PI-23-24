@@ -17,4 +17,6 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
     int countForClientCode(ClientCode clientCode);
 
     JobOpening findByJobApplication(JobApplication jobApplication);
+
+    List<JobOpening> findByCustomerManagerAndInAnalysisPhase(SystemUser customermanager);
 }
