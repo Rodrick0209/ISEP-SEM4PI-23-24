@@ -42,4 +42,33 @@ This user story have some dependencies with the following user stories:
 
 ### 3.2. Business Rules
 
-- The customer manager cannot edit the contract type or mode of a job opening after entering the Application phase of the recruitment process.
+- The customer manager must select only one job opening to edit at a time.
+- The customer manager can only edit information about a job opening that was previously registered in the process of registering the job opening (working mode, number of vacancies, address, description, function and type of contract), with the exception of the job reference.
+- The customer manager can edit one job opening information at a time.
+- The customer manager cannot edit a job opening when it is in the active state (after entering the Application phase).
+
+### 3.3. System functionality
+
+#### 3.3.1. Edit working mode of a job opening
+
+![](SSD/SSD-Edit-Working-Mode.svg)
+
+#### 3.3.2. Edit number of vacancies of a job opening
+
+![](SSD/SSD-Edit-Number-Vacancies.svg)
+
+#### 3.3.3. Edit address of a job opening
+
+![](SSD/SSD-Edit-Address.svg)
+
+#### 3.3.4. Edit description of a job opening
+
+![](SSD/SSD-Edit-Description.svg)
+
+#### 3.3.5. Edit function of a job opening
+
+![](SSD/SSD-Edit-Function.svg)
+
+#### 3.3.6. Edit contract type of a job opening
+
+![](SSD/SSD-Edit-Contract-Type.svg)

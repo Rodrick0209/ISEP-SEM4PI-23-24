@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor CustomerManager
+participant System
+
+activate CustomerManager
+CustomerManager -> System : asks to edit a job opening
+activate System
+System --> CustomerManager : shows list of inactive job openings\nand asks to select one
+CustomerManager -> System : selects one job opening
+System --> CustomerManager : shows list of attributes to\nedit and asks to select one
+CustomerManager -> System : selects contract type attribute
+System --> CustomerManager : shows list of contract type\nand asks to select new one
+CustomerManager -> System : selects new contract type
+System --> CustomerManager : backs to menu
+deactivate System
+
+@enduml
