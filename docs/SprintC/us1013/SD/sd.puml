@@ -135,11 +135,8 @@ end
     controller -> UI:Rank
     deactivate controller
 
-    UI -> CustomerManager: show the rank and asks to confirm
-    deactivate UI
-    CustomerManager -> UI: confirm the rank
-    activate UI
-    UI -> CustomerManager: show the rank save message
+
+    UI -> CustomerManager: show the rank
     deactivate UI
 else
     service -> controller: Exception
