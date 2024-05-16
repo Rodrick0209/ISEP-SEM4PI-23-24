@@ -22,4 +22,4 @@
 
 ## Business Rules
 
-- The customer manager cannot edit the contract type or mode of a job opening after entering the Application phase of the recruitment process.
+- The customer manager cannot edit a job opening after entering the Application phase of the recruitment process.
