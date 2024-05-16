@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor CustomerManager
+participant System
+
+activate CustomerManager
+CustomerManager -> System : asks to edit a job opening
+activate System
+System --> CustomerManager : shows list of job opening\nand asks to select one
+CustomerManager -> System : selects one job opening
+alt job opening has not yet\nentered Application phase
+System --> CustomerManager : asks to select a job\nopening attribute to edit
+CustomerManager -> System : selects the attribute to edit
+alt attribute is working mode
+System --> CustomerManager : asks to select new working\nmode for job opening
+CustomerManager -> System : selects contract type
+end alt
+alt attribute is number of vacancies
+System --> CustomerManager : asks to prompt new number\nof vacancies for job opening
+CustomerManager -> System : prompts new number
+end alt
+alt attribute is address
+System --> CustomerManager : asks to prompt new address
+CustomerManager -> System : prompts new address
+end alt
+alt attribute is description
+System --> CustomerManager : asks to prompt new description
+CustomerManager -> System : prompts new description
+end alt
+alt attribute is function
+System --> CustomerManager : asks to prompt new function
+CustomerManager -> System : prompts new function
+end alt
+end alt
+@enduml
