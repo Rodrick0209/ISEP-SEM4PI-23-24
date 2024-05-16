@@ -1,0 +1,160 @@
+@startuml
+
+participant CustomerManager
+participant rankCandidateUI as UI
+participant rankCandidateController as controller
+participant "AuthorizationService" as auth
+participant "RankingService" as service
+participant jobOpeningRepository as jrepo
+participant CandidateRepository as crepo
+participant jobOpening as jo
+participant "List<Candidate>" as lc
+participant "List<Candidate>" as lc1
+participant jobApplication as ja
+participant Candidate as c
+participant Rank as rank
+
+activate CustomerManager
+
+
+CustomerManager -> UI: select the rank candidates option
+activate UI
+UI-> controller: getJobOpeningsInAnalysisPhaseForCustomerManager()
+activate controller
+
+controller->auth: loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER)
+activate auth
+auth->controller: SystemUser
+deactivate auth
+
+controller -> jrepo: getJobOpeningsInAnalysisPhaseForCustomerManager(SystemUser)
+activate jrepo
+jrepo -> controller: List<JobOpening>
+deactivate jrepo
+controller -> UI: List<JobOpening>
+deactivate controller
+
+UI -> CustomerManager: show the job openings \nthat are in the Analysis phase \nand are his responsibility as a list
+deactivate UI
+
+CustomerManager -> UI: select the job opening
+activate UI
+UI -> controller: getJobOpeningCandidates(jobOpening)
+
+activate controller
+
+controller -> jo: getCandidates(jobOpening)
+
+activate jo
+
+jo->lc**: create
+loop for each Application
+    jo -> ja: getCandidate()
+    activate ja
+
+    ja -> c: getCandidate()
+    activate c
+
+    c -> ja: Candidate
+    deactivate c
+
+    ja ->jo: Candidate
+    deactivate  ja
+    jo-> lc:add(candidate)
+end
+
+jo -> controller: List<Candidate>
+deactivate jo
+controller -> UI: List<Candidate>
+deactivate controller
+
+
+UI -> CustomerManager: show the candidates list and asks for the ordered list
+deactivate UI
+CustomerManager-> UI: Insert the candidates email separated by comma
+activate UI
+UI -> controller: rankCandidates(jobOpening, String emails)
+activate controller
+controller -> service: rankCandidates(jobOpening, String emails)
+activate service
+
+
+service -> service: convertEmailsToList(emails)
+activate service
+service -> service: List<EmailAddress>
+deactivate service
+service -> lc1 **: create
+loop for each email
+    service -> crepo: findByEmail(email)
+    activate crepo
+
+    crepo -> service: Candidate
+    deactivate crepo
+    service->lc1: addCandidates(Candidate)
+end
+
+    service -> jo: getRankSize(jobOpening)
+    activate jo
+    jo->rank: getMultiplier()
+    activate rank
+    rank -> jo: Multiplier
+    deactivate rank
+
+    jo -> jo : calculateRankSize(multiplier)
+    activate jo
+    jo->jo: rankSize
+    deactivate jo
+    jo->rank: setRankSize(rankSize)
+    activate rank
+    deactivate rank
+
+    jo -> service: RankSize
+    deactivate jo
+
+    alt List<Candidate>.size < RankSize
+        service ->jo: addRankList(List<Candidate>)
+        activate jo
+        jo->rank: valueof(List<Candidate>)
+        activate rank
+
+        rank -> jo: Rank
+        deactivate rank
+        jo -> service: Rank
+        deactivate jo
+
+
+
+
+
+
+
+
+    service -> controller: Rank
+
+
+    controller -> UI:Rank
+    deactivate controller
+
+    UI -> CustomerManager: show the rank and asks to confirm
+    deactivate UI
+    CustomerManager -> UI: confirm the rank
+    activate UI
+    UI -> CustomerManager: show the rank save message
+    deactivate UI
+else
+    service -> controller: Exception
+    deactivate service
+    activate controller
+
+
+    controller -> UI:Exception
+    deactivate controller
+    activate UI
+    deactivate controller
+
+    UI -> CustomerManager: Show the exception message
+    deactivate UI
+
+end
+
+@enduml

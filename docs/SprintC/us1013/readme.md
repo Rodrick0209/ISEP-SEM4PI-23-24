@@ -168,18 +168,45 @@ To rank the candidates of one job opening should follow the next steps:
 
 
 ### 4.1. Realization
-
+![sd](SD/sd.svg)
 
 
 ### 4.2. Class Diagram
-
+![CD](CD/CD.svg)
 
 ### 4.3. Applied Patterns
 
 
+- **Repository Pattern:** Repository Pattern is an essential for managing data access in a way that promotes clean separation of concerns, flexibility, and testability.
+
+
+- **Service Pattern:** The Service Pattern is an essential for organizing business logic in a scalable, maintainable, and reusable way. By implementing a service layer, applications can achieve a clean separation of concerns, making them easier to develop, test, and maintain.
+
+
+- **Controller Pattern:** Is essential for managing the interaction between the user interface and the business logic of an application. By clearly separating concerns into models, views, and controllers, applications become more modular, easier to develop, test, and maintain.
+
 
 ### 4.4. Tests
 
+#### 4.4.1. Unit Tests
+
+##### Rank Class
+- **Test 1:** Test create a rank with a list of candidates
+- **Test 2:** Test create a rank with a list of candidates with a size bigger than the rank size list 
+- **Test 3:** Test create a rank with a list of candidates with a size smaller than the rank size list
+- **Test 4:** Test the ToString method 
+- **Test 5:** Test getMultiplier method
+- **Test 6:** Test calculateRankSize method
+
+
+#### 4.4.2. Integration Tests
+
+- **Test 1:** Test adding a candidate that doest exist
+- **Test 2:** Test adding a candidate that exist but didn't applied for that jobOpening
+- **Test 3:** Test adding a candidate that exist and applied for that jobOpening
+- **Test 4:** Test writing a rank with invalid emails
+- **Test 5:** Test writing a rank with valid separator
+- **Test 6:** Test writing a rank correctly
 
 
 ## 5. Implementation
