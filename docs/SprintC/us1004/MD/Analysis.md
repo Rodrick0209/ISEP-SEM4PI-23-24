@@ -22,4 +22,5 @@
 
 ## Business Rules
 
+- The customer manager can only edit information about a job opening that was previously registered in the process of registering the job opening (working mode, number of vacancies, address, description, function and type of contract).
 - The customer manager cannot edit a job opening after entering the Application phase of the recruitment process.
