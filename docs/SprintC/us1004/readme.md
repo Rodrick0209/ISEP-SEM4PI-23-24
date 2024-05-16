@@ -40,6 +40,14 @@ This user story have some dependencies with the following user stories:
 
 - As alterações devem ser compatíveis com o “momento” em que estamos nessa job opening. Por exemplo, não faz sentido alterar o contrat type se já estamos a receber candidaturas. Essas candidaturas foram feitas segundo uma descrição da oferta de emprego e não faz sentido estar a alterar depois de as pessoas se candidatarem. Mas, por exemplo, deve ser possível alterar o job requirements specification (refere-se a outra US) enquanto as pessoas se candidatam, pois é um aspeto técnico, que não é do conhecimento público.
 
+**Question:**
+
+- A cada edição feita de alguma informação numa Job Opening, é necessário registar a data e a hora da edição, tal como acontece no momento de registar a Job Opening?
+
+**Answer:**
+
+- É comum haver um registo do utilizador que criou ou fez a última atualização de um “registo” no sistema.
+
 ### 3.2. Business Rules
 
 - The customer manager must select only one job opening to edit at a time.
@@ -72,3 +80,42 @@ This user story have some dependencies with the following user stories:
 #### 3.3.6. Edit contract type of a job opening
 
 ![](SSD/SSD-Edit-Contract-Type.svg)
+
+## 4. Design
+
+### 4.1. Realization
+
+#### 4.1.1. Edit working mode of a job opening
+
+![](SD/SD-Edit-Working-Mode.svg)
+
+#### 4.1.2. Edit number of vacancies of a job opening
+
+![](SD/SD-Edit-Number-Vacancies.svg)
+
+#### 4.1.3. Edit address of a job opening
+
+![](SD/SD-Edit-Address.svg)
+
+#### 4.1.4. Edit description of a job opening
+
+![](SD/SD-Edit-Description.svg)
+
+#### 4.1.5. Edit function of a job opening
+
+![](SD/SD-Edit-Function.svg)
+
+#### 4.1.6. Edit contract type of a job opening
+
+![](SD/SD-Edit-Contract-Type.svg)
+
+### 4.2. Applied Patterns
+
+In the development of this task, we utilized several design patterns to structure our code and ensure its
+maintainability and scalability. These patterns include:
+
+- **Repository Pattern:** The Repository pattern was used to create an abstraction layer between the data access layer
+  and the business logic layer of the application. This helps to decouple the application and make it easier to maintain
+  and test.
+- **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
+  handle incoming requests, manipulate data using the model, and select views to render to the user

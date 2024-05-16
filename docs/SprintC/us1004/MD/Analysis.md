@@ -20,6 +20,14 @@
 
 - As alterações devem ser compatíveis com o “momento” em que estamos nessa job opening. Por exemplo, não faz sentido alterar o contrat type se já estamos a receber candidaturas. Essas candidaturas foram feitas segundo uma descrição da oferta de emprego e não faz sentido estar a alterar depois de as pessoas se candidatarem. Mas, por exemplo, deve ser possível alterar o job requirements specification (refere-se a outra US) enquanto as pessoas se candidatam, pois é um aspeto técnico, que não é do conhecimento público.
 
+**Question:**
+
+- A cada edição feita de alguma informação numa Job Opening, é necessário registar a data e a hora da edição, tal como acontece no momento de registar a Job Opening?
+
+**Answer:**
+
+- É comum haver um registo do utilizador que criou ou fez a última atualização de um “registo” no sistema.
+
 ## Business Rules
 
 - The customer manager must select only one job opening to edit at a time.
