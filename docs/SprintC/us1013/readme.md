@@ -37,15 +37,13 @@ This process can only be done in the Analysis phase of the job opening.
 
 The customer manager should be able to edit the ranking if none of the interested parties were yet notified of the results.
 
-In the end of the analysis phase, the customer manager should have ranked all the candidates.
+In the end of the analysis phase, the customer manager should have fill the rank list. Cant exist a rank position without a candidate.
 
 #### 1. How the order of the rank works? 
 <a id="order"></a>
 
 - The rank order represents the preference of the customer manager for the candidates.
-- The first element of the rank is the candidate that the customer manager thinks is the best for the job opening, and the last element is the candidate that the customer manager thinks is the worst for the job opening.
-- The rank size list is the same as the number of applications in the job opening that are in *accepted* state 
-in the Analysis phase.
+- The first element of the rank is the candidate that the customer manager thinks is the best for the job opening, and the second element is the second best, and so on.
 - There aren't two candidates with the same rank.
 
 
@@ -64,10 +62,16 @@ curriculum, requirements answer and all files imported from [File Bot](../../Spr
 This approach is an idea from the client, after talking to him, he suggested that approach that our team gave priority.
 
 - The ranking is made ordering the candidates separated by a comma, similar to the way people enter recipients for an email. 
-- The customer manager should write the candidates email to identify the candidates.
+The customer manager should write the candidates email to identify the candidates.
 
   - Example:
     - candidate1@gmail.com,candidate2@gmail.com,candidate3@gmail.com
+
+- The candidates that are not in the list are considered not ranked.
+
+- The customer manager can leave the ranking process and complete later, but the system should show a message to the customer manager asking if he wants to leave the ranking process and complete later.
+
+- The rank size list is the same as the number of vacancies plus a configurable multiplier, which determines the number of candidates to be in the ranking. (example: if the job opening has 3 vacancies and the multiplier is 2, the rank size list is 6).
 
 ### Domain model
 
@@ -112,6 +116,8 @@ To implement this user story some changes are needed in the domain model.
   - When the analysis phase ends, the ranking need to have all the candidates? or can the customer manager rank only some of the candidates?
     >  **Answer:** All the candidates should be ranked before moving to the result phase.
   
+  - When the customer manager is ranking the candidates, in terms of UI, should we display information from the application such as interview score, etc... or just the candidate's name and email?
+    > **Answer:** As stated before, I do not have specific requirements for the UI/UX. Use best practices. However, I would like it to be possible for the Customer Manager to have 2 or more instances of the application running, so that he/she could, for instance, see the interviews grades and, at the same time, register the order/ranking of the candidates.
 
 ### Client Clarifications
 These clarifications were made with the client to better understand the requirements of the user story. All questions and aswers are available in this [file](https://myisepipp-my.sharepoint.com/:w:/g/personal/atb_isep_ipp_pt/EUuTReNeiM1NorupBbiS9hQB38kUh5TPLca7uDYEitSeZg?e=I5ymVX).
@@ -124,6 +130,7 @@ These clarifications were made with the client to better understand the requirem
 - It may work as a “long operation” be aware of when and how to conclude the “operation”.
 - The customer manager should be able to edit the ranking if none of the interested parties were yet notified of the results.
 - All the candidates should be ranked before moving to the result phase.
+- To avoid recording in the system a lot of details that will not have any impact (a lot candidates in ranking, just the first ones are important), the client suggests that the ranking size is limited to a configurable number based on the number of vacancies, ensuring that only the most relevant candidates are ranked. This configurable number can be adjusted using a global property that determines the extent of the ranking beyond the vacancy number.
 
 ### How is supposed to work?
 
@@ -140,9 +147,10 @@ To rank the candidates of one job opening should follow the next steps:
 
 
 > - If the customer didn't rank all the candidates, the system should show a message to the customer manager asking if he wants to leave the ranking process and complete later.
->
+> 
 > - The customer manager can edit the rank of the candidates if none of the interested parties were yet notified of the results.
-
+>
+> - If the customer manager add too many candidates in the rank, the system should show a message to the customer manager, asking to delete candidates.
 
 ### SSD
 ![ssd](SSD/ssd.svg)
