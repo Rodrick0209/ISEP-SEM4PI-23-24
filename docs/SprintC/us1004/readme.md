@@ -113,6 +113,10 @@ This user story have some dependencies with the following user stories:
 
 ![](SD/SD-Edit-Contract-Type.svg)
 
+#### 4.1.4. Edit client of a job opening
+
+![](SD/SD-Edit-Client.svg)
+
 ### 4.2. Applied Patterns
 
 In the development of this task, we utilized several design patterns to structure our code and ensure its

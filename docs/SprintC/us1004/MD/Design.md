@@ -26,6 +26,10 @@
 
 ![](../SD/SD-Edit-Contract-Type.svg)
 
+### Edit client of a job opening
+
+![](../SD/SD-Edit-Client.svg)
+
 ### Domain Classes
 
 - JobOpening
