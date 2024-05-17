@@ -259,6 +259,9 @@ explanation
 - **Repository (JobOpeningRepository):** The JobOpeningRepository is an interface that defines the methods for
   interacting with the
   database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
+- **Repository (ClientRepository) (only for editing a client):** The ClientRepository is an interface that defines the methods for
+  interacting with the
+  database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
 
 ## 6. Demonstration
 
