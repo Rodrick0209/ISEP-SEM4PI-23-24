@@ -219,3 +219,19 @@ void ensureEditingContractTypeFailsWhenJobOpeningIsActive() (expected = IllegalA
   jobOpening.editContractType(contractType);
   }
 ```
+
+## 5. Implementation
+
+The process of editing a Job Opening in this system involves several components working together. Here's a step-by-step
+explanation
+
+- **User Interface (EditJobOpeningUI.java)**: The process starts in the EditJobOpeningUI class, which is
+  responsible for interacting
+  with the user. It prompts the user to enter the necessary information.
+  This class uses the EditJobOpeningController to handle the business logic.
+- **Controller (EditJobOpeningController.java):** The EditJobOpeningController class is the bridge between the
+  UI and the business
+  logic.
+- **Repository (JobOpeningRepository):** The JobOpeningRepository is an interface that defines the methods for
+  interacting with the
+  database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
