@@ -56,7 +56,7 @@ The analysis is done considering all available information like interviews,
 curriculum, requirements answer and all files imported from [File Bot](../../SprintB/us2002/readme.md).
 
 
-#### 3. How the ranking is done?
+#### 3. How is the ranking done?
 <a id="rank"></a>
 
 This approach is an idea from the client, after talking to him, he suggested that approach that our team gave priority.
@@ -210,14 +210,43 @@ To rank the candidates of one job opening should follow the next steps:
 
 ## 5. Implementation
 
+For the implementation of this user story, we need to create some components, that work together:
+
+
+- **User Interface (rankJobOpeningUI.java):** This component is resposible for the interaction with the user. It shows the job openings that are in the Analysis phase and are the responsibility of the customer manager. It also shows the list of candidates that applied for the job opening and waits for the customer manager to write the rank of the candidates. 
+
+
+- **Controller (rankJobOpeningController.java):** The rankJobOpeningController class is responsible for handling the user input and calling the appropriate service methods to rank the candidates. It receives the job opening and the list of candidates from the UI and passes them to the service layer for processing. It also handles the response from the service layer and send the response back to the UI.
+
+
+- **Service (RankingService.java):** The RankingService class is responsible for implementing the business logic for ranking the candidates. It receives the job opening and the list of candidates from the controller and creates a new Rank object with the list of candidates. It then saves the Rank object to the database using the JobOpeningRepository. It also checks if the rank size list is exceeded and throw exception if necessary.
+
+
+- **Repository (JobOpeningRepository):** The JobOpeningRepository class is responsible for managing the persistence of the Rank objects. It provides methods for saving, updating, and retrieving Rank objects from the database.
+
+
+
 ## 6. Integration/Demonstration
 
 ### Integration
 
+To integrate the components, we need used some components that already exist in the system, like repositories the jobOpening and JobApplication classes.
+The integration of this components with the new components was clear and easy to do, because the new components are very simple and don't have a lot of dependencies.
+
+
 
 ### Demonstration
 
+To demonstrate the implementation of this user story, we can use the following steps:
+1. Login as a Customer Manager
+2. Select the Rank option
+3. Select the Register Rank for Job Opening option
+4. The system will show the job openings that are in the Analysis phase and are the responsibility of the customer manager, and the customer manager selects the job opening that he wants to rank the candidates.
+5. The system will show the list of candidates that applied for the job opening, and the customer manager writes the email of the candidates separated by a comma.
+   6. In case of ranking candidates from a jobOpening that already has a rank, the system displays the current rank to the customer manager, and asks for the new rank.
+6. The system shows the rank inserted
 
 
 ## 7. Observations
 
+In case of register a ranking for a jobOpening that already has a ranking, the system displays to the customer manager the current ranking.
