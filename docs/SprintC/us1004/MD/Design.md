@@ -41,4 +41,5 @@
 ### Repository
 
 - JobOpeningRepository
+- ClientRepository (for editing a client)
 

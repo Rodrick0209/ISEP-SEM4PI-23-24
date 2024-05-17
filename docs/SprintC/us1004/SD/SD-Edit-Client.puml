@@ -7,6 +7,7 @@ actor CustomerManager
 participant EditJobOpeningUI <<presentation>>
 participant EditJobOpeningController <<application>>
 participant JobOpeningRepository <<repository>>
+participant ClientRepository <<repository>>
 participant JobOpening <<domain>>
 
 activate CustomerManager
@@ -23,12 +24,20 @@ deactivate EditJobOpeningController
 EditJobOpeningUI --> CustomerManager : shows list of inactive job openings\nand asks to select one
 CustomerManager -> EditJobOpeningUI : selects one job opening
 EditJobOpeningUI --> CustomerManager : shows list of attributes to\nedit and asks to select one
-CustomerManager -> EditJobOpeningUI : selects working mode attribute
-EditJobOpeningUI --> CustomerManager : shows list of working mode\nand asks to select new one
-CustomerManager -> EditJobOpeningUI : selects new working mode
-EditJobOpeningUI -> EditJobOpeningController : editWorkingMode(JobOpening jobOpening, WorkingMode workingMode)
+CustomerManager -> EditJobOpeningUI : selects client attribute
+EditJobOpeningUI -> EditJobOpeningController : listClients()
 activate EditJobOpeningController
-EditJobOpeningController -> JobOpening : editWorkingMode(WorkingMode workingMode)
+EditJobOpeningController -> ClientRepository : findAll()
+activate ClientRepository
+ClientRepository --> EditJobOpeningController : List<Client>
+deactivate ClientRepository
+EditJobOpeningController --> EditJobOpeningUI : List<Client>
+deactivate EditJobOpeningController
+EditJobOpeningUI --> CustomerManager : shows list of clients and\nasks to select new one
+CustomerManager -> EditJobOpeningUI : selects new client
+EditJobOpeningUI -> EditJobOpeningController : editClient(JobOpening jobOpening, Client client)
+activate EditJobOpeningController
+EditJobOpeningController -> JobOpening : editClient(Client client)
 EditJobOpeningController -> JobOpeningRepository : save(JobOpening jobOpening)
 activate JobOpeningRepository
 JobOpeningRepository --> EditJobOpeningController : jobOpening
