@@ -9,6 +9,7 @@ import jobs4u.base.rankManagement.domain.Rank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayInputStream;
 import java.util.Calendar;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class rankJobOpeningUI extends AbstractUI {
     protected boolean doShow() {
 
         JobOpening jobOpening = listAndSelectJobOpenings();
+
         if (jobOpening == null) {
             return false;
         }
@@ -34,9 +36,15 @@ public class rankJobOpeningUI extends AbstractUI {
         listCandidates(candidates);
 
         System.out.println("Number of elements for the rank: " + jobOpening.getRankSize());
-        String emails = readEmails();
 
-        Rank rank = theController.rankCandidates(jobOpening, emails);
+        String emails = readEmails(jobOpening);
+
+        Rank rank= null;
+        try {
+             rank=theController.rankCandidates(jobOpening, emails);
+        }catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
 
         if (rank == null) {
             System.out.println("There was an error ranking the candidates.");
@@ -83,8 +91,17 @@ public class rankJobOpeningUI extends AbstractUI {
     }
 
 
-    public String readEmails() {
-        return Console.readLine("Please enter the emails of the candidates you want to rank, separated by commas:");
+    public String readEmails(JobOpening jobOpening) {
+        if (theController.getRankAsDTO(jobOpening).getRank().isEmpty()){
+
+            return Console.readLine("Please enter the emails of the candidates you want to rank, separated by commas:");
+        }else{
+            System.out.println("This rank already has candidates ranked.");
+            System.out.println(jobOpening.getRank());
+
+            System.out.println("Ranked in input format:\n" + theController.getRankAsDTO(jobOpening).getRank());
+            return Console.readLine("Please enter the emails of the candidates you want to rank, separated by commas:");
+        }
     }
 
 

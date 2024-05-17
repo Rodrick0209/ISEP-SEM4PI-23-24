@@ -19,6 +19,7 @@ import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.utils.PostalAddress;
 import lombok.Getter;
 import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -231,7 +232,8 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
 
     public Rank addRankList(List<Candidate> candidates){
-       return this.rank.valueOf(candidates);
+        this.rank = rank.valueOf(candidates,getRankSize());
+       return rank;
     }
 
     public void editWorkingMode(WorkingMode workingMode){
@@ -269,4 +271,12 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         Preconditions.ensure(status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
         this.contractType = contractType;
     }
+
+    public Rank updateRankList(List<Candidate> candidates){
+        this.rank = rank.update(candidates,getRankSize());
+        return rank;
+    }
+
+
+
 }

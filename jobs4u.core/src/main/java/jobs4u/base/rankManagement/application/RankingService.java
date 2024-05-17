@@ -6,6 +6,7 @@ import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
+import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.rankManagement.domain.Rank;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.regex.Pattern;
 public class RankingService {
 
     private final CandidateRepository candidateRepository = PersistenceContext.repositories().candidates();
-
+    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
 
     public Rank rankCandidates(JobOpening jobOpening, String emails) {
         List<EmailAddress> emailList = convertEmailsToList(emails);
@@ -28,7 +29,12 @@ public class RankingService {
             Optional<Candidate> candidate = candidateRepository.findByEmail(email);
 
             if (candidate.isPresent()) {
-                candidates.add(candidate.get());
+                if(jobOpening.getCandidates().contains(candidate.get())){
+                    candidates.add(candidate.get());
+                }else{
+                    throw new IllegalArgumentException("Candidate with email " + email + " not found in the job opening candidates list.");
+                }
+
             }else {
                 throw new IllegalArgumentException("Candidate with email " + email + " not found");
             }
@@ -43,8 +49,15 @@ public class RankingService {
             System.out.println("The number of candidates is less than the rank size. Please finish the rank as soon as possible.");
         }
 
-        return jobOpening.addRankList(candidates);
+        Rank rank=null;
+        if (jobOpening.getRank().hasCandidate()) {
+            rank = jobOpening.updateRankList(candidates);
+        }else {
+            rank = jobOpening.addRankList(candidates);
+        }
 
+        jobOpeningRepository.save(jobOpening);
+        return rank;
 
     }
 

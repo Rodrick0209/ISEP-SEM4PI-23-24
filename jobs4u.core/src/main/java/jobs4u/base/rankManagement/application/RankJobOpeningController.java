@@ -9,6 +9,7 @@ import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.rankManagement.domain.Rank;
+import jobs4u.base.rankManagement.domain.RankDTO;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 
 import java.util.List;
@@ -44,7 +45,8 @@ public class RankJobOpeningController {
         return rankCandidateService.rankCandidates(jobOpening, emails);
     }
 
-
-
+    public RankDTO getRankAsDTO(JobOpening job) {
+        return job.getRank().toDTO();
+    }
 
 }
