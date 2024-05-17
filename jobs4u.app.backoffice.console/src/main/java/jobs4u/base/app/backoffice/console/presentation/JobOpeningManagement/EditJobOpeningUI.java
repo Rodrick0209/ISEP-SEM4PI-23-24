@@ -49,7 +49,6 @@ public class EditJobOpeningUI extends AbstractUI {
         System.out.println("4. Description");
         System.out.println("5. Function");
         System.out.println("6. Contract Type");
-        System.out.println("0. Exit");
 
         int option = Console.readOption(1, 6, 0);
 
