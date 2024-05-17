@@ -53,3 +53,12 @@ void ensureEditingContractTypeIsSuccessfullWhenJobOpeningIsInative();
 ```
 void ensureEditingContractTypeFailsWhenJobOpeningIsActive();
 ```
+
+## Edit client
+
+```
+void ensureEditingClientIsSuccessfullWhenJobOpeningIsInative();
+```
+```
+void ensureEditingClientFailsWhenJobOpeningIsActive();
+```

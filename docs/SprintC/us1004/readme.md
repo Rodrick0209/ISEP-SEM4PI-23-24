@@ -228,6 +228,22 @@ void ensureEditingContractTypeFailsWhenJobOpeningIsActive() (expected = IllegalA
   }
 ```
 
+#### 4.3.7. Edit client
+
+```
+void ensureEditingContractTypeIsSuccessfullWhenJobOpeningIsInative() (expected = success) {
+  JobOpening jobOpening = new JobOpening(...); // For default, status is inactive
+  jobOpening.editContractType(contractType);
+  }
+```
+```
+void ensureEditingContractTypeFailsWhenJobOpeningIsActive() (expected = IllegalArgumentException.class) {
+  JobOpening jobOpening = new JobOpening(...);
+  jobOpening.status = JobOpeningStatus.ACTIVE;
+  jobOpening.editClient(client);
+  }
+```
+
 ## 5. Implementation
 
 The process of editing a Job Opening in this system involves several components working together. Here's a step-by-step
