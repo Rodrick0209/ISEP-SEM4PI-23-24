@@ -155,6 +155,7 @@ public class EditJobOpeningUI extends AbstractUI {
         Designation newFunction = Designation.valueOf(function);
         try {
             controller.editFunction(jobOpening, newFunction);
+            successfulEdit();
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println(
