@@ -454,4 +454,57 @@ public class JobOpeningTest {
         });
     }
 
+    // Edit client
+
+    @Test
+    void ensureEditingClientIsSuccessfullWhenJobOpeningIsInative() {
+        JobReference jobReference = new JobReference("Isep-0001");
+        WorkingMode workingMode = WorkingMode.REMOTE;
+        String nrVacancy = "5";
+        String address = "1234-123";
+        String description = "Software Developer";
+        String function = "Develop software";
+        ContractType contractType = ContractType.FULL_TIME;
+        Client client = new Client("ISEP123","ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
+        Calendar creationDate = Calendar.getInstance();
+
+        // Constructor method with an inactive Job Opening
+        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client);
+        Client newClient = new Client("ISEP124", "DEI", "4513-123", EmailAddress.valueOf("customer@gmail.com"));
+        assertDoesNotThrow(() -> {jobOpening.editClient(newClient);});
+        assertEquals(newClient.toString(), jobOpening.getClient().toString());
+    }
+
+    @Test
+    void ensureEditingClientFailsWhenJobOpeningIsActive() {
+        JobReference jobReference = new JobReference("Isep-0001");
+        WorkingMode workingMode = WorkingMode.REMOTE;
+        String nrVacancy = "5";
+        String address = "1234-123";
+        String description = "Software Developer";
+        String function = "Develop software";
+        ContractType contractType = ContractType.FULL_TIME;
+        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
+        Calendar creationDate = Calendar.getInstance();
+        List<Phase> phases = new ArrayList<>();
+        Phase phase3 = new Phase(Phases.APPLICATION, DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
+        Phase phase2 = new Phase(Phases.RESUME_SCREEN, DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
+        Phase phase6 = new Phase(Phases.INTERVIEWS, DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
+        Phase phase4 = new Phase(Phases.ANALYSIS, DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
+        Phase phase5 = new Phase(Phases.RESULT, DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
+        phases.add(phase3);
+        phases.add(phase2);
+        phases.add(phase6);
+        phases.add(phase4);
+        phases.add(phase5);
+        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
+
+        // Constructor method with an active Job Opening
+        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client, recruitmentProcess);
+        Client newClient = new Client("ISEP124", "DEI", "4513-123", EmailAddress.valueOf("customer@gmail.com"));
+        assertThrows(IllegalArgumentException.class, () -> {
+            jobOpening.editClient(newClient);
+        });
+    }
+
 }
