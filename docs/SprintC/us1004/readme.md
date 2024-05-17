@@ -314,3 +314,15 @@ To demonstrate this functionality follow the steps below:
 3. Select the Job Opening.
 4. Select the contract type attribute to edit.
 5. Select the new contract type.
+
+### 6.7. Editing client of a job opening
+
+1. Start the application and log in as a customer manager.
+2. Navigate to the job openings section and select the option to select a edit a Job Opening.
+3. Select the Job Opening.
+4. Select the client attribute to edit.
+5. Selects the new client.
+
+## 7. Observations
+
+- N/A
