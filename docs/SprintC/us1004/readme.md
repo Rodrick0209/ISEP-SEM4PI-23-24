@@ -235,3 +235,55 @@ explanation
 - **Repository (JobOpeningRepository):** The JobOpeningRepository is an interface that defines the methods for
   interacting with the
   database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
+
+## 6. Demonstration
+
+To demonstrate this functionality follow the steps below:
+
+### 6.1. Editing working mode of a job opening
+
+1. Start the application and log in as a customer manager.
+2. Navigate to the job openings section and select the option to select a edit a Job Opening.
+3. Select the Job Opening.
+4. Select the working mode attribute to edit.
+5. Select the new working mode.
+
+### 6.2. Editing number of vacancies of a job opening
+
+1. Start the application and log in as a customer manager.
+2. Navigate to the job openings section and select the option to select a edit a Job Opening.
+3. Select the Job Opening.
+4. Select the number of vacancies attribute to edit.
+5. Input the new working mode.
+
+### 6.3. Editing address of a job opening
+
+1. Start the application and log in as a customer manager.
+2. Navigate to the job openings section and select the option to select a edit a Job Opening.
+3. Select the Job Opening.
+4. Select the address attribute to edit.
+5. Input the new address.
+
+### 6.4. Editing description of a job opening
+
+1. Start the application and log in as a customer manager.
+2. Navigate to the job openings section and select the option to select a edit a Job Opening.
+3. Select the Job Opening.
+4. Select the description attribute to edit.
+5. Input the new description.
+
+### 6.5. Editing function of a job opening
+
+1. Start the application and log in as a customer manager.
+2. Navigate to the job openings section and select the option to select a edit a Job Opening.
+3. Select the Job Opening.
+4. Select the function attribute to edit.
+5. Input the new function.
+
+### 6.6. Editing contract type of a job opening
+
+1. Start the application and log in as a customer manager.
+2. Navigate to the job openings section and select the option to select a edit a Job Opening.
+3. Select the Job Opening.
+4. Select the contract type attribute to edit.
+5. Select the new contract type.
