@@ -1,8 +1,8 @@
 @startuml
 
 participant CustomerManager
-participant rankCandidateUI as UI
-participant rankCandidateController as controller
+participant rankJobOpeningUI as UI
+participant rankJobOpeningController as controller
 participant "AuthorizationService" as auth
 participant "RankingService" as service
 participant jobOpeningRepository as jrepo
@@ -104,9 +104,7 @@ end
     activate jo
     jo->jo: rankSize
     deactivate jo
-    jo->rank: setRankSize(rankSize)
-    activate rank
-    deactivate rank
+
 
     jo -> service: RankSize
     deactivate jo
@@ -114,7 +112,7 @@ end
     alt List<Candidate>.size < RankSize
         service ->jo: addRankList(List<Candidate>)
         activate jo
-        jo->rank: valueof(List<Candidate>)
+        jo->rank: valueof(List<Candidate>, RankSize)
         activate rank
 
         rank -> jo: Rank
