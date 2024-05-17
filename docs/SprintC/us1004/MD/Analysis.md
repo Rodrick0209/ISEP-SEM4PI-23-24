@@ -60,3 +60,7 @@
 ### Edit contract type of a job opening
 
 ![](../SSD/SSD-Edit-Contract-Type.svg)
+
+### Edit client of a job opening
+
+![](../SSD/SSD-Edit-Client.svg)
