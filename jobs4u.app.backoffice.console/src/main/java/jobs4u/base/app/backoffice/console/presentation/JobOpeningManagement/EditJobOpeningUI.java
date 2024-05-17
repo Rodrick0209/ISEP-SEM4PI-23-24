@@ -8,6 +8,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.EditJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
@@ -23,7 +24,7 @@ import java.util.List;
 public class EditJobOpeningUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EditJobOpeningUI.class);
-    private final EditJobOpeningController controller = new EditJobOpeningController(AuthzRegistry.authorizationService(), PersistenceContext.repositories().jobOpenings());
+    private final EditJobOpeningController controller = new EditJobOpeningController(AuthzRegistry.authorizationService(), PersistenceContext.repositories().jobOpenings(), PersistenceContext.repositories().clients());
 
     @Override
     protected boolean doShow() {
@@ -49,8 +50,9 @@ public class EditJobOpeningUI extends AbstractUI {
         System.out.println("4. Description");
         System.out.println("5. Function");
         System.out.println("6. Contract Type");
+        System.out.println("7. Client");
 
-        int option = Console.readOption(1, 6, 0);
+        int option = Console.readOption(1, 7, 0);
 
         switch (option) {
             case 1:
@@ -70,6 +72,9 @@ public class EditJobOpeningUI extends AbstractUI {
                 break;
             case 6:
                 selectNewContractType(jobOpening);
+                break;
+            case 7:
+                selectNewClient(jobOpening);
                 break;
             default:
                 System.out.println("Invalid option. Please try again.");
@@ -184,6 +189,22 @@ public class EditJobOpeningUI extends AbstractUI {
 
         try {
             controller.editContractType(jobOpening, newContractType);
+            successfulEdit();
+        } catch (IntegrityViolationException | ConcurrencyException ex) {
+            LOGGER.error("Error performing the operation", ex);
+            System.out.println(
+                    "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+        }
+    }
+
+    private void selectNewClient(JobOpening jobOpening){
+        Iterable<Client> clients = controller.listClients();
+        SelectWidget<Client> clientSelector = new SelectWidget<>("Select new client: ", clients);
+        clientSelector.show();
+        Client newClient = clientSelector.selectedElement();
+
+        try{
+            controller.editClient(jobOpening, newClient);
             successfulEdit();
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);

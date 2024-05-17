@@ -272,6 +272,12 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.contractType = contractType;
     }
 
+    public void editClient(Client client){
+        Preconditions.ensure(client != null, "client must not be null");
+        Preconditions.ensure(status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
+        this.client = client;
+    }
+
     public Rank updateRankList(List<Candidate> candidates){
         this.rank = rank.update(candidates,getRankSize());
         return rank;
