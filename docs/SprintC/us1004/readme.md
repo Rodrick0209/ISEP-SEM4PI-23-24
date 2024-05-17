@@ -118,4 +118,104 @@ maintainability and scalability. These patterns include:
   and the business logic layer of the application. This helps to decouple the application and make it easier to maintain
   and test.
 - **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
-  handle incoming requests, manipulate data using the model, and select views to render to the user
+  handle incoming requests, manipulate data using the model, and select views to render to the user.
+
+### 4.3. Tests
+
+**In this case, tests are implemented for Business Rule nº 4**
+
+#### 4.3.1. Edit working mode
+
+```
+void ensureEditingWorkingModeIsSuccessfullWhenJobOpeningIsInative() (expected = success) {
+  JobOpening jobOpening = new JobOpening(...); // For default, status is inactive
+  jobOpening.editWorkingMode(workingMode);
+  }
+```
+```
+void ensureEditingWorkingModeFailsWhenJobOpeningIsActive() (expected = IllegalArgumentException.class) {
+  JobOpening jobOpening = new JobOpening(...);
+  jobOpening.status = JobOpeningStatus.ACTIVE;
+  jobOpening.editWorkingMode(workingMode);
+  }
+```
+
+#### 4.3.2. Edit number of vacancies
+
+```
+void ensureEditingNumberOfVacanciesIsSuccessfullWhenJobOpeningIsInative() (expected = success) {
+  JobOpening jobOpening = new JobOpening(...); // For default, status is inactive
+  jobOpening.editNumberOfVacancies(nrVacancy);
+  }
+```
+```
+void ensureEditingNumberOfVacanciesFailsWhenJobOpeningIsActive() (expected = IllegalArgumentException.class) {
+  JobOpening jobOpening = new JobOpening(...);
+  jobOpening.status = JobOpeningStatus.ACTIVE;
+  jobOpening.editNumberOfVacancies(nrVacancy);
+  }
+```
+
+#### 4.3.3. Edit address
+
+```
+void ensureEditingAddressIsSuccessfullWhenJobOpeningIsInative() (expected = success) {
+  JobOpening jobOpening = new JobOpening(...); // For default, status is inactive
+  jobOpening.editAddress(address);
+  }
+```
+```
+void ensureEditingAddressFailsWhenJobOpeningIsActive() (expected = IllegalArgumentException.class) {
+  JobOpening jobOpening = new JobOpening(...);
+  jobOpening.status = JobOpeningStatus.ACTIVE;
+  jobOpening.editAddress(address);
+  }
+```
+
+#### 4.3.4. Edit description
+
+```
+void ensureEditingDescriptionIsSuccessfullWhenJobOpeningIsInative() (expected = success) {
+  JobOpening jobOpening = new JobOpening(...); // For default, status is inactive
+  jobOpening.editDescription(description);
+  }
+```
+```
+void ensureEditingDescriptionFailsWhenJobOpeningIsActive() (expected = IllegalArgumentException.class) {
+  JobOpening jobOpening = new JobOpening(...);
+  jobOpening.status = JobOpeningStatus.ACTIVE;
+  jobOpening.editDescription(description);
+  }
+```
+
+#### 4.3.5. Edit function
+
+```
+void ensureEditingFunctionIsSuccessfullWhenJobOpeningIsInative() (expected = success) {
+  JobOpening jobOpening = new JobOpening(...); // For default, status is inactive
+  jobOpening.editFunction(function);
+  }
+```
+```
+void ensureEditingFunctionFailsWhenJobOpeningIsActive() (expected = IllegalArgumentException.class) {
+  JobOpening jobOpening = new JobOpening(...);
+  jobOpening.status = JobOpeningStatus.ACTIVE;
+  jobOpening.editFunction(function);
+  }
+```
+
+#### 4.3.6. Edit contract type
+
+```
+void ensureEditingContractTypeIsSuccessfullWhenJobOpeningIsInative() (expected = success) {
+  JobOpening jobOpening = new JobOpening(...); // For default, status is inactive
+  jobOpening.editContractType(contractType);
+  }
+```
+```
+void ensureEditingContractTypeFailsWhenJobOpeningIsActive() (expected = IllegalArgumentException.class) {
+  JobOpening jobOpening = new JobOpening(...);
+  jobOpening.status = JobOpeningStatus.ACTIVE;
+  jobOpening.editContractType(contractType);
+  }
+```
