@@ -5,6 +5,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
+import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.recruitmentProcessManagement.utils.State;
@@ -98,6 +99,23 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
        return jobOpenings;
     }
 
+    @Override
+    public List<JobOpening> findAllInactiveJobOpenings() {
+        // JPQL query
+        String jpql = "SELECT jo FROM JobOpening jo " +
+                "WHERE jo.status = :inactiveStatus";
+
+        // Execute the query
+        List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
+                .setParameter("inactiveStatus", JobOpeningStatus.INACTIVE).getResultList();
+
+        // If there are no jobOpenings found, return null
+        if(jobOpenings.isEmpty()){
+            return null;
+        }
+
+        return jobOpenings;
+    }
 
 
 }

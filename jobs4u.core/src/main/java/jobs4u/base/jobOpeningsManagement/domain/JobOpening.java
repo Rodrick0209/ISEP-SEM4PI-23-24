@@ -18,6 +18,7 @@ import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.utils.PostalAddress;
 import lombok.Getter;
+import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -231,5 +232,41 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
     public Rank addRankList(List<Candidate> candidates){
        return this.rank.valueOf(candidates);
+    }
+
+    public void editWorkingMode(WorkingMode workingMode){
+        Preconditions.ensure(workingMode != null, "working mode must not be null");
+        Preconditions.ensure(status == null || status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
+        this.workingMode = workingMode;
+    }
+
+    public void editNumberVacancies(NrVacancy nrVacancy){
+        Preconditions.ensure(nrVacancy != null, "number of vacancies must not be null");
+        Preconditions.ensure(status == null || status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
+        this.nrVacancy = nrVacancy;
+    }
+
+    public void editAddress(PostalAddress address){
+        Preconditions.ensure(address != null, "address must not be null");
+        Preconditions.ensure(status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
+        this.address = address;
+    }
+
+    public void editDescription(Description description){
+        Preconditions.ensure(description != null, "description must not be null");
+        Preconditions.ensure(status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
+        this.description = description;
+    }
+
+    public void editFunction(Designation function){
+        Preconditions.ensure(function != null, "function must not be null");
+        Preconditions.ensure(status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
+        this.function = function;
+    }
+
+    public void editContractType(ContractType contractType){
+        Preconditions.ensure(contractType != null, "contract type must not be null");
+        Preconditions.ensure(status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
+        this.contractType = contractType;
     }
 }

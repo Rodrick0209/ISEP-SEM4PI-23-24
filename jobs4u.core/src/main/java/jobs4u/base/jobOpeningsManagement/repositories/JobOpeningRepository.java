@@ -19,4 +19,6 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
     JobOpening findByJobApplication(JobApplication jobApplication);
 
     List<JobOpening> findByCustomerManagerAndInAnalysisPhase(SystemUser customermanager);
+
+    List<JobOpening> findAllInactiveJobOpenings();
 }

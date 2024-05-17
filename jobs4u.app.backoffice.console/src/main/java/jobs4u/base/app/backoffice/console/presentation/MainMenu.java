@@ -27,6 +27,7 @@ import jobs4u.base.Application;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.ListApplicationsUI;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.RegisterApplicationUI;
 import jobs4u.base.app.backoffice.console.presentation.InterviewManagement.SelectInterviewModelSpecificationForJobOpeningUI;
+import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.EditJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.ListJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.rank.rankJobOpeningAction;
 import jobs4u.base.app.backoffice.console.presentation.rank.rankJobOpeningUI;
@@ -92,6 +93,7 @@ public class MainMenu extends AbstractUI {
     private static final int LIST_JOB_OPENING = 2;
     private static final int SELECT_JOB_REQUIREMENT_SPECIFICATION_FOR_JOB_OPENING = 3;
     private static final int SELECT_INTERVIEW_MODEL_SPECIFICATION_FOR_JOB_OPENING = 4;
+    private static final int EDIT_JOB_OPENING = 5;
 
     // PLUGINS
     private static final int CONFIGURE_JOB_REQUIREMENT_PLUGIN = 1;
@@ -261,6 +263,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(LIST_JOB_OPENING, "List Job Openings", new ListJobOpeningUI()::show);
         menu.addItem(SELECT_JOB_REQUIREMENT_SPECIFICATION_FOR_JOB_OPENING, "Select Job Requirement Specification for Job Opening", new SelectJobRequirementSpecificationForJobOpeningUI()::show);
         menu.addItem(SELECT_INTERVIEW_MODEL_SPECIFICATION_FOR_JOB_OPENING, "Select Interview Model Specification for Job Opening", new SelectInterviewModelSpecificationForJobOpeningUI()::show);
+        menu.addItem(EDIT_JOB_OPENING, "Edit a Job Opening", new EditJobOpeningUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
