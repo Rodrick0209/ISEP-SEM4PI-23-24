@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Operator
+participant System
+
+activate Operator
+Operator -> System : asks to enable a candidate
+activate System
+System --> Operator : shows a list of disabled candidates\nand asks to select one
+Operator -> System : selects one candidate
+System --> Operator : backs to menu
+deactivate System
+
+@enduml

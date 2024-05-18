@@ -7,6 +7,10 @@ import jobs4u.base.Application;
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.candidateManagement.domain.Candidate;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 public class JpaCandidateRepository
         extends JpaAutoTxRepository<Candidate, EmailAddress, EmailAddress>
         implements CandidateRepository {
@@ -19,5 +23,13 @@ public class JpaCandidateRepository
         super(puname, Application.settings().getExtendedPersistenceProperties(),
                 "email");
     }
+
+    @Override
+    public Optional<Candidate> findByEmail(EmailAddress email) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("emailAddress", email.toString());
+        return matchOne("e.email.email=:emailAddress", params);
+    }
+
 
 }

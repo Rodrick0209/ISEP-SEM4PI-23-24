@@ -27,7 +27,10 @@ import jobs4u.base.Application;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.ListApplicationsUI;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.RegisterApplicationUI;
 import jobs4u.base.app.backoffice.console.presentation.InterviewManagement.SelectInterviewModelSpecificationForJobOpeningUI;
+import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.EditJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.ListJobOpeningUI;
+import jobs4u.base.app.backoffice.console.presentation.rank.rankJobOpeningAction;
+import jobs4u.base.app.backoffice.console.presentation.rank.rankJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.RegisterJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.SelectJobRequirementSpecificationForJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.EnableUserAction;
@@ -41,7 +44,6 @@ import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClient
 import jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureInterviewModelPluginUI;
 import jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureJobRequirementPluginUI;
 import jobs4u.base.app.backoffice.console.presentation.recruitmentProcess.SetupRecruitmentProcessUI_DTO;
-import jobs4u.base.app.backoffice.console.presentation.recruitmentProcess.SetupRecruitmentProcessUI_DTO_Action;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Actions;
@@ -91,10 +93,16 @@ public class MainMenu extends AbstractUI {
     private static final int LIST_JOB_OPENING = 2;
     private static final int SELECT_JOB_REQUIREMENT_SPECIFICATION_FOR_JOB_OPENING = 3;
     private static final int SELECT_INTERVIEW_MODEL_SPECIFICATION_FOR_JOB_OPENING = 4;
+    private static final int EDIT_JOB_OPENING = 5;
 
     // PLUGINS
     private static final int CONFIGURE_JOB_REQUIREMENT_PLUGIN = 1;
     private static final int CONFIGURE_INTERVIEW_MODEL_PLUGIN = 2;
+
+
+    // PLUGINS
+    private static final int REGISTER_RANK_FOR_JOB_OPENING = 1;
+
 
     // APPLICATIONS
     private static final int REGISTER_APPLICATION = 1;
@@ -111,7 +119,8 @@ public class MainMenu extends AbstractUI {
     private static final int JOB_OPENING_OPTION = 5;
     private static final int APPLICATION_OPTION = 6;
     private static final int PLUGIN_OPTION = 7;
-    private static final int SETTINGS_OPTION = 8;
+    private static final int RANK_OPTION = 7;
+    private static final int SETTINGS_OPTION = 9;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -179,6 +188,8 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(CANDIDATE_OPTION, customerManagerCandidateMenu);
             final Menu jobOpeningMenu = buildJobOpeningMenu();
             mainMenu.addSubMenu(JOB_OPENING_OPTION, jobOpeningMenu);
+            final Menu rankMenu = buildRankMenu();
+            mainMenu.addSubMenu(RANK_OPTION, rankMenu);
 
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
@@ -252,6 +263,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(LIST_JOB_OPENING, "List Job Openings", new ListJobOpeningUI()::show);
         menu.addItem(SELECT_JOB_REQUIREMENT_SPECIFICATION_FOR_JOB_OPENING, "Select Job Requirement Specification for Job Opening", new SelectJobRequirementSpecificationForJobOpeningUI()::show);
         menu.addItem(SELECT_INTERVIEW_MODEL_SPECIFICATION_FOR_JOB_OPENING, "Select Interview Model Specification for Job Opening", new SelectInterviewModelSpecificationForJobOpeningUI()::show);
+        menu.addItem(EDIT_JOB_OPENING, "Edit a Job Opening", new EditJobOpeningUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
@@ -302,6 +314,17 @@ public class MainMenu extends AbstractUI {
 
         return menu;
     }
+
+    private Menu buildRankMenu(){
+        final Menu menu = new Menu("Rank >");
+
+        menu.addItem(REGISTER_RANK_FOR_JOB_OPENING, "Register Rank for Job Opening", new rankJobOpeningAction());
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
 
 
 }

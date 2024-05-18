@@ -18,7 +18,6 @@ public class Phase {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(unique = true)
     private Phases designation;
 
     private LocalDate startDate;

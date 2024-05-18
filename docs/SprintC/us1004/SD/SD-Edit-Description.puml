@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor CustomerManager
+participant EditJobOpeningUI <<presentation>>
+participant EditJobOpeningController <<application>>
+participant JobOpeningRepository <<repository>>
+participant JobOpening <<domain>>
+
+activate CustomerManager
+CustomerManager -> EditJobOpeningUI : asks to edit a job opening
+activate EditJobOpeningUI
+EditJobOpeningUI -> EditJobOpeningController : listInactiveJobOpenings()
+activate EditJobOpeningController
+EditJobOpeningController -> JobOpeningRepository : findAllInactiveJobOpenings()
+activate JobOpeningRepository
+JobOpeningRepository --> EditJobOpeningController : List<JobOpening>
+deactivate JobOpeningRepository
+EditJobOpeningController --> EditJobOpeningUI : List<JobOpening>
+deactivate EditJobOpeningController
+EditJobOpeningUI --> CustomerManager : shows list of inactive job openings\nand asks to select one
+CustomerManager -> EditJobOpeningUI : selects one job opening
+EditJobOpeningUI --> CustomerManager : shows list of attributes to\nedit and asks to select one
+CustomerManager -> EditJobOpeningUI : selects description attribute
+EditJobOpeningUI --> CustomerManager : asks to prompt new description
+CustomerManager -> EditJobOpeningUI : prompts new description
+EditJobOpeningUI -> EditJobOpeningController : editDescription(JobOpening jobOpening, Description description)
+activate EditJobOpeningController
+EditJobOpeningController -> JobOpening : editDescription(Description description)
+EditJobOpeningController -> JobOpeningRepository : save(JobOpening jobOpening)
+activate JobOpeningRepository
+JobOpeningRepository --> EditJobOpeningController : jobOpening
+deactivate JobOpeningRepository
+EditJobOpeningController --> EditJobOpeningUI : jobOpening
+deactivate EditJobOpeningController
+EditJobOpeningUI --> CustomerManager : backs to menu
+deactivate EditJobOpeningUI
+@enduml

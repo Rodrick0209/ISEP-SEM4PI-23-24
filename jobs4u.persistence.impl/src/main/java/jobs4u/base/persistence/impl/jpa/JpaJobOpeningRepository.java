@@ -5,7 +5,10 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
+import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
+import jobs4u.base.recruitmentProcessManagement.utils.Phases;
+import jobs4u.base.recruitmentProcessManagement.utils.State;
 import jobs4u.base.utils.ClientCode;
 
 import java.util.HashMap;
@@ -65,6 +68,53 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
 
         // Otherwise, return the first JobOpening found
         return jobOpenings.get(0);
+    }
+
+   @Override
+    public List<JobOpening> findByCustomerManagerAndInAnalysisPhase(SystemUser customermanager) {
+
+
+       // Ensure the jobApplication is not null
+       if (customermanager == null) {
+           throw new IllegalArgumentException("JobApplication cannot be null");
+       }
+
+       // JPQL query
+       String jpql = "SELECT jo FROM JobOpening jo " +
+               "WHERE jo.client.customerManagerEmail = :customermanager " +
+                "AND jo.recruitmentProcess.applicationPhase.state = :analysisPhaseState";
+
+       // Execute the query
+       List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
+               .setParameter("customermanager", customermanager.email())
+               .setParameter("analysisPhaseState", State.OPEN)
+               .getResultList();
+
+       // If there are no jobOpenings found, return null
+       if (jobOpenings.isEmpty()) {
+           return null;
+       }
+
+       // Otherwise, return the first JobOpening found
+       return jobOpenings;
+    }
+
+    @Override
+    public List<JobOpening> findAllInactiveJobOpenings() {
+        // JPQL query
+        String jpql = "SELECT jo FROM JobOpening jo " +
+                "WHERE jo.status = :inactiveStatus";
+
+        // Execute the query
+        List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
+                .setParameter("inactiveStatus", JobOpeningStatus.INACTIVE).getResultList();
+
+        // If there are no jobOpenings found, return null
+        if(jobOpenings.isEmpty()){
+            return null;
+        }
+
+        return jobOpenings;
     }
 
 

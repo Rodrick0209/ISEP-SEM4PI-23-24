@@ -35,8 +35,9 @@
     <class>jobs4u.base.jobApplications.domain.JobApplicationState</class>
     <class>jobs4u.base.jobApplications.domain.RequirementResult</class>
     <class>jobs4u.base.jobApplications.domain.RequirementAnswer</class>
+      <class>jobs4u.base.rankManagement.domain.Rank</class>
 
-    <properties>
+      <properties>
       <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->
       <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:~\base"/>
 

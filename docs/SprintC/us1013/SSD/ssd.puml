@@ -1,0 +1,19 @@
+@startuml
+
+actor CustomerManager
+participant System
+
+activate CustomerManager
+activate System
+
+CustomerManager -> System: select the job opening option
+System -> CustomerManager: show the job opening menu
+CustomerManager -> System: select the rank candidates option
+System -> CustomerManager: show the job openings \nthat are in the Analysis phase \nand are his responsibility as a list
+CustomerManager -> System: select the job opening
+System -> CustomerManager: show the candidates list and asks for the ordered list
+CustomerManager-> System: Insert the candidates email separated by comma
+System -> CustomerManager: show the rank and asks to confirm
+CustomerManager -> System: confirm the rank
+System -> CustomerManager: show the rank save message
+@enduml

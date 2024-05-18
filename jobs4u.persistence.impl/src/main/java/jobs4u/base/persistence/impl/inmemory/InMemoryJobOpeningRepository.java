@@ -5,8 +5,11 @@ import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainR
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
+import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
+import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.utils.ClientCode;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,4 +53,28 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
         return null;
     }
 
+    @Override
+    public List<JobOpening> findByCustomerManagerAndInAnalysisPhase(SystemUser customermanager) {
+        List<JobOpening> result = new ArrayList<>();
+        for (JobOpening jobOpening : this) {
+            if (jobOpening.getClient().getCustomerManagerEmail().equals(customermanager.email())) {
+                if (jobOpening.getRecruitmentProcess().returnActivePhase().equals(Phases.ANALYSIS)) {
+                    result.add(jobOpening);
+                }
+            }
+
+        }
+        return result;
+    }
+
+    @Override
+    public List<JobOpening> findAllInactiveJobOpenings() {
+        List<JobOpening> result = new ArrayList<>();
+        for (JobOpening jobOpening : this){
+            if(jobOpening.getStatus().equals(JobOpeningStatus.INACTIVE)){
+                result.add(jobOpening);
+            }
+        }
+        return result;
+    }
 }
