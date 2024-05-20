@@ -94,9 +94,12 @@ This task, identified as "US 1010", is part of the Customer Manager feature. The
 - Used the standard base structure of the layered application
 
 ### 4.1. Sequence Diagram
-![Sequence Diagram](sequenceDiagram.png)
+![Sequence Diagram](SdUs1010.svg)
 
-### 4.2 Domain Classes Used
+### 4.2 State Diagram
+![State Diagram](diagramAjudaEntendimentoUs.drawio.png)
+
+### 4.3 Domain Classes Used
 
 -Phase
 -PhaseState
@@ -139,3 +142,80 @@ This task, identified as "US 1010", is part of the Customer Manager feature. The
 
 
 
+## 5. Test Plan
+
+### 5.1. Test For JobOpening Class
+
+#### 5.1.1. Test For Business Rules
+-**Test 1**: TestWhenBeginsFirstPhaseOfRecruitmentProcessThenJobOpeningIsActivated
+-**Test 2**: TestWhenEndsLastPhaseOfRecruitmentProcessThenJobOpeningIsInactivated
+-**Test 3**: TestWhenCloseFirstPhaseAndRollbackToNotStartedRecruitmentProcessThenJobOpeningIsInactivated
+
+### 5.2. Test For RecruitmentProcess Class
+
+#### 5.2.1. Tests For Business Rules
+
+-**Test 1**: TestChangePhaseWhenRecruitmentProcessDidntStarted() {
+
+-**Test 2**: testChangeNextPhaseWhenRecruitmentProcessIsAtLastPhaseAndPhaseIsOpen() {
+
+-**Test 3**: testChangeNextPhaseWhenRecruitmentProcessIsAtLastPhaseAndPhaseIsInProgress() {
+
+-**Test 4**: testChangePhaseWhenRecruitmentProcessIsAtLastPhaseAndPhaseIsFinished() {
+
+-**Test 5**: testChangePhaseWhenRecruitmentProcessIsAtFirstPhaseAndPhaseIsOpen() {
+
+-**Test 6**: testChangePhaseWhenRecruitmentProcessIsAtFirstPhaseAndPhaseIsInProgress() {
+
+-**Test 7**: testChangePhaseWhenRecruitmentProcessIsAtFirstPhaseAndPhaseIsFinished() {
+
+-**Test 8**: testChangePhaseWhenRecruitmentProcessIsNotInFirstOrLastPhaseAndPhaseIsOpen() {
+
+-**Test 9**: testChangePhaseWhenRecruitmentProcessIsNotInFirstOrLastPhaseAndPhaseIsInProgress() {
+
+-**Test 10**: testChangePhaseWhenRecruitmentProcessIsNotInFirstOrLastPhaseAndPhaseIsFinished() {
+
+-**Test 11**: tedtchangeNextPhaseWhenInterviewIsNotIncluded() {
+
+-**Test 12**: testCanGoBackInPhaseIfPhaseIsNotInProgressAndIsNotTheFirst() {
+
+-**Test 13**: testCannotGoBackInPhaseIfPhaseIsInProgress() {
+
+-**Test 14**: testCloseFirstPhaseWhenIsNotConcluded() {
+
+-**Test 15**: testCloseFirstPhaseWhenIsConcluded() {
+
+-**Test 16**: testClosePhaseNotConcludedThatIsNotFirstOrLast() {
+
+-**Test 17**: testClosePhaseNotConcludedThatIsLast() {
+
+
+#### 5.2.2. Tests to Method that performs the action according to the state of the phase
+
+-**Test 1**: testMethodExecuteActionForPhaseIfIsFirstPhaseOpen()
+
+-**Test 2**: testToMethodExecuteActionForOpenClosePhaseAccordinglyWithAvailableChoiceMethodWhenRecruitmentIsNotStarted() {
+
+-**Test 3**: testToMethodExecuteActionForOpenClosePhaseWithPhaseOpen() {
+
+-**Test 4**: testToMethodExecuteActionForOpenClosePhaseWithPhaseConcluded() {
+
+-**Test 5**: testToMethodExecuteActionForOpenClosePhaseWithPhaseInProgress() {
+
+-**Test 6**: testToMethodExecuteActionForOpenClosePhaseWithPhaseConcludedBeingLastPhase() {
+
+-**Test 7**: testToMethodExecuteActionForOpenClosePhaseWithoutInterviewAndWithPhaseConcludedBeingMiddlePhase() {
+
+#### 5.2.3. Tests to Method that returns the message option for the open/close phase
+
+-**Test 1**: testPrintFirstOpenPhase()
+
+-**Test 2**: testPrintOpenPhaseNotFirstOrLast()
+
+-**Test 3**: testPrintOpenPhaseLastPhase()
+
+-**Test 4**: testPrintLastPhaseFinished() {
+
+-**Test 5**: testPrintPhaseFinishedNotLast() {
+
+-**Test 6**: testPrintRecruitmentProcessDidntStart() {
