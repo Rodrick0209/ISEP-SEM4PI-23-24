@@ -76,6 +76,8 @@ This task, identified as "US 1010", is part of the Customer Manager feature. The
 
 -**BR7**: When the recruitment process ends(when the last phase is closed) the job opening becomes inactive.
 
+-**BR8**: When we rolback a phase, it closes the phase that was open and the previous phase is put in progress/active.
+
 ### Interaction between User and System
 
 -**Interaction1**: The user selects the option to open/close a phase
@@ -85,3 +87,55 @@ This task, identified as "US 1010", is part of the Customer Manager feature. The
 -**Interaction3**: The user selects between the options given by the system
 
 -**Interaction4**: System show a success/insuccess message
+
+
+## 4. Design
+
+- Used the standard base structure of the layered application
+
+### 4.1. Sequence Diagram
+![Sequence Diagram](sequenceDiagram.png)
+
+### 4.2 Domain Classes Used
+
+-Phase
+-PhaseState
+-RecruitmentProcess
+-JobOpening
+-JobOpeningState
+
+### 4.3 Controller
+
+-OpenClosePhaseController - For opening or closing a phase of a job opening
+
+### 4.4 Repository
+
+-JobOpeningRepository
+
+### 4.5 Methods Implemented
+
+#### 4.5.1 In Job Opening Class
+
+-void changePhase() - Call the method to change the phase state for the recruitment process and manages the state of the job opening accordingly with phase next state.
+
+#### 4.5.2 In Recruitment Process Class
+
+-checkIfIsAtLastPhase() - Check if the phase is the last phase of the recruitment process
+-closeOpenPhaseAndOpenPhaseBefore() - Close the actual phase and open the previous phase
+-returnNotClosedPhase() - Return the phase that is not closed
+-closePhase() - Close the phase that if it at state concluded
+-previousPhase() - Return the previous phase
+-nextPhase() - Return the phase that will be the next of the recruitment process
+-hasRecruitmentStarted() - Return if the recruitment process has started
+-changePhase() - Close the actual phase and open the next phase
+-executeActionForOpenClosePhaseAccordinglyWithAvailableChoice() - Method that will execute the action according to the state that the phase is at
+-inicialPhaseOfRecruitmentProcess() - Return the first phase of the recruitment process
+-messageForOpenClosePhase() - Return the message option for the open/close phase
+
+#### 4.5.3 In Phase Class
+
+-openPhase() - Open the phase
+-closePhase() - Close the phase
+
+
+
