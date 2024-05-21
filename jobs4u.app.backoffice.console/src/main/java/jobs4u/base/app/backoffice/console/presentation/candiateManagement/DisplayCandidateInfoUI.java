@@ -3,8 +3,11 @@ package jobs4u.base.app.backoffice.console.presentation.candiateManagement;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import jobs4u.base.candidateManagement.application.CountTop20WordsController;
+import jobs4u.base.candidateManagement.application.CountTop20WordsService;
 import jobs4u.base.candidateManagement.application.DisplayCandidateInfoController;
 import jobs4u.base.candidateManagement.domain.Candidate;
+import jobs4u.base.candidateManagement.domain.WordsCount;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
@@ -21,6 +24,7 @@ public class DisplayCandidateInfoUI extends AbstractUI {
 
     private final DisplayCandidateInfoController theController = new DisplayCandidateInfoController(PersistenceContext.repositories().candidates(), PersistenceContext.repositories().jobApplications(), PersistenceContext.repositories().jobOpenings(), AuthzRegistry.authorizationService());
 
+    private final CountTop20WordsController wordsController = new CountTop20WordsController();
     // ... existing code ...
 
     @Override
@@ -79,8 +83,23 @@ public class DisplayCandidateInfoUI extends AbstractUI {
         }
         int selectedOption = Console.readOption(1, applications.size(), -1);
         JobApplication selectedApplication = applications.get(selectedOption - 1);
-        System.out.println("From job opening: \n");
+        System.out.println("From job Application: \n");
         System.out.println(theController.getJobApplicationInfo(selectedApplication));
+
+
+        System.out.println("Top 20 words: ");
+
+        try {
+            List<WordsCount> wordsCounts = wordsController.countTop20Words(selectedApplication);
+            wordsCounts.stream()
+                    .sorted((wc1, wc2) -> Integer.compare(wc2.getCount(), wc1.getCount()))
+                    .limit(20) // Limit to top 20 words
+                    .forEach(entry -> System.out.println(entry.getWord() + ": " + entry.getCount() + " "+entry.getFiles()));
+        } catch (InterruptedException e) {
+            LOGGER.error("Error counting top 20 words", e);
+        }
+        System.out.println("\n");
+
     }
 
 
