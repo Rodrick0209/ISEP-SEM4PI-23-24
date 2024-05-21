@@ -40,17 +40,14 @@ This user story have some dependencies with the following user stories:
 
 - Refere-se a desativar o acesso do candidato ao sistema (i.e., Candidate App).
 
-### 3.2. Business Rules
 
-- The operator should select a candidate at a time.
+### 3.2. System functionality
 
-### 3.3. System functionality
-
-#### 3.3.1. Enable a candidate
+#### 3.2.1. Enable a candidate
 
 ![](SSD/SSD-Enable-Candidate.svg)
 
-#### 3.3.2. Disable a candidate
+#### 3.2.2. Disable a candidate
 
 ![](SSD/SSD-Disable-Candidate.svg)
 
