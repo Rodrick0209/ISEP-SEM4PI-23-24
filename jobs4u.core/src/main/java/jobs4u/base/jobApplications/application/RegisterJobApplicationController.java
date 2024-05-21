@@ -64,10 +64,7 @@ public class RegisterJobApplicationController {
         registerCandidateController.registerCandidate(candidate);
 
         //Create JobApplication
-        JobApplication jobApplication = new JobApplication(Long.parseLong(id), file, candidate);
-
-        //Adiciona a candidatura ao jobOpening
-        jobOpening.addJobApplication(jobApplication);
+        JobApplication jobApplication = new JobApplication(Long.parseLong(id),jobOpening, file, candidate);
 
         jobOpeningRepository.save(jobOpening);
 

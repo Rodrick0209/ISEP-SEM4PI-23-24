@@ -44,31 +44,6 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
         return jobOpenings.size();
     }
 
-    @Override
-    public JobOpening findByJobApplication(JobApplication jobApplication) {
-        // Ensure the jobApplication is not null
-        if (jobApplication == null) {
-            throw new IllegalArgumentException("JobApplication cannot be null");
-        }
-
-        // JPQL query
-        String jpql = "SELECT jo FROM JobOpening jo " +
-                "JOIN jo.applications ja " +
-                "WHERE ja = :jobApplication";
-
-        // Execute the query
-        List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
-                .setParameter("jobApplication", jobApplication)
-                .getResultList();
-
-        // If there are no jobOpenings found, return null
-        if (jobOpenings.isEmpty()) {
-            return null;
-        }
-
-        // Otherwise, return the first JobOpening found
-        return jobOpenings.get(0);
-    }
 
    @Override
     public List<JobOpening> findByCustomerManagerAndInAnalysisPhase(SystemUser customermanager) {

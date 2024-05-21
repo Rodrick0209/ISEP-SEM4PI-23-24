@@ -5,6 +5,8 @@ import jobs4u.base.candidateManagement.application.repositories.CandidateReposit
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobApplications.domain.JobApplication;
+import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.rankManagement.domain.Rank;
@@ -18,9 +20,16 @@ public class RankingService {
 
     private final CandidateRepository candidateRepository = PersistenceContext.repositories().candidates();
     private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
-
+    private final JobApplicationRepository jobApplicationRepository = PersistenceContext.repositories().jobApplications();
     public Rank rankCandidates(JobOpening jobOpening, String emails) {
         List<EmailAddress> emailList = convertEmailsToList(emails);
+
+        List<JobApplication> jobApplicationList = jobApplicationRepository.findJobApplicationsByJobOpening(jobOpening);
+        List<Candidate> candidatesList = new ArrayList<>();
+
+        for (JobApplication jobApplication : jobApplicationList) {
+            candidatesList.add(jobApplication.getCandidate());
+        }
 
         List<Candidate> candidates = new ArrayList<>();
 
@@ -29,7 +38,7 @@ public class RankingService {
             Optional<Candidate> candidate = candidateRepository.findByEmail(email);
 
             if (candidate.isPresent()) {
-                if(jobOpening.getCandidates().contains(candidate.get())){
+                if(candidatesList.contains(candidate.get())){
                     candidates.add(candidate.get());
                 }else{
                     throw new IllegalArgumentException("Candidate with email " + email + " not found in the job opening candidates list.");

@@ -39,8 +39,8 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     @Version
     private Long version;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<JobApplication> applications = new ArrayList<>();
+    //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //private List<JobApplication> applications = new ArrayList<>();
 
     private WorkingMode workingMode;
     private NrVacancy nrVacancy;
@@ -81,7 +81,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
         this.status = JobOpeningStatus.INACTIVE;
-        this.applications = new ArrayList<>();
         this.client = client;
         this.rank = new Rank();
     }
@@ -97,17 +96,12 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
         this.status = JobOpeningStatus.ACTIVE;
-        this.applications = new ArrayList<>();
         this.client = client;
         this.recruitmentProcess = recruitmentProcess;
         this.rank = new Rank();
     }
 
-    public JobApplication addJobApplication(JobApplication jobApplication) {
-        Preconditions.ensure(jobApplication != null, "job application should not be null");
-        this.applications.add(jobApplication);
-        return jobApplication;
-    }
+
 
 
     protected JobOpening() {
@@ -149,9 +143,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         return status;
     }
 
-    public List<JobApplication> jobApplications() {
-        return applications;
-    }
 
 
     @Override
@@ -211,13 +202,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     }
 
 
-    public List<Candidate> getCandidates() {
-        List<Candidate> candidates = new ArrayList<>();
-        for (JobApplication application : applications) {
-            candidates.add(application.candidate());
-        }
-        return candidates;
-    }
 
     public int getRankSize(){
         int size = calculateRankSize(rank.getMultiplier());

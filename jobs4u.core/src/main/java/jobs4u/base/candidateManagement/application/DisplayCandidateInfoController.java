@@ -83,12 +83,12 @@ public class DisplayCandidateInfoController {
     }
 
     public JobOpening getJobOpeningByJobApplication(JobApplication jobApplication){
-        return jobOpeningRepository.findByJobApplication(jobApplication);
+        return jobApplication.getJobOpening();
 
     }
 
     public List<JobApplication> getCandidateApplicationsFromJobOpening(JobOpening jobOpening) {
-        List<JobApplication> candidateApplications = jobOpening.jobApplications();
+        List<JobApplication> candidateApplications = jobApplicationRepository.findJobApplicationsByJobOpening(jobOpening);
         return candidateApplications;
     }
 

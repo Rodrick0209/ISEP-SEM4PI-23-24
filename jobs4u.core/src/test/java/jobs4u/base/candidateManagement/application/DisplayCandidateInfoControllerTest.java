@@ -105,16 +105,4 @@ public class DisplayCandidateInfoControllerTest {
         verify(jobOpeningRepository, times(1)).findByCustomerManager(user);
     }
 
-    @Test
-    void testGetCandidateApplicationsFromJobOpening() {
-        JobOpening jobOpening = mock(JobOpening.class);
-        JobApplication application1 = mock(JobApplication.class);
-        JobApplication application2 = mock(JobApplication.class);
-        when(jobOpening.jobApplications()).thenReturn(Arrays.asList(application1, application2));
-
-        List<JobApplication> applications = controller.getCandidateApplicationsFromJobOpening(jobOpening);
-
-        assertEquals(2, applications.size());
-        verify(jobOpening, times(1)).jobApplications();
-    }
 }

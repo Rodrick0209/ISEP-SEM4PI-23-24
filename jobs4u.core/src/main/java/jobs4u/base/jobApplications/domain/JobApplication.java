@@ -5,6 +5,7 @@ import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.candidateManagement.domain.Candidate;
+import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import lombok.Getter;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -44,15 +45,19 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
 
     private Calendar creationDate;
 
+    @ManyToOne
+    private JobOpening jobOpening;
+
 
 
     protected JobApplication() {
         // for ORM
     }
 
-    public JobApplication(Long id, List<JobApplicationFile> file, RequirementAnswer requirementAnswer, Interview interview, Candidate candidate) {
-        Preconditions.noneNull(id, file, state);
+    public JobApplication(Long id, JobOpening jobOpening,List<JobApplicationFile> file, RequirementAnswer requirementAnswer, Interview interview, Candidate candidate) {
+        Preconditions.noneNull(id, file, state,jobOpening);
         this.id = id;
+        this.jobOpening=jobOpening;
         this.file = file;
         this.state = JobApplicationState.ACCEPTED;
         this.requirementAnswer = requirementAnswer;
@@ -61,9 +66,10 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
         this.creationDate=Calendar.getInstance();
     }
 
-    public JobApplication(Long id, List<JobApplicationFile> file,Candidate candidate) {
+    public JobApplication(Long id, JobOpening jobOpening,List<JobApplicationFile> file,Candidate candidate) {
         Preconditions.noneNull(id, file);
         this.id = id;
+        this.jobOpening=jobOpening;
         this.file = file;
         this.state = JobApplicationState.ACCEPTED;
         this.requirementAnswer = new RequirementAnswer();

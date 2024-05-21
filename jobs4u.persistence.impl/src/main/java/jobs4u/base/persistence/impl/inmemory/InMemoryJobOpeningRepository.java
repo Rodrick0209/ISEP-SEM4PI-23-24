@@ -43,15 +43,6 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
         return count;
     }
 
-    @Override
-    public JobOpening findByJobApplication(JobApplication jobApplication) {
-        for (JobOpening jobOpening : this) {
-            if (jobOpening.jobApplications().contains(jobApplication)) {
-                return jobOpening;
-            }
-        }
-        return null;
-    }
 
     @Override
     public List<JobOpening> findByCustomerManagerAndInAnalysisPhase(SystemUser customermanager) {

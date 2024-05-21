@@ -131,11 +131,5 @@ public class RegisterJobOpeningController {
 
     }
 
-    @Transactional
-    public void addJobApplicationToJobOpening(JobOpening jobOpening, List<JobApplication> jobApplication) {
 
-        jobApplication.forEach(jobOpening::addJobApplication);
-        saveJobOpening(jobOpening);
-
-    }
 }

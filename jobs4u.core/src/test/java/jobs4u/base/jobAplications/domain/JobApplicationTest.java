@@ -19,7 +19,7 @@ class JobApplicationTest {
     @BeforeEach
     void setUp() {
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-        jobApplication = new JobApplication(1L, files,null);
+        jobApplication = new JobApplication(1L,null, files,null);
     }
 
     @Test

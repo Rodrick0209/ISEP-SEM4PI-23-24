@@ -75,7 +75,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
     final JobRequirementSpecificationRepository jobRequirementSpecificationRepository = PersistenceContext.repositories().jobRequirementsSpecification();
     final InterviewModelSpecificationRepository interviewModelSpecificationRepository = PersistenceContext.repositories().interviewModelsSpecification();
-
+    final JobApplicationRepository jobApplicationRepository = PersistenceContext.repositories().jobApplications();
 
     @Override
     public boolean execute() {
@@ -218,17 +218,18 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         List<JobApplicationFile> file2 = List.of(new JobApplicationFile("file3", new Path("file3.pdf")));
 
 
-        JobApplication jobApplication = new JobApplication(1L,file,candidate);
-        JobApplication jobApplication1 = new JobApplication(2L,file1,candidate1);
-        JobApplication jobApplication2 = new JobApplication(3L,file2,candidate2);
-        jobOpeningController.addJobApplicationToJobOpening(jobOpening, List.of(jobApplication,jobApplication1,jobApplication2));
-
+        JobApplication jobApplication = new JobApplication(1L,jobOpening,file,candidate);
+        JobApplication jobApplication1 = new JobApplication(2L,jobOpening,file1,candidate1);
+        JobApplication jobApplication2 = new JobApplication(3L,jobOpening,file2,candidate2);
 
         RequirementSpecification jobRequirementSpecification = new RequirementSpecification("teste","com.example.class");
         InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification("teste","com.example.class");
 
         jobRequirementSpecificationRepository.save(jobRequirementSpecification);
         interviewModelSpecificationRepository.save(interviewModelSpecification);
+        jobApplicationRepository.save(jobApplication);
+        jobApplicationRepository.save(jobApplication1);
+        jobApplicationRepository.save(jobApplication2);
 
         return true;
     }

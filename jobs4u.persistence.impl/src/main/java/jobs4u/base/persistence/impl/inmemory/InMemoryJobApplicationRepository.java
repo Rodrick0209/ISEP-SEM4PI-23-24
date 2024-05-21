@@ -24,6 +24,7 @@ import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainR
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
+import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,5 +51,10 @@ public class InMemoryJobApplicationRepository
             }
         }
         return result;
+    }
+
+    @Override
+    public List<JobApplication> findJobApplicationsByJobOpening(JobOpening jobOpening) {
+        return null;
     }
 }

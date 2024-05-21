@@ -6,8 +6,10 @@ import jobs4u.base.Application;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
+import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 class JpaJobApplicationRepository
@@ -31,4 +33,13 @@ class JpaJobApplicationRepository
         return match("e.candidate.email = :candidateEmail", params);
 
     }
+
+    @Override
+    public List<JobApplication> findJobApplicationsByJobOpening(JobOpening jobOpening) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("reference", jobOpening.jobReference());
+        return match("e.jobOpening.jobReference = :reference", params);
+    }
+
+
 }
