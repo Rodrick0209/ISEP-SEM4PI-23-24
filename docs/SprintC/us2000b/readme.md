@@ -56,7 +56,17 @@ This user story have some dependencies with the following user stories:
 
 ## 4. Design
 
-### 4.1. Applied patterns
+### 4.1. Realization
+
+#### 4.1.1. Disable a candidate
+
+![](SD/SD-Disable-Candidate.svg)
+
+#### 4.1.2. Enable a candidate
+
+![](SD/SD-Enable-Candidate.svg)
+
+### 4.2. Applied patterns
 
 In the development of this task, we utilized several design patterns to structure our code and ensure its
 maintainability and scalability. These patterns include:
