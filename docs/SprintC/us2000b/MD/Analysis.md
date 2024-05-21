@@ -20,10 +20,6 @@
 
 - Refere-se a desativar o acesso do candidato ao sistema (i.e., Candidate App).
 
-## Business Rules
-
-- The operator should select a candidate at a time.
-
 ## System functionality
 
 ### Enable a candidate
