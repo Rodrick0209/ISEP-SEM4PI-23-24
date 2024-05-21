@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+actor "CustomerMangager" as cm
+participant "System" as sys
+
+autonumber
+
+activate cm
+cm -> sys: ask to display the candidate data
+activate sys
+sys --> cm: shows the candidate data and his applications
+cm ->sys: select a specific application
+sys --> cm: shows the application data and the list of words
+
+
+
+
+
+
+
+deactivate sys
+
+
+
+@enduml
