@@ -67,7 +67,7 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
         this.file = file;
         this.state = JobApplicationState.ACCEPTED;
         this.requirementAnswer = new RequirementAnswer();
-        this.interview = new Interview();
+        this.interview = null;
         this.candidate = candidate;
         this.creationDate=Calendar.getInstance();
 
