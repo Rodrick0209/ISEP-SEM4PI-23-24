@@ -35,7 +35,7 @@ public class DisableCandidateUI extends AbstractUI {
 
     private void showList(List<SystemUser> users){
         int cont = 1;
-        System.out.println("Select a candidate: ");
+        System.out.println("Select a enabled candidate: ");
         for (SystemUser user: users){
             System.out.printf("%-6d%-30s%-30s%-30s%n", cont, user.email(), user.name().firstName(),
                     user.name().lastName());

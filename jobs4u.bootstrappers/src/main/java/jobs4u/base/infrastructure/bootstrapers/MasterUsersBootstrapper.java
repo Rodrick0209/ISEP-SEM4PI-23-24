@@ -206,6 +206,9 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         Candidate candidate3 = new Candidate("teste", "Teste","teste@gmail.com","919131325");
         candidateRepository.save(candidate3);
 
+        Candidate candidate4 = new Candidate("candidate", "candidato", "candidate@gmail.com", "919121299");
+        candidateRepository.save(candidate4);
+
 
         //---------------------------------------------------------------------------------------------------
         //Register Job Application

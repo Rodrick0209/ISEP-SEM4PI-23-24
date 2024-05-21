@@ -29,6 +29,7 @@ import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.Reg
 import jobs4u.base.app.backoffice.console.presentation.InterviewManagement.SelectInterviewModelSpecificationForJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.EditJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.ListJobOpeningUI;
+import jobs4u.base.app.backoffice.console.presentation.candiateManagement.*;
 import jobs4u.base.app.backoffice.console.presentation.rank.rankJobOpeningAction;
 import jobs4u.base.app.backoffice.console.presentation.rank.rankJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.RegisterJobOpeningUI;
@@ -37,9 +38,6 @@ import jobs4u.base.app.backoffice.console.presentation.authz.EnableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.DisableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.ListUsersAction;
-import jobs4u.base.app.backoffice.console.presentation.candiateManagement.DisplayCandidateInfoUI;
-import jobs4u.base.app.backoffice.console.presentation.candiateManagement.ListCandidateUI;
-import jobs4u.base.app.backoffice.console.presentation.candiateManagement.RegisterCandidateUI;
 import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientUI;
 import jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureInterviewModelPluginUI;
 import jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureJobRequirementPluginUI;
@@ -84,6 +82,8 @@ public class MainMenu extends AbstractUI {
     // OPERATOR CANDIDATE
     private static final int REGISTER_CANDIDATE = 1;
     private static final int LIST_CANDIDATE = 2;
+    private static final int ENABLE_CANDIDATE = 3;
+    private static final int DISABLE_CANDIDATE = 4;
 
     // CUSTOMER MANAGER CANDIDATE
     private static final int DISPLAY_CANDIDATE_INFO = 1;
@@ -287,6 +287,8 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(REGISTER_CANDIDATE, "Register Candidate", new RegisterCandidateUI()::show);
         menu.addItem(LIST_CANDIDATE, "List Candidates", new ListCandidateUI()::show);
+        menu.addItem(ENABLE_CANDIDATE, "Enable Candidate", new EnableCandidateUI()::show);
+        menu.addItem(DISABLE_CANDIDATE, "Disable Candidate", new DisableCandidateUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
