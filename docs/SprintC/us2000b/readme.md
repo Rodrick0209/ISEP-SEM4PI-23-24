@@ -115,3 +115,19 @@ explanation
   database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
 - **Service (UserManagementService.java):** The UserManagementService class is where the actual business logic for user management resides. It uses the UserRepository to interact with the database. When listing users, it retrieves all SystemUser objects from the database using the UserRepository.
 - **Service (FilterCandidateUserService.java):** The FilterCandidateUserService class is where the business logic for finding candidate users resides.
+
+## 6. Demonstration
+
+To demonstrate this functionality follow the steps below:
+
+### 6.1. Enabling a candidate
+
+1. Start the application and log in as a operator.
+2. Navigate to the candidate section and select the option to enable a candidate.
+3. Select the disabled candidate.
+
+### 6.3. Disabling a candidate
+
+1. Start the application and log in as a operator.
+2. Navigate to the candidate section and select the option to enable a candidate.
+3. Select the enabled candidate.
