@@ -92,24 +92,32 @@ This user story will allow the customer manager to have a better understanding o
 
 
 ### 4.1. Realization
-![sd](SD/sd.svg)
+![sd](SD/SD.svg)
 
 
 ### 4.2. Class Diagram
-![CD](CD/CD.svg)
+![CD](CD/CD.png)
 
 ### 4.3. Applied Patterns
 
+
+- **Repository Pattern:** Repository Pattern is an essential for managing data access in a way that promotes clean separation of concerns, flexibility, and testability.
+
+
+- **Service Pattern:** The Service Pattern is an essential for organizing business logic in a scalable, maintainable, and reusable way. By implementing a service layer, applications can achieve a clean separation of concerns, making them easier to develop, test, and maintain.
+
+
+- **Controller Pattern:** Is essential for managing the interaction between the user interface and the business logic of an application. By clearly separating concerns into models, views, and controllers, applications become more modular, easier to develop, test, and maintain.
 
 
 ### 4.4. Tests
 
 #### 4.4.1. Unit Tests
 
-##### Rank Class
-
-
-#### 4.4.2. Integration Tests
+- **Test 1:** Test create the WordCounter object
+- **Test 2:** Test create the WordCounter object fails
+- **Test 3:** Test the increment of the word count
+- **Test 4:** Test the add file works
 
 
 ## 5. Implementation

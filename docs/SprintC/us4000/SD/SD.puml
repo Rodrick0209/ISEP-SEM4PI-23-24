@@ -1,0 +1,67 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "CustomerManager" as actor
+participant "DisplayCandidateInfoUI" as ui
+participant "CountTop20WordsController" as controller
+participant "CountTop20WordsService" as service
+participant "JobApplication" as app
+participant "FileProcessor" as thread
+participant "WordCounter" as counter
+participant "List<WordCount>" as list
+participant "WordCount" as word
+
+activate actor
+
+actor -> ui: display Candidate Info
+activate ui
+ui -> controller**: creates
+ui -> actor: Candidate Info and his\nJob Applications
+
+
+actor -> ui: select a Job Application
+
+    ui -> controller: getTop20Words(JobApplication)
+    activate controller
+       controller -> service: getTop20Words(JobApplication)
+         activate service
+         service -> app: getJobApplicationFiles
+         activate app
+            app -> service: List<File>
+            deactivate app
+            loop for each file
+
+               service -> thread**: creates
+
+                thread -> counter: countWords(file)
+                activate thread
+                activate counter
+                counter -> list**: creates
+                counter -> word**: creates
+
+                counter -> list: add(word)
+                activate list
+                deactivate list
+                deactivate counter
+
+                deactivate
+            end
+
+                thread-->service: List<WordCount>
+                deactivate thread
+                service -> service: sortWords()
+                service -> service: getTop20Words()
+
+
+service-->controller: List<WordCount>
+deactivate service
+controller-->ui: List<WordCount>
+deactivate controller
+ui-> actor: show the Job Application details \nand the top 20 words
+deactivate ui
+
+
+
+@enduml
