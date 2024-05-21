@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Operator
+participant EnableCandidateUI <<presentation>>
+participant EnableCandidateController <<application>>
+participant CandidateRepository <<repository>>
+participant FilterCandidateUsersService <<service>>
+participant UserManagementService <<service>>
+
+activate Operator
+Operator -> EnableCandidateUI : asks to enable a candidate
+activate EnableCandidateUI
+EnableCandidateUI -> EnableCandidateController : disabledCandidates()
+activate EnableCandidateController
+EnableCandidateController -> CandidateRepository : findAll()
+activate CandidateRepository
+CandidateRepository --> EnableCandidateController : candidates
+deactivate CandidateRepository
+EnableCandidateController -> UserManagementService : deactivatedUsers()
+activate UserManagementService
+UserManagementService --> EnableCandidateController : deactivatedUsers
+deactivate UserManagementService
+EnableCandidateController -> FilterCandidateUsersService : filterCandidateUsers(candidates, deactivatedUsers)
+activate FilterCandidateUsersService
+FilterCandidateUsersService --> EnableCandidateController : deactivatedCandidateUsers
+deactivate FilterCandidateUsersService
+EnableCandidateController --> EnableCandidateUI : deactivatedCandidateUsers
+deactivate EnableCandidateController
+EnableCandidateUI --> Operator : shows a list of disabled candidates\nand asks to select one
+Operator -> EnableCandidateUI : selects one candidate
+EnableCandidateUI -> EnableCandidateController : enableCandidate(user)
+activate EnableCandidateController
+EnableCandidateController -> UserManagementService : activateUser(user)
+activate UserManagementService
+UserManagementService --> EnableCandidateController :
+deactivate UserManagementService
+EnableCandidateController --> EnableCandidateUI :
+deactivate EnableCandidateController
+EnableCandidateUI --> Operator : backs to menu
+deactivate EnableCandidateUI
+
+@enduml

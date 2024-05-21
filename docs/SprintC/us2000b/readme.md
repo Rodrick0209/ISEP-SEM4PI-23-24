@@ -18,11 +18,11 @@ This user story have some dependencies with the following user stories:
 |-----------------------------------------|-------------------------------------------------|
 | [2000a](../../SprintB/us1002/readme.md) | The candidate must be registered in the system. |
 
-## 2. Analysis
+## 3. Analysis
 
 - **The operator, after registering the candidate in the system, is able to enable/disable him from his app (i.e. Candidate App).**
 
-### 2.1. Client meeting
+### 3.1. Client meeting
 
 **Question:**
 
@@ -40,16 +40,41 @@ This user story have some dependencies with the following user stories:
 
 - Refere-se a desativar o acesso do candidato ao sistema (i.e., Candidate App).
 
-### 2.2. Business Rules
+### 3.2. Business Rules
 
 - The operator should select a candidate at a time.
 
-### 2.3. System functionality
+### 3.3. System functionality
 
-#### 2.3.1. Enable a candidate
+#### 3.3.1. Enable a candidate
 
 ![](SSD/SSD-Enable-Candidate.svg)
 
-#### 2.3.2. Disable a candidate
+#### 3.3.2. Disable a candidate
 
 ![](SSD/SSD-Disable-Candidate.svg)
+
+## 4. Design
+
+### 4.1. Realization
+
+#### 4.1.1. Disable a candidate
+
+![](SD/SD-Disable-Candidate.svg)
+
+#### 4.1.2. Enable a candidate
+
+![](SD/SD-Enable-Candidate.svg)
+
+### 4.2. Applied patterns
+
+In the development of this task, we utilized several design patterns to structure our code and ensure its
+maintainability and scalability. These patterns include:
+
+- **Repository Pattern:** The Repository pattern was used to create an abstraction layer between the data access layer
+  and the business logic layer of the application. This helps to decouple the application and make it easier to maintain
+  and test.
+- **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
+  handle incoming requests, manipulate data using the model, and select views to render to the user.
+
+

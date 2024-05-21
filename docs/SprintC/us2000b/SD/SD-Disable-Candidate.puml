@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Operator
+participant DisableCandidateUI <<presentation>>
+participant DisableCandidateController <<application>>
+participant CandidateRepository <<repository>>
+participant FilterCandidateUsersService <<service>>
+participant UserManagementService <<service>>
+
+activate Operator
+Operator -> DisableCandidateUI : asks to disable a candidate
+activate DisableCandidateUI
+DisableCandidateUI -> DisableCandidateController : enabledCandidates()
+activate DisableCandidateController
+DisableCandidateController -> CandidateRepository : findAll()
+activate CandidateRepository
+CandidateRepository --> DisableCandidateController : candidates
+deactivate CandidateRepository
+DisableCandidateController -> UserManagementService : activeUsers()
+activate UserManagementService
+UserManagementService --> DisableCandidateController : activeUsers
+deactivate UserManagementService
+DisableCandidateController -> FilterCandidateUsersService : filterCandidateUsers(candidates, activeUsers)
+activate FilterCandidateUsersService
+FilterCandidateUsersService --> DisableCandidateController : activeCandidateUsers
+deactivate FilterCandidateUsersService
+DisableCandidateController --> DisableCandidateUI : activeCandidateUsers
+deactivate DisableCandidateController
+DisableCandidateUI --> Operator : shows a list of enabled candidates\nand asks to select one
+Operator -> DisableCandidateUI : selects one candidate
+DisableCandidateUI -> DisableCandidateController : disableCandidate(user)
+activate DisableCandidateController
+DisableCandidateController -> UserManagementService : deactivateUser(user)
+activate UserManagementService
+UserManagementService --> DisableCandidateController :
+deactivate UserManagementService
+DisableCandidateController --> DisableCandidateUI :
+deactivate DisableCandidateController
+DisableCandidateUI --> Operator : backs to menu
+deactivate DisableCandidateUI
+
+@enduml
