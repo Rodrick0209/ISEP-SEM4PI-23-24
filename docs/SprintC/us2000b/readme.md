@@ -74,7 +74,44 @@ maintainability and scalability. These patterns include:
 - **Repository Pattern:** The Repository pattern was used to create an abstraction layer between the data access layer
   and the business logic layer of the application. This helps to decouple the application and make it easier to maintain
   and test.
+- **Service Pattern:** The Service pattern was used to encapsulate business logic and rules. This pattern provides a set of methods that any client application can use, and these methods implement the business rules and logic.
 - **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
   handle incoming requests, manipulate data using the model, and select views to render to the user.
 
+## 5. Implementation
 
+### 5.1. Enable a candidate
+
+The process of enabling a Candidate in this system involves several components working together. Here's a step-by-step
+explanation
+
+- **User Interface (EnableCandidateUI.java)**: The process starts in the EnableCandidateUI class, which is
+  responsible for interacting
+  with the user. It prompts the user to enter the necessary information.
+  This class uses the EnableCandidateController to handle the business logic.
+- **Controller (EnableCandidateController.java):** The EnableCandidateController class is the bridge between the
+  UI and the business
+  logic.
+- **Repository (CandidateRepository.java):** The JobOpeningRepository is an interface that defines the methods for
+  interacting with the
+  database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
+- **Service (UserManagementService.java):** The UserManagementService class is where the actual business logic for user management resides. It uses the UserRepository to interact with the database. When listing users, it retrieves all SystemUser objects from the database using the UserRepository.  
+- **Service (FilterCandidateUserService.java):** The FilterCandidateUserService class is where the business logic for finding candidate users resides.
+
+### 5.2. Disable a candidate
+
+The process of disabling a Candidate in this system involves several components working together. Here's a step-by-step
+explanation
+
+- **User Interface (DisableCandidateUI.java)**: The process starts in the EnableCandidateUI class, which is
+  responsible for interacting
+  with the user. It prompts the user to enter the necessary information.
+  This class uses the DisableCandidateController to handle the business logic.
+- **Controller (DisableCandidateController.java):** The DisableCandidateController class is the bridge between the
+  UI and the business
+  logic.
+- **Repository (CandidateRepository):** The JobOpeningRepository is an interface that defines the methods for
+  interacting with the
+  database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
+- **Service (UserManagementService.java):** The UserManagementService class is where the actual business logic for user management resides. It uses the UserRepository to interact with the database. When listing users, it retrieves all SystemUser objects from the database using the UserRepository.
+- **Service (FilterCandidateUserService.java):** The FilterCandidateUserService class is where the business logic for finding candidate users resides.
