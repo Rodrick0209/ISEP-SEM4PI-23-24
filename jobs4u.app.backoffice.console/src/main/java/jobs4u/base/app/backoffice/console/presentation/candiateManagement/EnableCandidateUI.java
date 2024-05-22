@@ -17,12 +17,16 @@ public class EnableCandidateUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EnableCandidateUI.class);
 
-    private EnableCandidateController controller = new EnableCandidateController(AuthzRegistry.authorizationService(), AuthzRegistry.userService(), PersistenceContext.repositories().candidates());
+    private final EnableCandidateController controller = new EnableCandidateController(AuthzRegistry.authorizationService(), AuthzRegistry.userService(), PersistenceContext.repositories().candidates());
 
     @Override
     protected boolean doShow() {
         List<SystemUser> disabledCandidateUsers = controller.disabledCandidates();
         showList(disabledCandidateUsers);
+        if(disabledCandidateUsers.isEmpty()) {
+            System.out.println("No candidates disabled");
+            return true;
+        }
         int option = Console.readOption(1, disabledCandidateUsers.size(), -1);
         SystemUser userToEnable = disabledCandidateUsers.get(option-1);
         try{
