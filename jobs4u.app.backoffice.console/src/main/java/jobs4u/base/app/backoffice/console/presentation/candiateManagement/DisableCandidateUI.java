@@ -19,6 +19,10 @@ public class DisableCandidateUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         List<SystemUser> enabledCandidateUsers = controller.enabledCandidates();
+        if(enabledCandidateUsers.isEmpty()) {
+            System.out.println("No candidates enabled");
+            return true;
+        }
         showList(enabledCandidateUsers);
         int option = Console.readOption(1, enabledCandidateUsers.size(), -1);
         SystemUser userToDisable = enabledCandidateUsers.get(option-1);
