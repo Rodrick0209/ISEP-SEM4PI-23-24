@@ -9,7 +9,7 @@ participant System
 activate CustomerManager
 CustomerManager -> System : asks to get an ordered list of\ncandidates based in interview points
 activate System
-System --> CustomerManager : shows list of job openings in \nanalysis phase and had an\ninterview phase\and asks to select
+System --> CustomerManager : shows list of job openings in \nanalysis phase and had an\ninterview phase and asks to select
 CustomerManager -> System : selects a job opening
 System --> CustomerManager : shows ordered list of candidates based\nin interview points and backs to menu
 deactivate System
