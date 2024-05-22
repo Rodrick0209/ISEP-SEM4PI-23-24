@@ -134,6 +134,18 @@ public class DisplayCandidateInfoUI extends AbstractUI {
         System.out.println(theController.getJobApplicationInfo(selectedApplication));
         System.out.println("From candidate: ");
         System.out.println(theController.getCandidateInfo(selectedApplication.candidate()));
+
+
+        try {
+            List<WordsCount> wordsCounts = wordsController.countTop20Words(selectedApplication);
+            wordsCounts.stream()
+                    .sorted((wc1, wc2) -> Integer.compare(wc2.getCount(), wc1.getCount()))
+                    .limit(20) // Limit to top 20 words
+                    .forEach(entry -> System.out.println(entry.getWord() + ": " + entry.getCount() + " "+entry.getFiles()));
+        } catch (InterruptedException e) {
+            LOGGER.error("Error counting top 20 words", e);
+        }
+        System.out.println("\n");
     }
 
 
