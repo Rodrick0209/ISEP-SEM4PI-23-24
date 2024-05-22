@@ -9,6 +9,7 @@ import jobs4u.base.utils.Path;
 import lombok.EqualsAndHashCode;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.File;
 import java.io.Serializable;
 
 @XmlRootElement
@@ -47,5 +48,9 @@ public class JobApplicationFile implements ValueObject, Serializable {
 
     public Path getPath() {
         return path;
+    }
+
+    public File getAsFile(){
+        return new File(path.toString());
     }
 }

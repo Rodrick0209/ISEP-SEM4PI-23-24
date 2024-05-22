@@ -216,7 +216,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         List<JobApplicationFile> file = List.of(
                 new JobApplicationFile("2-candidate-data.txt", new Path("SCOMP/output/MTN1-2/2/2-candidate-data.txt")),
                 new JobApplicationFile("2-cv.txt", new Path("SCOMP/output/MTN1-2/2/2-cv.txt")),
-                new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-email.txt")));
+                new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-big-file1.txt")));
 
         List<JobApplicationFile> file1 = List.of(new JobApplicationFile("2-cv.txt", new Path("SCOMP/output/MTN1-2/2/2-cv.txt")));
         List<JobApplicationFile> file2 = List.of(new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-email.txt")));
