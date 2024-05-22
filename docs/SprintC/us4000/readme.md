@@ -122,6 +122,17 @@ This user story will allow the customer manager to have a better understanding o
 
 ## 5. Implementation
 
+For the implementation of this user story, we need to create some components, that work together:
+
+
+- **User Interface (DisplayCandidateUI.java):** This component is resposible for the interaction with the user. It shows the Candidate info and the top 20 words of the application.
+
+
+- **Controller (CuntTop20WordsController.java):** The CuntTop20WordsController class is responsible for handling the user input and calling the appropriate service methods to create the top 20 words list. It receives one job application and passes them to the service layer for processing. It also handles the response from the service layer and send the response back to the UI.
+
+
+- **Service (CuntTop20WordsService.java):** The RankingService class is responsible for implementing the business logic for create the list of the top 20 words. This is the component that create the threads to count the words in the files.
+
 
 
 
@@ -129,11 +140,28 @@ This user story will allow the customer manager to have a better understanding o
 
 ### Integration
 
+To integrate the components, we need used some components that already exist in the system, like the UI.
+
+The new components weren't easy to create and integrate in java, because it eas the first time that the team did something like that. The team had to learn how to use threads in java.
+
 
 
 ### Demonstration
 
+To demonstrate the implementation of this user story, follow the steps below:
+1. Login as customer manager
+2. Click on the "Candidates" tab
+3. Select the "Display Candidate Information" option
+4. Select "See all candidates"
+5. Select one candidate
+6. The system will display the candidate information and the job opening were he applied
+7. Select one job Opening
+8. The system will display the application info and the top 20 words of the application
+
 
 
 ## 7. Observations
+
+This user story was a challenge for the team, because it was the first time that the team used threads in java. The team had to learn how to use threads in java, and how to implement the requirements of the client.
+The system use a single thread for files with less than 5MB, but for big files the system use multiple threads to count the words.
 
