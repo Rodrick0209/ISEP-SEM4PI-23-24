@@ -37,11 +37,11 @@ public class WordsCount {
         return Objects.equals(word, that.word);
     }
 
-    public void incrementCount() {
+    public synchronized void incrementCount() {
         this.count++;
     }
 
-    public void addFile(String file) {
+    public synchronized void addFile(String file) {
         if (!this.files.contains(file)){
             this.files.add(file);
         }
