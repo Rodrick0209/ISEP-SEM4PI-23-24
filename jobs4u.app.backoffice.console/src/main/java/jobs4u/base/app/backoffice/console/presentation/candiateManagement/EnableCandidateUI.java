@@ -17,7 +17,7 @@ public class EnableCandidateUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EnableCandidateUI.class);
 
-    private EnableCandidateController controller = new EnableCandidateController(AuthzRegistry.authorizationService(), AuthzRegistry.userService(), PersistenceContext.repositories().candidates());
+    private final EnableCandidateController controller = new EnableCandidateController(AuthzRegistry.authorizationService(), AuthzRegistry.userService(), PersistenceContext.repositories().candidates());
 
     @Override
     protected boolean doShow() {
