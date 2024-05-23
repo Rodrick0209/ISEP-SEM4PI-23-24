@@ -58,3 +58,23 @@ maintainability and scalability. These patterns include:
 - **Service Pattern:** The Service pattern was used to encapsulate business logic and rules. This pattern provides a set of methods that any client application can use, and these methods implement the business rules and logic.
 - **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
   handle incoming requests, manipulate data using the model, and select views to render to the user.
+
+## 5. Implementation
+
+The process of editing a Job Opening in this system involves several components working together. Here's a step-by-step
+explanation
+
+- **User Interface (GetOrderedListOfCandidatesUI.java)**: The process starts in the GetOrderedListOfCandidatesUI class, which is
+  responsible for interacting
+  with the user. It prompts the user to enter the necessary information.
+  This class uses the GetOrderedListOfCandidatesController to handle the business logic.
+- **Controller (GetOrderedListOfCandidatesController.java):** The GetOrderedListOfCandidatesController class is the bridge between the
+  UI and the business
+  logic.
+- **Repository (JobOpeningRepository):** The JobOpeningRepository is an interface that defines the methods for
+  interacting with the
+  database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
+- **Repository (ClientRepository) (only for editing a client):** The ClientRepository is an interface that defines the methods for
+  interacting with the
+  database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
+- **Service (GetOrderedListOfCandidatesService.java):** The GetOrderedListOfCandidatesService class is where the business logic for get an ordered list of candidates based on Interview Points resides.
