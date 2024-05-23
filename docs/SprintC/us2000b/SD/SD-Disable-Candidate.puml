@@ -6,9 +6,9 @@ autonumber
 actor Operator
 participant DisableCandidateUI <<presentation>>
 participant DisableCandidateController <<application>>
-participant CandidateRepository <<repository>>
 participant FilterCandidateUsersService <<service>>
 participant UserManagementService <<service>>
+participant CandidateRepository <<repository>>
 
 activate Operator
 Operator -> DisableCandidateUI : asks to disable a candidate

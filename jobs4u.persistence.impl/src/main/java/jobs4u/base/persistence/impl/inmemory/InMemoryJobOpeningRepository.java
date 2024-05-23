@@ -59,11 +59,24 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
     }
 
     @Override
-    public List<JobOpening> findAllInactiveJobOpenings() {
+    public List<JobOpening> findInInactiveState() {
         List<JobOpening> result = new ArrayList<>();
         for (JobOpening jobOpening : this){
             if(jobOpening.getStatus().equals(JobOpeningStatus.INACTIVE)){
                 result.add(jobOpening);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<JobOpening> findInAnalysisPhaseAndHadInterviewPhase() {
+        List<JobOpening> result = new ArrayList<>();
+        for (JobOpening jobOpening : this){
+            if(jobOpening.getRecruitmentProcess().returnActivePhase().equals(Phases.ANALYSIS)){
+                if(jobOpening.getRecruitmentProcess().interviewsPhase() != null){
+                    result.add(jobOpening);
+                }
             }
         }
         return result;

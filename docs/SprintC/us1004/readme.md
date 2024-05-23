@@ -81,10 +81,6 @@ This user story have some dependencies with the following user stories:
 
 ![](SSD/SSD-Edit-Contract-Type.svg)
 
-#### 3.3.7. Edit client of a job opening
-
-![](SSD/SSD-Edit-Client.svg)
-
 ## 4. Design
 
 ### 4.1. Realization
@@ -112,10 +108,6 @@ This user story have some dependencies with the following user stories:
 #### 4.1.6. Edit contract type of a job opening
 
 ![](SD/SD-Edit-Contract-Type.svg)
-
-#### 4.1.4. Edit client of a job opening
-
-![](SD/SD-Edit-Client.svg)
 
 ### 4.2. Applied Patterns
 
@@ -228,22 +220,6 @@ void ensureEditingContractTypeFailsWhenJobOpeningIsActive() (expected = IllegalA
   }
 ```
 
-#### 4.3.7. Edit client
-
-```
-void ensureEditingContractTypeIsSuccessfullWhenJobOpeningIsInative() (expected = success) {
-  JobOpening jobOpening = new JobOpening(...); // For default, status is inactive
-  jobOpening.editContractType(contractType);
-  }
-```
-```
-void ensureEditingContractTypeFailsWhenJobOpeningIsActive() (expected = IllegalArgumentException.class) {
-  JobOpening jobOpening = new JobOpening(...);
-  jobOpening.status = JobOpeningStatus.ACTIVE;
-  jobOpening.editClient(client);
-  }
-```
-
 ## 5. Implementation
 
 The process of editing a Job Opening in this system involves several components working together. Here's a step-by-step
@@ -257,9 +233,6 @@ explanation
   UI and the business
   logic.
 - **Repository (JobOpeningRepository):** The JobOpeningRepository is an interface that defines the methods for
-  interacting with the
-  database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
-- **Repository (ClientRepository) (only for editing a client):** The ClientRepository is an interface that defines the methods for
   interacting with the
   database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
 
@@ -314,14 +287,6 @@ To demonstrate this functionality follow the steps below:
 3. Select the Job Opening.
 4. Select the contract type attribute to edit.
 5. Select the new contract type.
-
-### 6.7. Editing client of a job opening
-
-1. Start the application and log in as a customer manager.
-2. Navigate to the job openings section and select the option to select a edit a Job Opening.
-3. Select the Job Opening.
-4. Select the client attribute to edit.
-5. Selects the new client.
 
 ## 7. Observations
 

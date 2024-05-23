@@ -81,7 +81,12 @@ public class JobReferenceServiceTest {
 
 
         @Override
-        public List<JobOpening> findAllInactiveJobOpenings() {
+        public List<JobOpening> findInInactiveState() {
+            return null;
+        }
+
+        @Override
+        public List<JobOpening> findInAnalysisPhaseAndHadInterviewPhase() {
             return null;
         }
 

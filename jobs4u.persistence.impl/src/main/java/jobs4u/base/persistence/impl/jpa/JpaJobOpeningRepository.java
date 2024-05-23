@@ -75,7 +75,7 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
     }
 
     @Override
-    public List<JobOpening> findAllInactiveJobOpenings() {
+    public List<JobOpening> findInInactiveState() {
         // JPQL query
         String jpql = "SELECT jo FROM JobOpening jo " +
                 "WHERE jo.status = :inactiveStatus";
@@ -83,6 +83,28 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
         // Execute the query
         List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
                 .setParameter("inactiveStatus", JobOpeningStatus.INACTIVE).getResultList();
+
+        // If there are no jobOpenings found, return null
+        if(jobOpenings.isEmpty()){
+            return null;
+        }
+
+        return jobOpenings;
+    }
+
+    @Override
+    public List<JobOpening> findInAnalysisPhaseAndHadInterviewPhase() {
+        // JPQL query
+        String jpql = "SELECT jo FROM JobOpening jo " +
+        "WHERE jo.recruitmentProcess.analysisPhase.state = :analysisPhaseState " +
+        "AND EXISTS ( " +
+                "SELECT ip FROM jo.recruitmentProcess.interviewsPhase ip " +
+        ")";
+
+        // Execute the query
+        List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
+                .setParameter("analysisPhaseState", State.OPEN)
+                .getResultList();
 
         // If there are no jobOpenings found, return null
         if(jobOpenings.isEmpty()){

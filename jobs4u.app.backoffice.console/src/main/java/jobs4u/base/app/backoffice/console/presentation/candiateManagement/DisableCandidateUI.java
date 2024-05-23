@@ -7,6 +7,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.base.candidateManagement.application.DisableCandidateController;
+import jobs4u.base.candidateManagement.application.FilterCandidateUserService;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,10 @@ import java.util.List;
 
 public class DisableCandidateUI extends AbstractUI {
     private static final Logger LOGGER = LoggerFactory.getLogger(DisableCandidateUI.class);
-    private final DisableCandidateController controller = new DisableCandidateController(AuthzRegistry.authorizationService(), AuthzRegistry.userService(), PersistenceContext.repositories().candidates());
+    private final DisableCandidateController controller = new DisableCandidateController(AuthzRegistry.authorizationService(),
+            AuthzRegistry.userService(),
+            PersistenceContext.repositories().candidates(),
+            new FilterCandidateUserService());
     @Override
     protected boolean doShow() {
         List<SystemUser> enabledCandidateUsers = controller.enabledCandidates();
