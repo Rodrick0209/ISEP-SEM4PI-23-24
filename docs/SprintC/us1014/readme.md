@@ -35,6 +35,8 @@ may be scheduled before we know whether the same has happened.
 
 Two interviews can take place simultaneously.
 
+A candidate can only have one interview for the job opening.
+
 #### 1. How does setting a date for an interview work?
 
 - The customer manager selects the job opening that he wants to schedule an interview.
@@ -55,7 +57,7 @@ To implement this user story there will be no changes needed to the domain model
 - The entity Job Application will have his value object "Interview" changed
 - The value object interview will have the value objects "date" and "time" changed
 
-![domain_model.jpeg](..%2Fus1013%2Fimg%2Fdomain_model.jpeg)
+![md.png](../us1014/img/md.png)
 
 ### Doubts to the client
 
@@ -85,6 +87,14 @@ To implement this user story there will be no changes needed to the domain model
 > **Answer:** The system should display the day of the week for the selected date. But the system should accept any
 > valid date.
 
+- Em relação à marcação de uma entrevista com um candidato, deve ser possível marcar mais do que uma entrevista por
+  candidatura?
+
+> **Answer:** O sistema nesta fase está pensado para apenas suportar uma entrevista por job opening por isso não faz
+> muito sentido marcar mais do que uma entrevista para um candidato a não ser para remarcar a mesma entrevista (por
+> exemplo, o candidato faltou justificadamente a uma entrevista anterior). Neste contexto, eu diria que faz mais sentido
+> poder alterar a marcação de uma entrevista do que marcar mais do que uma entrevista para o mesmo candidato.
+
 ### Client Clarifications
 
 These clarifications were made with the client to better understand the requirements of the user story. All questions
@@ -92,6 +102,7 @@ and aswers are available in
 this [file](https://myisepipp-my.sharepoint.com/:w:/g/personal/atb_isep_ipp_pt/EUuTReNeiM1NorupBbiS9hQB38kUh5TPLca7uDYEitSeZg?e=I5ymVX).
 
 - There may be interviews to take place at the same time for the same job opening
+- A candidate will at maximum have one interview for the job opening
 - Interviews can be scheduled at any time, however, they will only happen if the candidate in question has passed the
   screening phase
 - The system should display the day of the week for the selected date.
@@ -102,19 +113,20 @@ this [file](https://myisepipp-my.sharepoint.com/:w:/g/personal/atb_isep_ipp_pt/E
 To record a time and date for an interview with a candidate you should follow the next steps:
 
 1. The user should be logged in as a Customer Manager.
-2. The customer manager selects the Job Opening option, and then one option to choose an application from the job
-   opening.
-3. The system will show to the customer manager all the job applications that passed the Screening phase and will have
+2. The customer manager selects the Job Application option, and then one option to record the time and date for an
+   interview.
+3. The system will then show the job openings from the clients he is managing and he will have to choose one.
+3. The system will show to the customer manager all the job applications from the job opening chosen that passed the
+   Screening phase and will have
    an interview ocurring in the future.
 4. The customer manager selects the job application in wich he wants to schedule an interview.
 5. He will then be asked to choose a time and a date for the interview.
-6. Finaly the system will confirm with the user the date (with the day of the week) and the time chosen by the customer manager.
-
-
+6. Finaly the system will confirm with the user the date (with the day of the week) and the time chosen by the customer
+   manager.
 
 ### SSD
 
-![ssd](SSD/ssd.svg)
+![us1014ssd.svg](SSD/us1014ssd.svg)
 
 ### Dependencies to other user stories
 
@@ -122,15 +134,16 @@ To record a time and date for an interview with a candidate you should follow th
 
 ### Impact in the business
 
-- After ranking is done, the customer can access to the list of candidates in the order that the customer manager thinks
-  is the best for the job opening. This can be a good way to help the customer to select the best candidate for the job
-  opening.
+- The customer manager will be able to schedule interviews with candidates for job openings.
+- This way he can collect other type of data from the candidate, wich can help in choosing the right candidate for the
+  job.
 
-## 4. Design
+- ´+«'0«'6-4321«'098761q234567890'«'0167890'+«'43 vc. nbvc+# 4. Design
+-
 
 ### 4.1. Realization
 
-![sd](SD/sd.svg)
+![sdus1014.png](SD/sdus1014.png)
 
 ### 4.2. Class Diagram
 
@@ -142,11 +155,6 @@ To record a time and date for an interview with a candidate you should follow th
   separation of concerns, flexibility, and testability.
 
 
-- **Service Pattern:** The Service Pattern is an essential for organizing business logic in a scalable, maintainable,
-  and reusable way. By implementing a service layer, applications can achieve a clean separation of concerns, making
-  them easier to develop, test, and maintain.
-
-
 - **Controller Pattern:** Is essential for managing the interaction between the user interface and the business logic of
   an application. By clearly separating concerns into models, views, and controllers, applications become more modular,
   easier to develop, test, and maintain.
@@ -155,30 +163,64 @@ To record a time and date for an interview with a candidate you should follow th
 
 #### 4.4.1. Unit Tests
 
-##### Rank Class
+##### Interview Class
 
-- **Test 1:** Test set rank only works with rankSize set first
-- **Test 2:** Test create a rank with a list of candidates
-- **Test 3:** Test create a rank with a list of candidates with a size bigger than the rank size list
-- **Test 4:** Test create a rank with a list of candidates with a size smaller than the rank size list
+- **Test 1:** Test set date for an interview
+- **Test 2:** Test set time for an interview
 - **Test 5:** Test the ToString method
 
 #### 4.4.2. Integration Tests
 
-- **Test 1:** Test adding a candidate that doest exist
-- **Test 2:** Test adding a candidate that exist but didn't applied for that jobOpening
-- **Test 3:** Test adding a candidate that exist and applied for that jobOpening
-- **Test 4:** Test writing a rank with invalid emails
-- **Test 5:** Test writing a rank with valid separator
-- **Test 6:** Test writing a rank correctly
+- **Test 1:** Test setting a date and time for an interview that is not suposed to occur
+- **Test 2:** Test setting a date and time for an interview that is suposed to occur
+- **Test 3:** Test setting a date and time for an interview that is suposed to occur but the candidate did not pass the
+  screening phase
+-
 
 ## 5. Implementation
+
+For the implementation of this user story, we need to create some components, that work together:
+
+- **User Interface (recordTimeDateInterviewUI.java):** This component is resposible for the interaction with the user.
+  It shows the job openings that are in the Analysis phase and are the responsibility of the customer manager. It also
+  shows the list of candidates that applied for the job opening and waits for the customer manager to write the rank of
+  the candidates.
+
+
+- **Controller (recordTimeDateInterviewController.java):** The rankJobOpeningController class is responsible for
+  handling the user input and calling the appropriate service methods schedule a date and time for an interview. It
+  receives the job opening and the list of candidates from the UI and passes them to the service layer for processing.
+  It also handles the response from the service layer and send the response back to the UI.
+
+
+- **Repository (JobApplicationRepository):** The JobApplication class is responsible for managing the persistence of the
+  Interview objects. It provides methods for saving, updating, and retrieving Interview objects from the database.
 
 ## 6. Integration/Demonstration
 
 ### Integration
 
+To integrate the components, we need used some components that already exist in the system, like repositories the
+jobOpening and JobApplication classes.
+The integration of this components with the new components was clear and easy to do, because the new components are very
+simple and don't have a lot of dependencies.
+
 ### Demonstration
+
+To demonstrate the implementation of this user story, we can use the following steps:
+
+1. Login as a Customer Manager
+2. Select the Rank option
+3. Select the Register Rank for Job Opening option
+4. The system will show the job openings that are in the Analysis phase and are the responsibility of the customer
+   manager, and the customer manager selects the job opening that he wants to rank the candidates.
+5. The system will show the list of candidates that applied for the job opening, and the customer manager writes the
+   email of the candidates separated by a comma.
+6. In case of ranking candidates from a jobOpening that already has a rank, the system displays the current rank to the
+   customer manager, and asks for the new rank.
+6. The system shows the rank inserted
 
 ## 7. Observations
 
+In case of register a ranking for a jobOpening that already has a ranking, the system displays to the customer manager
+the current ranking.
