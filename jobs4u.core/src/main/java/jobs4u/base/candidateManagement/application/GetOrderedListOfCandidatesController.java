@@ -25,7 +25,7 @@ public class GetOrderedListOfCandidatesController {
     public Iterable<JobOpening> jobOpeningsInAnalysisPhaseAndHadInterviewPhase(){
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
 
-        return jobOpeningRepository.findJobOpeningsInAnalysisPhaseAndHadInterviewPhase();
+        return jobOpeningRepository.findInAnalysisPhaseAndHadInterviewPhase();
     }
 
     public List<Candidate> getOrderedListOfCandidatesBasedOnInterviewPoints(JobOpening jobOpening){

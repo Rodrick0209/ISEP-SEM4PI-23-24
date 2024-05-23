@@ -59,7 +59,7 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
     }
 
     @Override
-    public List<JobOpening> findAllInactiveJobOpenings() {
+    public List<JobOpening> findInInactiveState() {
         List<JobOpening> result = new ArrayList<>();
         for (JobOpening jobOpening : this){
             if(jobOpening.getStatus().equals(JobOpeningStatus.INACTIVE)){
@@ -70,7 +70,7 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
     }
 
     @Override
-    public List<JobOpening> findJobOpeningsInAnalysisPhaseAndHadInterviewPhase() {
+    public List<JobOpening> findInAnalysisPhaseAndHadInterviewPhase() {
         List<JobOpening> result = new ArrayList<>();
         for (JobOpening jobOpening : this){
             if(jobOpening.getRecruitmentProcess().returnActivePhase().equals(Phases.ANALYSIS)){
