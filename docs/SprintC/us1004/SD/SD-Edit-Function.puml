@@ -12,13 +12,13 @@ participant JobOpening <<domain>>
 activate CustomerManager
 CustomerManager -> EditJobOpeningUI : asks to edit a job opening
 activate EditJobOpeningUI
-EditJobOpeningUI -> EditJobOpeningController : listInactiveJobOpenings()
+EditJobOpeningUI -> EditJobOpeningController : inactiveJobOpenings()
 activate EditJobOpeningController
-EditJobOpeningController -> JobOpeningRepository : findAllInactiveJobOpenings()
+EditJobOpeningController -> JobOpeningRepository : findInInactiveStatus()
 activate JobOpeningRepository
-JobOpeningRepository --> EditJobOpeningController : List<JobOpening>
+JobOpeningRepository --> EditJobOpeningController : jobOpenings
 deactivate JobOpeningRepository
-EditJobOpeningController --> EditJobOpeningUI : List<JobOpening>
+EditJobOpeningController --> EditJobOpeningUI : jobOpenings
 deactivate EditJobOpeningController
 EditJobOpeningUI --> CustomerManager : shows list of inactive job openings\nand asks to select one
 CustomerManager -> EditJobOpeningUI : selects one job opening
@@ -26,14 +26,14 @@ EditJobOpeningUI --> CustomerManager : shows list of attributes to\nedit and ask
 CustomerManager -> EditJobOpeningUI : selects function attribute
 EditJobOpeningUI --> CustomerManager : asks to prompt new function
 CustomerManager -> EditJobOpeningUI : prompts new function
-EditJobOpeningUI -> EditJobOpeningController : editFunction(JobOpening jobOpening, Designation function)
+EditJobOpeningUI -> EditJobOpeningController : edit(jobOpening, function)
 activate EditJobOpeningController
-EditJobOpeningController -> JobOpening : editFunction(Designation function)
-EditJobOpeningController -> JobOpeningRepository : save(JobOpening jobOpening)
+EditJobOpeningController -> JobOpening : editFunction(function)
+EditJobOpeningController -> JobOpeningRepository : save(jobOpening)
 activate JobOpeningRepository
-JobOpeningRepository --> EditJobOpeningController : jobOpening
+JobOpeningRepository --> EditJobOpeningController : 
 deactivate JobOpeningRepository
-EditJobOpeningController --> EditJobOpeningUI : jobOpening
+EditJobOpeningController --> EditJobOpeningUI :
 deactivate EditJobOpeningController
 EditJobOpeningUI --> CustomerManager : backs to menu
 deactivate EditJobOpeningUI

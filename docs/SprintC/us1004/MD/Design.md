@@ -26,10 +26,6 @@
 
 ![](../SD/SD-Edit-Contract-Type.svg)
 
-### Edit client of a job opening
-
-![](../SD/SD-Edit-Client.svg)
-
 ### Domain Classes
 
 - JobOpening
@@ -38,12 +34,7 @@
 
 - EditJobOpeningController - For editting a job opening.
 
-### Service
-
-- AuthenticationService
-
 ### Repository
 
 - JobOpeningRepository
-- ClientRepository (for editing a client)
 
