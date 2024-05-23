@@ -16,11 +16,11 @@ public class DisableCandidateController {
     private final CandidateRepository repository;
     private final FilterCandidateUserService filter;
 
-    public DisableCandidateController(AuthorizationService authz, UserManagementService uvc, CandidateRepository repository){
+    public DisableCandidateController(AuthorizationService authz, UserManagementService uvc, CandidateRepository repository, FilterCandidateUserService filter){
         this.authz = authz;
         this.uvc = uvc;
         this.repository = repository;
-        filter = new FilterCandidateUserService();
+        this.filter = filter;
     }
 
     public List<SystemUser> enabledCandidates(){
