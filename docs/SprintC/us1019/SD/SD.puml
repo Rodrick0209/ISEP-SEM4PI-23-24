@@ -6,9 +6,11 @@ autonumber
 actor CustomerManager
 participant GetOrderedListOfCandidatesUI <<presentation>>
 participant GetOrderedListOfCandidatesController <<application>>
+participant GetOrderedListOfCandidatesService <<service>>
 participant JobOpeningRepository <<repository>>
 participant JobApplicationRepository <<repository>>
-participant JobOpening <<domain>>
+participant JobApplication <<domain>>
+participant Candidate <<domain>>
 
 activate CustomerManager
 CustomerManager -> GetOrderedListOfCandidatesUI : asks to get an ordered list of\ncandidates based in interview points
@@ -29,10 +31,24 @@ GetOrderedListOfCandidatesController -> JobApplicationRepository : findJobApplic
 activate JobApplicationRepository
 JobApplicationRepository --> GetOrderedListOfCandidatesController : jobApplications
 deactivate JobApplicationRepository
-GetOrderedListOfCandidatesController -> JobOpening : orderCandidatesBasedOnInterviewPoints(jobApplications)
-activate JobOpening
-JobOpening --> GetOrderedListOfCandidatesController : orderedCandidates
-deactivate JobOpening
+GetOrderedListOfCandidatesController -> GetOrderedListOfCandidatesService : orderCandidatesBasedOnInterviewPoints(jobApplications)
+activate GetOrderedListOfCandidatesService
+GetOrderedListOfCandidatesService -> GetOrderedListOfCandidatesService : orderJobApplicationsBasedOnInterviewPoints(jobApplications)
+activate GetOrderedListOfCandidatesService
+GetOrderedListOfCandidatesService --> GetOrderedListOfCandidatesService : orderedApplications
+deactivate GetOrderedListOfCandidatesService
+loop for each job application
+GetOrderedListOfCandidatesService -> JobApplication : candidate()
+activate JobApplication
+JobApplication -> Candidate : candidate()
+activate Candidate
+Candidate --> JobApplication : candidate
+deactivate Candidate
+JobApplication --> GetOrderedListOfCandidatesService : candidate
+deactivate JobApplication
+end loop
+GetOrderedListOfCandidatesService --> GetOrderedListOfCandidatesController : orderedCandidates
+deactivate GetOrderedListOfCandidatesService
 GetOrderedListOfCandidatesController --> GetOrderedListOfCandidatesUI : orderedCandidates
 deactivate GetOrderedListOfCandidatesController
 
