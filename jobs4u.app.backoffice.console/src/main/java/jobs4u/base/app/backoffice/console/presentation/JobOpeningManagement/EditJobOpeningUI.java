@@ -8,7 +8,6 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
-import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.EditJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
@@ -28,7 +27,7 @@ public class EditJobOpeningUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        final List<JobOpening> jobOpenings = controller.listInactiveJobOpenings();
+        final List<JobOpening> jobOpenings = controller.inactiveJobOpenings();
         final SelectWidget<JobOpening> jobOpeningSelector = new SelectWidget<>("Select a Inactive Job Opening", jobOpenings);
         jobOpeningSelector.show();
         final JobOpening jobOpening = jobOpeningSelector.selectedElement();
@@ -50,9 +49,8 @@ public class EditJobOpeningUI extends AbstractUI {
         System.out.println("4. Description");
         System.out.println("5. Function");
         System.out.println("6. Contract Type");
-        System.out.println("7. Client");
 
-        int option = Console.readOption(1, 7, 0);
+        int option = Console.readOption(1, 6, 0);
 
         switch (option) {
             case 1:
@@ -72,9 +70,6 @@ public class EditJobOpeningUI extends AbstractUI {
                 break;
             case 6:
                 selectNewContractType(jobOpening);
-                break;
-            case 7:
-                selectNewClient(jobOpening);
                 break;
             default:
                 System.out.println("Invalid option. Please try again.");
@@ -106,7 +101,7 @@ public class EditJobOpeningUI extends AbstractUI {
         }
 
         try {
-            controller.editWorkingMode(jobOpening, newWorkingMode);
+            controller.edit(jobOpening, newWorkingMode);
             successfulEdit();
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
@@ -119,7 +114,7 @@ public class EditJobOpeningUI extends AbstractUI {
         String numberVacancies = Console.readLine("Input the new number of vacancies: ");
         NrVacancy newNumberVacancies = NrVacancy.valueOf(numberVacancies);
         try {
-            controller.editNumberVacancies(jobOpening, newNumberVacancies);
+            controller.edit(jobOpening, newNumberVacancies);
             successfulEdit();
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
@@ -132,7 +127,7 @@ public class EditJobOpeningUI extends AbstractUI {
         String address = Console.readLine("Input the new address: ");
         PostalAddress newAddress = PostalAddress.valueOf(address);
         try {
-            controller.editAddress(jobOpening, newAddress);
+            controller.edit(jobOpening, newAddress);
             successfulEdit();
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
@@ -145,7 +140,7 @@ public class EditJobOpeningUI extends AbstractUI {
         String description = Console.readLine("Input the new description: ");
         Description newDescription = Description.valueOf(description);
         try {
-            controller.editDescription(jobOpening, newDescription);
+            controller.edit(jobOpening, newDescription);
             successfulEdit();
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
@@ -158,7 +153,7 @@ public class EditJobOpeningUI extends AbstractUI {
         String function = Console.readLine("Input the new function: ");
         Designation newFunction = Designation.valueOf(function);
         try {
-            controller.editFunction(jobOpening, newFunction);
+            controller.edit(jobOpening, newFunction);
             successfulEdit();
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
@@ -188,23 +183,7 @@ public class EditJobOpeningUI extends AbstractUI {
         }
 
         try {
-            controller.editContractType(jobOpening, newContractType);
-            successfulEdit();
-        } catch (IntegrityViolationException | ConcurrencyException ex) {
-            LOGGER.error("Error performing the operation", ex);
-            System.out.println(
-                    "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
-        }
-    }
-
-    private void selectNewClient(JobOpening jobOpening){
-        Iterable<Client> clients = controller.listClients();
-        SelectWidget<Client> clientSelector = new SelectWidget<>("Select new client: ", clients);
-        clientSelector.show();
-        Client newClient = clientSelector.selectedElement();
-
-        try{
-            controller.editClient(jobOpening, newClient);
+            controller.edit(jobOpening, newContractType);
             successfulEdit();
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);

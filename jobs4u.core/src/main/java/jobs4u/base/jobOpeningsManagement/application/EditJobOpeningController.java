@@ -5,7 +5,6 @@ import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
-import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
@@ -19,73 +18,38 @@ import java.util.List;
 @UseCaseController
 public class EditJobOpeningController {
     private AuthorizationService authz;
-    private JobOpeningRepository jobOpeningRepository;
+    private JobOpeningRepository repository;
     private ClientRepository clientRepository;
 
-    public EditJobOpeningController(AuthorizationService authz, JobOpeningRepository jobOpeningRepository, ClientRepository clientRepository){
+    public EditJobOpeningController(AuthorizationService authz, JobOpeningRepository repository, ClientRepository clientRepository){
         this.authz = authz;
-        this.jobOpeningRepository = jobOpeningRepository;
+        this.repository = repository;
         this.clientRepository = clientRepository;
     }
 
-    public List<JobOpening> listInactiveJobOpenings(){
+    public List<JobOpening> inactiveJobOpenings(){
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
 
-        return jobOpeningRepository.findAllInactiveJobOpenings();
+        return repository.findInInactiveState();
     }
 
-    public Iterable<Client> listClients(){
+    public JobOpening edit(JobOpening jobOpening, Object attribute){
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
 
-        return clientRepository.findAll();
-    }
+        if(attribute instanceof WorkingMode){
+            jobOpening.editWorkingMode((WorkingMode) attribute);
+        } else if (attribute instanceof NrVacancy) {
+            jobOpening.editNumberVacancies((NrVacancy) attribute);
+        } else if (attribute instanceof PostalAddress) {
+            jobOpening.editAddress((PostalAddress) attribute);
+        } else if (attribute instanceof Description) {
+            jobOpening.editDescription((Description) attribute);
+        } else if (attribute instanceof Designation) {
+            jobOpening.editFunction((Designation) attribute);
+        } else if (attribute instanceof ContractType) {
+            jobOpening.editContractType((ContractType) attribute);
+        }
 
-    public JobOpening editWorkingMode(JobOpening jobOpening, WorkingMode newWorkingMode){
-        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
-
-        jobOpening.editWorkingMode(newWorkingMode);
-        return jobOpeningRepository.save(jobOpening);
-    }
-
-    public JobOpening editNumberVacancies(JobOpening jobOpening, NrVacancy newNrVacancy){
-        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
-
-        jobOpening.editNumberVacancies(newNrVacancy);
-        return jobOpeningRepository.save(jobOpening);
-    }
-
-    public JobOpening editAddress(JobOpening jobOpening, PostalAddress newAddress){
-        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
-
-        jobOpening.editAddress(newAddress);
-        return jobOpeningRepository.save(jobOpening);
-    }
-
-    public JobOpening editDescription(JobOpening jobOpening, Description newDescription){
-        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
-
-        jobOpening.editDescription(newDescription);
-        return jobOpeningRepository.save(jobOpening);
-    }
-
-    public JobOpening editFunction(JobOpening jobOpening, Designation newFunction){
-        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
-
-        jobOpening.editFunction(newFunction);
-        return jobOpeningRepository.save(jobOpening);
-    }
-
-    public JobOpening editContractType(JobOpening jobOpening, ContractType newContractType){
-        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
-
-        jobOpening.editContractType(newContractType);
-        return jobOpeningRepository.save(jobOpening);
-    }
-
-    public JobOpening editClient(JobOpening jobOpening, Client newClient){
-        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
-
-        jobOpening.editClient(newClient);
-        return jobOpeningRepository.save(jobOpening);
+        return repository.save(jobOpening);
     }
 }
