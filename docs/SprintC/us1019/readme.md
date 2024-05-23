@@ -43,7 +43,6 @@ This user story have some dependencies with the following user stories:
 
 ## 4. Design
 
-
 ### 4.1. Realization
 
 ![](SD/SD.svg)
