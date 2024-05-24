@@ -147,7 +147,7 @@ To record a time and date for an interview with a candidate you should follow th
 
 ### 4.2. Class Diagram
 
-![CD](CD/CD.svg)
+![CD.drawio.png](CD/CD.drawio.png)
 
 ### 4.3. Applied Patterns
 
