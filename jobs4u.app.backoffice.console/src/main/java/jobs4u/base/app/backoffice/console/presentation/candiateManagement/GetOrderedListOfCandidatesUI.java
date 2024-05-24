@@ -39,7 +39,7 @@ public class GetOrderedListOfCandidatesUI extends AbstractUI {
 
     private void showList(List<Candidate> candidates){
         int cont = 1;
-        System.out.println("Select a enabled candidate: ");
+        System.out.println("Ordered List of Candidates: ");
         for (Candidate candidate: candidates){
             System.out.printf("%-6d%-30s%-30s%-30s%n", cont, candidate.emailAddress(), candidate.name().firstName(),
                     candidate.name().lastName());
