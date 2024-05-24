@@ -78,3 +78,11 @@ explanation
   interacting with the
   database. It extends the DomainRepository interface, which provides methods for basic CRUD operations.
 - **Service (GetOrderedListOfCandidatesService.java):** The GetOrderedListOfCandidatesService class is where the business logic for get an ordered list of candidates based on Interview Points resides.
+
+## 6. Demonstration
+
+To demonstrate the implementation of this user story, we can use the following steps:
+
+1. Start the application and log in as a customer manager.
+2. Navigate to the candidate section and select the option to get a ordered list of candidates based on interview points.
+3. Select the job opening that is in analysis phase and had an interview phase.

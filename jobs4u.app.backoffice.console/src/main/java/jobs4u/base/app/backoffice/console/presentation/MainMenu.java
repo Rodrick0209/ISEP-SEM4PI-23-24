@@ -87,6 +87,7 @@ public class MainMenu extends AbstractUI {
 
     // CUSTOMER MANAGER CANDIDATE
     private static final int DISPLAY_CANDIDATE_INFO = 1;
+    private static final int GET_ORDERED_LIST_OF_CANDIDATES = 2;
 
     // JOB OPENING
     private static final int REGISTER_JOB_OPENING = 1;
@@ -300,6 +301,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Candidate >");
 
         menu.addItem(DISPLAY_CANDIDATE_INFO, "Display Candidate Information", new DisplayCandidateInfoUI()::show);
+        menu.addItem(GET_ORDERED_LIST_OF_CANDIDATES, "Get Ordered List of Candidates based on Interview Points", new GetOrderedListOfCandidatesUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
