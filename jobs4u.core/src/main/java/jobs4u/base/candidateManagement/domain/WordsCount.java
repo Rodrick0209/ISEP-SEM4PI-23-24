@@ -7,12 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 public class WordsCount {
-    @Getter
     private String word;
-    @Getter
     private int count;
-    @Getter
     private List<String> files;
 
     public WordsCount(String word, int count, List<String> files) {
@@ -45,21 +43,15 @@ public class WordsCount {
         if (!this.files.contains(file)){
             this.files.add(file);
         }
-
     }
 
-    public int getCount() {
-        return count;
+    public synchronized void addFile(List<String> files) {
+        for (String file : files) {
+            if (!this.files.contains(file)){
+                this.files.add(file);
+            }
+        }
     }
-
-    public String getWord() {
-        return word;
-    }
-
-    public List<String> getFiles() {
-        return files;
-    }
-
 
 
 }
