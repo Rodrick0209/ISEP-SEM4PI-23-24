@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -37,6 +38,7 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
     @Getter
     private RequirementAnswer requirementAnswer;
 
+    @Setter
     @Column(name = "Interview")
     private Interview interview;
 
@@ -87,6 +89,9 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
     }
     public Calendar creationDate() {
         return creationDate;
+    }
+    public Interview interview() {
+        return interview;
     }
 
     @Override

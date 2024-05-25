@@ -4,6 +4,7 @@ import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 @Embeddable
 public class Time implements ValueObject, Comparable<Time>{
@@ -29,6 +30,16 @@ public class Time implements ValueObject, Comparable<Time>{
 
     public LocalTime getTime() {
         return time;
+    }
+
+
+    public static Time parse(String timeString) {
+        try {
+            LocalTime localTime = LocalTime.parse(timeString);
+            return new Time(localTime);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid time format.", e);
+        }
     }
 
     @Override
