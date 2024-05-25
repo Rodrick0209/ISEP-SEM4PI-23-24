@@ -16,10 +16,10 @@ void *init_shm() {
     }
 
     /* configure the size of the shared memory segment */
-    ftruncate(shm_fd, sizeof(FileMatrix));
+    ftruncate(shm_fd, sizeof(char));
 
     /* map the shared memory segment in the address space of the process */
-    ptr = mmap(0, sizeof(FileMatrix), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    ptr = mmap(0, sizeof(char), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     if (ptr == MAP_FAILED) {
         perror("mmap");
         exit(EXIT_FAILURE);

@@ -1,13 +1,39 @@
 #include "header.h"
+#include <dirent.h>
+#include <ctype.h>
 
 #define MAX_BUFFER_SIZE 1024
 
+
+// Function to validate the filename,  checking if it matches the pattern "<number>-candidate-data.txt"
+bool validate_filename(const char *filename) {
+    // Check if the filename matches the pattern "<number>-candidate-data.txt"
+    // where <number> can be any sequence of digits
+    int len = strlen(filename);
+    if (len < 19) // Minimum length check
+        return false;
+
+    int i = 0;
+    while (isdigit(filename[i])) {
+        i++;
+    }
+
+    if (filename[i] != '-') // Check for hyphen after the number
+        return false;
+
+    if (strncmp(&filename[i + 1], "candidate-data.txt", 17) != 0) // Check for the rest of the filename
+        return false;
+
+    return true;
+}
+
 int main(int argc, char *argv[])
-{   
+{
     sem_t *sem;
 
-    sem = sem_open(SEM_NAME, O_CREAT);
-    if (sem == SEM_FAILED) {
+    sem = sem_open(SEM_NOTIFICATION, O_RDWR);
+    if (sem == SEM_FAILED)
+    {
         perror("sem_open");
         exit(EXIT_FAILURE);
     }
@@ -29,7 +55,14 @@ int main(int argc, char *argv[])
     // Convert time_interval from string to integer
     int time_interval = atoi(argv[2]);
 
-    while (1) {
+    while (1)
+    {
+        // Inicializa as variáveis
+        DIR *dir;
+        struct dirent *ent;
+        int current_num_files = 0;
+
+        printf("Monitorizando o diretório: %s\n", argv[1]);
         // Change the current working directory to the provided directory
         if (chdir(argv[1]) != 0)
         {
@@ -37,53 +70,36 @@ int main(int argc, char *argv[])
             return 1;
         }
 
-        // Create a temporary file to store the output of ls
-        char temp_file[] = "/tmp/ls_outputXXXXXX";
-        int fd = mkstemp(temp_file);
-        if (fd == -1)
+        if ((dir = opendir(argv[1])) != NULL)
         {
-            perror("mkstemp");
-            return 1;
+            // Se o diretório foi aberto com sucesso, lê os arquivos nele
+            while ((ent = readdir(dir)) != NULL)
+            {
+                // Ignora os diretórios '.' e '..'
+                if (strcmp(ent->d_name, ".") != 0 && strcmp(ent->d_name, "..") != 0)
+                {
+                    if (validate_filename(ent->d_name)) {
+                        current_num_files++;
+                        
+                }
+                }
+            }
+            // Fecha o diretório após a leitura
+            closedir(dir);
+        }
+        else
+        {
+            // Se o diretório não pôde ser aberto, imprime uma mensagem de erro e termina o programa
+            perror("Não foi possível abrir o diretório");
+            exit(EXIT_FAILURE);
         }
 
-        // Close the file descriptor as we only need the file name
-        close(fd);
-
-        // Command to list files in the directory and redirect output to temporary file
-        char command[MAX_BUFFER_SIZE];
-        snprintf(command, sizeof(command), "ls -1 %s > %s", argv[1], temp_file);
-
-        // Execute the ls command and redirect output to temporary file
-        int ret = system(command);
-        if (ret != 0)
-        {
-            fprintf(stderr, "Error: Failed to execute ls command.\n");
-            return 1;
-        }
-
-        // Open the temporary file for reading
-        FILE *ls_output = fopen(temp_file, "r");
-        if (ls_output == NULL)
-        {
-            perror("fopen");
-            return 1;
-        }
-
-        // Check if the file is empty
-        fseek(ls_output, 0, SEEK_END);
-        long size = ftell(ls_output);
-        if (size!= 0)
+        // Se novos arquivos foram detectados, notifica o processo pai atraves do semáforo
+        if (current_num_files > 0)
         {
             printf("New Files detected.\n");
             sem_post(sem);
-
         }
-
-        // Close the temporary file
-        fclose(ls_output);
-
-        // Remove the temporary file
-        remove(temp_file);
 
         // Wait for the specified time interval
         sleep(time_interval);
@@ -91,3 +107,5 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
+

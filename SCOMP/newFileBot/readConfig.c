@@ -1,14 +1,25 @@
 #include "header.h"
 #include <errno.h>
 
-void read_config(Config *config, const char *config_file_path)
+void read_config(Config *config, char *config_file_path)
 {
+
+    //config file path
+    char *configName = config_file_path;
+
+    //validations for the config file
+    if (access(configName, F_OK) == -1)
+    {
+        printf("The file %s does not exist.\n", configName);
+        exit(1);
+    }
     if (config == NULL || config_file_path == NULL)
     {
         fprintf(stderr, "Error: config or config_file_path is NULL.\n");
         exit(EXIT_FAILURE);
     }
 
+    //open the file
     FILE *file = fopen(config_file_path, "r");
     if (file == NULL)
     {
@@ -16,8 +27,9 @@ void read_config(Config *config, const char *config_file_path)
         exit(EXIT_FAILURE);
     }
 
+
+    //Read the config file
     char line[256];
-    
     while (fgets(line, sizeof(line), file))
     {
         char *key = strtok(line, "=");

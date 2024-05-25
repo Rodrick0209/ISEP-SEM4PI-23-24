@@ -16,10 +16,10 @@
 
 #define MAX_SIZE 256
 
-#define SEM_NAME "/notification"
-#define SEM_MEM "/sem_memory"
-#define SEM_PARW "/par_write"
-#define SHM_NAME "/my_shared_memory"
+#define SEM_NOTIFICATION "/notification" //SEM_NAME
+#define SEM_CHILD_READ "/sem_memory" //SEM_MEM
+#define SEM_PARENT_WRITE "/par_write" //SEM_PARW
+#define SHM_NAME "/my_shared_memory" //SHM_NAME
 
 
 #define MAX_FILES 10
@@ -36,25 +36,15 @@ typedef struct
 } Config;
 
 
-typedef struct
-{
-  char files[MAX_FILES][MAX_SIZE];
-  int file_counts;
-  int num_prefixes;
-} FileMatrix;
 
-void read_config(Config *config, const char *config_file_path);
+void read_config(Config *config, char *config_file_path);
 sem_t *init_sem();
 void *init_shm();
 char **get_to_shm(const char *dir_name);
 void read_from_shm(void *shm_ptr);
 void distribute_files();
-void organize_files(const char *directory, FileMatrix buffer[]);
-void print_file_matrix(FileMatrix *buffer, int num_prefixes);
 
-
-// Function ProcessFile.c
-//void processCandidateFile(char file_names[][MAX_SIZE], int array_size,const char input,const char output);
+char** get_candidate_data_file_prefixes(const char *directory_path, int *count);
 
 
 
