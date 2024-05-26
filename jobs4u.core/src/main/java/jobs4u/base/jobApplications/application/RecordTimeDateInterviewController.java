@@ -11,7 +11,10 @@ import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +36,7 @@ public class RecordTimeDateInterviewController {
 
         Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER, Jobs4uRoles.POWER_USER);
         ArrayList<JobOpening> jobOpenings = new ArrayList<>();
-        jobOpeningRepository.findByCustomerManager(user.get()).forEach(jobOpening -> {
+        jobOpeningRepository.findJobOpeningsWithInterviewPhaseByCustomer(user.get()).forEach(jobOpening -> {
             jobOpenings.add(jobOpening);
         });
 
@@ -46,11 +49,27 @@ public class RecordTimeDateInterviewController {
     }
 
 
-    public void editTimeDateInterview(JobApplication jobApplication, String time, String date) {
+    public void editTimeDateInterview(JobApplication jobApplication, String time, String date) throws ParseException {
         jobs4u.base.jobApplications.domain.Date interviewDate = jobs4u.base.jobApplications.domain.Date.parse(date);
         Time interviewTime = Time.parse(time);
         Interview newInterview = new Interview(interviewDate, interviewTime);
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        timeFormat.setLenient(false);
+
+        Date currentDate = new Date();
+        Date inputDate = dateFormat.parse(date);
+        Date inputTime = timeFormat.parse(time);
+
+        if (inputDate.before(currentDate)) {
+            throw new IllegalArgumentException("The date cannot be in the past.");
+        }
+
+        if (inputDate.equals(currentDate) && inputTime.before(new Date())) {
+            throw new IllegalArgumentException("The time cannot be in the past.");
+        }
 
         jobApplication.setInterview(newInterview);
     }

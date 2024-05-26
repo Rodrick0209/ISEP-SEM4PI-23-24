@@ -122,6 +122,15 @@ public class RecruitmentProcess {
         }
     }
 
+    public boolean hasInterviewPhase() {
+        for (Phase phase : phases) {
+            if (phase.designation() == Phases.INTERVIEWS) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Método verifies if the recruitment process has already started
