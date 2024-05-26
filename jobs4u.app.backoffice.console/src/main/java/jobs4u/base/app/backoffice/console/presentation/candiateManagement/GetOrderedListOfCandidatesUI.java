@@ -20,8 +20,8 @@ public class GetOrderedListOfCandidatesUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         Iterable<JobOpening> jobOpenings = controller.jobOpeningsInAnalysisPhaseAndHadInterviewPhase();
-        if(!jobOpenings.iterator().hasNext()){
-            System.out.println("Job Openings not found!");
+        if(jobOpenings == null){
+            System.out.println("No job openings found");
             return true;
         }
         SelectWidget<JobOpening> jobOpeningSelector = new SelectWidget<>("Select a Job Opening: ", jobOpenings);

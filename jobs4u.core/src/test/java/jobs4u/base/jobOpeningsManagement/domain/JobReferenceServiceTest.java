@@ -90,6 +90,11 @@ public class JobReferenceServiceTest {
             return null;
         }
 
+        @Override
+        public List<JobOpening> findJobOpeningsWithInterviewPhaseByCustomer(SystemUser customer) {
+            return List.of();
+        }
+
     };
 
     public static JobOpening jobOpening() {
