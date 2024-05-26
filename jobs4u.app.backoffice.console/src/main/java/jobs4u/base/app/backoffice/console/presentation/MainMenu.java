@@ -25,6 +25,7 @@ package jobs4u.base.app.backoffice.console.presentation;
 
 import jobs4u.base.Application;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.ListApplicationsUI;
+import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.RecordTimeDateInterviewUI;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.RegisterApplicationUI;
 import jobs4u.base.app.backoffice.console.presentation.InterviewManagement.SelectInterviewModelSpecificationForJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.EditJobOpeningUI;
@@ -88,6 +89,7 @@ public class MainMenu extends AbstractUI {
     // CUSTOMER MANAGER CANDIDATE
     private static final int DISPLAY_CANDIDATE_INFO = 1;
     private static final int GET_ORDERED_LIST_OF_CANDIDATES = 2;
+    private static final int RECORD_TIME_DATE_INTERVIEW = 3;
 
     // JOB OPENING
     private static final int REGISTER_JOB_OPENING = 1;
@@ -120,7 +122,7 @@ public class MainMenu extends AbstractUI {
     private static final int JOB_OPENING_OPTION = 5;
     private static final int APPLICATION_OPTION = 6;
     private static final int PLUGIN_OPTION = 7;
-    private static final int RANK_OPTION = 7;
+    private static final int RANK_OPTION = 8;
     private static final int SETTINGS_OPTION = 9;
 
     private static final String SEPARATOR_LABEL = "--------------";
@@ -159,7 +161,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildMainMenu() {
 
 
-        if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.CUSTOMER, Jobs4uRoles.CANDIDATE)){
+        if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.CUSTOMER, Jobs4uRoles.CANDIDATE)) {
             throw new IllegalArgumentException("User not authorized to access this menu");
         }
 
@@ -192,6 +194,7 @@ public class MainMenu extends AbstractUI {
             final Menu rankMenu = buildRankMenu();
             mainMenu.addSubMenu(RANK_OPTION, rankMenu);
 
+
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
 
@@ -208,7 +211,7 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
 
-        if(authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.LANGUAGE_ENGINEER)){
+        if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.LANGUAGE_ENGINEER)) {
             final Menu pluginsMenu = buildPluginsMenu();
             mainMenu.addSubMenu(PLUGIN_OPTION, pluginsMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
@@ -251,7 +254,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Customers >");
 
         menu.addItem(ADD_CUSTOMER_OPTION, "Add Customer", new RegisterClientUI()::show);
-        menu.addItem(SETUP_RECRUITMENT_PROCESS,"SetupRecruitmentProcess",new SetupRecruitmentProcessUI_DTO()::show);
+        menu.addItem(SETUP_RECRUITMENT_PROCESS, "SetupRecruitmentProcess", new SetupRecruitmentProcessUI_DTO()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
@@ -283,7 +286,7 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
 
-    private Menu buildOperatorCandidateMenu(){
+    private Menu buildOperatorCandidateMenu() {
         final Menu menu = new Menu("Candidate >");
 
         menu.addItem(REGISTER_CANDIDATE, "Register Candidate", new RegisterCandidateUI()::show);
@@ -302,13 +305,14 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(DISPLAY_CANDIDATE_INFO, "Display Candidate Information", new DisplayCandidateInfoUI()::show);
         menu.addItem(GET_ORDERED_LIST_OF_CANDIDATES, "Get Ordered List of Candidates based on Interview Points", new GetOrderedListOfCandidatesUI()::show);
+        menu.addItem(RECORD_TIME_DATE_INTERVIEW, "Schedule Interview", new RecordTimeDateInterviewUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
     }
 
-    private Menu buildPluginsMenu(){
+    private Menu buildPluginsMenu() {
         final Menu menu = new Menu("Plugins >");
 
         menu.addItem(CONFIGURE_JOB_REQUIREMENT_PLUGIN, "Configure Job Requirement Plugin", new ConfigureJobRequirementPluginUI()::show);
@@ -319,7 +323,7 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
 
-    private Menu buildRankMenu(){
+    private Menu buildRankMenu() {
         final Menu menu = new Menu("Rank >");
 
         menu.addItem(REGISTER_RANK_FOR_JOB_OPENING, "Register Rank for Job Opening", new rankJobOpeningAction());
@@ -328,7 +332,6 @@ public class MainMenu extends AbstractUI {
 
         return menu;
     }
-
 
 
 }
