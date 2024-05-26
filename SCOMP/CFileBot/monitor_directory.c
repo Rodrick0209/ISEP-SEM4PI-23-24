@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
             exit(EXIT_FAILURE);
         }
 
-        // Se novos arquivos foram detectados, notifica o processo pai atraves do semáforo
+        // Se novos arquivos forem detetados, notifica o processo pai atraves do semáforo
         if (current_num_files > 0)
         {
             printf("New Files detected.\n");

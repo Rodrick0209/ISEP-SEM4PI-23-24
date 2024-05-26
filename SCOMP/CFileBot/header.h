@@ -17,7 +17,7 @@
 #define MAX_SIZE 256
 
 #define SEM_NOTIFICATION "/notification" //SEM_NAME
-#define SEM_CHILD_READ "/sem_memory" //SEM_MEM
+#define SEM_CHILD_READ "/sem_child_reads" //SEM_MEM
 #define SEM_PARENT_WRITE "/par_write" //SEM_PARW
 #define SHM_NAME "/my_shared_memory" //SHM_NAME
 
@@ -35,6 +35,8 @@ typedef struct
   char report_name[MAX_SIZE];
 } Config;
 
+int worker_children;
+
 
 
 void read_config(Config *config, char *config_file_path);
@@ -47,6 +49,8 @@ void distribute_files();
 char** get_candidate_data_file_prefixes(const char *directory_path, int *count);
 
 
+void sigint_handler(int signo, siginfo_t *sinfo, void *context);
+void generateReport(char *output_directory);
 
 
 #endif // MY_HEADER_H

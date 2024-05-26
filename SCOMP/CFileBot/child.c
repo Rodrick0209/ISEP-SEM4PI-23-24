@@ -8,6 +8,19 @@
 #include <fcntl.h>
 #include "ProcessFile.c"
 #include <dirent.h>
+#include <signal.h>
+
+
+char sem_name[256];
+
+void sigint_handler_child(int signo, siginfo_t *sinfo, void *context)
+{
+
+    sem_unlink(sem_name);
+
+    exit(EXIT_SUCCESS);
+    exit(0);
+}
 
 // Function to get the files with a specific prefix
 // Returns a list of filenames with the specified prefix that was received as an argument
@@ -89,8 +102,17 @@ char **list_files_with_prefix(const char *directory_path, const char *prefix, in
     return final_list;
 }
 
+
+
 int main(int argc, char *argv[])
 {
+    //handle the sigint signal
+    struct sigaction sigint_action;
+    sigemptyset(&sigint_action.sa_mask);
+    sigint_action.sa_flags = SA_SIGINFO;
+    sigint_action.sa_sigaction = sigint_handler_child;
+    sigaction(SIGINT, &sigint_action, NULL);
+
     // Get the shared memory
     int shm_fd = shm_open(SHM_NAME, O_RDWR, 0666);
     if (shm_fd == -1)
@@ -106,8 +128,9 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    sprintf(sem_name, "%s", argv[3]);
     // get the sem for the child read
-    sem_t *sem = sem_open(SEM_CHILD_READ, O_RDWR);
+    sem_t *sem = sem_open(argv[3], O_RDWR);
     if (sem == SEM_FAILED)
     {
         perror("sem_open");
@@ -129,9 +152,9 @@ int main(int argc, char *argv[])
 
         char read;
         read = *shm_ptr;
-
-        //como já leu o valor, avisa o pai que pode inserir um novo valor na shm
+        //como já leu oo prefixo, avisa o pai que pode inserir um novo valor na shm
         sem_post(semPW); 
+        
 
         int count_files;
         char prefix[2] = {read, '\0'};
@@ -141,8 +164,8 @@ int main(int argc, char *argv[])
 
         //process the files
         processCandidateFile(files, count_files, read,argv[1], argv[2]);
-
-        //sem_post(semPW);
+        
+        
     }
 
     return 0;
