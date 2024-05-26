@@ -81,4 +81,16 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
         }
         return result;
     }
+
+    @Override
+    public List<JobOpening> findJobOpeningsWithInterviewPhaseByCustomer(SystemUser customer) {
+        List<JobOpening> result = new ArrayList<>();
+        for (JobOpening jobOpening : this) {
+            if (jobOpening.getClient().getCustomerManagerEmail().equals(customer.email()) &&
+                    jobOpening.getRecruitmentProcess().hasInterviewPhase()) {
+                result.add(jobOpening);
+            }
+        }
+        return result;
+    }
 }

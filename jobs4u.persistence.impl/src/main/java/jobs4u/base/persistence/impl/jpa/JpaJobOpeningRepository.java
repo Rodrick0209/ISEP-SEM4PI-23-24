@@ -115,4 +115,27 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
     }
 
 
+    @Override
+    public List<JobOpening> findJobOpeningsWithInterviewPhaseByCustomer(SystemUser customer) {
+        // JPQL query
+        String jpql = "SELECT jo FROM JobOpening jo " +
+                "WHERE jo.client.customerManagerEmail = :customerEmail " +
+                "AND EXISTS ( " +
+                "SELECT ip FROM jo.recruitmentProcess.interviewsPhase ip " +
+                ")";
+
+        // Execute the query
+        List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
+                .setParameter("customerEmail", customer.email())
+                .getResultList();
+
+        // If there are no jobOpenings found, return null
+        if(jobOpenings.isEmpty()){
+            return null;
+        }
+
+        return jobOpenings;
+    }
+
+
 }
