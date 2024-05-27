@@ -66,7 +66,7 @@ public class RegisterJobApplicationController {
         //Create JobApplication
         JobApplication jobApplication = new JobApplication(Long.parseLong(id),jobOpening, file, candidate);
 
-        jobOpeningRepository.save(jobOpening);
+        jobApplicationRepository.save(jobApplication);
 
         txCtx.commit();
 

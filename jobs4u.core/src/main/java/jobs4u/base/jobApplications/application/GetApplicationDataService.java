@@ -70,6 +70,7 @@ public class GetApplicationDataService {
             while ((line = br.readLine()) != null) {
                 Matcher matcher = pattern.matcher(line);
                 if (matcher.find()) {
+
                     String jobReferenceId = matcher.group(1);
                     JobReference jobReference = new JobReference(jobReferenceId);
 
@@ -86,6 +87,7 @@ public class GetApplicationDataService {
         } catch (IOException e) {
             System.out.println("Error reading the file. Try to execute the FileBot. If the error persists, contact the support.");
         }
+
 
         return result;
     }

@@ -202,7 +202,6 @@ public class MainMenu extends AbstractUI {
 
         if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.OPERATOR)) {
 
-
             final Menu operatorCandidateMenu = buildOperatorCandidateMenu();
             mainMenu.addSubMenu(CANDIDATE_OPTION, operatorCandidateMenu);
             final Menu applicationMenu = buildApplicationsMenu();

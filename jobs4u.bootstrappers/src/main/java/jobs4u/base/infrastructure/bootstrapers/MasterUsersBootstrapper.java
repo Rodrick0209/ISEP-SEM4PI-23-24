@@ -167,6 +167,19 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
         recruitmentProcess.analysisPhase().openPhase();
 
+        RecruitmentProcessDto recruitmentProcessDto1 = new RecruitmentProcessDto(
+                DateUtils.parseDate("18-04-2024"),
+                DateUtils.parseDate("18-05-2024"), DateUtils.parseDate("28-05-2024"),
+                DateUtils.parseDate("29-05-2024"), DateUtils.parseDate("30-05-2024"),
+                DateUtils.parseDate("01-06-2024"), DateUtils.parseDate("23-07-2024"),
+                DateUtils.parseDate("24-08-2024"), DateUtils.parseDate("29-09-2024"),
+                DateUtils.parseDate("30-10-2024"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder1 = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector1 = new RecruitmentProcessDirector(recruitmentProcessBuilder1);
+        RecruitmentProcess recruitmentProcess1 = recruitmentProcessDirector1.createRecruitmentProcessWithInterview(recruitmentProcessDto1);
+        recruitmentProcess1.applicationPhase().openPhase();
+
+
         //---------------------------------------------------------------------------------------------------
         //Register Job Openings
         //---------------------------------------------------------------------------------------------------
@@ -194,7 +207,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         //Register IBM-000123 jobOpening
         registerJobOpening("IBM-000123",WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
-                "Software Engineer", ContractType.FULL_TIME, client3,recruitmentProcess);
+                "Software Engineer", ContractType.FULL_TIME, client3,recruitmentProcess1);
 
         //---------------------------------------------------------------------------------------------------
         //Register Candidate
