@@ -230,6 +230,7 @@ void getEmailFromCandidateData(const char *filePath, char *email) {
 
 
 void generateReport(char *output_directory) {
+    sleep(1);
     candidateCount = countCandidatures(output_directory);
     loadCandidateInfo(output_directory);
 
