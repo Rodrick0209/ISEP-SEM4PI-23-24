@@ -20,7 +20,8 @@
 		<module>jobs4u.app.backoffice.console</module>
 		<module>jobs4u.app.common.console</module>
         <module>jobs4u.integration.plugins</module>
-    </modules>
+		<module>jobs4u.deamon.followup</module>
+	</modules>
 	<version>0.1.0</version>
 
 	<properties>
