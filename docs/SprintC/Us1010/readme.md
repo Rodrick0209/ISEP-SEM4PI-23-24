@@ -111,3 +111,110 @@ This task, identified as "US 1010", is part of the Customer Manager feature. The
 -**Interaction4**: System show a success/insuccess message
 
 
+## 4. Design
+
+- Used the standard base structure of the layered application
+
+### 4.1. Sequence Diagram
+![Sequence Diagram](SdUs1010.svg)
+
+### 4.2 State Diagram
+![State Diagram](diagramAjudaEntendimentoUs.drawio.png)
+
+### 4.3 Domain Classes Used
+
+-Phase
+-PhaseState
+-RecruitmentProcess
+-JobOpening
+-JobOpeningState
+
+### 4.3 Controller
+
+-OpenClosePhaseController - For opening or closing a phase of a job opening
+
+### 4.4 Repository
+
+-JobOpeningRepository
+
+### 4.5 Methods Implemented
+
+#### 4.5.1 In Job Opening Class
+
+-void changePhase() - Call the method to change the phase state for the recruitment process and manages the state of the job opening accordingly with phase next state.
+
+#### 4.5.2 In Recruitment Process Class
+
+-closeOpenPhaseAndOpenPhaseBefore() - Close the actual phase and open the previous phase
+-returnNotClosedPhase() - Return the phase that is not closed
+-closePhase() - Close the phase that if it at state concluded
+-previousPhase() - Return the previous phase
+-nextPhase() - Return the phase that will be the next of the recruitment process
+-hasRecruitmentStarted() - Return if the recruitment process has started
+-changePhase() - Close the actual phase and open the next phase
+-executeActionForOpenClosePhaseAccordinglyWithAvailableChoice() - Method that will execute the action according to the state that the phase is at
+-messageForOpenClosePhase() - Return the message option for the open/close phase
+
+#### 4.5.3 In Phase Class
+
+-openPhase() - Open the phase
+-closePhase() - Close the phase
+
+
+
+## 5. Test Plan
+
+### 5.1. Test For JobOpening Class
+
+#### 5.1.1. Test For Business Rules
+-**Test 1**: TestWhenBeginsFirstPhaseOfRecruitmentProcessThenJobOpeningIsActivated
+-**Test 2**: TestWhenEndsLastPhaseOfRecruitmentProcessThenJobOpeningIsInactivated
+-**Test 3**: TestWhenCloseFirstPhaseAndRollbackToNotStartedRecruitmentProcessThenJobOpeningIsInactivated
+
+### 5.2. Test For RecruitmentProcess Class
+
+#### 5.2.1. Tests For Business Rules
+
+For each phase we tested the following scenarios:
+1. Move to next phase when the actual phase is concluded
+2. Move to next phase when the actual phase is not concluded
+3. Move to next phase when the actual phase is not started
+
+For these tests:
+1. The actual phase should close and the next phase should open, unless in the case where the actual phase is the last phase of the recruitment process
+2. The phases state should not change (throw exception)
+3. The phases can rollback to the previous phase closing the actual one and opening the previous one
+
+The following tests were conducted:
+
+- `testChangeNextPhaseWhenIsAtResultPhaseAndResultPhaseIsFinished`
+- `testChangeNextPhaseWhenIsAtResultPhaseAndResultPhaseIsInProgress`
+- `testChangeNextPhaseWhenIsAtResultPhaseAndResultPhaseIsNotInProgress`
+- `testChangePhaseWhenIsAtAnalysisAndPhaseIsNotInProgress`
+- `testChangePhaseWhenIsAtAnalysisAndPhaseIsInProgress`
+- `testChangePhaseWhenIsAtAnalysisAndPhaseIsFinished`
+- `testChangePhaseWhenIsAtInterviewAndPhaseIsNotInProgress`
+- `testChangePhaseWhenIsAtInterviewAndPhaseIsInProgress`
+- `testChangePhaseWhenIsAtInterviewAndPhaseIsFinished`
+- `testChangePhaseWhenIsAtScreeningAndPhaseIsNotInProgress`
+- `testChangePhaseWhenIsAtScreeningAndPhaseIsInProgress`
+- `testChangePhaseWhenIsAtScreeningAndPhaseIsFinished`
+- `testChangePhaseWhenIsAtApplicationPhaseAndIsNotInProgress`
+
+
+Particular scenario:
+When the recruitment process is not started and no phase is open. For the application phase when we don't really have any system data that can be used as criteria to see if it's concluded or not, so it doesn't make sense to test the scenario if it's concluded and if not.
+
+- `testChangePhaseWhenRecruitmentProcessDidntStarted`
+- `testChangePhaseWhenIsAtApplicationAndMoveToNextPhase`
+
+#### 5.2.2. Tests to Method that returns the message option for the open/close phase
+
+For print test did only tests for the diferent messages that can be returned.
+
+- `testPrintMoveNextPhaseLastPhaseScenario`
+- `testPrintRollbackNotFirstPhaseScenario`
+- `testPrintPhaseMoveNextPhaseScenario`
+- `testPrintApplicationPhaseRollbackPhaseScenario`
+
+
