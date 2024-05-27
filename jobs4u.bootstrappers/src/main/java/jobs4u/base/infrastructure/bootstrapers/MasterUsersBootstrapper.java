@@ -172,11 +172,11 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         //---------------------------------------------------------------------------------------------------
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
-                "Software Engineer", ContractType.FULL_TIME, client,recruitmentProcess);
+                "Software Engineer", ContractType.FULL_TIME, client);
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Data Scientist analyzes and interprets complex data to inform business decision-making. They use statistical techniques and machine learning algorithms to extract insights from data",
-                "Data Scientist", ContractType.FULL_TIME, client1,recruitmentProcess);
+                "Data Scientist", ContractType.FULL_TIME, client1);
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Marketing Manager develops and implements marketing strategies to promote products or services. They conduct market research, identify target audiences, and oversee advertising campaigns.",
