@@ -12,35 +12,26 @@ public class Time implements ValueObject, Comparable<Time>{
 
     private LocalTime time;
 
-    public Time(LocalTime time) {
+    protected Time(String time) {
         if (time == null) {
             throw new IllegalArgumentException("Time should not be null");
         }
         // Additional validation logic can be added here if necessary
-        this.time = time;
+        this.time = LocalTime.parse(time); ;
     }
 
     protected Time() {
         // for ORM
     }
 
-    public static Time valueOf(LocalTime time) {
+    public static Time valueOf(String time) {
         return new Time(time);
     }
 
-    public LocalTime getTime() {
-        return time;
+    public LocalTime time() {
+        return this.time;
     }
 
-
-    public static Time parse(String timeString) {
-        try {
-            LocalTime localTime = LocalTime.parse(timeString);
-            return new Time(localTime);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid time format.", e);
-        }
-    }
 
     @Override
     public boolean equals(Object o) {

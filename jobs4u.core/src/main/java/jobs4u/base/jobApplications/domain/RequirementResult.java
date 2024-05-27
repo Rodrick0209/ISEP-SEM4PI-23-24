@@ -1,7 +1,12 @@
 package jobs4u.base.jobApplications.domain;
 
+import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class RequirementResult {
+public enum RequirementResult implements ValueObject {
+
+    REJECTED,
+    ACCEPTED,
+
 }

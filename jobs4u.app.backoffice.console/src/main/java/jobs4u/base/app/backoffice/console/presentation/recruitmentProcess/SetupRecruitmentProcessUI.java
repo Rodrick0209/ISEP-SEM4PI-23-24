@@ -1,3 +1,4 @@
+/*
 package jobs4u.base.app.backoffice.console.presentation.recruitmentProcess;
 
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -97,3 +98,4 @@ public class SetupRecruitmentProcessUI extends AbstractUI {
         return "Setup Recruitment Process";
     }
 }
+*/

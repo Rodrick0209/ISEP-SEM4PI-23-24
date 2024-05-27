@@ -16,6 +16,7 @@ import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.rankManagement.domain.Rank;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
+import jobs4u.base.recruitmentProcessManagement.utils.State;
 import jobs4u.base.utils.PostalAddress;
 import lombok.Getter;
 import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
@@ -39,8 +40,8 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     @Version
     private Long version;
 
-    //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //private List<JobApplication> applications = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<JobApplication> applications = new ArrayList<>();
 
     private WorkingMode workingMode;
     private NrVacancy nrVacancy;
@@ -81,11 +82,12 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
         this.status = JobOpeningStatus.INACTIVE;
+        this.applications = new ArrayList<>();
         this.client = client;
         this.rank = new Rank();
     }
 
-    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, Client client,RecruitmentProcess recruitmentProcess) {
+    public JobOpening(JobReference jobReference, WorkingMode workingMode, String nrVacancy, String address, String description, String function, ContractType contractType, Calendar creationDate, Client client, RecruitmentProcess recruitmentProcess) {
 
         this.jobReference = jobReference;
         this.workingMode = workingMode;
@@ -96,12 +98,17 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
         this.status = JobOpeningStatus.ACTIVE;
+        this.applications = new ArrayList<>();
         this.client = client;
         this.recruitmentProcess = recruitmentProcess;
         this.rank = new Rank();
     }
 
-
+    public JobApplication addJobApplication(JobApplication jobApplication) {
+        Preconditions.ensure(jobApplication != null, "job application should not be null");
+        this.applications.add(jobApplication);
+        return jobApplication;
+    }
 
 
     protected JobOpening() {
@@ -143,6 +150,9 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         return status;
     }
 
+    public List<JobApplication> jobApplications() {
+        return applications;
+    }
 
 
     @Override
@@ -187,10 +197,11 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
     /**
      * Method that verifies if applications can be added to the job opening
+     *
      * @return true if applications can be added, false otherwise
      */
     public boolean canApplicationsBeaAdded() {
-        return  status.equals(JobOpeningStatus.ACTIVE) && recruitmentProcess.returnActivePhase().designation().toString().equals(Phases.APPLICATION.toString());
+        return status.equals(JobOpeningStatus.ACTIVE) && recruitmentProcess.returnPhaseOpen().designation().toString().equals(Phases.APPLICATION.toString());
 
     }
 
@@ -202,71 +213,99 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     }
 
 
+    public List<Candidate> getCandidates() {
+        List<Candidate> candidates = new ArrayList<>();
+        for (JobApplication application : applications) {
+            candidates.add(application.candidate());
+        }
+        return candidates;
+    }
 
-    public int getRankSize(){
+    public int getRankSize() {
         int size = calculateRankSize(rank.getMultiplier());
         rank.setRankSize(size);
         return size;
     }
 
 
-    private int calculateRankSize(int multiplier){
+    private int calculateRankSize(int multiplier) {
         return multiplier * Integer.parseInt(nrVacancy.toString());
     }
 
 
-    public Rank addRankList(List<Candidate> candidates){
-        this.rank = rank.valueOf(candidates,getRankSize());
-       return rank;
+    public Rank addRankList(List<Candidate> candidates) {
+        this.rank = rank.valueOf(candidates, getRankSize());
+        return rank;
     }
 
-    public void editWorkingMode(WorkingMode workingMode){
+    public void editWorkingMode(WorkingMode workingMode) {
         Preconditions.ensure(workingMode != null, "working mode must not be null");
         Preconditions.ensure(status == null || status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
         this.workingMode = workingMode;
     }
 
-    public void editNumberVacancies(NrVacancy nrVacancy){
+    public void editNumberVacancies(NrVacancy nrVacancy) {
         Preconditions.ensure(nrVacancy != null, "number of vacancies must not be null");
         Preconditions.ensure(status == null || status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
         this.nrVacancy = nrVacancy;
     }
 
-    public void editAddress(PostalAddress address){
+    public void editAddress(PostalAddress address) {
         Preconditions.ensure(address != null, "address must not be null");
         Preconditions.ensure(status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
         this.address = address;
     }
 
-    public void editDescription(Description description){
+    public void editDescription(Description description) {
         Preconditions.ensure(description != null, "description must not be null");
         Preconditions.ensure(status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
         this.description = description;
     }
 
-    public void editFunction(Designation function){
+    public void editFunction(Designation function) {
         Preconditions.ensure(function != null, "function must not be null");
         Preconditions.ensure(status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
         this.function = function;
     }
 
-    public void editContractType(ContractType contractType){
+    public void editContractType(ContractType contractType) {
         Preconditions.ensure(contractType != null, "contract type must not be null");
         Preconditions.ensure(status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
         this.contractType = contractType;
     }
 
-    public void editClient(Client client){
+    public void editClient(Client client) {
         Preconditions.ensure(client != null, "client must not be null");
         Preconditions.ensure(status.equals(JobOpeningStatus.INACTIVE), "job opening is active");
         this.client = client;
     }
 
-    public Rank updateRankList(List<Candidate> candidates){
-        this.rank = rank.update(candidates,getRankSize());
+    public Rank updateRankList(List<Candidate> candidates) {
+        this.rank = rank.update(candidates, getRankSize());
         return rank;
     }
 
+
+    public void areAllApplicationsOfThisJobOpening(List<JobApplication> list) {
+        for (JobApplication application : list) {
+            if (!application.getJobOpening().equals(this)) {
+                throw new IllegalArgumentException("Not all applications are from this job opening");
+            }
+        }
+    }
+
+
+    public void changePhase(List<JobApplication> jobApplications){
+        areAllApplicationsOfThisJobOpening(jobApplications);
+        if (recruitmentProcess.hasRecruitmentStarted()) {
+            this.status = JobOpeningStatus.ACTIVE;
+        }
+            recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        if (this.recruitmentProcess.resultPhase().state().equals(State.CLOSED)) {
+            this.status = JobOpeningStatus.INACTIVE;
+        }
+
+    }
 
 
 }

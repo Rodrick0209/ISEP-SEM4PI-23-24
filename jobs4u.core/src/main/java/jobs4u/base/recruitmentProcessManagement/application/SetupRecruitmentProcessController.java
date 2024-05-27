@@ -1,3 +1,4 @@
+/*
 package jobs4u.base.recruitmentProcessManagement.application;
 
 import eapli.framework.general.domain.model.Designation;
@@ -55,4 +56,5 @@ public class SetupRecruitmentProcessController {
 
     }
 }
+*/
 

@@ -1,3 +1,4 @@
+/*
 package jobs4u.base.app.backoffice.console.presentation.recruitmentProcess;
 
 import eapli.framework.actions.Action;
@@ -13,3 +14,4 @@ public class SetupRecruitmentProcessAction implements Action {
 
 
 }
+*/

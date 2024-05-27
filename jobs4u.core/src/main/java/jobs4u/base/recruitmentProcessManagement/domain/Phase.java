@@ -25,7 +25,7 @@ public class Phase {
 
 
     @Enumerated(EnumType.STRING)
-    State state;
+    private State state;
 
     protected Phase() {
     }
@@ -56,6 +56,14 @@ public class Phase {
 
     public LocalDate endDate() {
         return endDate;
+    }
+
+    public State state() {
+        return state;
+    }
+
+    public State setState(State state) {
+        return this.state = state;
     }
 
     private void validateDesignationPhase(Phases designation) {

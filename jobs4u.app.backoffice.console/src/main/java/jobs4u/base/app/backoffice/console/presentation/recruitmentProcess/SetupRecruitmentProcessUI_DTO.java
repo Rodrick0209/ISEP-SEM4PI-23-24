@@ -7,7 +7,6 @@ import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.ListJobOpeningUI;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
-import jobs4u.base.recruitmentProcessManagement.application.SetupRecruitmentProcessController;
 import jobs4u.base.recruitmentProcessManagement.application.SetupRecruitmentProcessControlllerWithDTO;
 import jobs4u.base.recruitmentProcessManagement.dto.RecruitmentProcessDto;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;

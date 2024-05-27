@@ -93,6 +93,10 @@ public class Rank implements DTOable<RankDTO>, Serializable {
         return this;
     }
 
+    public List<Candidate> rank() {
+        return this.rank;
+    }
+
     public boolean hasCandidate() {
         return !rank.isEmpty();
     }

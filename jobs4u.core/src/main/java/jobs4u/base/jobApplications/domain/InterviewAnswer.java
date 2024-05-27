@@ -9,5 +9,5 @@ public class InterviewAnswer implements ValueObject {
 
     private InterviewPoints points;
 
-    private Answer answer;
+    private FileName answer;
 }

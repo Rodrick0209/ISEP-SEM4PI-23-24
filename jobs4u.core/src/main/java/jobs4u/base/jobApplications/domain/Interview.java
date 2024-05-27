@@ -1,13 +1,26 @@
 package jobs4u.base.jobApplications.domain;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
-import eapli.framework.domain.model.ValueObject;
-import jakarta.persistence.Embeddable;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
-@Embeddable
-public class Interview implements ValueObject {
+@Entity
+public class Interview {
+
+    @Id
+    @GeneratedValue
+    private long id;
     private Date date;
     private Time time;
-    private Answer interviewAnswer;
+
+
+    private Score pontuaction;
+
+    private FileName answerFileName;
 
 
 
@@ -28,5 +41,32 @@ public class Interview implements ValueObject {
         return time;
     }
 
+    public void registerInterviewAnswer(String answer) {
+        if (this.answerFileName != null)
+            throw new IllegalStateException("Answer file already registered");
+
+        this.answerFileName = FileName.valueOf(answer);
+    }
+
+    public void definePontuation(double pontuation) {
+        this.pontuaction = Score.valueOf(pontuation);
+    }
+
+    public Score pontuation() {
+        return this.pontuaction;
+    }
+
+    public InputStream inputStreamFromResourceOrFile() throws FileNotFoundException {
+        InputStream content;
+        final var classLoader = this.getClass().getClassLoader();
+        final var resource = classLoader.getResource(this.answerFileName.toString());
+        if (resource != null) {
+            final var file = new File(resource.getFile());
+            content = new FileInputStream(file);
+        } else {
+            content = new FileInputStream(this.answerFileName.toString());
+        }
+        return content;
+    }
 
 }

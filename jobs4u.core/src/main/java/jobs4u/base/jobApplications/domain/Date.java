@@ -17,40 +17,24 @@ public class Date implements ValueObject, Comparable<java.util.Date>{
 
     private LocalDate date;
 
-    public Date(LocalDate date) {
+    protected Date(String date) {
         if (date == null) {
             throw new IllegalArgumentException("Date should not be null");
         }
         // Additional validation logic can be added here if necessary
-        this.date = date;
+        this.date = LocalDate.parse(date);
     }
 
     protected Date() {
         // for ORM
     }
 
-    public static Date valueOf(LocalDate date) {
+    public static Date valueOf(String date) {
         return new Date(date);
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
 
-    public static Date valueOf(java.util.Date date) {
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return new Date(localDate);
-    }
 
-    public static Date parse(String dateString) {
-        try {
-            java.util.Date parsedDate = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
-            LocalDate localDate = parsedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            return new Date(localDate);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Invalid date format.", e);
-        }
-    }
 
     @Override
     public boolean equals(Object o) {
