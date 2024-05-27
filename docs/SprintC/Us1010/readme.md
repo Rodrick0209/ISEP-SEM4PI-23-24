@@ -53,6 +53,20 @@ This task, identified as "US 1010", is part of the Customer Manager feature. The
 - **Q171**: Consideramos que uma fase "open" não é o mesmo que uma fase "active". A fase "open" é uma fase que está disponível para ser executada, enquanto que a fase "active" é uma fase que está a ser executada. Concorda com esta distinção? Porque se o sistema quando fecha uma fase automaticamente considera a fase seguinte como "open" e se "open" for o mesmo que "active/in progress" então nunca vai ser possível "recuar" de fase.
 - **A171**: Sim, penso que o que refere está de acordo com o que tentei explicar nas perguntas anteriores sobre esta US. Usei o termo “open” e “close” para indicar a abertura e o fecho das fases. Usei o termo “active” para indicar que alguma operação especifica da fase já teria sido executada (ou estava em execução) e consierava então essa fase como “activa”, o que significava que não podia mudar de fase enquanto essas “operações” não terminassem.
 
+- **Q196**: Se estiver na primeira fase e se esta estiver no estado "open" posso recuar a fase e colocar o recruitment process como não começado?
+- **A196**: Parece-me um caso particular das repostas anteriores deste tema.
+
+- **Q195**: Já falou da possibilidade de reabrir uma fase quando uma fase se encontra no estado "open". A minha dúvida é se por exemplo a fase resume_screen se estiver concluída mas não estiver fechada pode ser colocada em progresso. Resumindo, quando uma fase está concluída devemos dar a possibilidade de fechar a fase e abrir a seguinte e também a possiblidade de voltar ao estado "in progress"?
+- **A195**: Não consigo dar uma resposta clara pois existem alguns conceitos que carecem esclarecimento: “resume_screen”, “in progress”, etc. O que posso reforçar é que devem sempre garantir que a consistência do sistema se mantém.
+
+- **Q196** Se estiver na primeira fase e se esta estiver no estado "open" posso recuar a fase e colocar o recruitment process como não começado?
+- **A196** Parece-me um caso particular das repostas anteriores deste tema.
+
+- **Q201** Em termos de estados da fase, os estado concluída e fechada são sinónimos ou representam conceitos diferentes? Deu um exemplo para a fase de "screening" que encontra-se concluída quando todos os candidatos forem verificados e notificados. Consegue dar uma explicação para as outras fases existentes, quando é que as podemos considerar fechadas.?
+- **A201** Quando, em questões anteriores sobre este tópico, usei o termos concluído era no sentido de indicar que as atividades relativas ao “propósito” da fase tinham sido terminadas, concluídas, portanto estariam reunidas as condições para poder avançar para a fase seguinte (i.e., fechar a atual). Quando às condições para cada fase penso que devem pensar no problema e tentar identificá-las. Como está colocada a questão parece-me muito ampla e julgo que devem conseguir chegar a elas através da análise detalhada do problema. Mas se tiverem questões mais especificas posso tentar responder.
+
+
+
 ## 3. Analysis
 
 ### Dependencies
@@ -78,6 +92,14 @@ This task, identified as "US 1010", is part of the Customer Manager feature. The
 
 -**BR8**: When we rolback a phase, it closes the phase that was open and the previous phase is put in progress/active.
 
+-**BR9**: A screening phase in concluded when all applications are verified and notified.
+
+-**BR10**: A interview phase is concluded when all interviews are done.
+
+-**BR11**: A analysis phase is concluded when the rank of every application is done.
+
+-**BR12**: The result phase is concluded when all the candidates are notified of the final result
+
 ### Interaction between User and System
 
 -**Interaction1**: The user selects the option to open/close a phase
@@ -89,133 +111,3 @@ This task, identified as "US 1010", is part of the Customer Manager feature. The
 -**Interaction4**: System show a success/insuccess message
 
 
-## 4. Design
-
-- Used the standard base structure of the layered application
-
-### 4.1. Sequence Diagram
-![Sequence Diagram](SdUs1010.svg)
-
-### 4.2 State Diagram
-![State Diagram](diagramAjudaEntendimentoUs.drawio.png)
-
-### 4.3 Domain Classes Used
-
--Phase
--PhaseState
--RecruitmentProcess
--JobOpening
--JobOpeningState
-
-### 4.3 Controller
-
--OpenClosePhaseController - For opening or closing a phase of a job opening
-
-### 4.4 Repository
-
--JobOpeningRepository
-
-### 4.5 Methods Implemented
-
-#### 4.5.1 In Job Opening Class
-
--void changePhase() - Call the method to change the phase state for the recruitment process and manages the state of the job opening accordingly with phase next state.
-
-#### 4.5.2 In Recruitment Process Class
-
--checkIfIsAtLastPhase() - Check if the phase is the last phase of the recruitment process
--closeOpenPhaseAndOpenPhaseBefore() - Close the actual phase and open the previous phase
--returnNotClosedPhase() - Return the phase that is not closed
--closePhase() - Close the phase that if it at state concluded
--previousPhase() - Return the previous phase
--nextPhase() - Return the phase that will be the next of the recruitment process
--hasRecruitmentStarted() - Return if the recruitment process has started
--changePhase() - Close the actual phase and open the next phase
--executeActionForOpenClosePhaseAccordinglyWithAvailableChoice() - Method that will execute the action according to the state that the phase is at
--inicialPhaseOfRecruitmentProcess() - Return the first phase of the recruitment process
--messageForOpenClosePhase() - Return the message option for the open/close phase
-
-#### 4.5.3 In Phase Class
-
--openPhase() - Open the phase
--closePhase() - Close the phase
-
-
-
-## 5. Test Plan
-
-### 5.1. Test For JobOpening Class
-
-#### 5.1.1. Test For Business Rules
--**Test 1**: TestWhenBeginsFirstPhaseOfRecruitmentProcessThenJobOpeningIsActivated
--**Test 2**: TestWhenEndsLastPhaseOfRecruitmentProcessThenJobOpeningIsInactivated
--**Test 3**: TestWhenCloseFirstPhaseAndRollbackToNotStartedRecruitmentProcessThenJobOpeningIsInactivated
-
-### 5.2. Test For RecruitmentProcess Class
-
-#### 5.2.1. Tests For Business Rules
-
--**Test 1**: TestChangePhaseWhenRecruitmentProcessDidntStarted() {
-
--**Test 2**: testChangeNextPhaseWhenRecruitmentProcessIsAtLastPhaseAndPhaseIsOpen() {
-
--**Test 3**: testChangeNextPhaseWhenRecruitmentProcessIsAtLastPhaseAndPhaseIsInProgress() {
-
--**Test 4**: testChangePhaseWhenRecruitmentProcessIsAtLastPhaseAndPhaseIsFinished() {
-
--**Test 5**: testChangePhaseWhenRecruitmentProcessIsAtFirstPhaseAndPhaseIsOpen() {
-
--**Test 6**: testChangePhaseWhenRecruitmentProcessIsAtFirstPhaseAndPhaseIsInProgress() {
-
--**Test 7**: testChangePhaseWhenRecruitmentProcessIsAtFirstPhaseAndPhaseIsFinished() {
-
--**Test 8**: testChangePhaseWhenRecruitmentProcessIsNotInFirstOrLastPhaseAndPhaseIsOpen() {
-
--**Test 9**: testChangePhaseWhenRecruitmentProcessIsNotInFirstOrLastPhaseAndPhaseIsInProgress() {
-
--**Test 10**: testChangePhaseWhenRecruitmentProcessIsNotInFirstOrLastPhaseAndPhaseIsFinished() {
-
--**Test 11**: tedtchangeNextPhaseWhenInterviewIsNotIncluded() {
-
--**Test 12**: testCanGoBackInPhaseIfPhaseIsNotInProgressAndIsNotTheFirst() {
-
--**Test 13**: testCannotGoBackInPhaseIfPhaseIsInProgress() {
-
--**Test 14**: testCloseFirstPhaseWhenIsNotConcluded() {
-
--**Test 15**: testCloseFirstPhaseWhenIsConcluded() {
-
--**Test 16**: testClosePhaseNotConcludedThatIsNotFirstOrLast() {
-
--**Test 17**: testClosePhaseNotConcludedThatIsLast() {
-
-
-#### 5.2.2. Tests to Method that performs the action according to the state of the phase
-
--**Test 1**: testMethodExecuteActionForPhaseIfIsFirstPhaseOpen()
-
--**Test 2**: testToMethodExecuteActionForOpenClosePhaseAccordinglyWithAvailableChoiceMethodWhenRecruitmentIsNotStarted() {
-
--**Test 3**: testToMethodExecuteActionForOpenClosePhaseWithPhaseOpen() {
-
--**Test 4**: testToMethodExecuteActionForOpenClosePhaseWithPhaseConcluded() {
-
--**Test 5**: testToMethodExecuteActionForOpenClosePhaseWithPhaseInProgress() {
-
--**Test 6**: testToMethodExecuteActionForOpenClosePhaseWithPhaseConcludedBeingLastPhase() {
-
--**Test 7**: testToMethodExecuteActionForOpenClosePhaseWithoutInterviewAndWithPhaseConcludedBeingMiddlePhase() {
-
-#### 5.2.3. Tests to Method that returns the message option for the open/close phase
-
--**Test 1**: testPrintFirstOpenPhase()
-
--**Test 2**: testPrintOpenPhaseNotFirstOrLast()
-
--**Test 3**: testPrintOpenPhaseLastPhase()
-
--**Test 4**: testPrintLastPhaseFinished() {
-
--**Test 5**: testPrintPhaseFinishedNotLast() {
-
--**Test 6**: testPrintRecruitmentProcessDidntStart() {
