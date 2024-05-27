@@ -81,6 +81,14 @@ public class FollowUpServer {
         }
     }
 
+    public void start(final int port, final boolean wait){
+        if (wait){
+            listen(port);
+        } else {
+            new Thread(() -> listen(port)).start();
+        }
+    }
+
     private static byte [] readMessage(DataInputStream in) throws IOException {
         List<Byte> input = new ArrayList<>();
         byte b = in.readByte();

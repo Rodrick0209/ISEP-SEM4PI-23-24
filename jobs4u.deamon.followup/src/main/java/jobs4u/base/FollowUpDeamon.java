@@ -2,7 +2,9 @@ package jobs4u.base;
 
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
+import jobs4u.base.followup.server.FollowUpMessageParser;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.presentation.FollowUpServer;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +23,14 @@ public class FollowUpDeamon {
         LOGGER.info("Starting the server socket on port {}", FOLLOWUP_PORT);
         //final var server = new CsvBookingProtocolServer(buildServerDependencies());
         //server.start(BOOKING_PORT, true);
-        final var server = new jobs4u.base.jobs4u.base.presentation.FollowUpServer();
+        final var server = new FollowUpServer(buildServerDependencies());
         server.start(FOLLOWUP_PORT, true);
 
         LOGGER.info("Exiting the daemon");
         System.exit(0);
+    }
+
+    private static FollowUpMessageParser buildServerDependencies() {
+        return new FollowUpMessageParser(AuthzRegistry.authenticationService());
     }
 }
