@@ -57,7 +57,7 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
        // JPQL query
        String jpql = "SELECT jo FROM JobOpening jo " +
                "WHERE jo.client.customerManagerEmail = :customermanager " +
-                "AND jo.recruitmentProcess.applicationPhase.state = :analysisPhaseState";
+                "AND jo.recruitmentProcess.analysisPhase.state = :analysisPhaseState";
 
        // Execute the query
        List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)

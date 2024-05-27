@@ -53,6 +53,7 @@ import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcessDirecto
 import jobs4u.base.recruitmentProcessManagement.dto.RecruitmentProcessDto;
 import jobs4u.base.recruitmentProcessManagement.utils.DateUtils;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
+import jobs4u.base.recruitmentProcessManagement.utils.State;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Action;
 import jobs4u.base.utils.Path;
@@ -164,7 +165,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-
+        recruitmentProcess.analysisPhase().openPhase();
 
         //---------------------------------------------------------------------------------------------------
         //Register Job Openings
