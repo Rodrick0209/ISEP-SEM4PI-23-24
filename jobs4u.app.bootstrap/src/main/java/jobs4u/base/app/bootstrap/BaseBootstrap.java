@@ -66,8 +66,8 @@ public final class BaseBootstrap extends BaseApplication {
        // new BaseDemoBootstrapper().execute();
         //   }
         //  if (isToRunSampleE2E) {
-         //   System.out.println("\n\n------- BASIC SCENARIO -------");
-        //new BaseDemoSmokeTester().execute();
+      //    System.out.println("\n\n------- BASIC SCENARIO -------");
+       //    new BaseDemoSmokeTester().execute();
         //}
     }
 

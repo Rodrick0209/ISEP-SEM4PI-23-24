@@ -5,16 +5,19 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.ListJobOpeningUI;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.recruitmentProcessManagement.application.OpenClosePhaseController;
 import jobs4u.base.recruitmentProcessManagement.application.SetupRecruitmentProcessControlllerWithDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class OpenClosePhaseUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenClosePhaseUI.class);
-    private final OpenClosePhaseController theController = new OpenClosePhaseController(PersistenceContext.repositories().jobOpenings(), AuthzRegistry.authorizationService());
+    private final OpenClosePhaseController theController = new OpenClosePhaseController(PersistenceContext.repositories().jobOpenings(), PersistenceContext.repositories().jobApplications(),AuthzRegistry.authorizationService());
 
     private final ListJobOpeningUI listJobOpeningUI = new ListJobOpeningUI();
 
@@ -23,10 +26,11 @@ public class OpenClosePhaseUI extends AbstractUI {
     protected boolean doShow() {
         try {
             JobOpening jobOpening = listJobOpeningUI.selectJobOpeningFromList();
-            System.out.println(theController.getMessageAccordinglyWithPhaseState(jobOpening));
+            List<JobApplication> jobApplications = theController.getJobApplicationsByJobOpening(jobOpening);
+            System.out.println(theController.getMessageAccordinglyWithPhaseState(jobOpening,jobApplications));
             final int option = Console.readOption(1, 2, 0);
             if (option == 1) {
-                theController.changePhase(jobOpening);
+                theController.changePhase(jobOpening,jobApplications);
             } else if (option == 2) {
                 System.out.println("Exiting");
             }else {
