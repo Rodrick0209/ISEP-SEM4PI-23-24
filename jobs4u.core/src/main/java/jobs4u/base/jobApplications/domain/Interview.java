@@ -17,11 +17,9 @@ public class Interview {
     private Date date;
     private Time time;
 
-
     private Score pontuaction;
 
     private FileName answerFileName;
-
 
 
     public Interview(Date date, Time time) {

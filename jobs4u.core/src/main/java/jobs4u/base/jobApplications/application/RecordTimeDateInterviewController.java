@@ -50,8 +50,10 @@ public class RecordTimeDateInterviewController {
 
 
     public void editTimeDateInterview(JobApplication jobApplication, String time, String date) throws ParseException {
-        jobs4u.base.jobApplications.domain.Date interviewDate = jobs4u.base.jobApplications.domain.Date.parse(date);
-        Time interviewTime = Time.parse(time);
+        jobs4u.base.jobApplications.domain.Date interviewDate = jobs4u.base.jobApplications.domain.Date.valueOf(date);
+
+        Time interviewTime = Time.valueOf(time);
+
         Interview newInterview = new Interview(interviewDate, interviewTime);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

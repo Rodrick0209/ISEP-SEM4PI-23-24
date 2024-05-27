@@ -34,8 +34,7 @@ public class RankJobOpeningController {
 
         Optional<SystemUser> user = authz.loggedinUserWithPermissions(Jobs4uRoles.CUSTOMER_MANAGER);
 
-        //TODO: should call the findByCustomerManagerAndInAnalysisPhase (test purposes only)
-        return jobOpeningRepository.findByCustomerManager(user.get());
+        return jobOpeningRepository.findByCustomerManagerAndInAnalysisPhase(user.get());
     }
 
 

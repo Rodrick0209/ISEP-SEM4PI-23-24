@@ -48,6 +48,10 @@ import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepo
 import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
 import jobs4u.base.recruitmentProcessManagement.domain.Phase;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
+import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcessBuilder;
+import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcessDirector;
+import jobs4u.base.recruitmentProcessManagement.dto.RecruitmentProcessDto;
+import jobs4u.base.recruitmentProcessManagement.utils.DateUtils;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Action;
@@ -149,15 +153,17 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         //---------------------------------------------------------------------------------------------------
         //create Recruitment Process
         //---------------------------------------------------------------------------------------------------
-        List<Phase> phases = List.of(
-                new Phase(Phases.APPLICATION, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 5, 30)),
-                new Phase(Phases.RESUME_SCREEN, LocalDate.of(2024, 6, 1), LocalDate.of(2024, 6, 5)),
-                new Phase(Phases.ANALYSIS, LocalDate.of(2024, 6, 6), LocalDate.of(2024, 7, 1)),
-                new Phase(Phases.RESULT, LocalDate.of(2024, 7, 2), LocalDate.of(2024, 8, 1)));
 
-        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
-
-
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto(
+                DateUtils.parseDate("18-04-2024"),
+                DateUtils.parseDate("18-05-2024"), DateUtils.parseDate("19-05-2024"),
+                DateUtils.parseDate("20-05-2024"), DateUtils.parseDate("21-05-2024"),
+                DateUtils.parseDate("22-05-2024"), DateUtils.parseDate("23-05-2024"),
+                DateUtils.parseDate("24-05-2024"), DateUtils.parseDate("29-05-2024"),
+                DateUtils.parseDate("30-05-2024"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
 
 
         //---------------------------------------------------------------------------------------------------
