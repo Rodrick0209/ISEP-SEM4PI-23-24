@@ -3,14 +3,14 @@ package jobs4u.base.jobAplications.domain;
 import jobs4u.base.jobApplications.domain.FileName;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
 
-import java.io.*;
-
-public class AnswerTest {
-
+public class RequirementAnswerTest {
 
     @Test
     public void testIsRecognisingFileAnswer() {
@@ -45,11 +45,16 @@ public class AnswerTest {
 
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
