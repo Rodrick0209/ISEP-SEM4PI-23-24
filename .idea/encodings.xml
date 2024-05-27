@@ -24,6 +24,12 @@
     <file url="file://$PROJECT_DIR$/jobs4u.bootstrappers/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jobs4u.core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jobs4u.core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.daemon.notifications/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.daemon.notifications/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.deamon.followup/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.deamon.followup/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.deamon.notifications/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jobs4u.deamon.notifications/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jobs4u.infrastructure.application/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jobs4u.infrastructure.application/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jobs4u.integration.plugins/src/main/java" charset="UTF-8" />
