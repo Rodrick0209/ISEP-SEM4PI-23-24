@@ -58,6 +58,70 @@ maintainability and scalability. These patterns include:
 - **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
   handle incoming requests, manipulate data using the model, and select views to render to the user.
 
+### 4.3. Tests
+
+**In this case, tests are implemented for all Business Rules**
+
+```
+void ensureOrderCandidatesBasedOnInterviewPointsIsSucessfullWhenJobOpeningHadInterviewPhaseAndCurrentlyInAnalysisPhase() (expected = success) {
+  JobOpening jobOpening = new JobOpening(...);
+  Phase phase1 = new Phase(Phase.INTERVIEW,...);
+  Phase phase2 = new Phase(Phase.ANALYSIS,...);
+  List<Phase> phases = new ArrayList<>(List.of(phase1, phase2));
+  RecruitmentProcesss rp = new RecruitmentProcess(phases);
+  rp.currentPhase = phase2;
+  rp.previousPhase = phase1;
+  Candidate candidate1 = new Candidate(...);
+  Candidate candidate2 = new Candidate(...);
+  JobApplication jobApplication1 = new JobApplication(jobOpening, candidate1, ...);
+  JobApplication jobApplication2 = new JobApplication(jobOpening, candidate2, ...);
+  jobApplication1.interview.interviewAnswer.interviewPoints = 30;
+  jobApplication2.interview.interviewAnser.interviewPoints = 50;
+  List<JobApplication> jobApplications = new ArrayList<>(List.of(jobApplication1, jobApplication2));
+  List<Candidate> orderedCandidates = orderCandidatesBasedOnInterviewPoints(jobApplications); 
+}
+```
+
+```
+void ensureOrderCandidatesBasedOnInterviewPointsFailedWhenJobOpeningNotHadInterviewPhase() (expected = IllegalArgumentException.class) {
+  JobOpening jobOpening = new JobOpening(...);
+  Phase wrongPhase = new Phase(Phase.SCREENING,...);
+  Phase phase2 = new Phase(Phase.ANALYSIS,...);
+  List<Phase> phases = new ArrayList<>(List.of(phase1, phase2));
+  RecruitmentProcesss rp = new RecruitmentProcess(phases);
+  rp.currentPhase = phase2;
+  rp.previousPhase = wrongPhase;
+  Candidate candidate1 = new Candidate(...);
+  Candidate candidate2 = new Candidate(...);
+  JobApplication jobApplication1 = new JobApplication(jobOpening, candidate1, ...);
+  JobApplication jobApplication2 = new JobApplication(jobOpening, candidate2, ...);
+  jobApplication1.interview.interviewAnswer.interviewPoints = 30;
+  jobApplication2.interview.interviewAnser.interviewPoints = 50;
+  List<JobApplication> jobApplications = new ArrayList<>(List.of(jobApplication1, jobApplication2));
+  List<Candidate> orderedCandidates = orderCandidatesBasedOnInterviewPoints(jobApplications); 
+}
+```
+
+```
+void ensureOrderCandidatesBasedOnInterviewPointsFailedWhenJobOpeningNotCurrentlyInAnalysisPhase() (expected = IllegalArgumentException.class) {
+  JobOpening jobOpening = new JobOpening(...);
+  Phase phase1 = new Phase(Phase.INTERVIEW,...);
+  Phase wrongPhase = new Phase(Phase.SCREENING,...);
+  List<Phase> phases = new ArrayList<>(List.of(phase1, phase2));
+  RecruitmentProcesss rp = new RecruitmentProcess(phases);
+  rp.currentPhase = wrongPhase;
+  rp.previousPhase = phase1;
+  Candidate candidate1 = new Candidate(...);
+  Candidate candidate2 = new Candidate(...);
+  JobApplication jobApplication1 = new JobApplication(jobOpening, candidate1, ...);
+  JobApplication jobApplication2 = new JobApplication(jobOpening, candidate2, ...);
+  jobApplication1.interview.interviewAnswer.interviewPoints = 30;
+  jobApplication2.interview.interviewAnser.interviewPoints = 50;
+  List<JobApplication> jobApplications = new ArrayList<>(List.of(jobApplication1, jobApplication2));
+  List<Candidate> orderedCandidates = orderCandidatesBasedOnInterviewPoints(jobApplications); 
+}
+```
+
 ## 5. Implementation
 
 The process of editing a Job Opening in this system involves several components working together. Here's a step-by-step
