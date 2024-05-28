@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra
-SRC = $(wildcard *.c ../CFileBot/readConfig.c ../CFileBot/ProcessFile.c)
+SRC = $(wildcard *.c ../CFileBot/readConfig.c ../CFileBot/ProcessFile.c ../CFileBot/prefixes.c)
 OBJ = $(SRC:.c=.o)
 EXEC = test_main
 
