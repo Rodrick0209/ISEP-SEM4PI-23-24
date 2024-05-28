@@ -14,6 +14,10 @@ public class FollowUpDeamon {
     private static final Logger LOGGER = LoggerFactory.getLogger(FollowUpDeamon.class);
     private static final int FOLLOWUP_PORT = 9999;
 
+    public FollowUpDeamon() {
+        // ensure the code is not instantiated
+    }
+
     public static void main(final String[] args) {
         LOGGER.info("Configuring the daemon");
 

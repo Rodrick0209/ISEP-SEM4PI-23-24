@@ -24,6 +24,20 @@
             <version>0.1.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>jobs4u.persistence.impl</groupId>
+            <artifactId>jobs4u.persistence.impl</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>jobs4u.infrastructure.application</groupId>
+            <artifactId>jobs4u.infrastructure.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
+
 
 </project>
