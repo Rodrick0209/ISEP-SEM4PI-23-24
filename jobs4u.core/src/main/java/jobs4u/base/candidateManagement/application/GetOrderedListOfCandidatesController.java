@@ -14,13 +14,13 @@ public class GetOrderedListOfCandidatesController {
     private final JobOpeningRepository jobOpeningRepository;
     private final JobApplicationRepository jobApplicationRepository;
     private final AuthorizationService authz;
-    private final GetOrderedListOfCandidatesService service;
 
-    public GetOrderedListOfCandidatesController(JobOpeningRepository jobOpeningRepository, JobApplicationRepository jobApplicationRepository, AuthorizationService authz, GetOrderedListOfCandidatesService service){
+    public GetOrderedListOfCandidatesController(JobOpeningRepository jobOpeningRepository,
+                                                JobApplicationRepository jobApplicationRepository,
+                                                AuthorizationService authz){
         this.jobOpeningRepository = jobOpeningRepository;
         this.jobApplicationRepository = jobApplicationRepository;
         this.authz = authz;
-        this.service = service;
     }
     public Iterable<JobOpening> jobOpeningsInAnalysisPhaseAndHadInterviewPhase(){
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
@@ -32,6 +32,6 @@ public class GetOrderedListOfCandidatesController {
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
 
         Iterable<JobApplication> jobApplications = jobApplicationRepository.findJobApplicationsByJobOpening(jobOpening);
-        return service.getOrderedListOfCandidatesBasedOnInterviewPoints(jobApplications);
+        return jobOpening.getOrderedListOfCandidatesBasedOnInterviewPoints(jobApplications);
     }
 }

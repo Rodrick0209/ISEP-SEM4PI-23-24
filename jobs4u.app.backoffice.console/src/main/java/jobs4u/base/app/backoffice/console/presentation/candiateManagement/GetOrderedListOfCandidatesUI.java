@@ -4,7 +4,6 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 import jobs4u.base.candidateManagement.application.GetOrderedListOfCandidatesController;
-import jobs4u.base.candidateManagement.application.GetOrderedListOfCandidatesService;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
@@ -14,8 +13,7 @@ import java.util.List;
 public class GetOrderedListOfCandidatesUI extends AbstractUI {
     private final GetOrderedListOfCandidatesController controller = new GetOrderedListOfCandidatesController(PersistenceContext.repositories().jobOpenings(),
             PersistenceContext.repositories().jobApplications(),
-            AuthzRegistry.authorizationService(),
-            new GetOrderedListOfCandidatesService());
+            AuthzRegistry.authorizationService());
 
     @Override
     protected boolean doShow() {
