@@ -8,6 +8,7 @@ import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.jobApplications.utils.JobApplicationInterviewPointsComparator;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.utils.*;
@@ -27,6 +28,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @XmlRootElement
 @Entity
@@ -307,5 +310,21 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
     }
 
+    public List<Candidate> getOrderedListOfCandidatesBasedOnInterviewPoints(Iterable<JobApplication> jobApplications){
+        Preconditions.ensure(recruitmentProcess.returnPhaseOpen().designation().equals(Phases.ANALYSIS), "job opening is not in analysis phase");
+        Preconditions.ensure(recruitmentProcess.interviewsPhase() != null, "job opening has not an interview phase");
+        List<Candidate> orderedCandidates = new ArrayList<>();
+        List<JobApplication> orderedJobApplications = getOrderedListOfJobApplicationsBasedOnInterviewPoints(jobApplications);
+
+        for(JobApplication jobApplication : orderedJobApplications){
+            orderedCandidates.add(jobApplication.candidate());
+        }
+
+        return orderedCandidates;
+    }
+
+    private List<JobApplication> getOrderedListOfJobApplicationsBasedOnInterviewPoints(Iterable<JobApplication> jobApplications) {
+        return StreamSupport.stream(jobApplications.spliterator(), false).sorted(new JobApplicationInterviewPointsComparator().reversed()).collect(Collectors.toList());
+    }
 
 }

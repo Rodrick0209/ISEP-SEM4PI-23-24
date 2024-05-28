@@ -4,7 +4,10 @@ import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.jobApplications.domain.JobApplication;
+import jobs4u.base.jobApplications.domain.JobApplicationFile;
 import jobs4u.base.jobOpeningsManagement.utils.*;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.pluginManagement.domain.RequirementSpecification;
@@ -472,6 +475,118 @@ public class JobOpeningTest {
         assertThrows(IllegalArgumentException.class, () -> {
             jobOpening.editClient(newClient);
         });
+    }
+
+    @Test
+    void ensureOrderCandidatesBasedOnInterviewPointsIsSuccessfulWhenJobOpeningHadInterviewPhaseAndCurrentlyInAnalysisPhase(){
+        JobReference jobReference = new JobReference("Isep-0001");
+        WorkingMode workingMode = WorkingMode.REMOTE;
+        String nrVacancy = "5";
+        String address = "1234-123";
+        String description = "Software Developer";
+        String function = "Develop software";
+        ContractType contractType = ContractType.FULL_TIME;
+        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
+        Calendar creationDate = Calendar.getInstance();
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        recruitmentProcessBuilder.withApplicationPhase(DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
+        recruitmentProcessBuilder.withResumeScreenPhase(DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
+        recruitmentProcessBuilder.withInterviewsPhase(DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
+        recruitmentProcessBuilder.withAnalysisPhase(DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
+        recruitmentProcessBuilder.withResultPhase(DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
+        RecruitmentProcess recruitmentProcess = recruitmentProcessBuilder.getRecruitmentProcess();
+        recruitmentProcess.analysisPhase().openPhase();
+
+        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client, recruitmentProcess);
+
+        Candidate candidate1 = new Candidate("Teste", "Ola", "teste@gmail.com", "967543123");
+        Candidate candidate2 = new Candidate("Ola", "Arminda", "teste1@gmail.com", "964253123");
+
+        JobApplication jobApplication1 = new JobApplication(11L, jobOpening, null, candidate1);
+        JobApplication jobApplication2 = new JobApplication(12L, jobOpening, null, candidate2);
+
+        //TODO: implement the method to grade an interview for an Application
+        throw new UnsupportedOperationException("Not supported yet.");
+        /*List<JobApplication> jobApplications = new ArrayList<>(List.of(jobApplication1, jobApplication2));
+        assertDoesNotThrow(() -> {
+            List<Candidate> orderedCandidates = jobOpening.getOrderedListOfCandidatesBasedOnInterviewPoints(jobApplications);
+        });
+        List<Candidate> orderedCandidates = jobOpening.getOrderedListOfCandidatesBasedOnInterviewPoints(jobApplications);
+        assertEquals(candidate1, orderedCandidates.get(1));
+        assertEquals(candidate2, orderedCandidates.get(0));
+         */
+    }
+
+    @Test
+    void ensureOrderCandidatesBasedOnInterviewPointsFailedWhenJobOpeningNotHadInterviewPhase(){
+        JobReference jobReference = new JobReference("Isep-0001");
+        WorkingMode workingMode = WorkingMode.REMOTE;
+        String nrVacancy = "5";
+        String address = "1234-123";
+        String description = "Software Developer";
+        String function = "Develop software";
+        ContractType contractType = ContractType.FULL_TIME;
+        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
+        Calendar creationDate = Calendar.getInstance();
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        recruitmentProcessBuilder.withApplicationPhase(DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
+        recruitmentProcessBuilder.withResumeScreenPhase(DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
+        recruitmentProcessBuilder.withAnalysisPhase(DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
+        recruitmentProcessBuilder.withResultPhase(DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
+        RecruitmentProcess recruitmentProcess = recruitmentProcessBuilder.getRecruitmentProcess();
+        recruitmentProcess.analysisPhase().openPhase();
+
+        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client, recruitmentProcess);
+
+        Candidate candidate1 = new Candidate("Teste", "Ola", "teste@gmail.com", "967543123");
+        Candidate candidate2 = new Candidate("Ola", "Arminda", "teste1@gmail.com", "964253123");
+
+        JobApplication jobApplication1 = new JobApplication(11L, jobOpening, null, candidate1);
+        JobApplication jobApplication2 = new JobApplication(12L, jobOpening, null, candidate2);
+
+        //TODO: implement the method to grade an interview for an Application
+        throw new UnsupportedOperationException("Not supported yet.");
+        /*List<JobApplication> jobApplications = new ArrayList<>(List.of(jobApplication1, jobApplication2));
+        assertThrows(IllegalArgumentException.class, () -> {
+            List<Candidate> orderedCandidates = jobOpening.getOrderedListOfCandidatesBasedOnInterviewPoints(jobApplications);
+        });
+         */
+    }
+
+    @Test
+    void ensureOrderCandidatesBasedOnInterviewPointsFailedWhenJobOpeningNotCurrentlyInAnalysisPhase(){
+        JobReference jobReference = new JobReference("Isep-0001");
+        WorkingMode workingMode = WorkingMode.REMOTE;
+        String nrVacancy = "5";
+        String address = "1234-123";
+        String description = "Software Developer";
+        String function = "Develop software";
+        ContractType contractType = ContractType.FULL_TIME;
+        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
+        Calendar creationDate = Calendar.getInstance();
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        recruitmentProcessBuilder.withApplicationPhase(DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
+        recruitmentProcessBuilder.withResumeScreenPhase(DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
+        recruitmentProcessBuilder.withInterviewsPhase(DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
+        recruitmentProcessBuilder.withAnalysisPhase(DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
+        recruitmentProcessBuilder.withResultPhase(DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
+        RecruitmentProcess recruitmentProcess = recruitmentProcessBuilder.getRecruitmentProcess();
+
+        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client, recruitmentProcess);
+
+        Candidate candidate1 = new Candidate("Teste", "Ola", "teste@gmail.com", "967543123");
+        Candidate candidate2 = new Candidate("Ola", "Arminda", "teste1@gmail.com", "964253123");
+
+        JobApplication jobApplication1 = new JobApplication(11L, jobOpening, null, candidate1);
+        JobApplication jobApplication2 = new JobApplication(12L, jobOpening, null, candidate2);
+
+        //TODO: implement the method to grade an interview for an Application
+        throw new UnsupportedOperationException("Not supported yet.");
+        /*List<JobApplication> jobApplications = new ArrayList<>(List.of(jobApplication1, jobApplication2));
+        assertThrows(IllegalArgumentException.class, () -> {
+            List<Candidate> orderedCandidates = jobOpening.getOrderedListOfCandidatesBasedOnInterviewPoints(jobApplications);
+        });
+         */
     }
 
 }
