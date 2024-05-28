@@ -16,7 +16,6 @@
 | Monitorização do diretório                      | 100%                  |
 | Processamento continuo dos ficheiros inseridos | 100%                  |
 | Criação do Report File                          | 100%                  |
-|Utilização de thread para contagem de palavras| 100%|
 
 
 ## Diagrama 
