@@ -14,13 +14,15 @@
 | Funcionalidade                                  | Percentagem funcional |
 |-------------------------------------------------|-----------------------|
 | Monitorização do diretório                      | 100%                  |
-| Processamento continuuo dos ficheiros inseridos | 100%                  |
+| Processamento continuo dos ficheiros inseridos | 100%                  |
 | Criação do Report File                          | 100%                  |
+|Utilização de thread para contagem de palavras| 100%|
 
 
-## Diagrama
-![Diagrama](../docs/SprintB/us2001/diagram.jpg)
+## Diagrama 
+![Diagrama 1](../docs/SprintC/us2001b/diagram1.svg)
 
+![Diagrama 2](../docs/SprintC/us2001b/diagram2.svg)
 
 ## Testes unitarios
 
@@ -28,4 +30,4 @@ Foram elaborados diversos testes unitários para testar as funcionalidades do pr
 
 ## Outros aspetos relevantes
 1. Para compilar o programa é necessário executar o comando `make` na pasta do projeto.
-2. O ultimo passo é executar o programa com o comando `./main`
+2. O ultimo passo é executar o programa com o comando `./test_main`
