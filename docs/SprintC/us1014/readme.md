@@ -175,7 +175,7 @@ To record a time and date for an interview with a candidate you should follow th
 - **Test 2:** Test setting a date and time for an interview that is suposed to occur
 - **Test 3:** Test setting a date and time for an interview that is suposed to occur but the candidate did not pass the
   screening phase
--
+
 
 ## 5. Implementation
 
