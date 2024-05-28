@@ -10,6 +10,7 @@ import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.recruitmentProcessManagement.domain.Phase;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
+import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcessBuilder;
 import jobs4u.base.recruitmentProcessManagement.utils.DateUtils;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.utils.PostalAddress;
@@ -169,18 +170,13 @@ public class JobOpeningTest {
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
         Calendar creationDate = Calendar.getInstance();
-        List<Phase> phases = new ArrayList<>();
-        Phase phase3 = new Phase(Phases.APPLICATION, DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
-        Phase phase2 = new Phase(Phases.RESUME_SCREEN, DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
-        Phase phase6 = new Phase(Phases.INTERVIEWS, DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
-        Phase phase4 = new Phase(Phases.ANALYSIS, DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
-        Phase phase5 = new Phase(Phases.RESULT, DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
-        phases.add(phase3);
-        phases.add(phase2);
-        phases.add(phase6);
-        phases.add(phase4);
-        phases.add(phase5);
-        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        recruitmentProcessBuilder.withApplicationPhase(DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
+        recruitmentProcessBuilder.withResumeScreenPhase(DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
+        recruitmentProcessBuilder.withInterviewsPhase(DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
+        recruitmentProcessBuilder.withAnalysisPhase(DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
+        recruitmentProcessBuilder.withResultPhase(DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
+        RecruitmentProcess recruitmentProcess = recruitmentProcessBuilder.getRecruitmentProcess();
 
         // Constructor method with an active Job Opening
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client, recruitmentProcess);
@@ -221,18 +217,14 @@ public class JobOpeningTest {
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
         Calendar creationDate = Calendar.getInstance();
-        List<Phase> phases = new ArrayList<>();
-        Phase phase3 = new Phase(Phases.APPLICATION, DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
-        Phase phase2 = new Phase(Phases.RESUME_SCREEN, DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
-        Phase phase6 = new Phase(Phases.INTERVIEWS, DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
-        Phase phase4 = new Phase(Phases.ANALYSIS, DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
-        Phase phase5 = new Phase(Phases.RESULT, DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
-        phases.add(phase3);
-        phases.add(phase2);
-        phases.add(phase6);
-        phases.add(phase4);
-        phases.add(phase5);
-        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        recruitmentProcessBuilder.withApplicationPhase(DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
+        recruitmentProcessBuilder.withResumeScreenPhase(DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
+        recruitmentProcessBuilder.withInterviewsPhase(DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
+        recruitmentProcessBuilder.withAnalysisPhase(DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
+        recruitmentProcessBuilder.withResultPhase(DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
+        RecruitmentProcess recruitmentProcess = recruitmentProcessBuilder.getRecruitmentProcess();
+
 
         // Constructor method with an active Job Opening
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client, recruitmentProcess);
@@ -274,18 +266,13 @@ public class JobOpeningTest {
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
         Calendar creationDate = Calendar.getInstance();
-        List<Phase> phases = new ArrayList<>();
-        Phase phase3 = new Phase(Phases.APPLICATION, DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
-        Phase phase2 = new Phase(Phases.RESUME_SCREEN, DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
-        Phase phase6 = new Phase(Phases.INTERVIEWS, DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
-        Phase phase4 = new Phase(Phases.ANALYSIS, DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
-        Phase phase5 = new Phase(Phases.RESULT, DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
-        phases.add(phase3);
-        phases.add(phase2);
-        phases.add(phase6);
-        phases.add(phase4);
-        phases.add(phase5);
-        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        recruitmentProcessBuilder.withApplicationPhase(DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
+        recruitmentProcessBuilder.withResumeScreenPhase(DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
+        recruitmentProcessBuilder.withInterviewsPhase(DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
+        recruitmentProcessBuilder.withAnalysisPhase(DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
+        recruitmentProcessBuilder.withResultPhase(DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
+        RecruitmentProcess recruitmentProcess = recruitmentProcessBuilder.getRecruitmentProcess();
 
         // Constructor method with an active Job Opening
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client, recruitmentProcess);
@@ -327,18 +314,13 @@ public class JobOpeningTest {
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
         Calendar creationDate = Calendar.getInstance();
-        List<Phase> phases = new ArrayList<>();
-        Phase phase3 = new Phase(Phases.APPLICATION, DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
-        Phase phase2 = new Phase(Phases.RESUME_SCREEN, DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
-        Phase phase6 = new Phase(Phases.INTERVIEWS, DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
-        Phase phase4 = new Phase(Phases.ANALYSIS, DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
-        Phase phase5 = new Phase(Phases.RESULT, DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
-        phases.add(phase3);
-        phases.add(phase2);
-        phases.add(phase6);
-        phases.add(phase4);
-        phases.add(phase5);
-        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        recruitmentProcessBuilder.withApplicationPhase(DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
+        recruitmentProcessBuilder.withResumeScreenPhase(DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
+        recruitmentProcessBuilder.withInterviewsPhase(DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
+        recruitmentProcessBuilder.withAnalysisPhase(DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
+        recruitmentProcessBuilder.withResultPhase(DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
+        RecruitmentProcess recruitmentProcess = recruitmentProcessBuilder.getRecruitmentProcess();
 
         // Constructor method with an active Job Opening
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client, recruitmentProcess);
@@ -380,18 +362,13 @@ public class JobOpeningTest {
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
         Calendar creationDate = Calendar.getInstance();
-        List<Phase> phases = new ArrayList<>();
-        Phase phase3 = new Phase(Phases.APPLICATION, DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
-        Phase phase2 = new Phase(Phases.RESUME_SCREEN, DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
-        Phase phase6 = new Phase(Phases.INTERVIEWS, DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
-        Phase phase4 = new Phase(Phases.ANALYSIS, DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
-        Phase phase5 = new Phase(Phases.RESULT, DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
-        phases.add(phase3);
-        phases.add(phase2);
-        phases.add(phase6);
-        phases.add(phase4);
-        phases.add(phase5);
-        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        recruitmentProcessBuilder.withApplicationPhase(DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
+        recruitmentProcessBuilder.withResumeScreenPhase(DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
+        recruitmentProcessBuilder.withInterviewsPhase(DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
+        recruitmentProcessBuilder.withAnalysisPhase(DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
+        recruitmentProcessBuilder.withResultPhase(DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
+        RecruitmentProcess recruitmentProcess = recruitmentProcessBuilder.getRecruitmentProcess();
 
         // Constructor method with an active Job Opening
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client, recruitmentProcess);
@@ -433,18 +410,13 @@ public class JobOpeningTest {
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
         Calendar creationDate = Calendar.getInstance();
-        List<Phase> phases = new ArrayList<>();
-        Phase phase3 = new Phase(Phases.APPLICATION, DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
-        Phase phase2 = new Phase(Phases.RESUME_SCREEN, DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
-        Phase phase6 = new Phase(Phases.INTERVIEWS, DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
-        Phase phase4 = new Phase(Phases.ANALYSIS, DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
-        Phase phase5 = new Phase(Phases.RESULT, DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
-        phases.add(phase3);
-        phases.add(phase2);
-        phases.add(phase6);
-        phases.add(phase4);
-        phases.add(phase5);
-        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        recruitmentProcessBuilder.withApplicationPhase(DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
+        recruitmentProcessBuilder.withResumeScreenPhase(DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
+        recruitmentProcessBuilder.withInterviewsPhase(DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
+        recruitmentProcessBuilder.withAnalysisPhase(DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
+        recruitmentProcessBuilder.withResultPhase(DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
+        RecruitmentProcess recruitmentProcess = recruitmentProcessBuilder.getRecruitmentProcess();
 
         // Constructor method with an active Job Opening
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client, recruitmentProcess);
@@ -486,18 +458,13 @@ public class JobOpeningTest {
         ContractType contractType = ContractType.FULL_TIME;
         Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
         Calendar creationDate = Calendar.getInstance();
-        List<Phase> phases = new ArrayList<>();
-        Phase phase3 = new Phase(Phases.APPLICATION, DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
-        Phase phase2 = new Phase(Phases.RESUME_SCREEN, DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
-        Phase phase6 = new Phase(Phases.INTERVIEWS, DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
-        Phase phase4 = new Phase(Phases.ANALYSIS, DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
-        Phase phase5 = new Phase(Phases.RESULT, DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
-        phases.add(phase3);
-        phases.add(phase2);
-        phases.add(phase6);
-        phases.add(phase4);
-        phases.add(phase5);
-        RecruitmentProcess recruitmentProcess = new RecruitmentProcess(phases);
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        recruitmentProcessBuilder.withApplicationPhase(DateUtils.parseDate("18-04-2025"), DateUtils.parseDate("18-05-2025"));
+        recruitmentProcessBuilder.withResumeScreenPhase(DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"));
+        recruitmentProcessBuilder.withInterviewsPhase(DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-09-2025"));
+        recruitmentProcessBuilder.withAnalysisPhase(DateUtils.parseDate("18-09-2025"), DateUtils.parseDate("18-10-2025"));
+        recruitmentProcessBuilder.withResultPhase(DateUtils.parseDate("18-10-2025"), DateUtils.parseDate("18-11-2025"));
+        RecruitmentProcess recruitmentProcess = recruitmentProcessBuilder.getRecruitmentProcess();
 
         // Constructor method with an active Job Opening
         JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client, recruitmentProcess);
