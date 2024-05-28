@@ -42,37 +42,44 @@ public class EditJobOpeningUI extends AbstractUI {
     }
 
     private void selectAttributesToEdit(JobOpening jobOpening) {
-        System.out.println("Select the attribute to edit:");
-        System.out.println("1. Working Mode");
-        System.out.println("2. Number of vacancies");
-        System.out.println("3. Address");
-        System.out.println("4. Description");
-        System.out.println("5. Function");
-        System.out.println("6. Contract Type");
+        boolean exit = false;
+        while(!exit) {
+            System.out.println("Select the attribute to edit:");
+            System.out.println("1. Working Mode");
+            System.out.println("2. Number of vacancies");
+            System.out.println("3. Address");
+            System.out.println("4. Description");
+            System.out.println("5. Function");
+            System.out.println("6. Contract Type");
+            System.out.println("0. Exit");
 
-        int option = Console.readOption(1, 6, 0);
+            int option = Console.readOption(1, 6, 0);
 
-        switch (option) {
-            case 1:
-                selectNewWorkingMode(jobOpening);
-                break;
-            case 2:
-                promptNewNumberVacancies(jobOpening);
-                break;
-            case 3:
-                promptNewAddress(jobOpening);
-                break;
-            case 4:
-                promptNewDescription(jobOpening);
-                break;
-            case 5:
-                promptNewFunction(jobOpening);
-                break;
-            case 6:
-                selectNewContractType(jobOpening);
-                break;
-            default:
-                System.out.println("Invalid option. Please try again.");
+            switch (option) {
+                case 1:
+                    selectNewWorkingMode(jobOpening);
+                    break;
+                case 2:
+                    promptNewNumberVacancies(jobOpening);
+                    break;
+                case 3:
+                    promptNewAddress(jobOpening);
+                    break;
+                case 4:
+                    promptNewDescription(jobOpening);
+                    break;
+                case 5:
+                    promptNewFunction(jobOpening);
+                    break;
+                case 6:
+                    selectNewContractType(jobOpening);
+                    break;
+                case 0:
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
         }
     }
 

@@ -35,7 +35,8 @@ the Operator.
 
 ## 4. Diagram
 
-![CD](diagram.jpg)
+![D1](diagram1.svg)
+![D2](diagram2.svg)
 
 ## 5. Tests
 
