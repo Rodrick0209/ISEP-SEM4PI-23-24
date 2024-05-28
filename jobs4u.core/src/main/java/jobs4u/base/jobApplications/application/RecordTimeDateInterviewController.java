@@ -49,7 +49,7 @@ public class RecordTimeDateInterviewController {
     }
 
 
-    public void editTimeDateInterview(JobApplication jobApplication, String time, String date) throws ParseException {
+    public void editTimeDateInterview(JobApplication jobApplication, JobOpening jobOpening, String time, String date) throws ParseException {
         jobs4u.base.jobApplications.domain.Date interviewDate = jobs4u.base.jobApplications.domain.Date.valueOf(date);
 
         Time interviewTime = Time.valueOf(time);
@@ -65,12 +65,25 @@ public class RecordTimeDateInterviewController {
         Date inputDate = dateFormat.parse(date);
         Date inputTime = timeFormat.parse(time);
 
+
+        Date interviewPhaseStartDate = java.sql.Date.valueOf(jobOpening.recruitmentProcess().interviewsPhase().startDate());
+        Date interviewPhaseEndDate = java.sql.Date.valueOf(jobOpening.recruitmentProcess().interviewsPhase().endDate());
+
+
+
+
         if (inputDate.before(currentDate)) {
             throw new IllegalArgumentException("The date cannot be in the past.");
         }
 
-        if (inputDate.equals(currentDate) && inputTime.before(new Date())) {
+        if (inputDate.equals(currentDate) && inputTime.before(currentDate)) {
             throw new IllegalArgumentException("The time cannot be in the past.");
+        }
+
+
+
+        if (inputDate.before(interviewPhaseStartDate) || inputDate.after(interviewPhaseEndDate)) {
+            throw new IllegalArgumentException("The interview date must be within the interview phase date range.");
         }
 
         jobApplication.setInterview(newInterview);

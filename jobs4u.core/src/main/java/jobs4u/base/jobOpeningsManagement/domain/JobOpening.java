@@ -156,6 +156,9 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     public List<JobApplication> jobApplications() {
         return applications;
     }
+    public RecruitmentProcess recruitmentProcess() {
+        return recruitmentProcess;
+    }
 
 
     @Override

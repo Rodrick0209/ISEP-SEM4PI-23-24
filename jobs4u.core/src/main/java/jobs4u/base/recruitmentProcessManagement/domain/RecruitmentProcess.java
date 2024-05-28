@@ -446,6 +446,16 @@ public class RecruitmentProcess {
         return false;
     }
 
+    public boolean hasInterviewPhase() {
+        List<Phase> allPhases = getAllPhases();
+        for (Phase phase : allPhases) {
+            if (phase.designation() == Phases.INTERVIEWS) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }
 

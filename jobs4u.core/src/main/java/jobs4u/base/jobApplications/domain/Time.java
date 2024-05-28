@@ -17,7 +17,7 @@ public class Time implements ValueObject, Comparable<Time>{
             throw new IllegalArgumentException("Time should not be null");
         }
         // Additional validation logic can be added here if necessary
-        this.time = LocalTime.parse(time); ;
+        this.time = LocalTime.parse(time);
     }
 
     protected Time() {

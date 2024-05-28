@@ -113,7 +113,7 @@ this [file](https://myisepipp-my.sharepoint.com/:w:/g/personal/atb_isep_ipp_pt/E
 To record a time and date for an interview with a candidate you should follow the next steps:
 
 1. The user should be logged in as a Customer Manager.
-2. The customer manager selects the Job Application option, and then one option to record the time and date for an
+2. The customer manager selects the Candidate option, and then one option to record the time and date for an
    interview.
 3. The system will then show the job openings from the clients he is managing and he will have to choose one.
 3. The system will show to the customer manager all the job applications from the job opening chosen that passed the
@@ -138,7 +138,7 @@ To record a time and date for an interview with a candidate you should follow th
 - This way he can collect other type of data from the candidate, wich can help in choosing the right candidate for the
   job.
 
-- ´+«'0«'6-4321«'098761q234567890'«'0167890'+«'43 vc. nbvc+# 4. Design
+## 4. Design
 -
 
 ### 4.1. Realization
