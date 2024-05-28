@@ -21,14 +21,19 @@
         <dependency>
             <groupId>jobs4u.core</groupId>
             <artifactId>jobs4u.core</artifactId>
-            <version>0.1.0</version>
-            <scope>compile</scope>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jobs4u.app.common.console</groupId>
+            <artifactId>jobs4u.app.common.console</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>jobs4u.persistence.impl</groupId>
             <artifactId>jobs4u.persistence.impl</artifactId>
-            <version>0.1.0</version>
-            <scope>compile</scope>
+            <version>${project.parent.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>jobs4u.infrastructure.application</groupId>
