@@ -247,7 +247,6 @@ public class RecruitmentProcess {
             closePhase(activePhase);
         } else if (!checkIfIsAtLastPhase()) {
             //Se nao for nem a primeira nem a ultima fecha a atual e abre a seguinte
-
             closePhase(activePhase);
             openPhase(activePhase, nextPhase);
         }

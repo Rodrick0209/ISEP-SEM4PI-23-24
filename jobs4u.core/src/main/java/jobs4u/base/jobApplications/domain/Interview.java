@@ -57,12 +57,13 @@ public class Interview {
     public InputStream inputStreamFromResourceOrFile() throws FileNotFoundException {
         InputStream content;
         final var classLoader = this.getClass().getClassLoader();
-        final var resource = classLoader.getResource(this.answerFileName.toString());
-        if (resource != null) {
-            final var file = new File(resource.getFile());
-            content = new FileInputStream(file);
-        } else {
-            content = new FileInputStream(this.answerFileName.toString());
+        content = classLoader.getResourceAsStream(this.answerFileName.fileName());
+        if (content == null) {
+            try {
+                content = new FileInputStream(this.answerFileName.toString());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         return content;
     }

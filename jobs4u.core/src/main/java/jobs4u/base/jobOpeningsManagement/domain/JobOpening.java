@@ -297,6 +297,10 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         }
     }
 
+    public RequirementSpecification requirementSpecification(){
+        return this.requirementSpecification;
+    }
+
 
     public void changePhase(List<JobApplication> jobApplications){
         areAllApplicationsOfThisJobOpening(jobApplications);

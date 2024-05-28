@@ -30,7 +30,9 @@ import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.Reg
 import jobs4u.base.app.backoffice.console.presentation.InterviewManagement.SelectInterviewModelSpecificationForJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.EditJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.ListJobOpeningUI;
-import jobs4u.base.app.backoffice.console.presentation.candiateManagement.*;
+import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.ExecuteRequirementEvaluationUI;
+import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.RegisterRequirementAnswerFileUI;
+import jobs4u.base.app.backoffice.console.presentation.candiateManagement.GetOrderedListOfCandidatesUI;
 import jobs4u.base.app.backoffice.console.presentation.rank.rankJobOpeningAction;
 import jobs4u.base.app.backoffice.console.presentation.rank.rankJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.RegisterJobOpeningUI;
@@ -39,11 +41,15 @@ import jobs4u.base.app.backoffice.console.presentation.authz.EnableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.DisableUserAction;
 import jobs4u.base.app.backoffice.console.presentation.authz.ListUsersAction;
+import jobs4u.base.app.backoffice.console.presentation.candiateManagement.DisplayCandidateInfoUI;
+import jobs4u.base.app.backoffice.console.presentation.candiateManagement.ListCandidateUI;
+import jobs4u.base.app.backoffice.console.presentation.candiateManagement.RegisterCandidateUI;
 import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientUI;
 import jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureInterviewModelPluginUI;
 import jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureJobRequirementPluginUI;
 import jobs4u.base.app.backoffice.console.presentation.recruitmentProcess.SetupRecruitmentProcessUI_DTO;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
+import jobs4u.base.jobApplications.application.RegisterCandidateFileWIthRequirementAnswersController;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -83,13 +89,15 @@ public class MainMenu extends AbstractUI {
     // OPERATOR CANDIDATE
     private static final int REGISTER_CANDIDATE = 1;
     private static final int LIST_CANDIDATE = 2;
-    private static final int ENABLE_CANDIDATE = 3;
-    private static final int DISABLE_CANDIDATE = 4;
+
+    private static final int REGISTER_REQUIREMENT_ANSWER_FILE = 3;
 
     // CUSTOMER MANAGER CANDIDATE
     private static final int DISPLAY_CANDIDATE_INFO = 1;
     private static final int GET_ORDERED_LIST_OF_CANDIDATES = 2;
     private static final int RECORD_TIME_DATE_INTERVIEW = 3;
+
+    private static final int EXECUTE_REQUIREMENT_EVALUATION = 4;
 
     // JOB OPENING
     private static final int REGISTER_JOB_OPENING = 1;
@@ -290,9 +298,7 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(REGISTER_CANDIDATE, "Register Candidate", new RegisterCandidateUI()::show);
         menu.addItem(LIST_CANDIDATE, "List Candidates", new ListCandidateUI()::show);
-        menu.addItem(ENABLE_CANDIDATE, "Enable Candidate", new EnableCandidateUI()::show);
-        menu.addItem(DISABLE_CANDIDATE, "Disable Candidate", new DisableCandidateUI()::show);
-
+        menu.addItem(REGISTER_REQUIREMENT_ANSWER_FILE, "Register Requirement Answer File",  new RegisterRequirementAnswerFileUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
@@ -305,7 +311,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(DISPLAY_CANDIDATE_INFO, "Display Candidate Information", new DisplayCandidateInfoUI()::show);
         menu.addItem(GET_ORDERED_LIST_OF_CANDIDATES, "Get Ordered List of Candidates based on Interview Points", new GetOrderedListOfCandidatesUI()::show);
         menu.addItem(RECORD_TIME_DATE_INTERVIEW, "Schedule Interview", new RecordTimeDateInterviewUI()::show);
-
+        menu.addItem(EXECUTE_REQUIREMENT_EVALUATION,"Execute Requirement Evaluation", new ExecuteRequirementEvaluationUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

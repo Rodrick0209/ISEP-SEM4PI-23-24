@@ -22,10 +22,10 @@ import jobs4u.integration.plugins.Programador2AnosExperienciaRequirement.Utils.P
 
 public class RequirementService implements RequirementEvaluation {
 
-    String templatePath = "jobs4u.integration.plugins.Programador2AnosExperienciaRequirement/Programador2AnosExperienciaRequirement/TemplateFile/requirementTemplate.txt";
+    String templatePath = "C:\\Users\\rodri\\Documents\\sem4pi-23-24-2dj2\\jobs4u.integration.plugins\\src\\main\\java\\jobs4u\\integration\\plugins\\Programador2AnosExperienciaRequirement\\TemplateFile\\requirementTemplate.txt";
 
 
-    /*public PluginQuestions checkTemplateSyntax() {
+    public PluginQuestions checkTemplateSyntax() {
         try {
             FileInputStream fileInputStream = new FileInputStream(templatePath);
             RequirementLexer lexer = new RequirementLexer(CharStreams.fromStream(fileInputStream));
@@ -45,20 +45,19 @@ public class RequirementService implements RequirementEvaluation {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }*/
+    }
 
 
 
     @Override
     public boolean evaluate(InputStream answerPath) {
-       /* PluginQuestions pluginQuestions = checkTemplateSyntax();
+        PluginQuestions pluginQuestions = checkTemplateSyntax();
+        System.out.println("Analisou a sintaxe");
         try {
-            FileInputStream fileInputStream = new FileInputStream(answerPath);
-            EvaluationLexer lexer = new EvaluationLexer(CharStreams.fromStream(fileInputStream));
+            EvaluationLexer lexer = new EvaluationLexer(CharStreams.fromStream(answerPath));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             EvaluationParser parser = new EvaluationParser(tokens);
             EvalVisitorEvaluation visitor = new EvalVisitorEvaluation();
-
 
             ParseTree tree = parser.answers();
             visitor.registerExam(pluginQuestions);
@@ -71,8 +70,6 @@ public class RequirementService implements RequirementEvaluation {
             throw new RuntimeException(e.getMessage());
         } catch (Exception e) {
             throw new ErrorInFileException("The resolution does not follow the required format!.");
-        }*/
-        System.out.println("Requirement 2 anos experiencia Plugin Integration is working");
-        return true;
+        }
     }
 }

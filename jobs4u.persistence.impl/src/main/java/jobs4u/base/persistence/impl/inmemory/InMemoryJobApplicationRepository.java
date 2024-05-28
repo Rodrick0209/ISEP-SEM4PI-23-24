@@ -57,4 +57,9 @@ public class InMemoryJobApplicationRepository
     public List<JobApplication> findJobApplicationsByJobOpening(JobOpening jobOpening) {
         return null;
     }
+
+    @Override
+    public List<JobApplication> findJobApplicationsByJobOpeningWithInterviewAnswerFile(JobOpening jobOpening){
+        return null;
+    }
 }

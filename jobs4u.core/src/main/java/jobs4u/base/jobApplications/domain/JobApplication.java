@@ -130,6 +130,7 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
     }
 
 
+
     @Override
     public Long identity() {
         return id;

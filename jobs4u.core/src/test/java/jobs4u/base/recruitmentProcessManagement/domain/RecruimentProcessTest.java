@@ -147,7 +147,7 @@ public class RecruimentProcessTest {
         Calendar creationDate = Calendar.getInstance();
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -188,7 +188,7 @@ public class RecruimentProcessTest {
         Calendar creationDate = Calendar.getInstance();
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -229,7 +229,7 @@ public class RecruimentProcessTest {
         Calendar creationDate = Calendar.getInstance();
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -270,7 +270,7 @@ public class RecruimentProcessTest {
 
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -316,7 +316,7 @@ public class RecruimentProcessTest {
         Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -359,7 +359,7 @@ public class RecruimentProcessTest {
         Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -406,7 +406,7 @@ public class RecruimentProcessTest {
         Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -453,7 +453,7 @@ public class RecruimentProcessTest {
         Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -503,7 +503,7 @@ public class RecruimentProcessTest {
         Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -554,7 +554,7 @@ public class RecruimentProcessTest {
         Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -601,7 +601,7 @@ public class RecruimentProcessTest {
 
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -610,7 +610,7 @@ public class RecruimentProcessTest {
         JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
 
         jobApplication1.registerRequirementAnswer("aaaaa");
-        jobApplication1.getRequirementAnswer().defineResult("ACCEPTED");
+        jobApplication1.getRequirementAnswer().defineResult(true);
 
 
         jobApplications.add(jobApplication1);
@@ -650,7 +650,7 @@ public class RecruimentProcessTest {
 
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -659,9 +659,9 @@ public class RecruimentProcessTest {
         JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
 
         jobApplication1.registerRequirementAnswer("aaaaa");
-        jobApplication1.getRequirementAnswer().defineResult("ACCEPTED");
+        jobApplication1.getRequirementAnswer().defineResult(true);
         jobApplication2.registerRequirementAnswer("bbbbbb");
-        jobApplication2.getRequirementAnswer().defineResult("ACCEPTED");
+        jobApplication2.getRequirementAnswer().defineResult(true);
 
         jobApplications.add(jobApplication1);
         jobApplications.add(jobApplication2);
@@ -701,7 +701,7 @@ public class RecruimentProcessTest {
 
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -712,7 +712,7 @@ public class RecruimentProcessTest {
         jobApplications.add(jobApplication2);
 
         jobApplication1.registerRequirementAnswer("aaaaa");
-        jobApplication1.getRequirementAnswer().defineResult("ACCEPTED");
+        jobApplication1.getRequirementAnswer().defineResult(true);
 
 
         recruitmentProcess.applicationPhase().openPhase();
@@ -748,7 +748,7 @@ public class RecruimentProcessTest {
 
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -786,7 +786,7 @@ public class RecruimentProcessTest {
 
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -823,7 +823,7 @@ public class RecruimentProcessTest {
         Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -834,7 +834,7 @@ public class RecruimentProcessTest {
         jobApplications.add(jobApplication2);
 
         jobApplication1.registerRequirementAnswer("aaaaa");
-        jobApplication1.getRequirementAnswer().defineResult("ACCEPTED");
+        jobApplication1.getRequirementAnswer().defineResult(true);
 
         recruitmentProcess.applicationPhase().openPhase();
         assertEquals(recruitmentProcess.messageForOpenClosePhase(jobApplications), "Active phase: " + recruitmentProcess.applicationPhase().designation() + "\n1- Move to next phase " + recruitmentProcess.resumeScreenPhase().designation() + " and close phase before " + recruitmentProcess.applicationPhase().designation() + "\n" + "2- Exit \n");
@@ -867,7 +867,7 @@ public class RecruimentProcessTest {
 
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -903,7 +903,7 @@ public class RecruimentProcessTest {
         Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
         RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult("ACCEPTED");
+        requirementAnswer.defineResult(true);
         List<JobApplication> jobApplications = new ArrayList<>();
         List<JobApplicationFile> files;
         files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
@@ -914,7 +914,7 @@ public class RecruimentProcessTest {
         jobApplications.add(jobApplication2);
 
         jobApplication1.registerRequirementAnswer("aaaaa");
-        jobApplication1.getRequirementAnswer().defineResult("ACCEPTED");
+        jobApplication1.getRequirementAnswer().defineResult(true);
 
         recruitmentProcess.resultPhase().openPhase();
         assertEquals(recruitmentProcess.messageForOpenClosePhase(jobApplications), "Active phase: " + recruitmentProcess.resultPhase().designation() + "\n1- Close " + recruitmentProcess.resultPhase() + " and consequently end the Recruitment Process (no more phases left)\n" + "2- Exit \n");

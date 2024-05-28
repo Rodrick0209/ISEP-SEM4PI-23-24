@@ -13,4 +13,7 @@ public interface JobApplicationRepository
     Iterable<JobApplication> findJobApplicationsByCandidate(Candidate candidate);
 
     List<JobApplication> findJobApplicationsByJobOpening(JobOpening jobOpening);
+
+    List<JobApplication> findJobApplicationsByJobOpeningWithInterviewAnswerFile(JobOpening jobOpening);
+
 }

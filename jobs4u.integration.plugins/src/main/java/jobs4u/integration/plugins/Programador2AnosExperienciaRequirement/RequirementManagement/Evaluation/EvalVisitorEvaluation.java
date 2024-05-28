@@ -29,7 +29,6 @@ public class EvalVisitorEvaluation extends EvaluationBaseVisitor<Object> {
         for (int j = 0; j < questions.size(); j++) {
             Question question = questions.get(j);
             double questionNumber = questions.get(j).questionNumber();
-            System.out.println(questionNumber);
             for (AnswerFromUser a : answers) {
                 if ( questionNumber == a.answerNumber() && !question.isCorrectAnswer(a.correctAnswer()))
                     return false;

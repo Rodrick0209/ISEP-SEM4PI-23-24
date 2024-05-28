@@ -40,6 +40,7 @@ import jobs4u.base.jobApplications.domain.JobApplicationFile;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
+import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
@@ -81,6 +82,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     final JobRequirementSpecificationRepository jobRequirementSpecificationRepository = PersistenceContext.repositories().jobRequirementsSpecification();
     final InterviewModelSpecificationRepository interviewModelSpecificationRepository = PersistenceContext.repositories().interviewModelsSpecification();
     final JobApplicationRepository jobApplicationRepository = PersistenceContext.repositories().jobApplications();
+
+    final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
 
     @Override
     public boolean execute() {
@@ -204,10 +207,18 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                 "Software Engineer", ContractType.FULL_TIME, client1,recruitmentProcess);
 
 
+
         //Register IBM-000123 jobOpening
-        registerJobOpening("IBM-000123",WorkingMode.REMOTE, "1", "1234-123",
+        JobOpening jobOpening1=  registerJobOpening("IBM-000123",WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
                 "Software Engineer", ContractType.FULL_TIME, client3,recruitmentProcess1);
+
+        RequirementSpecification jobRequirementSpecification = new RequirementSpecification("programador2AnosExperiencia","jobs4u.integration.plugins.Programador2AnosExperienciaRequirement.RequirementManagement.RequirementService");
+        jobRequirementSpecificationRepository.save(jobRequirementSpecification);
+
+        jobOpening1.selectJobRequirementSpecification(jobRequirementSpecification);
+
+
 
         //---------------------------------------------------------------------------------------------------
         //Register Candidate
@@ -242,19 +253,19 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         List<JobApplicationFile> file2 = List.of(new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-email.txt")));
 
 
-        JobApplication jobApplication = new JobApplication(1L,jobOpening,file,candidate);
-        JobApplication jobApplication1 = new JobApplication(2L,jobOpening,file1,candidate1);
-        JobApplication jobApplication2 = new JobApplication(3L,jobOpening,file2,candidate2);
+        JobApplication jobApplication = new JobApplication(1L,jobOpening1,file,candidate);
+        jobApplication.registerRequirementAnswer("answerFromCandidate1Test.answer");
+        JobApplication jobApplication1 = new JobApplication(2L,jobOpening1,file1,candidate1);
+        jobApplication1.registerRequirementAnswer("answerFromCandidate1Test.answer");
+        JobApplication jobApplication2 = new JobApplication(3L,jobOpening1,file2,candidate2);
 
-        RequirementSpecification jobRequirementSpecification = new RequirementSpecification("teste","com.example.class");
         InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification("teste","com.example.class");
 
-        jobRequirementSpecificationRepository.save(jobRequirementSpecification);
         interviewModelSpecificationRepository.save(interviewModelSpecification);
         jobApplicationRepository.save(jobApplication);
         jobApplicationRepository.save(jobApplication1);
         jobApplicationRepository.save(jobApplication2);
-
+        jobOpeningRepository.save(jobOpening1);
         return true;
     }
 

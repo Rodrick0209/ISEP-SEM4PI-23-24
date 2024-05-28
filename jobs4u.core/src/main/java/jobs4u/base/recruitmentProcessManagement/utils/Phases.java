@@ -9,20 +9,5 @@ public enum Phases {
     ANALYSIS,
     RESULT;
 
-    public static List<String> getExpectedPhases(boolean isInterview) {
-        if (isInterview) {
-            return List.of(
-                Phases.APPLICATION.name(),
-                Phases.RESUME_SCREEN.name(),
-                Phases.INTERVIEWS.name(),
-                Phases.ANALYSIS.name(),
-                Phases.RESULT.name());
-        } else {
-            return List.of(
-                Phases.APPLICATION.name(),
-                Phases.RESUME_SCREEN.name(),
-                Phases.ANALYSIS.name(),
-                Phases.RESULT.name());
-        }
-    }
+
 }

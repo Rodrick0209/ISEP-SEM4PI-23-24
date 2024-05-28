@@ -10,13 +10,12 @@ import java.io.InputStream;
 
 
 @Entity
-public class RequirementAnswer  {
+public class RequirementAnswer {
 
     @Id
     @GeneratedValue
     private Long id;
-
-    private String fileName;
+    private FileName fileName;
 
     @Enumerated(EnumType.STRING)
     private RequirementResult result;
@@ -26,34 +25,40 @@ public class RequirementAnswer  {
 
     public RequirementAnswer(String fileName) {
         Preconditions.nonNull(fileName, "File name cannot be null");
-        this.fileName = fileName;
+        this.fileName =FileName.valueOf(fileName);
     }
 
 
-
-    public void defineResult(String result){
-        this.result = RequirementResult.valueOf(result);
+    public void defineResult(boolean result) {
+        if (result) {
+            this.result = RequirementResult.ACCEPTED;
+        } else {
+            this.result = RequirementResult.REJECTED;
+        }
     }
-    public RequirementResult result(){
+
+    public FileName requirementAnswer(){
+        return this.fileName;
+    }
+
+    public RequirementResult result() {
         return this.result;
     }
 
 
-    public InputStream inputStreamFromResourceOrFile() throws FileNotFoundException {
+    public InputStream inputStreamFromResourceOrFile() {
         InputStream content;
         final var classLoader = this.getClass().getClassLoader();
-        final var resource = classLoader.getResource(this.fileName.toString());
-        if (resource != null) {
-            final var file = new File(resource.getFile());
-            content = new FileInputStream(file);
-        } else {
-            content = new FileInputStream(this.fileName.toString());
+        content = classLoader.getResourceAsStream(fileName.fileName());
+        if (content == null) {
+            try {
+                content = new FileInputStream(this.fileName.toString());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         return content;
     }
-
-
-
 
 
 }

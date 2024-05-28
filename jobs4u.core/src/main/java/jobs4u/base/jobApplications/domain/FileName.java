@@ -26,21 +26,9 @@ public class FileName implements ValueObject {
         return new FileName(answerFileName);
     }
 
-    public InputStream inputStreamFromResourceOrFile() throws FileNotFoundException {
-        InputStream content;
-        final var classLoader = this.getClass().getClassLoader();
-        final var resource = classLoader.getResource(this.answerFileName);
-        if (resource != null) {
-            final var file = new File(resource.getFile());
-            content = new FileInputStream(file);
-        } else {
-            content = new FileInputStream(this.answerFileName);
-        }
-        return content;
+    public String fileName(){
+        return this.answerFileName;
     }
-
-
-
 
 
 
