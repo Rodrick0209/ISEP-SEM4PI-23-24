@@ -70,7 +70,7 @@ public class RecordTimeDateInterviewUI extends AbstractUI {
             if (confirmation == 1) {
                 // Call the controller method with the selected job application, date and time
                 try {
-                    controller.editTimeDateInterview(selectedJobApplication, time, date);
+                    controller.editTimeDateInterview(selectedJobApplication,selectedJobOpening, time, date);
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                     return false;
