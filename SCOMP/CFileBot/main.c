@@ -5,9 +5,27 @@
 int main(int argc, char *argv[])
 {
 
+    
     //read the config file
     Config config;
-    read_config(&config, argv[1]);
+    
+    if (argc == 2)
+    {
+        read_config(&config, argv[1]);
+
+    }else if (argc == 6)
+    {
+        strcpy(config.input_directory, argv[1]);
+        strcpy(config.output_directory, argv[2]);
+        config.worker_children = atoi(argv[3]);
+        strcpy(config.check_interval, argv[4]);
+        strcpy(config.report_name, argv[5]);
+    }else{
+        printf("Usage: %s <config_file> \nor \nUsage: %s <input_directory> <output_directory> <worker_children> <check_interval> <report_name>\n", argv[0],argv[0]);
+        exit(EXIT_FAILURE);
+    }
+    
+    
     worker_children = config.worker_children;
     
     
