@@ -14,6 +14,14 @@ public class AuthRequest extends FollowUpRequest{
         this.authenticationService = authenticationService;
         this.username = username;
         this.password = password;
+
     }
 
+    @Override
+    public byte[] execute() {
+
+        //TODO implemenent authentication
+        throw new UnsupportedOperationException("Not yet implemented");
+        
+    }
 }

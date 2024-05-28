@@ -1,54 +1,40 @@
-# US 1014 - As Customer Manager, I want to record the time and date for an interview with a candidate.
+# US 1021 - As Customer Manager, I want to display all the data of an application.
 
 ## 1. Context
 
-This task, identified as "US 1014", is part of the Customer Manager feature. The goal of this task is to allow the
-customer manager to record the time and date for an interview with a candidate.
-
-This task is directly related to the recruitment process feature of the system, more precisely with the interview phase.
+This task, identified as "US 1021", is part of the Customer Manager feature. The goal of this task is to allow the
+customer manager to see the all the information of an application.
 
 ## 2. Requirements
 
-**1014** As Customer Manager, I want to record the time and date for an interview with a candidate.
+**1021** As Customer Manager, I want to display all the data of an application.
 
 **Dependencies/References:**<a id="dependencias"></a>
 
 This user story have some dependencies with the following user stories:
 
-| US                                       | Reason                                                                                                                                                                                                                                                    |
-|------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [G007](../../SprintB/g007/readme.md)     | We need the authentication to ensure is a customer manager that is logged                                                                                                                                                                                 |
-| [1002](../../SprintB/us1002/readme.md)   | The interview will take place due to a  job opening, therefore there must be a job opening in the system                                                                                                                                                  |
-| [1005](../../SprintB/us2000a/readme.md)  | The costumer manager will need to choose between the applications for a job opening so then he could setup an interview with the candidate that made the application. Since in us1005 the applications for a job opening are listed, the us´s are related |
-| [2000a](../../SprintB/us2000a/readme.md) | We need a candidate for the job opening to interview, therefore we need candidate(s) registered in the system                                                                                                                                             |
-| [2002](../../SprintB/us2002/readme.md)   | The candidate that is being interviewed must have applied for the job opening in question                                                                                                                                                                 |
-| [1007](../../SprintB/us1007)             | This US is responsible for creating the phases of a job opening. Since we want to record a time and a date for an interview wich corresponds to the 'Interview' phase, these USs are related.                                                             |
+| US                                      | Reason                                                                                                                                                 |
+|-----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [G007](../../SprintB/g007/readme.md)    | We need the authentication to ensure is a customer manager that is logged                                                                              |
+| [1002](../../SprintB/us1002/readme.md)  | The application will be placed in order to compete for a job opening, therefore there must be a job opening in the system                              |
+| [1005](../../SprintB/us2000a/readme.md) | The costumer manager will need to choose between the applications. Since in us1005 the applications for a job opening are listed, the us´s are related |
+| [2002](../../SprintB/us2002/readme.md)  | The application to be analyzed  must have been applied for a job opening in question                                                                   |
 
 ## 3. Analysis
 
 ### What is asked?
 
-The customer manager must be able to set a time and date for an interview with a candidate for a job opening.
+The customer manager must be able to see all the information of an application for a job opening.
 
-To schedule an interview with a candidate, the candidate must have passed the screening phase, although the interview
-may be scheduled before we know whether the same has happened.
+The information in question will be the files submitted by the candidate as well as data collected or generated during the
+process (such as interviews and requirements processing).
 
-Two interviews can take place simultaneously.
+#### 1. How does display all information of an application work?
 
-A candidate can only have one interview for the job opening.
+- The customer manager selects the job opening from wich he wants to analyze the applications.
+- He will then proceed to choose the application that he wants to analyze.
+- It will then be displayed all the information of the application chosen.
 
-#### 1. How does setting a date for an interview work?
-
-- The customer manager selects the job opening that he wants to schedule an interview.
-- He will then proceed to choose the application of the candidate he wants to schedule an interview with.
-- It will then be possible to associate an interview with the job application with the respective date and time.
-- When choosing a date there will be a confirmation with the day of the week of the date chosen
-
-#### 2.How does setting a date for an interview work in the system ?
-
-- There will be a verification if an interview will take place or not
-- If so the user will have the possibility to schedule a date
-- A date will then be associated to the job application
 
 ### Domain model
 
@@ -175,7 +161,6 @@ To record a time and date for an interview with a candidate you should follow th
 - **Test 2:** Test setting a date and time for an interview that is suposed to occur
 - **Test 3:** Test setting a date and time for an interview that is suposed to occur but the candidate did not pass the
   screening phase
-
 
 ## 5. Implementation
 
