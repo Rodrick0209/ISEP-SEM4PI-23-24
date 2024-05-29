@@ -19,20 +19,7 @@ public abstract class BaseErrorRequest extends FollowUpRequest{
     @Override
     public byte[] execute() {
 
-        byte [] errorMessage = new byte[4+DATA1_LEN_L+DATA1_LEN_M*256];
-        errorMessage[0] = VERSION;
-        errorMessage[1] = ERR;
-        errorMessage[2] = DATA1_LEN_L;
-        errorMessage[3] = DATA1_LEN_M;
-
-        if (this.errorMessage != null) {
-            errorMessage(errorMessage);
-        }else{
-            errorMessage[4] = 0; errorMessage[5] = 0;
-        }
-
-
-        return errorMessage;
+        return buildResponse();
     }
 
     protected void errorMessage(byte [] message) {
@@ -49,6 +36,24 @@ public abstract class BaseErrorRequest extends FollowUpRequest{
 
 
     }
+
+    private byte [] buildResponse(){
+        byte [] errorMessage = new byte[4+DATA1_LEN_L+DATA1_LEN_M*256];
+        errorMessage[0] = VERSION;
+        errorMessage[1] = ERR;
+        errorMessage[2] = DATA1_LEN_L;
+        errorMessage[3] = DATA1_LEN_M;
+
+        if (this.errorMessage != null) {
+            errorMessage(errorMessage);
+        }else{
+            errorMessage[4] = 0; errorMessage[5] = 0;
+        }
+
+        return errorMessage;
+    }
+
+
 
     protected abstract String messageType();
 }
