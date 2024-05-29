@@ -167,7 +167,7 @@ To record a time and date for an interview with a candidate you should follow th
 
 - **Test 1:** Test set date for an interview
 - **Test 2:** Test set time for an interview
-- **Test 5:** Test the ToString method
+- **Test 3:** Test the ToString method
 
 #### 4.4.2. Integration Tests
 
@@ -176,18 +176,17 @@ To record a time and date for an interview with a candidate you should follow th
 - **Test 3:** Test setting a date and time for an interview that is suposed to occur but the candidate did not pass the
   screening phase
 
-
 ## 5. Implementation
 
 For the implementation of this user story, we need to create some components, that work together:
 
 - **User Interface (recordTimeDateInterviewUI.java):** This component is resposible for the interaction with the user.
-  It shows the job openings that are in the Analysis phase and are the responsibility of the customer manager. It also
-  shows the list of candidates that applied for the job opening and waits for the customer manager to write the rank of
-  the candidates.
+  It shows the job openings that are in the Interview phase and are the responsibility of the customer manager. It also
+  shows the list of applications for the job opening and waits for the customer manager to schedule an interview.
 
 
-- **Controller (recordTimeDateInterviewController.java):** The rankJobOpeningController class is responsible for
+- **Controller (recordTimeDateInterviewController.java):** The recordTimeDateInterviewController class is responsible
+  for
   handling the user input and calling the appropriate service methods schedule a date and time for an interview. It
   receives the job opening and the list of candidates from the UI and passes them to the service layer for processing.
   It also handles the response from the service layer and send the response back to the UI.
@@ -210,17 +209,15 @@ simple and don't have a lot of dependencies.
 To demonstrate the implementation of this user story, we can use the following steps:
 
 1. Login as a Customer Manager
-2. Select the Rank option
-3. Select the Register Rank for Job Opening option
-4. The system will show the job openings that are in the Analysis phase and are the responsibility of the customer
-   manager, and the customer manager selects the job opening that he wants to rank the candidates.
-5. The system will show the list of candidates that applied for the job opening, and the customer manager writes the
-   email of the candidates separated by a comma.
-6. In case of ranking candidates from a jobOpening that already has a rank, the system displays the current rank to the
-   customer manager, and asks for the new rank.
-6. The system shows the rank inserted
+2. Select the Candidate option
+3. Select the Schedule Interview option
+4. The system will show the job openings that are in the Interview phase and are the responsibility of the customer
+   manager, and the customer manager selects the job opening in wich he desires to see the applications to schedule an
+   interview with one of the candidates applying to the job.
+5. The system will show the list of applications for the job opening, and the customer manager chooses one.
+6. He will then be asked to select a time and a date for the interview he wants to schedule.
+6. The system shows a confirmation message with the day of the week of the date chosen and the time.
 
 ## 7. Observations
 
-In case of register a ranking for a jobOpening that already has a ranking, the system displays to the customer manager
-the current ranking.
+Nothing to report.
