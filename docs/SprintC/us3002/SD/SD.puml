@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Customer  as c
+participant DisplayJobOpeningUI as ui
+box "Server"
+participant "FollowUpDeamon" as server
+end box
+participant ListJobOpeningForCustomerController as controller
+participant JobOpeningRepository as repo
+
+autonumber
+
+activate c
+c->ui: Select the Job Opening Menu
+activate ui
+ui->c: Displays the job Openings options
+deactivate ui
+c->ui: Select the option to list all the job Openings
+activate ui
+ui->server: Request to list all the job Openings
+activate server
+server->controller: getJobOpeningsForCustomer(customer)
+activate controller
+controller->repo: getJobOpeningsForCustomer(customer)
+activate repo
+repo-->controller: List<jobOpenings>
+deactivate repo
+controller-->server: List<jobOpenings>
+deactivate controller
+server-->ui: List<jobOpenings>
+deactivate server
+ui->c: Displays the jobOpenings with all information
+deactivate
+@enduml
