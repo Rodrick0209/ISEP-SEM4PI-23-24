@@ -26,7 +26,8 @@ This user story have some dependencies with the following user stories:
 
 The customer manager must be able to see all the information of an application for a job opening.
 
-The information in question will be the files submitted by the candidate as well as data collected or generated during the
+The information in question will be the files submitted by the candidate as well as data collected or generated during
+the
 process (such as interviews and requirements processing).
 
 #### 1. How does display all information of an application work?
@@ -35,51 +36,46 @@ process (such as interviews and requirements processing).
 - He will then proceed to choose the application that he wants to analyze.
 - It will then be displayed all the information of the application chosen.
 
-
 ### Domain model
 
 To implement this user story there will be no changes needed to the domain model
 
-- The entity Job Application will have his value object "Interview" changed
-- The value object interview will have the value objects "date" and "time" changed
+- The entity Job Application will have his value object objects displayed for the costumer manager.
 
-![md.png](../us1014/img/md.png)
+![domainModel.png](../us1021/img/domainModel.png)
 
 ### Doubts to the client
 
-- Uma entrevista pode ter apenas uma questão? US1014, time and date, quer dizer data de inicio e não data final? Podem
-  haver entrevistas em paralelo?
+- O que é “all data of an application”? O que é uma job application?
 
-  > **Answer:** Quanto ao número de perguntas numa entrevista, não está definido nenhum limite inferior ou superior. Ou
-  seja, pode haver uma entrevista com apenas 1 pergunta (não fará sentido não ter perguntas). A US1014 refere-se à
-  marcação da data de uma entrevista com um candidato. Algo como indicar o dia e a hora (ex: 23 de abril pelas 14:00).
-  Em relação à marcação de entrevistas “sobrepostas” (com a mesma data de inicio), neste momento, seria algo a
-  permitir (pode, por exemplo, o customer manager delegar noutra pessoa a condução da entrevista). Isso não invalida que
-  devam validar se as entrevistas ocorrem dentro da fase das entrevistas.
+  > **Answer:** Uma job application é uma candidatura (de um candidato) a uma job opening. Relativamente ao “all data of
+  an application” refere-se a todos os dados de uma candidatura, nomeadamente, os ficheiros submetidos pelos candidato
+  assim como dados recolhidos ou gerados durante o processo (como as entrevistas e processamento de requisitos).
 
 
-- Em relação à marcação da intervista, só deve ser possível marcar esta data quando? Só será possível marcar a
-  entrevista quando a fase de recrutamento se encontrar na fase de intervista? Ou será possivel marcar noutras fases
-  anteriores?
+- Relativamente à US1021, como é que a Application a exibir é escolhida? O utilizador pode começar por selecionar uma
+  Job Reference e depois o e-mail de um dos candidatos? Ou recomenda uma outra abordagem?
 
-> **Answer:** Por mim pode ser possível marcar as entrevistas antes mas deve-se ter em atenção se o candidato “passou” o
-> screening. Não faz sentido marcar uma entrevista para um candidato que não foi aceite. Tenham em atenção este tipo de
-> aspetos.
+> **Answer:** Devem aplicar melhores práticas de UX/UI. Já houve perguntas anteriores sobre assuntos similares (ex:
+> Q150). Note que existe uma US para listar todas as candidaturas a um job opening, por exemplo.
 
-- In the us "US 1014 - As Customer Manager, I want to record the time and date for an interview with a candidate." Is it
-  possible to schedule interviews for any day and time or we must take into account weekends, working hours and
-  holidays, for example?
+- Em relação à listagem dos dados de uma determinada jobApplication, um customer manager vai ter acesso a todas as
+  jobApplications do sistema ou apenas às jobApplications feitas para uma job opening de um cliente que é gerido por
+  esse customer manager?
 
-> **Answer:** The system should display the day of the week for the selected date. But the system should accept any
-> valid date.
+> **Answer:** Apenas às que está a gerir.
 
-- Em relação à marcação de uma entrevista com um candidato, deve ser possível marcar mais do que uma entrevista por
-  candidatura?
+- Listagem das applications - Gostaria de abordar um ponto específico relacionado à UI/UX User Story 1021. Eu sei que o
+  cliente tem vindo a referir que devemos aplicar melhores práticas de UX/UI e que preferia não constrangir a forma como
+  desenhamos a UI/UX. No entanto, a nossa preocupação é que, nesta US, no caso de haver um grande número de aplicações,
+  a exibição de todas essas informações de uma vez poderá ficar confusa para o user. Por isso, queria apenas perguntar
+  se poderíamos adotar uma solucão um pouco mais prática, como, por exemplo, pedir ao user para selecionar uma job
+  opening e só depois listar as applications associadas a essa job opening e os dados dessas applications ou se, na sua
+  visão, esta abordagem poderia restringir demasiadamente as opções oferecidas por esta funcionalidade.
 
-> **Answer:** O sistema nesta fase está pensado para apenas suportar uma entrevista por job opening por isso não faz
-> muito sentido marcar mais do que uma entrevista para um candidato a não ser para remarcar a mesma entrevista (por
-> exemplo, o candidato faltou justificadamente a uma entrevista anterior). Neste contexto, eu diria que faz mais sentido
-> poder alterar a marcação de uma entrevista do que marcar mais do que uma entrevista para o mesmo candidato.
+> **Answer:** Ver Q36. Esta US é para mostrar os dados de uma (1) candidatura. Deve haver uma forma do Customer Manager
+> indicar (incluindo, eventualmente, forma de selecionar/”saber”/”pesquisar”) qual a candidatura (i.e., application) e o
+> sistema mostra os dados dessa candidatura.
 
 ### Client Clarifications
 
@@ -87,32 +83,25 @@ These clarifications were made with the client to better understand the requirem
 and aswers are available in
 this [file](https://myisepipp-my.sharepoint.com/:w:/g/personal/atb_isep_ipp_pt/EUuTReNeiM1NorupBbiS9hQB38kUh5TPLca7uDYEitSeZg?e=I5ymVX).
 
-- There may be interviews to take place at the same time for the same job opening
-- A candidate will at maximum have one interview for the job opening
-- Interviews can be scheduled at any time, however, they will only happen if the candidate in question has passed the
-  screening phase
-- The system should display the day of the week for the selected date.
-- The system should accept any valid date
+- The costumer manager will only have access to job applications for job openings of clients that he is managing.
+- All application data must be presented, namely the files submitted by the candidate
+  as well as data collected or generated during the process (such as interviews and requirements processing).
 
 ### How is supposed to work?
 
-To record a time and date for an interview with a candidate you should follow the next steps:
+To see all the information of an application you should follow the next steps:
 
 1. The user should be logged in as a Customer Manager.
-2. The customer manager selects the Job Application option, and then one option to record the time and date for an
-   interview.
+2. The customer manager selects the Job Application option, and then one option to see all data of an application.
 3. The system will then show the job openings from the clients he is managing and he will have to choose one.
-3. The system will show to the customer manager all the job applications from the job opening chosen that passed the
-   Screening phase and will have
-   an interview ocurring in the future.
+3. The system will show to the customer manager all the job applications from the job opening chosen.
 4. The customer manager selects the job application in wich he wants to schedule an interview.
-5. He will then be asked to choose a time and a date for the interview.
-6. Finaly the system will confirm with the user the date (with the day of the week) and the time chosen by the customer
-   manager.
+5. It will then be displayed all teh information about the application chosen.
+
 
 ### SSD
 
-![us1014ssd.svg](SSD/us1014ssd.svg)
+![ssd1021.png](SSD/ssd1021.png)
 
 ### Dependencies to other user stories
 
@@ -120,12 +109,12 @@ To record a time and date for an interview with a candidate you should follow th
 
 ### Impact in the business
 
-- The customer manager will be able to schedule interviews with candidates for job openings.
-- This way he can collect other type of data from the candidate, wich can help in choosing the right candidate for the
+- The customer manager will be able to see all the information of the applications for the job openings of the clients he is managing.
+- This way he can see the data from the candidate, wich can help in choosing the right candidate for the
   job.
 
-- ´+«'0«'6-4321«'098761q234567890'«'0167890'+«'43 vc. nbvc+# 4. Design
--
+## 4. Design
+
 
 ### 4.1. Realization
 
