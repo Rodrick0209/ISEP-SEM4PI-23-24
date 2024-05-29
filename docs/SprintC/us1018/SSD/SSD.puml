@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor CustomerManager
+participant System
+
+activate CustomerManager
+CustomerManager -> System : asks to execute the\n process of evaluations\nof interviews for a job opening
+activate System
+System --> CustomerManager : shows list of job openings in interview\nphase and asks to select one
+CustomerManager -> System : selects one job Opening
+System --> CustomerManager : backs to menu
+
+@enduml
