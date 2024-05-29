@@ -101,7 +101,7 @@ To see all the information of an application you should follow the next steps:
 
 ### SSD
 
-![ssd1021.png](SSD/ssd1021.png)
+![ssd1021.png](SSD/ssd1021.png) 
 
 ### Dependencies to other user stories
 
@@ -118,7 +118,7 @@ To see all the information of an application you should follow the next steps:
 
 ### 4.1. Realization
 
-![sd1021.svg](SD/sd1021.svg)
+![sdUS1021.svg](SD/sdUS1021.svg)
 
 ### 4.2. Class Diagram
 
@@ -189,4 +189,4 @@ To demonstrate the implementation of this user story, we can use the following s
 
 ## 7. Observations
 
-Nothing to report.
+Nothing to report. 
