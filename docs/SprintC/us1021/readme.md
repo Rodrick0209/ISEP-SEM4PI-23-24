@@ -101,7 +101,7 @@ To see all the information of an application you should follow the next steps:
 
 ### SSD
 
-![ssd1021.png](SSD/ssd1021.png)
+![ssd1021.png](SSD/ssd1021.png) 
 
 ### Dependencies to other user stories
 
@@ -118,7 +118,7 @@ To see all the information of an application you should follow the next steps:
 
 ### 4.1. Realization
 
-![sdus1014.png](SD/sdus1014.png)
+![sdUS1021.svg](SD/sdUS1021.svg)
 
 ### 4.2. Class Diagram
 
@@ -140,35 +140,31 @@ To see all the information of an application you should follow the next steps:
 
 ##### Interview Class
 
-- **Test 1:** Test set date for an interview
-- **Test 2:** Test set time for an interview
-- **Test 5:** Test the ToString method
+- **Test 1:** Test toString method in every attribute that is going to be displayed
+
 
 #### 4.4.2. Integration Tests
 
-- **Test 1:** Test setting a date and time for an interview that is not suposed to occur
-- **Test 2:** Test setting a date and time for an interview that is suposed to occur
-- **Test 3:** Test setting a date and time for an interview that is suposed to occur but the candidate did not pass the
-  screening phase
+- **Test 1:** Test seing if every attribute of the application is displayed
+
 
 ## 5. Implementation
 
 For the implementation of this user story, we need to create some components, that work together:
 
-- **User Interface (recordTimeDateInterviewUI.java):** This component is resposible for the interaction with the user.
-  It shows the job openings that are in the Analysis phase and are the responsibility of the customer manager. It also
-  shows the list of candidates that applied for the job opening and waits for the customer manager to write the rank of
-  the candidates.
+- **User Interface (DisplayApplicationInfoUI.java):** This component is resposible for the interaction with the user.
+  It shows the job openings that are in the responsibility of the customer manager. It also
+  shows the list of applications  for the job opening and waits for the customer manager to choose one.
 
 
-- **Controller (recordTimeDateInterviewController.java):** The rankJobOpeningController class is responsible for
-  handling the user input and calling the appropriate service methods schedule a date and time for an interview. It
+- **Controller (DisplayApplicationInfoController.java):** The DisplayApplicationInfoController class is responsible for
+  handling the user input and calling the appropriate service methods schedule to see all information of an application. It
   receives the job opening and the list of candidates from the UI and passes them to the service layer for processing.
   It also handles the response from the service layer and send the response back to the UI.
 
 
-- **Repository (JobApplicationRepository):** The JobApplication class is responsible for managing the persistence of the
-  Interview objects. It provides methods for saving, updating, and retrieving Interview objects from the database.
+- **Repository (JobOpeningRepository):** The JobOpening class is responsible for managing the persistence of the
+  JobApplication objects. It provides methods for saving, updating, and retrieving JobApplication objects from the database.
 
 ## 6. Integration/Demonstration
 
@@ -184,17 +180,13 @@ simple and don't have a lot of dependencies.
 To demonstrate the implementation of this user story, we can use the following steps:
 
 1. Login as a Customer Manager
-2. Select the Rank option
-3. Select the Register Rank for Job Opening option
-4. The system will show the job openings that are in the Analysis phase and are the responsibility of the customer
-   manager, and the customer manager selects the job opening that he wants to rank the candidates.
-5. The system will show the list of candidates that applied for the job opening, and the customer manager writes the
-   email of the candidates separated by a comma.
-6. In case of ranking candidates from a jobOpening that already has a rank, the system displays the current rank to the
-   customer manager, and asks for the new rank.
-6. The system shows the rank inserted
+2. Select the Application option
+3. Select the see all data of an application option
+4. The system will show the job openings that are the responsibility of the customer
+   manager, and the customer manager selects the job opening in wich he wants to see the applications.
+5. The system will show the list of applications of the job opening, and the customer manager will need to choose one.
+6. All information of the application will be displayed.
 
 ## 7. Observations
 
-In case of register a ranking for a jobOpening that already has a ranking, the system displays to the customer manager
-the current ranking.
+Nothing to report. 
