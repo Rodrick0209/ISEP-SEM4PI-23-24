@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Customer  as c
+participant System as s
+
+autonumber
+
+activate c
+c->s: Select the Job Opening Menu
+activate s
+s->c: Displays the job Openings options
+deactivate s
+c->s: Select the option to list all the job Openings
+activate s
+s->c: Displays the jobOpenings with all information
+deactivate
+@enduml
