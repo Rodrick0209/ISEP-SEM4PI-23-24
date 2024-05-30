@@ -59,6 +59,8 @@ import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Action;
 import jobs4u.base.utils.Path;
 
+import java.time.ZoneId;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -231,7 +233,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         jobOpeningRepository.save(jobOpening1);
 
         JobOpening jobOpening2 =  registerJobOpening("GTECH-001241",WorkingMode.REMOTE, "1", "1234-123",
-                "GreenTech Solutions is at the forefront of sustainable technology development, specializing in creating innovative chemical processes that minimize environmental impact. Our team is dedicated to advancing green chemistry and engineering to contribute to a more sustainable future.",
+                "GreenTech Solutions is at the forefront of sustainable technology development, specializing in creating innovative chemical processes that minimize environmental impact.",
                 "Chemical Engineer", ContractType.FULL_TIME, client3,recruitmentProcess2);
 
         InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification("quimicoInterview", "jobs4u.integration.plugins.QuimicoInterview.InterviewManagement.InterviewService");
@@ -279,11 +281,11 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         jobApplication1.registerRequirementAnswer("answerFromCandidate1Test.answer");
         JobApplication jobApplication2 = new JobApplication(3L,jobOpening1,file2,candidate2);
         JobApplication jobApplication3 = new JobApplication(4L,jobOpening2,file2,candidate3);
-        jobApplication3.registerInterivew(Date.valueOf("02-09-2024"), Time.valueOf("23:48"));
+        jobApplication3.registerInterivew(jobs4u.base.jobApplications.domain.Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication3.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
         jobApplication3.interview().grade(InterviewPoints.valueOf(23));
         JobApplication jobApplication4 = new JobApplication(5L,jobOpening2,file2,candidate2);
-        jobApplication4.registerInterivew(Date.valueOf("02-10-2024"), Time.valueOf("23:48"));
+        jobApplication4.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication4.interview().grade(InterviewPoints.valueOf(46));
 
         jobApplicationRepository.save(jobApplication);
