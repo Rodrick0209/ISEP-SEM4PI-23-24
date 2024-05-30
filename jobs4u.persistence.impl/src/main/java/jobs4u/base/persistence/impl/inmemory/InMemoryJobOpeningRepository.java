@@ -73,7 +73,7 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
     public List<JobOpening> findInAnalysisPhaseAndHadInterviewPhase() {
         List<JobOpening> result = new ArrayList<>();
         for (JobOpening jobOpening : this){
-            if(jobOpening.getRecruitmentProcess().returnPhaseOpen().equals(Phases.ANALYSIS)){
+            if(jobOpening.getRecruitmentProcess().returnPhaseOpen().designation().equals(Phases.ANALYSIS)){
                 if(jobOpening.getRecruitmentProcess().interviewsPhase() != null){
                     result.add(jobOpening);
                 }
@@ -89,6 +89,17 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
         for (JobOpening jobOpening : this) {
             if (jobOpening.getClient().getCustomerManagerEmail().equals(customer.email()) &&
                     jobOpening.getRecruitmentProcess().hasInterviewPhase()) {
+                result.add(jobOpening);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<JobOpening> findInInterviewPhase() {
+        List<JobOpening> result = new ArrayList<>();
+        for(JobOpening jobOpening : this){
+            if(jobOpening.getRecruitmentProcess().returnPhaseOpen().designation().equals(Phases.INTERVIEWS)){
                 result.add(jobOpening);
             }
         }

@@ -24,6 +24,8 @@ import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -332,6 +334,10 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
     private List<JobApplication> getOrderedListOfJobApplicationsBasedOnInterviewPoints(Iterable<JobApplication> jobApplications) {
         return StreamSupport.stream(jobApplications.spliterator(), false).sorted(new JobApplicationInterviewPointsComparator().reversed()).collect(Collectors.toList());
+    }
+
+    public double evaluateInterview(InputStream interviewAnswer) throws IOException {
+        return interviewModelSpecification.buildEvaluator().evaluate(interviewAnswer);
     }
 
 }

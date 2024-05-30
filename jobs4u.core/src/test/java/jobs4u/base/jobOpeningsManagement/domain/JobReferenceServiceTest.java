@@ -95,6 +95,11 @@ public class JobReferenceServiceTest {
             return List.of();
         }
 
+        @Override
+        public List<JobOpening> findInInterviewPhase() {
+            return List.of();
+        }
+
     };
 
     public static JobOpening jobOpening() {

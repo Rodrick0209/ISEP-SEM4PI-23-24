@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -152,7 +154,7 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
         if (this.interview == null)
             return false;
 
-        return this.interview.pontuation()!=null;
+        return this.interview.points()!=null;
     }
 
 
@@ -170,6 +172,10 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
      */
     public boolean isApplicationResultDone(){
         return true;
+    }
+
+    public InputStream interviewAnswer() throws IOException {
+        return interview.inputStreamFromResourceOrFile();
     }
 
 }

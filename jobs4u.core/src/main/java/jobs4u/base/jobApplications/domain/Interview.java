@@ -3,7 +3,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -17,7 +16,7 @@ public class Interview {
     private Date date;
     private Time time;
 
-    private Score pontuaction;
+    private InterviewPoints points;
 
     private FileName answerFileName;
 
@@ -46,14 +45,6 @@ public class Interview {
         this.answerFileName = FileName.valueOf(answer);
     }
 
-    public void definePontuation(double pontuation) {
-        this.pontuaction = Score.valueOf(pontuation);
-    }
-
-    public Score pontuation() {
-        return this.pontuaction;
-    }
-
     public InputStream inputStreamFromResourceOrFile() throws FileNotFoundException {
         InputStream content;
         final var classLoader = this.getClass().getClassLoader();
@@ -66,6 +57,14 @@ public class Interview {
             }
         }
         return content;
+    }
+
+    public void grade(InterviewPoints points){
+        this.points = points;
+    }
+
+    public InterviewPoints points(){
+        return this.points;
     }
 
 }
