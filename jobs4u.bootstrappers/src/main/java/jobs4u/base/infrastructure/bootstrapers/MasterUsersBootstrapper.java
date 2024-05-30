@@ -26,6 +26,7 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jobs4u.base.Application;
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.candidateManagement.domain.Candidate;
@@ -35,8 +36,7 @@ import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobApplications.application.RegisterJobApplicationController;
-import jobs4u.base.jobApplications.domain.JobApplication;
-import jobs4u.base.jobApplications.domain.JobApplicationFile;
+import jobs4u.base.jobApplications.domain.*;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
@@ -182,6 +182,17 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcess recruitmentProcess1 = recruitmentProcessDirector1.createRecruitmentProcessWithInterview(recruitmentProcessDto1);
         recruitmentProcess1.applicationPhase().openPhase();
 
+        RecruitmentProcessDto recruitmentProcessDto2 = new RecruitmentProcessDto(
+                DateUtils.parseDate("18-06-2024"),
+                DateUtils.parseDate("18-06-2024"), DateUtils.parseDate("19-06-2024"),
+                DateUtils.parseDate("20-06-2024"), DateUtils.parseDate("21-06-2024"),
+                DateUtils.parseDate("22-06-2024"), DateUtils.parseDate("23-06-2024"),
+                DateUtils.parseDate("24-06-2024"), DateUtils.parseDate("29-06-2024"),
+                DateUtils.parseDate("30-06-2024"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder2 = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector2 = new RecruitmentProcessDirector(recruitmentProcessBuilder2);
+        RecruitmentProcess recruitmentProcess2 = recruitmentProcessDirector2.createRecruitmentProcessWithInterview(recruitmentProcessDto2);
+        recruitmentProcess2.interviewsPhase().openPhase();
 
         //---------------------------------------------------------------------------------------------------
         //Register Job Openings
@@ -217,8 +228,17 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         jobRequirementSpecificationRepository.save(jobRequirementSpecification);
 
         jobOpening1.selectJobRequirementSpecification(jobRequirementSpecification);
+        jobOpeningRepository.save(jobOpening1);
 
+        JobOpening jobOpening2 =  registerJobOpening("GTECH-001241",WorkingMode.REMOTE, "1", "1234-123",
+                "GreenTech Solutions is at the forefront of sustainable technology development, specializing in creating innovative chemical processes that minimize environmental impact. Our team is dedicated to advancing green chemistry and engineering to contribute to a more sustainable future.",
+                "Chemical Engineer", ContractType.FULL_TIME, client3,recruitmentProcess2);
 
+        InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification("quimicoInterview", "jobs4u.integration.plugins.QuimicoInterview.InterviewManagement.InterviewService");
+        interviewModelSpecificationRepository.save(interviewModelSpecification);
+
+        jobOpening2.selectInterviewModelSpecification(interviewModelSpecification);
+        jobOpeningRepository.save(jobOpening2);
 
         //---------------------------------------------------------------------------------------------------
         //Register Candidate
@@ -258,14 +278,19 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobApplication jobApplication1 = new JobApplication(2L,jobOpening1,file1,candidate1);
         jobApplication1.registerRequirementAnswer("answerFromCandidate1Test.answer");
         JobApplication jobApplication2 = new JobApplication(3L,jobOpening1,file2,candidate2);
+        JobApplication jobApplication3 = new JobApplication(4L,jobOpening2,file2,candidate3);
+        jobApplication3.registerInterivew(Date.valueOf("02-09-2024"), Time.valueOf("23:48"));
+        jobApplication3.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
+        jobApplication3.interview().grade(InterviewPoints.valueOf(23));
+        JobApplication jobApplication4 = new JobApplication(5L,jobOpening2,file2,candidate2);
+        jobApplication4.registerInterivew(Date.valueOf("02-10-2024"), Time.valueOf("23:48"));
+        jobApplication4.interview().grade(InterviewPoints.valueOf(46));
 
-        InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification("teste","com.example.class");
-
-        interviewModelSpecificationRepository.save(interviewModelSpecification);
         jobApplicationRepository.save(jobApplication);
         jobApplicationRepository.save(jobApplication1);
         jobApplicationRepository.save(jobApplication2);
-        jobOpeningRepository.save(jobOpening1);
+        jobApplicationRepository.save(jobApplication3);
+        jobApplicationRepository.save(jobApplication4);
         return true;
     }
 

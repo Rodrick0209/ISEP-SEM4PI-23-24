@@ -7,7 +7,6 @@ import java.util.Comparator;
 public class JobApplicationInterviewPointsComparator implements Comparator<JobApplication> {
     @Override
     public int compare(JobApplication o1, JobApplication o2) {
-        //TODO: implement method of obtain interview points
-        throw new UnsupportedOperationException("Not supported yet.");
+        return Double.valueOf(o1.interview().points().toString()).compareTo(Double.valueOf(o2.interview().points().toString()));
     }
 }
