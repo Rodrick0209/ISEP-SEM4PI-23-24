@@ -27,6 +27,7 @@ import jobs4u.base.Application;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.ListApplicationsUI;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.RecordTimeDateInterviewUI;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.RegisterApplicationUI;
+import jobs4u.base.app.backoffice.console.presentation.InterviewManagement.ExecuteInterviewEvaluationUI;
 import jobs4u.base.app.backoffice.console.presentation.InterviewManagement.SelectInterviewModelSpecificationForJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.EditJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.ListJobOpeningUI;
@@ -34,7 +35,6 @@ import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.Ex
 import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.RegisterRequirementAnswerFileUI;
 import jobs4u.base.app.backoffice.console.presentation.candiateManagement.GetOrderedListOfCandidatesUI;
 import jobs4u.base.app.backoffice.console.presentation.rank.rankJobOpeningAction;
-import jobs4u.base.app.backoffice.console.presentation.rank.rankJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.RegisterJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.SelectJobRequirementSpecificationForJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.authz.EnableUserAction;
@@ -49,7 +49,6 @@ import jobs4u.base.app.backoffice.console.presentation.languageEngineer.Configur
 import jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureJobRequirementPluginUI;
 import jobs4u.base.app.backoffice.console.presentation.recruitmentProcess.SetupRecruitmentProcessUI_DTO;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
-import jobs4u.base.jobApplications.application.RegisterCandidateFileWIthRequirementAnswersController;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -94,10 +93,10 @@ public class MainMenu extends AbstractUI {
 
     // CUSTOMER MANAGER CANDIDATE
     private static final int DISPLAY_CANDIDATE_INFO = 1;
-    private static final int GET_ORDERED_LIST_OF_CANDIDATES = 2;
-    private static final int RECORD_TIME_DATE_INTERVIEW = 3;
-
-    private static final int EXECUTE_REQUIREMENT_EVALUATION = 4;
+    private static final int RECORD_TIME_DATE_INTERVIEW = 2;
+    private static final int EXECUTE_REQUIREMENT_EVALUATION = 3;
+    private static final int EXECUTE_INTERVIEW_EVALUATION = 4;
+    private static final int GET_ORDERED_LIST_OF_CANDIDATES = 5;
 
     // JOB OPENING
     private static final int REGISTER_JOB_OPENING = 1;
@@ -114,24 +113,12 @@ public class MainMenu extends AbstractUI {
     // PLUGINS
     private static final int REGISTER_RANK_FOR_JOB_OPENING = 1;
 
-
     // APPLICATIONS
     private static final int REGISTER_APPLICATION = 1;
     private static final int LIST_APPLICATION = 2;
 
     // SETTINGS
     private static final int Option = 1;
-
-    // MAIN MENU
-    private static final int MY_USER_OPTION = 1;
-    private static final int USERS_OPTION = 2;
-    private static final int CUSTOMERS_OPTION = 3;
-    private static final int CANDIDATE_OPTION = 4;
-    private static final int JOB_OPENING_OPTION = 5;
-    private static final int APPLICATION_OPTION = 6;
-    private static final int PLUGIN_OPTION = 7;
-    private static final int RANK_OPTION = 8;
-    private static final int SETTINGS_OPTION = 9;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -179,7 +166,7 @@ public class MainMenu extends AbstractUI {
         final Menu mainMenu = new Menu();
 
         final Menu myUserMenu = new MyUserMenu();
-        mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
+        mainMenu.addSubMenu(1, myUserMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
@@ -187,42 +174,40 @@ public class MainMenu extends AbstractUI {
 
         if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.ADMIN)) {
             final Menu usersMenu = buildUsersMenu();
-            mainMenu.addSubMenu(USERS_OPTION, usersMenu);
+            mainMenu.addSubMenu(2, usersMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
-            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+            mainMenu.addSubMenu(3, settingsMenu);
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER)) {
             final Menu customersMenu = buildCustomersMenu();
-            mainMenu.addSubMenu(CUSTOMERS_OPTION, customersMenu);
+            mainMenu.addSubMenu(2, customersMenu);
             final Menu customerManagerCandidateMenu = buildCustomerManagerCandidateMenu();
-            mainMenu.addSubMenu(CANDIDATE_OPTION, customerManagerCandidateMenu);
+            mainMenu.addSubMenu(3, customerManagerCandidateMenu);
             final Menu jobOpeningMenu = buildJobOpeningMenu();
-            mainMenu.addSubMenu(JOB_OPENING_OPTION, jobOpeningMenu);
+            mainMenu.addSubMenu(4, jobOpeningMenu);
             final Menu rankMenu = buildRankMenu();
-            mainMenu.addSubMenu(RANK_OPTION, rankMenu);
-
-
+            mainMenu.addSubMenu(5, rankMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
-            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+            mainMenu.addSubMenu(6, settingsMenu);
 
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.OPERATOR)) {
 
             final Menu operatorCandidateMenu = buildOperatorCandidateMenu();
-            mainMenu.addSubMenu(CANDIDATE_OPTION, operatorCandidateMenu);
+            mainMenu.addSubMenu(1, operatorCandidateMenu);
             final Menu applicationMenu = buildApplicationsMenu();
-            mainMenu.addSubMenu(APPLICATION_OPTION, applicationMenu);
+            mainMenu.addSubMenu(2, applicationMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
-            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+            mainMenu.addSubMenu(3, settingsMenu);
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.LANGUAGE_ENGINEER)) {
             final Menu pluginsMenu = buildPluginsMenu();
-            mainMenu.addSubMenu(PLUGIN_OPTION, pluginsMenu);
+            mainMenu.addSubMenu(1, pluginsMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
-            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+            mainMenu.addSubMenu(2, settingsMenu);
         }
 
 
@@ -284,9 +269,8 @@ public class MainMenu extends AbstractUI {
     private Menu buildApplicationsMenu() {
         final Menu menu = new Menu("Applications >");
 
-        menu.addItem(REGISTER_JOB_OPENING, "Register Application", new RegisterApplicationUI()::show);
-
-        menu.addItem(LIST_JOB_OPENING, "List Applications", new ListApplicationsUI()::show);
+        menu.addItem(REGISTER_APPLICATION, "Register Application", new RegisterApplicationUI()::show);
+        menu.addItem(LIST_APPLICATION, "List Applications", new ListApplicationsUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
@@ -309,9 +293,10 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Candidate >");
 
         menu.addItem(DISPLAY_CANDIDATE_INFO, "Display Candidate Information", new DisplayCandidateInfoUI()::show);
-        menu.addItem(GET_ORDERED_LIST_OF_CANDIDATES, "Get Ordered List of Candidates based on Interview Points", new GetOrderedListOfCandidatesUI()::show);
         menu.addItem(RECORD_TIME_DATE_INTERVIEW, "Schedule Interview", new RecordTimeDateInterviewUI()::show);
         menu.addItem(EXECUTE_REQUIREMENT_EVALUATION,"Execute Requirement Evaluation", new ExecuteRequirementEvaluationUI()::show);
+        menu.addItem(EXECUTE_INTERVIEW_EVALUATION, "Execute Interview Evaluation", new ExecuteInterviewEvaluationUI()::show);
+        menu.addItem(GET_ORDERED_LIST_OF_CANDIDATES, "Get Ordered List of Candidates based on Interview Points", new GetOrderedListOfCandidatesUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

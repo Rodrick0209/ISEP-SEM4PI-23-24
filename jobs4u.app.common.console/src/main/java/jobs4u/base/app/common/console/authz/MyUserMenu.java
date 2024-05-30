@@ -60,7 +60,7 @@ public class MyUserMenu extends Menu {
             addItem(MenuItem.of(LOGIN_OPTION, "Change user", new LoginUI(new AuthenticationCredentialHandler(), onlyWithThis)::show));
             addItem(MenuItem.of(LOGOUT_OPTION, "Logout", new LogoutUI()::show));
         } else {
-            addItem(MenuItem.of(LOGIN_OPTION, "Login", new LoginUI(new AuthenticationCredentialHandler(), onlyWithThis)::show));
+            addItem(MenuItem.of(1, "Login", new LoginUI(new AuthenticationCredentialHandler(), onlyWithThis)::show));
         }
 
         addItem(MenuItem.of(EXIT_OPTION, "Return ", Actions.SUCCESS));
