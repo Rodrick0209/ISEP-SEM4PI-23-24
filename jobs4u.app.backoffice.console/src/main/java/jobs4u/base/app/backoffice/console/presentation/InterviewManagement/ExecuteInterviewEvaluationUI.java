@@ -16,7 +16,7 @@ public class ExecuteInterviewEvaluationUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExecuteInterviewEvaluationUI.class);
 
-    private ExecuteInterviewEvaluationController controller = new ExecuteInterviewEvaluationController(
+    private final ExecuteInterviewEvaluationController controller = new ExecuteInterviewEvaluationController(
             AuthzRegistry.authorizationService(),
             PersistenceContext.repositories().jobOpenings(),
             PersistenceContext.repositories().jobApplications(),
@@ -38,6 +38,7 @@ public class ExecuteInterviewEvaluationUI extends AbstractUI {
 
         try{
             controller.executeInterviewEvaluation(jobOpening);
+            System.out.println("Execute interview evaluation successfully completed");
         } catch (ConcurrencyException | IntegrityViolationException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println(
