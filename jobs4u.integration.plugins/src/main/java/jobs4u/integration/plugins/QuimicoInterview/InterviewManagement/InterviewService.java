@@ -24,7 +24,6 @@ public class InterviewService implements InterviewEvaluation {
 
 
     String template = "jobs4u.core/src/main/java/jobs4u/base/QuimicoInterview/TemplateFile/template.txt";
-/*
 
     public PluginQuestions checkTemplateSyntax() throws Exception {
         try {
@@ -47,15 +46,11 @@ public class InterviewService implements InterviewEvaluation {
             throw new RuntimeException(e);
         }
     }
-*/
 
     @Override
     public double evaluate(InputStream answer) {
-
-       // PluginQuestions pluginQuestions = checkTemplateSyntax();
-
-        //TODO It is a Sprint 3 functionality so is commented for now, using a simple print to test if the plugin integration is working
-        /*try {
+        try {
+            PluginQuestions pluginQuestions = checkTemplateSyntax();
             EvaluationLexer lexer = new EvaluationLexer(CharStreams.fromStream(answer));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             EvaluationParser parser = new EvaluationParser(tokens);
@@ -74,9 +69,5 @@ public class InterviewService implements InterviewEvaluation {
         } catch (Exception e) {
             throw new ErrorInFileException("The resolution does not follow the required format!.");
         }
-
-        */
-        System.out.println("Interview quimico Plugin Integration is working");
-        return 0;
     }
 }
