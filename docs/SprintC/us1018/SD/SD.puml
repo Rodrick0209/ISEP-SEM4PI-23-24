@@ -5,7 +5,7 @@ autonumber
 
 actor CustomerManager
 participant ExecuteInterviewEvaluationUI <<presentation>>
-participant ExecuteInterviewEvaluationController <<controller>>
+participant ExecuteInterviewEvaluationController <<application>>
 participant ExecuteInterviewEvaluationService <<service>>
 participant JobOpeningRepository <<repository>>
 participant JobApplicationRepository <<repository>>
