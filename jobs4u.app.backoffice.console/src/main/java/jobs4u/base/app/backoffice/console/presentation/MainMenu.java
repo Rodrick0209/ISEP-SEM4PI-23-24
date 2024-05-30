@@ -24,6 +24,7 @@
 package jobs4u.base.app.backoffice.console.presentation;
 
 import jobs4u.base.Application;
+import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.DisplayApplicationInfoAction;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.ListApplicationsUI;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.RecordTimeDateInterviewUI;
 import jobs4u.base.app.backoffice.console.presentation.ApplicationManagement.RegisterApplicationUI;
@@ -116,6 +117,7 @@ public class MainMenu extends AbstractUI {
     // APPLICATIONS
     private static final int REGISTER_APPLICATION = 1;
     private static final int LIST_APPLICATION = 2;
+    private static final int DISPLAY_APPLICATION_INFO = 3;
 
     // SETTINGS
     private static final int Option = 1;
@@ -190,6 +192,8 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(5, rankMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(6, settingsMenu);
+            final Menu applicationMenu = buildApplicationMenu();
+            mainMenu.addSubMenu(7, applicationMenu);
 
         }
 
@@ -197,7 +201,7 @@ public class MainMenu extends AbstractUI {
 
             final Menu operatorCandidateMenu = buildOperatorCandidateMenu();
             mainMenu.addSubMenu(1, operatorCandidateMenu);
-            final Menu applicationMenu = buildApplicationsMenu();
+            final Menu applicationMenu = buildApplicationsOperatorMenu();
             mainMenu.addSubMenu(2, applicationMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(3, settingsMenu);
@@ -266,7 +270,7 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
 
-    private Menu buildApplicationsMenu() {
+    private Menu buildApplicationsOperatorMenu() {
         final Menu menu = new Menu("Applications >");
 
         menu.addItem(REGISTER_APPLICATION, "Register Application", new RegisterApplicationUI()::show);
@@ -317,6 +321,16 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Rank >");
 
         menu.addItem(REGISTER_RANK_FOR_JOB_OPENING, "Register Rank for Job Opening", new rankJobOpeningAction());
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildApplicationMenu() {
+        final Menu menu = new Menu("Application >");
+
+        menu.addItem(REGISTER_RANK_FOR_JOB_OPENING, "See all data of an application", new DisplayApplicationInfoAction());
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
