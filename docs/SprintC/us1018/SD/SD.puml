@@ -1,0 +1,67 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor CustomerManager
+participant ExecuteInterviewEvaluationUI <<presentation>>
+participant ExecuteInterviewEvaluationController <<controller>>
+participant ExecuteInterviewEvaluationService <<service>>
+participant JobOpeningRepository <<repository>>
+participant JobApplicationRepository <<repository>>
+participant JobOpening <<domain>>
+participant JobApplication <<domain>>
+participant InterviewModelSpecification <<domain>>
+participant Interview <<domain>>
+
+
+activate CustomerManager
+CustomerManager -> ExecuteInterviewEvaluationUI : asks to execute the\n process of evaluations\nof interviews for a job opening
+activate ExecuteInterviewEvaluationUI
+ExecuteInterviewEvaluationUI -> ExecuteInterviewEvaluationController : jobOpeningsInInterviewPhase()
+activate ExecuteInterviewEvaluationController
+ExecuteInterviewEvaluationController -> JobOpeningRepository : findInInterviewPhase()
+activate JobOpeningRepository
+JobOpeningRepository --> ExecuteInterviewEvaluationController : jobOpenings
+deactivate JobOpeningRepository
+ExecuteInterviewEvaluationController --> ExecuteInterviewEvaluationUI : jobOpenings
+deactivate ExecuteInterviewEvaluationController
+ExecuteInterviewEvaluationUI --> CustomerManager : shows list of job openings in interview\nphase and asks to select one
+CustomerManager -> ExecuteInterviewEvaluationUI : selects one job Opening
+ExecuteInterviewEvaluationUI -> ExecuteInterviewEvaluationController : executeInterviewEvaluation(jobOpening)
+activate ExecuteInterviewEvaluationController
+ExecuteInterviewEvaluationController -> JobApplicationRepository : findByJobOpeningAndWithInterviewAnswer(jobOpening)
+activate JobApplicationRepository
+JobApplicationRepository --> ExecuteInterviewEvaluationController : jobApplications
+deactivate JobApplicationRepository
+ExecuteInterviewEvaluationController -> ExecuteInterviewEvaluationService : executeInterviewEvaluation(jobOpening, jobApplications)
+activate ExecuteInterviewEvaluationService
+loop for each job application
+ExecuteInterviewEvaluationService -> JobApplication : interviewAnswer()
+activate JobApplication
+JobApplication -> Interview : inputStreamFromResourceOrFile()
+activate Interview
+Interview --> JobApplication : interviewAnswer
+deactivate Interview
+JobApplication --> ExecuteInterviewEvaluationService : interviewAnswer
+deactivate JobApplication
+ExecuteInterviewEvaluationService -> JobOpening : evaluateInterview(interviewAnswer)
+activate JobOpening
+JobOpening -> InterviewModelSpecification : evaluate(interviewAnswer)
+activate InterviewModelSpecification
+InterviewModelSpecification --> JobOpening : interviewPoints
+deactivate InterviewModelSpecification
+JobOpening --> ExecuteInterviewEvaluationService : interviewPoints
+deactivate JobOpening
+ExecuteInterviewEvaluationService -> JobApplication : gradeInterview(interviewPoints)
+activate JobApplication
+JobApplication -> Interview : grade(interviewPoints)
+deactivate JobApplication
+ExecuteInterviewEvaluationService -> JobApplicationRepository : save(jobApplication)
+deactivate ExecuteInterviewEvaluationService
+end loop
+deactivate ExecuteInterviewEvaluationController
+ExecuteInterviewEvaluationUI --> CustomerManager : backs to menu
+deactivate ExecuteInterviewEvaluationUI
+
+@enduml

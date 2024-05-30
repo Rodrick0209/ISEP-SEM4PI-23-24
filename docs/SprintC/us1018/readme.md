@@ -49,3 +49,25 @@ This user story have some dependencies with the following user stories:
 ### 3.3. System functionality
 
 ![](SSD/SSD.svg)
+
+## 4. Design
+
+### 4.1. Functionality
+
+![](SD/SD.svg)
+
+### 4.2. Class Diagram
+
+![](CD/CD.svg)
+
+### 4.3. Applied Patterns
+
+In the development of this task, we utilized several design patterns to structure our code and ensure its
+maintainability and scalability. These patterns include:
+
+- **Repository Pattern:** The Repository pattern was used to create an abstraction layer between the data access layer
+  and the business logic layer of the application. This helps to decouple the application and make it easier to maintain
+  and test.
+- **Service Pattern:** The Service pattern was used to encapsulate business logic and rules. This pattern provides a set of methods that any client application can use, and these methods implement the business rules and logic.
+- **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
+  handle incoming requests, manipulate data using the model, and select views to render to the user.

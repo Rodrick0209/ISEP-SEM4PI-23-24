@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class ExecuteInterviewEvaluationUI
+class ExecuteInterviewEvaluationController {
+    jobOpeningsInInterviewPhase()
+    executeInterviewEvaluation(jobOpening)
+    }
+class ExecuteInterviewEvaluationService{
+    executeInterviewEvaluation(jobOpening, jobApplications)
+    }
+interface JobOpeningRepository{
+    findInInterviewPhase()
+    }
+interface JobApplicationRepository{
+    findByJobOpeningAndWithInterviewAnswer(jobOpening)
+    save(jobApplication)
+    }
+class JobOpening{
+    evaluateInterview(interviewAnswer)
+    }
+class JobApplication{
+    interviewAnswer()
+}
+class InterviewModelSpecification{
+    evaluate(interviewAnswer)
+    }
+class Interview{
+    inputStreamOrResourceFile()
+    }
+
+
+ExecuteInterviewEvaluationUI -> ExecuteInterviewEvaluationController
+ExecuteInterviewEvaluationController --> JobOpeningRepository
+ExecuteInterviewEvaluationController --> JobApplicationRepository
+ExecuteInterviewEvaluationController -> ExecuteInterviewEvaluationService
+ExecuteInterviewEvaluationService --> JobApplicationRepository
+ExecuteInterviewEvaluationService --> JobOpening
+ExecuteInterviewEvaluationService --> JobApplication
+JobOpening --> InterviewModelSpecification
+JobApplication --> Interview
+
+@enduml
