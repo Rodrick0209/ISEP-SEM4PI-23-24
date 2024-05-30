@@ -106,6 +106,16 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
     public Interview interview() {
         return interview;
     }
+    public JobOpening jobOpening() {
+        return jobOpening;
+    }
+   public List<JobApplicationFile> files() {
+        return file;
+    }
+
+    public RequirementAnswer requirementAnswer() {
+        return requirementAnswer;
+    }
 
     @Override
     public boolean equals(final Object o) {

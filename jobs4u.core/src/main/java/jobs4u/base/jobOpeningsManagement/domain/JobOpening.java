@@ -200,7 +200,7 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
     @Override
     public String toString() {
-        return "jobReference:" + jobReference;
+        return jobReference + " - " + function;
     }
 
     /**
