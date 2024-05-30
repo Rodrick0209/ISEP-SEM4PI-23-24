@@ -122,7 +122,7 @@ To see all the information of an application you should follow the next steps:
 
 ### 4.2. Class Diagram
 
-![CD.drawio.png](CD/CD.drawio.png)
+![CD1021.drawio.png](CD/CD1021.drawio.png)
 
 ### 4.3. Applied Patterns
 
