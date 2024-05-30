@@ -16,4 +16,9 @@ public class InterviewPoints implements ValueObject {
     public static InterviewPoints valueOf(double points){
         return new InterviewPoints(points);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%.0f", points);
+    }
 }

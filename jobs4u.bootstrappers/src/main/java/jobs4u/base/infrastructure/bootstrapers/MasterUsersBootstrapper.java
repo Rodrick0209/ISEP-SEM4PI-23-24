@@ -219,8 +219,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
                 "Software Engineer", ContractType.FULL_TIME, client1,recruitmentProcess);
 
-
-
         //Register IBM-000123 jobOpening
         JobOpening jobOpening1=  registerJobOpening("IBM-000123",WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
@@ -275,15 +273,15 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         List<JobApplicationFile> file2 = List.of(new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-email.txt")));
 
 
-        JobApplication jobApplication = new JobApplication(1L,jobOpening1,file,candidate);
+        JobApplication jobApplication = new JobApplication(1L,jobOpening,file,candidate);
         jobApplication.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication.interview().grade(InterviewPoints.valueOf(65));
-        JobApplication jobApplication1 = new JobApplication(2L,jobOpening1,file1,candidate1);
+        JobApplication jobApplication1 = new JobApplication(2L,jobOpening,file1,candidate1);
         jobApplication1.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication1.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication1.interview().grade(InterviewPoints.valueOf(10));
-        JobApplication jobApplication2 = new JobApplication(3L,jobOpening1,file2,candidate2);
+        JobApplication jobApplication2 = new JobApplication(3L,jobOpening,file2,candidate2);
         jobApplication2.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication2.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication2.interview().grade(InterviewPoints.valueOf(60));
