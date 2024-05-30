@@ -464,7 +464,7 @@ public class RecruimentProcessTest {
         jobApplication1.registerInterivew(Date.valueOf("2025-06-18"), Time.valueOf("10:00:00"));
         jobApplication2.registerInterivew(Date.valueOf("2025-06-18"), Time.valueOf("10:00:00"));
 
-        jobApplication1.getInterview().definePontuation(10);
+        jobApplication1.getInterview().grade(InterviewPoints.valueOf(10));
 
 
         jobApplications.add(jobApplication1);
@@ -514,8 +514,8 @@ public class RecruimentProcessTest {
         jobApplication1.registerInterivew(Date.valueOf("2025-06-18"), Time.valueOf("10:00:00"));
         jobApplication2.registerInterivew(Date.valueOf("2025-06-18"), Time.valueOf("10:00:00"));
 
-        jobApplication1.getInterview().definePontuation(10);
-        jobApplication2.getInterview().definePontuation(15);
+        jobApplication1.getInterview().grade(InterviewPoints.valueOf(10));
+        jobApplication2.getInterview().grade(InterviewPoints.valueOf(15));
 
         jobApplications.add(jobApplication1);
         jobApplications.add(jobApplication2);
