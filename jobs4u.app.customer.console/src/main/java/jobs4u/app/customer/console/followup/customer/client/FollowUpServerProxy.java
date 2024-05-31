@@ -35,6 +35,7 @@ public class FollowUpServerProxy {
     protected final static byte AUTH = 4;
 
     protected final static String DEI_IP = "10.9.20.231";
+    protected final static String ALT_IP = "127.0.0.1";
     protected final static int DEI_PORT = 9999;
 
 
