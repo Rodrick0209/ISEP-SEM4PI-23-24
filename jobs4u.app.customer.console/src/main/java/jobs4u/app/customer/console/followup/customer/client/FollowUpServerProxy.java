@@ -82,10 +82,12 @@ public class FollowUpServerProxy {
 
             if (response[1] == ACK) {
                 authenticated = true;
+                stop();
                 return true;
             } else {
                 authenticated = false;
                 LOGGER.error("Authentication failed");
+                stop();
                 return false;
             }
         }
