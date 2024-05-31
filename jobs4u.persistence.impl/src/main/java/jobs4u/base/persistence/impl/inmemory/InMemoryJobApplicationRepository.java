@@ -60,6 +60,15 @@ public class InMemoryJobApplicationRepository
 
     @Override
     public List<JobApplication> findJobApplicationsByJobOpeningWithInterviewAnswerFile(JobOpening jobOpening){
-        return null;
+        List<JobApplication> result = new ArrayList<>();
+        for (JobApplication jobApplication : this) {
+            if(jobApplication.jobOpening().jobReference().toString().equals(jobOpening.jobReference().toString())){
+                if(jobApplication.interview().answer() != null){
+                    result.add(jobApplication);
+                }
+            }
+        }
+        return result;
     }
+
 }

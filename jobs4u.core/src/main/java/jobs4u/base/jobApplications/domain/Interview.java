@@ -67,4 +67,8 @@ public class Interview {
         return this.points;
     }
 
+    public FileName answer() {
+        return this.answerFileName;
+    }
+
 }
