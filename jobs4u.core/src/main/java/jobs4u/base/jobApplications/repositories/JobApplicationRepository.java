@@ -14,6 +14,8 @@ public interface JobApplicationRepository
 
     List<JobApplication> findJobApplicationsByJobOpening(JobOpening jobOpening);
 
-    List<JobApplication> findJobApplicationsByJobOpeningWithInterviewAnswerFile(JobOpening jobOpening);
+    List<JobApplication> findJobApplicationsByJobOpeningWithRequirementAnswerFile(JobOpening jobOpening);
+
+    List<JobApplication> findJobApplicationByJobOpeningWithInterviewAnswerFile(JobOpening jobOpening);
 
 }

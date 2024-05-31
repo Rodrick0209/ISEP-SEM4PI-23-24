@@ -30,6 +30,10 @@ public class FileName implements ValueObject {
         return this.answerFileName;
     }
 
+    public String toString(){
+        return String.format("%s", this.answerFileName);
+    }
+
 
 
 

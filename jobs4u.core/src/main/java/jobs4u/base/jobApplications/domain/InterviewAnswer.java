@@ -18,6 +18,7 @@ public class InterviewAnswer implements ValueObject {
     @GeneratedValue
     private long id;
     private FileName fileName;
+    private InterviewPoints points;
 
     public InterviewAnswer(FileName fileName){
         Preconditions.noneNull(fileName, "File cannot be null");
@@ -39,5 +40,22 @@ public class InterviewAnswer implements ValueObject {
         }
         return content;
     }
+
+    public FileName fileName(){
+        return this.fileName;
+    }
+
+    public String toString(){
+        return this.fileName.toString();
+    }
+
+    public void grade(InterviewPoints points){
+        this.points = points;
+    }
+
+    public InterviewPoints points(){
+        return this.points;
+    }
+
 
 }

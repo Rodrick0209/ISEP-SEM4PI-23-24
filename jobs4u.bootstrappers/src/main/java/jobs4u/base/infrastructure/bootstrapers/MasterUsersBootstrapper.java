@@ -276,22 +276,25 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobApplication jobApplication = new JobApplication(1L,jobOpening,file,candidate);
         jobApplication.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
+        jobApplication.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
         jobApplication.interview().grade(InterviewPoints.valueOf(65));
         JobApplication jobApplication1 = new JobApplication(2L,jobOpening,file1,candidate1);
         jobApplication1.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication1.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
+        jobApplication1.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
         jobApplication1.interview().grade(InterviewPoints.valueOf(10));
         JobApplication jobApplication2 = new JobApplication(3L,jobOpening,file2,candidate2);
         jobApplication2.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication2.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
+        jobApplication2.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
         jobApplication2.interview().grade(InterviewPoints.valueOf(60));
         JobApplication jobApplication3 = new JobApplication(4L,jobOpening2,file2,candidate3);
-        jobApplication3.registerInterivew(jobs4u.base.jobApplications.domain.Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
+        jobApplication3.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication3.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
         jobApplication3.interview().grade(InterviewPoints.valueOf(23));
         JobApplication jobApplication4 = new JobApplication(5L,jobOpening2,file2,candidate2);
         jobApplication4.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
-        jobApplication4.interview().grade(InterviewPoints.valueOf(46));
+        jobApplication4.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
 
         jobApplicationRepository.save(jobApplication);
         jobApplicationRepository.save(jobApplication1);

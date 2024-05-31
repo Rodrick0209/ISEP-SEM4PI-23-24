@@ -1,7 +1,6 @@
 package jobs4u.base.jobApplications.domain;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,9 +15,9 @@ public class Interview {
     private Date date;
     private Time time;
 
-    private InterviewPoints points;
-
-    private FileName answerFileName;
+    @Getter
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private InterviewAnswer answer;
 
 
     public Interview(Date date, Time time) {
@@ -39,36 +38,25 @@ public class Interview {
     }
 
     public void registerInterviewAnswer(String answer) {
-        if (this.answerFileName != null)
+        if (this.answer != null)
             throw new IllegalStateException("Answer file already registered");
 
-        this.answerFileName = FileName.valueOf(answer);
+        this.answer = new InterviewAnswer(FileName.valueOf(answer));
     }
 
-    public InputStream inputStreamFromResourceOrFile() throws FileNotFoundException {
-        InputStream content;
-        final var classLoader = this.getClass().getClassLoader();
-        content = classLoader.getResourceAsStream(this.answerFileName.fileName());
-        if (content == null) {
-            try {
-                content = new FileInputStream(this.answerFileName.toString());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        return content;
+    public InterviewAnswer answer() {
+        return this.answer;
     }
 
     public void grade(InterviewPoints points){
-        this.points = points;
+        if (this.answer == null){
+            throw new IllegalStateException("Answer file not registered");
+        }
+        answer().grade(points);
     }
 
     public InterviewPoints points(){
-        return this.points;
-    }
-
-    public FileName answer() {
-        return this.answerFileName;
+        return answer().points();
     }
 
 }

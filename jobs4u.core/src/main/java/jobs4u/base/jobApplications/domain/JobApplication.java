@@ -164,7 +164,7 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
         if (this.interview == null)
             return false;
 
-        return this.interview.points()!=null;
+        return this.interview.answer().points()!=null;
     }
 
 
@@ -185,7 +185,7 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
     }
 
     public InputStream interviewAnswer() throws IOException {
-        return interview.inputStreamFromResourceOrFile();
+        return interview.answer().inputStreamFromResourceOrFile();
     }
 
 }

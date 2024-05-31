@@ -59,12 +59,28 @@ public class InMemoryJobApplicationRepository
     }
 
     @Override
-    public List<JobApplication> findJobApplicationsByJobOpeningWithInterviewAnswerFile(JobOpening jobOpening){
+    public List<JobApplication> findJobApplicationsByJobOpeningWithRequirementAnswerFile(JobOpening jobOpening){
+        List<JobApplication> result = new ArrayList<>();
+        for (JobApplication jobApplication : this) {
+            if(jobApplication.jobOpening().jobReference().toString().equals(jobOpening.jobReference().toString())){
+                if(jobApplication.requirementAnswer() != null){
+                    if(jobApplication.requirementAnswer().result() == null)
+                        result.add(jobApplication);
+                }
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<JobApplication> findJobApplicationByJobOpeningWithInterviewAnswerFile(JobOpening jobOpening) {
         List<JobApplication> result = new ArrayList<>();
         for (JobApplication jobApplication : this) {
             if(jobApplication.jobOpening().jobReference().toString().equals(jobOpening.jobReference().toString())){
                 if(jobApplication.interview().answer() != null){
-                    result.add(jobApplication);
+                    if(jobApplication.interview().points() == null){
+                        result.add(jobApplication);
+                    }
                 }
             }
         }

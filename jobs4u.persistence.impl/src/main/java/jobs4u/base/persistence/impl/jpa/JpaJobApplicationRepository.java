@@ -43,10 +43,17 @@ class JpaJobApplicationRepository
 
 
     @Override
-    public List<JobApplication> findJobApplicationsByJobOpeningWithInterviewAnswerFile(JobOpening jobOpening) {
+    public List<JobApplication> findJobApplicationsByJobOpeningWithRequirementAnswerFile(JobOpening jobOpening) {
         final Map<String, Object> params = new HashMap<>();
         params.put("reference", jobOpening.jobReference());
         return match("e.jobOpening.jobReference = :reference and e.requirementAnswer.fileName is not null and e.requirementAnswer.result IS NULL", params);
+    }
+
+    @Override
+    public List<JobApplication> findJobApplicationByJobOpeningWithInterviewAnswerFile(JobOpening jobOpening) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("reference", jobOpening.jobReference());
+        return match("e.jobOpening.jobReference = :reference and e.interview.answer is not null and e.interview.answer.points IS NULL", params);
     }
 
 
