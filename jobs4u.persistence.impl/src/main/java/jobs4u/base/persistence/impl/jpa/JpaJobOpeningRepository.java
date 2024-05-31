@@ -2,6 +2,7 @@ package jobs4u.base.persistence.impl.jpa;
 
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
@@ -33,6 +34,33 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
             // Consultar usando a query JPQL adequada
             return match("e.client.customerManagerEmail = :managerEmail", params);
 
+    }
+
+    @Override
+    public List<JobOpening> findByCustomer(ClientCode clientcode) {
+
+        // Ensure the jobApplication is not null
+        if (clientcode == null) {
+            throw new IllegalArgumentException("Client cannot be null");
+        }
+
+        // JPQL query
+        String jpql = "SELECT jo FROM JobOpening jo " +
+                "WHERE jo.client.clientCode = :code " +
+                "AND jo.status = :joStatus";
+
+        // Execute the query
+        List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
+                .setParameter("code", clientcode)
+                .setParameter("joStatus", JobOpeningStatus.ACTIVE)
+                .getResultList();
+
+        // If there are no jobOpenings found, return null
+        if (jobOpenings.isEmpty()) {
+            return null;
+        }
+
+        return jobOpenings;
     }
 
     @Override

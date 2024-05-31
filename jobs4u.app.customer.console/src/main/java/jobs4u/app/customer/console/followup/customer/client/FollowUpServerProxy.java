@@ -1,6 +1,9 @@
 package jobs4u.app.customer.console.followup.customer.client;
 
 
+import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
+import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
+import jobs4u.base.utils.ClientCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +13,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -48,13 +52,15 @@ public class FollowUpServerProxy {
         private boolean authenticated;
 
         public void connect(final String address, final int port) throws IOException {
-
-
+            System.out.println(1);
             sock = new Socket(InetAddress.getByName(address), port);
-
+            System.out.println(2);
             out = new DataOutputStream(sock.getOutputStream());
+
             in = new DataInputStream(sock.getInputStream());
+
             authenticated = false;
+
 
             LOGGER.debug("Connected to {}", address);
         }
@@ -69,13 +75,19 @@ public class FollowUpServerProxy {
             auth[0] = VERSION;
             auth[1] = AUTH;
 
-            System.arraycopy(username.getBytes(), 0, auth, DATA1_PREFIX, username.length());
-            System.arraycopy(password.getBytes(), 4, auth, DATA2_PREFIX, password.length());
+            // Ensure that username and password do not exceed their respective lengths
+            int usernameLength = Math.min(username.length(), DATA1_LEN_M * 256 + DATA1_LEN_L);
+            int passwordLength = Math.min(password.length(), DATA2_LEN_L + DATA_LEN_M * 256);
 
+            System.arraycopy(username.getBytes(), 0, auth, DATA1_PREFIX, usernameLength);
+            System.arraycopy(password.getBytes(), 0, auth, DATA2_PREFIX, passwordLength);
+
+            System.out.println("Sending authentication request");
             final var socket = new ClientSocket();
+            System.out.println("Connecting to DEI server");
 
             socket.connect(DEI_IP, DEI_PORT);
-
+            System.out.println("Connected to DEI server");
             send(auth);
 
             byte [] response = recv();
@@ -115,7 +127,25 @@ public class FollowUpServerProxy {
             return response;
         }
 
+
+
     }
+
+    public Iterable<JobOpeningDTO> getJobOpeningsForCustomer(final ClientCode code)
+            throws IOException {
+        final var socket = new ClientSocket();
+        socket.auth("customer@gmail.com","Password1");
+
+        final  byte[] request = new GetJobOpeningForCustomerDTO(code).toRequest();
+        socket.send(request);
+        final byte[] response = socket.recv();
+
+        socket.stop();
+
+        final MarshlerUnmarshler mu = new MarshlerUnmarshler();
+        return mu.parseResponseMessageGetAvailableMeals(response);
+    }
+
 
 
 }

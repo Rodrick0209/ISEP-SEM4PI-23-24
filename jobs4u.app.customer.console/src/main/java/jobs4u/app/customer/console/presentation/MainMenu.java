@@ -35,6 +35,7 @@ import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
+import jobs4u.app.customer.console.presentation.JobOpening.DisplayJobOpeningUI;
 import jobs4u.base.Application;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
@@ -56,7 +57,10 @@ public class MainMenu extends AbstractUI {
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
+    private static final int JOB_OPENING = 2;
 
+    // JOB OPENING
+    private static final int LIST_JOB_OPENING =1;
 
     private static final int SETTINGS_OPTION = 5;
 
@@ -103,6 +107,8 @@ public class MainMenu extends AbstractUI {
 
         final Menu myUserMenu = new MyUserMenu();
         mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
+        final Menu jobOpeningMenu = buildJobOpeningMenu();
+        mainMenu.addSubMenu(JOB_OPENING, jobOpeningMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
@@ -112,6 +118,7 @@ public class MainMenu extends AbstractUI {
 
             final Menu settingsMenu = buildSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+
         }
 
 
@@ -129,6 +136,14 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(Option, "Option",
                 new ShowMessageAction("Not implemented yet"));
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildJobOpeningMenu() {
+        final Menu menu = new Menu("Job Opening >");
+        menu.addItem(LIST_JOB_OPENING, "List Job Openings", new DisplayJobOpeningUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

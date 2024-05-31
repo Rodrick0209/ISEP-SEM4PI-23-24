@@ -13,4 +13,10 @@ public class JobOpeningDTO {
     public String creationDate;
     public String status;
 
+    public JobOpeningDTO(String jobReference) {
+        JobReference = jobReference;
+    }
+
+    public JobOpeningDTO() {
+    }
 }

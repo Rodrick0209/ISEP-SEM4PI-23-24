@@ -2,6 +2,7 @@ package jobs4u.base.persistence.impl.inmemory;
 
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
@@ -26,6 +27,17 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
         List<JobOpening> result = new ArrayList<>();
         for (JobOpening jobOpening : this) {
             if (jobOpening.getClient().getCustomerManagerEmail().equals(customerManager.email())) {
+                result.add(jobOpening);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<JobOpening> findByCustomer(ClientCode client) {
+        List<JobOpening> result = new ArrayList<>();
+        for (JobOpening jobOpening : this) {
+            if (jobOpening.getClient().clientCode().equals(client)) {
                 result.add(jobOpening);
             }
         }

@@ -1,10 +1,10 @@
-package jobs4u.base;
+package jobs4u.server.deamon;
 
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
-import jobs4u.base.followup.server.FollowUpMessageParser;
+import jobs4u.server.deamon.followup.server.FollowUpMessageParser;
+import jobs4u.server.deamon.presentation.FollowUpServer;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
-import jobs4u.base.presentation.FollowUpServer;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

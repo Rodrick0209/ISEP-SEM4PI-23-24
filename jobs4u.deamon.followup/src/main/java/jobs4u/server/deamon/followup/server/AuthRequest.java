@@ -1,4 +1,4 @@
-package jobs4u.base.followup.server;
+package jobs4u.server.deamon.followup.server;
 
 import eapli.framework.infrastructure.authz.application.Authenticator;
 

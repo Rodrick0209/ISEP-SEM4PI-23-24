@@ -1,9 +1,9 @@
-package jobs4u.base.presentation;
+package jobs4u.server.deamon.presentation;
 
 
-import jobs4u.base.followup.server.DisconnectRequest;
-import jobs4u.base.followup.server.FollowUpMessageParser;
-import jobs4u.base.followup.server.FollowUpRequest;
+import jobs4u.server.deamon.followup.server.FollowUpMessageParser;
+import jobs4u.server.deamon.followup.server.FollowUpRequest;
+import jobs4u.server.deamon.followup.server.DisconnectRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;

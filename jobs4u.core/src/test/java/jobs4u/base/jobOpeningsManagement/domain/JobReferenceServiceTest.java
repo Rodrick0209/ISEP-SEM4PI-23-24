@@ -62,6 +62,11 @@ public class JobReferenceServiceTest {
         }
 
         @Override
+        public List<JobOpening> findByCustomer(ClientCode client) {
+            return List.of();
+        }
+
+        @Override
         public int countForClientCode(ClientCode clientCode) {
             int count = 0;
             String clientCodePrefix = clientCode.code() + "-"; // Add a hyphen to match with actual client codes
