@@ -1,7 +1,6 @@
-#!/bin/bash
-# set the class path,
-# assumes the build was executed with maven copy-dependencies
-JOBS4U_CP="jobs4u.deamon.followup/target/followup-0.1.0.jar:jobs4u.deamon.followup/target/dependency/*"
+#!/usr/bin/env bash
 
-# call the java VM, e.g,
-java -cp $JOBS4U_CP jobs4u.server.deamon.FollowUpDeamon
+export JOBS4U_CP="jobs4u/target/jobs4u.deamon.followup-0.1.0.jar:jobs4u.deamon.followup/target/dependency/*;"
+
+
+java -cp $JOBS4U_CP jobs4u.deamon.followup/src/main/java/jobs4u/base/FollowUpDeamon.java
