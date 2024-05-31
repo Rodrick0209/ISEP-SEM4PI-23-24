@@ -112,24 +112,6 @@ The GET_JOB_OPENINGS_DATA message has the following format
 
 Where `customer_code` is the code of the customer that wants to list his job openings.
 
-In response, the service will reply with a **multi-line** response in the format:
-
-    «header»
-    «content-line»
-
-Where `header` is `"Job Reference", "Position", "Active since", "Number of applicants"` and each `content-line` will correspond to one jobOpening with the fiels according to the header.
-
-For example:
-
-```
-    "Job Reference", "Position", "Active since", "Number of applicants"\n
-    150, "Bacalhau à Braz", "FISH", 10, 2, 4.5\n
-    233, "Picanha", "MEAT", 25, 3, 7.25\n
-    \n
-```
-
-Multi-line responses end with a blank line.
-
 
 
 ### 5. Use case realization
@@ -151,7 +133,12 @@ The server receives the request, parse it, and call the controller. The controll
 
 ### 4.4. Tests
 
-#### 4.4.1. Unit Tests
+We will leave the threading part out of scope and will focus on the `BookingProtocolMessageParser` and `BookingProtocolRequest` classes.
+
+
+For `GET_JOB_OPENINGS_DATA`:
+- ensure an empty list (just the header) is returned 
+- ensure the jobOpenings are returned in a properly formatted multi-line response 
 
 
 
