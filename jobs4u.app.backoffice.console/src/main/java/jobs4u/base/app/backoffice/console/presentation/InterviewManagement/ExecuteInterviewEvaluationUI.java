@@ -38,7 +38,7 @@ public class ExecuteInterviewEvaluationUI extends AbstractUI {
 
         try{
             controller.executeInterviewEvaluation(jobOpening);
-            System.out.println("Execute interview evaluation successfully completed");
+            System.out.println("Execute interview evaluation successfully completed!");
         } catch (ConcurrencyException | IntegrityViolationException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println(

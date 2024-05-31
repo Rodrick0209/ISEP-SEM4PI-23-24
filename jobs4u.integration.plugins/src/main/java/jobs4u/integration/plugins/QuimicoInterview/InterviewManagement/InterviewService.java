@@ -23,7 +23,7 @@ import java.io.InputStream;
 public class InterviewService implements InterviewEvaluation {
 
 
-    String template = "jobs4u.core/src/main/java/jobs4u/base/QuimicoInterview/TemplateFile/template.txt";
+    String template = "jobs4u.integration.plugins/src/main/java/jobs4u/integration/plugins/QuimicoInterview/TemplateFile/template.txt";
 
     public PluginQuestions checkTemplateSyntax() throws Exception {
         try {
