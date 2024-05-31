@@ -72,31 +72,17 @@ the Operator.
 ## 6. Implementation
 
 - The file bot was implemented in C.
-- The program when executed, creates a child  process that monitors the shared folder for new files and other childs to process the files. When a new file is detected, the child program send a sign to the parent.
-- When the parent receives the signal, the parent process sends a signal to the child process that is responsible for processing the files. The child process then processes the files and generates a report.
+- The program when executed, creates a child  process that monitors the shared folder for new files and other childs to process the files. When a new file is detected, the child program send a notification to the parent.
+- When the parent receives the notification, the parent writes the prefix of the file in a shared memory and the child process reads the prefix and processes the file.
 
 
 
-## 7. Integration/Demonstration
+## 7. Demonstration
 
-### Integration
-
-To integrate this feature different parts of the code was divided into different files.
-- [configFile](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FconfigFile)
-- [destributeFiles.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FdestributeFiles.c)
-- [generateReport.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FgenerateReport.c)
-- [handleSignals.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FhandleSignals.c)
-- [header.h](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2Fheader.h)
-- [main.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2Fmain.c)
-- [makefile](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2Fmakefile)
-- [monitor_directory.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2Fmonitor_directory.c)
-- [ProcessFile.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FProcessFile.c)
-- [readConfig.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2FreadConfig.c)
-- [utils.c](..%2F..%2F..%2FJobs4u.FileBot%2FFileBot%2Futils.c)
 
 ### Demonstration
 
-Since this funcitonality is a background process, there isn't a way to demonstrate it directly. 
+Since this functionality is a background process, there isn't a way to demonstrate it directly. 
 
 ## 8. Observations
 
