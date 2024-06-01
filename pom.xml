@@ -85,7 +85,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.4.200</version>
+			<version>2.2.220</version>
 		</dependency>
 
 		<!-- keep junit4 engine for now -->
@@ -113,7 +113,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>2.2.224</version>
+			<version>2.2.220</version>
 			<scope>runtime</scope>
 		</dependency>
 
