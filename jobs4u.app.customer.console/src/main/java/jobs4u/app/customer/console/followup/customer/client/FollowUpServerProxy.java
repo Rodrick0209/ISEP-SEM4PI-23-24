@@ -62,7 +62,7 @@ public class FollowUpServerProxy {
                 sock = new Socket(InetAddress.getByName(address), port);
                 System.out.println(2);
                 sOut = new DataOutputStream(sock.getOutputStream());
-                sOut.flush();
+
 
                 System.out.println();
 
@@ -79,60 +79,14 @@ public class FollowUpServerProxy {
 
         public void send(final byte[] request) throws IOException {
 
-            if(in == null) {
-                System.out.println("in is null");
-            }
-            if(sOut == null) {
-                System.out.println("sOut is null");
-            }
+
 
             sOut.write(request);
+
             LOGGER.debug("Sent message\n-----\n{}\n-----", request);
         }
 
-        /*public boolean auth(String username, String password) throws IOException {
-            final var auth = new byte[4+ DATA1_LEN_L + DATA1_LEN_M * 256 + DATA2_LEN_L + DATA_LEN_M * 256];
-            auth[0] = VERSION;
-            auth[1] = AUTH;
-            auth[2] = DATA1_LEN_L;
-            auth[3] = DATA1_LEN_M;
 
-            // Ensure that username and password do not exceed their respective lengths
-            int usernameLength = Math.min(username.length(), DATA1_LEN_M * 256 + DATA1_LEN_L);
-            int passwordLength = Math.min(password.length(), DATA2_LEN_L + DATA_LEN_M * 256);
-
-            auth[DATA1_PREFIX - 2] = DATA2_LEN_L;
-            auth[DATA1_PREFIX - 1] = DATA_LEN_M;
-
-            System.arraycopy(username.getBytes(), 0, auth, DATA1_PREFIX, usernameLength);
-            System.arraycopy(password.getBytes(), 0, auth, DATA2_PREFIX, passwordLength);
-
-            System.out.println("Sending authentication request");
-            final var socket = new ClientSocket();
-            System.out.println("Connecting to DEI server");
-
-            socket.connect(ALT_IP, DEI_PORT);
-            System.out.println(in == null);
-            System.out.println(sOut == null);
-            System.out.println("Connected to DEI server");
-            System.out.println(auth.length);
-            for (byte b : auth)
-                System.out.println(b);
-            send(auth);
-
-            byte [] response = recv();
-
-            if (response[1] == ACK) {
-                authenticated = true;
-                stop();
-                return true;
-            } else {
-                authenticated = false;
-                LOGGER.error("Authentication failed");
-                stop();
-                return false;
-            }
-        }*/
 
         public void stop() throws IOException {
             in.close();
@@ -142,11 +96,16 @@ public class FollowUpServerProxy {
 
         public byte[] recv() throws IOException {
 
-            final List<Byte> resp = new ArrayList<Byte>();
+            final List<Byte> resp = new ArrayList<>();
 
-            while (in.available() > 0){
-                resp.add(in.readByte());
+            while (in.available() == 0){
+
             }
+            ;
+            while(in.available() > 0)
+                resp.add(in.readByte());
+
+            System.out.println(resp.size());
 
             byte[] response = new byte[resp.size()];
 
@@ -177,20 +136,24 @@ public class FollowUpServerProxy {
 
         //System.out.println("Sending authentication request");
         final var socket = new ClientSocket();
-        //System.out.println("Connecting to DEI server");
+        System.out.println("Connecting to DEI server");
 
         socket.connect(ALT_IP, DEI_PORT);
 
-        //System.out.println("Connected to DEI server");
+        System.out.println("Connected to DEI server");
         System.out.println(auth.length);
+
 
         socket.send(auth);
 
+        System.out.println("waiting for response");
         byte [] response = socket.recv();
         System.out.println(response.length);
 
         if (response[1] == ACK) {
             authenticated = true;
+            LOGGER.info("Authentication successful");
+
             socket.stop();
             return true;
         } else {
@@ -206,6 +169,7 @@ public class FollowUpServerProxy {
         final var socket = new ClientSocket();
         auth("customer@gmail.com","Password1");
 
+        //TODO dar connect outra vez / criar uma class JobOpeningsRequest para tratar as job openins
         final  byte[] request = new GetJobOpeningForCustomerDTO(code).toRequest();
         socket.send(request);
         final byte[] response = socket.recv();
