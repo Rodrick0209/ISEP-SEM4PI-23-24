@@ -1,6 +1,7 @@
 package jobs4u.server.deamon.presentation;
 
 
+
 import jobs4u.server.deamon.followup.server.FollowUpMessageParser;
 import jobs4u.server.deamon.followup.server.FollowUpRequest;
 import jobs4u.server.deamon.followup.server.DisconnectRequest;
@@ -37,15 +38,23 @@ public class FollowUpServer {
             try (var out = new DataOutputStream(clientSocket.getOutputStream());
                  var in = new DataInputStream(clientSocket.getInputStream())){
 
-                byte[] input = readMessage(in);
+                //byte[] input = readMessage(in);
+                byte[] input;
 
 
-
-                while ((input != null) && (input.length > 0)){
+                while ((input = readMessage(in)) != null){
+                    System.out.println(input.length);
                     LOGGER.debug("Received message:----\n{}\n----", input);
                     final FollowUpRequest request = parser.parse(input);
                     final byte[] response = request.execute();
+
+                    System.out.println(response.length);
+
+                    LOGGER.info("sending response");
+                    out.flush();
                     out.write(response);
+                    System.out.println(out.size());
+                    System.out.println("response sent");
                     LOGGER.debug("Sent message:----\n{}\n----", response);
                     if (request.getClass().equals(DisconnectRequest.class)){
                         break;
@@ -76,6 +85,7 @@ public class FollowUpServer {
         try (var serverSocket = new ServerSocket(port)){
             while (true){
                 final var clientSocket = serverSocket.accept();
+                System.out.println("client connected from " + clientSocket.getInetAddress());
                 new ClientHandler(clientSocket, parser).start();
             }
         } catch (final IOException e){
@@ -92,28 +102,32 @@ public class FollowUpServer {
     }
 
     private static byte [] readMessage(DataInputStream in) throws IOException {
+        System.out.println("readMessage()");
         List<Byte> input = new ArrayList<>();
         byte b = in.readByte();
-        int k = 0;
+        System.out.println(b);
         boolean flag = true;
 
         while (flag){
 
+
             input.add(b);
             try {
-                b = in.readByte();
-                k++;
-                System.out.println(k);
+                if(in.available() == 0){
+                    flag = false;
+                }else {
+                    b = in.readByte();
+                    System.out.println(b);
+                }
             } catch (EOFException e){
                 //handle exception
-                flag = false;
-                LOGGER.info("END OF MESSAGE ");
+
+                return null;
+
 
             }catch(SocketException se){
                 flag = false;
-                k++;
 
-                System.out.println(b);
             }
 
 
@@ -122,7 +136,7 @@ public class FollowUpServer {
         for (int i = 0; i < input.size(); i++){
             message[i] = input.get(i);
         }
-        System.out.println(b);
+        System.out.println("readMessage() done");
         return message;
     }
 }
