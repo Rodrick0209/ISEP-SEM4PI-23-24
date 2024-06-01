@@ -6,6 +6,8 @@ import jobs4u.server.deamon.followup.server.FollowUpRequest;
 import jobs4u.server.deamon.followup.server.DisconnectRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,14 +94,35 @@ public class FollowUpServer {
     private static byte [] readMessage(DataInputStream in) throws IOException {
         List<Byte> input = new ArrayList<>();
         byte b = in.readByte();
-        while (b != -1){
+        int k = 0;
+        boolean flag = true;
+
+        while (flag){
+
             input.add(b);
-            b = in.readByte();
+            try {
+                b = in.readByte();
+                k++;
+                System.out.println(k);
+            } catch (EOFException e){
+                //handle exception
+                flag = false;
+                LOGGER.info("END OF MESSAGE ");
+
+            }catch(SocketException se){
+                flag = false;
+                k++;
+
+                System.out.println(b);
+            }
+
+
         }
         final byte[] message = new byte[input.size()];
         for (int i = 0; i < input.size(); i++){
             message[i] = input.get(i);
         }
+        System.out.println(b);
         return message;
     }
 }
