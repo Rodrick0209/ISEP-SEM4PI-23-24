@@ -68,7 +68,7 @@ public class FollowUpMessageParser {
              int data1Frame = message[2] + message[3] * 256;
              int data2Frame = message[2 + data1Frame] + message[3 + data1Frame] * 256;
 
-            int i = 4; int j = i+data1Frame;
+            int i = 4;
             byte atual = message[i];
 
             do{
@@ -79,25 +79,45 @@ public class FollowUpMessageParser {
                 atual = message[i];
 
 
-            }while ((anterior != 0 && atual != 0) || i < data1Frame);
+            }while ((anterior != 0 && atual != 0) && i < data1Frame );
+
+
+            i = skipToNextField(message, i);
+
+            atual = message[i];
+
 
             do{
 
                 password += (char)atual;
+
                 anterior = atual;
                 i++;
                 atual = message[i];
-            }while ((anterior != 0 && atual != 0) || i < data1Frame+data2Frame);
+            }while ((anterior != 0 && atual != 0) && i < data1Frame+data2Frame+2);
+
+
 
             return new AuthRequest(authenticationService, username, password);
 
         } catch (ArrayIndexOutOfBoundsException e){
-            LOGGER.error("Insuficient data in auth message: {}", message);
-            return new BadRequest(message, "Insuficient data in auth message");
+            LOGGER.error("Insufficient data in auth message: {}", message);
+            return new BadRequest(message, "Insufficient data in auth message");
         }
 
 
 
+    }
+
+    private int skipToNextField(byte[] message, int i) {
+        byte atual = message[i];
+        while (atual == 0) {
+            i++;
+
+            atual = message[i];
+        }
+
+        return i;
     }
 
 }
