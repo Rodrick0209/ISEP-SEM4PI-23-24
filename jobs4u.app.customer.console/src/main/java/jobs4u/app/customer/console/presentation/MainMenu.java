@@ -66,7 +66,6 @@ public class MainMenu extends AbstractUI {
 
     private static final String SEPARATOR_LABEL = "--------------";
 
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
 
     @Override
@@ -80,6 +79,7 @@ public class MainMenu extends AbstractUI {
      */
     @Override
     public boolean doShow() {
+
         Menu menu = buildMainMenu();
         final MenuRenderer renderer;
         if (Application.settings().isMenuLayoutHorizontal()) {
@@ -93,33 +93,25 @@ public class MainMenu extends AbstractUI {
     @Override
     public String headline() {
 
-        return authz.session().map(s -> "Base [ @" + s.authenticatedUser().identity() + " ]")
-                .orElse("Base [ ==Anonymous== ]");
+        return "Base Customer App";
     }
 
     private Menu buildMainMenu() {
 
-        if (!authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.CUSTOMER)){
-            throw new IllegalArgumentException("App exclusive for CUSTOMER users.");
-        }
-
         final Menu mainMenu = new Menu();
+        //final Menu myUserMenu = new MyUserMenu();
 
-        final Menu myUserMenu = new MyUserMenu();
-        mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
+        //mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
+
         final Menu jobOpeningMenu = buildJobOpeningMenu();
+
         mainMenu.addSubMenu(JOB_OPENING, jobOpeningMenu);
+
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER)) {
-
-            final Menu settingsMenu = buildSettingsMenu();
-            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
-
-        }
 
 
         if (!Application.settings().isMenuLayoutHorizontal()) {

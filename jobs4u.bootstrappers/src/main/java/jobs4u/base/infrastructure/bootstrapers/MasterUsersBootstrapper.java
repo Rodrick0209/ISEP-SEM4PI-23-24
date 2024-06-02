@@ -42,6 +42,7 @@ import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningControlle
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
+import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.pluginManagement.domain.RequirementSpecification;
@@ -199,9 +200,11 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         //---------------------------------------------------------------------------------------------------
         //Register Job Openings
         //---------------------------------------------------------------------------------------------------
-        registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+        JobOpening j =registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
-                "Software Engineer", ContractType.FULL_TIME, client);
+                "Software Engineer", ContractType.FULL_TIME, client,recruitmentProcess);
+
+
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Data Scientist analyzes and interprets complex data to inform business decision-making. They use statistical techniques and machine learning algorithms to extract insights from data",
@@ -209,7 +212,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Marketing Manager develops and implements marketing strategies to promote products or services. They conduct market research, identify target audiences, and oversee advertising campaigns.",
-                "Marketing Manager", ContractType.FULL_TIME, client);
+                "Marketing Manager", ContractType.FULL_TIME, client,recruitmentProcess);
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Financial Analyst evaluates financial data to provide insights and recommendations for business decision-making. They analyze market trends, assess investment opportunities, and prepare financial reports.",
@@ -273,7 +276,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         List<JobApplicationFile> file2 = List.of(new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-email.txt")));
 
 
-        JobApplication jobApplication = new JobApplication(1L,jobOpening,file,candidate);
+        JobApplication jobApplication = new JobApplication(1L,j,file,candidate);
         jobApplication.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
@@ -301,6 +304,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         jobApplicationRepository.save(jobApplication2);
         jobApplicationRepository.save(jobApplication3);
         jobApplicationRepository.save(jobApplication4);
+
+
         return true;
     }
 

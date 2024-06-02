@@ -8,6 +8,8 @@ import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobApplications.utils.JobApplicationInterviewPointsComparator;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.jobApplications.domain.JobApplication;
@@ -45,9 +47,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     @Version
     private Long version;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<JobApplication> applications = new ArrayList<>();
-
     private WorkingMode workingMode;
     private NrVacancy nrVacancy;
     private PostalAddress address;
@@ -59,6 +58,8 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     private Designation function;
     private ContractType contractType;
     private Calendar creationDate;
+
+    @Setter
     private JobOpeningStatus status;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -87,7 +88,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
         this.status = JobOpeningStatus.INACTIVE;
-        this.applications = new ArrayList<>();
         this.client = client;
         this.rank = new Rank();
     }
@@ -103,17 +103,11 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
         this.status = JobOpeningStatus.ACTIVE;
-        this.applications = new ArrayList<>();
         this.client = client;
         this.recruitmentProcess = recruitmentProcess;
         this.rank = new Rank();
     }
 
-    public JobApplication addJobApplication(JobApplication jobApplication) {
-        Preconditions.ensure(jobApplication != null, "job application should not be null");
-        this.applications.add(jobApplication);
-        return jobApplication;
-    }
 
 
     protected JobOpening() {
@@ -155,9 +149,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         return status;
     }
 
-    public List<JobApplication> jobApplications() {
-        return applications;
-    }
     public RecruitmentProcess recruitmentProcess() {
         return recruitmentProcess;
     }
@@ -220,13 +211,10 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         return layouts;
     }
 
+    public int countApplications(){
+        JobApplicationRepository repo = PersistenceContext.repositories().jobApplications();
+        return repo.findJobApplicationsByJobOpening(this).size();
 
-    public List<Candidate> getCandidates() {
-        List<Candidate> candidates = new ArrayList<>();
-        for (JobApplication application : applications) {
-            candidates.add(application.candidate());
-        }
-        return candidates;
     }
 
     public int getRankSize() {

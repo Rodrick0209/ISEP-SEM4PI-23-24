@@ -22,8 +22,10 @@ package jobs4u.app.customer.console.followup.customer.client;
 
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -34,18 +36,68 @@ import java.util.List;
  * @author Paulo Gandra de Sousa 2021.05.30
  */
 /* package */ class MarshlerUnmarshler {
-
-	public Iterable<JobOpeningDTO> parseResponseMessageGetJobOpenings(final byte[] responseBytes){
-
-		byte data = responseBytes[2];
-		System.out.println(data);
-
-    final List<JobOpeningDTO> ret = new ArrayList<>();
+	protected final static int DATA1_PREFIX = 4;
 
 
+	public Iterable<JobOpeningDTO> parseResponseMessageGetJobOpenings(final byte[] response){
+		List<JobOpeningDTO> list = new ArrayList<>();
 
-    return ret;
-}
+
+		String jobReference="";
+		String function="";
+		String dateSince="";
+		String numApplications= "";
+		int count=0;
+		StringBuilder sb1 = new StringBuilder();
+		for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 200; i++) {
+			if (response[i] != 0) {
+				sb1.append((char) response[i]);
+
+				if (response[i] == '\n'){
+					String fieldValue = sb1.toString().trim();
+					switch (count){
+						case 0:
+							jobReference=fieldValue;
+
+							count++;
+							break;
+						case 1:
+							function=fieldValue;
+							count++;
+							break;
+						case 2:
+							dateSince=fieldValue;
+							count++;
+							break;
+						case 3:
+							numApplications=fieldValue;
+							count++;
+							break;
+					}
+					sb1 = new StringBuilder();
+				}
+				if (response[i] == '\t'){
+					JobOpeningDTO jobOpeningDTO = new JobOpeningDTO();
+					jobOpeningDTO.setJobReference(jobReference);
+					jobOpeningDTO.setFunction(function);
+					jobOpeningDTO.setCreationDate(dateSince);
+					jobOpeningDTO.setNumApplications(numApplications);
+					list.add(jobOpeningDTO);
+
+					jobReference = "";
+					function = "";
+					dateSince = "";
+					numApplications = "";
+					count = 0;
+					sb1 = new StringBuilder();
+
+				}
+		}
+
+
+		}
+		return list;
+	}
 
 	private JobOpeningDTO parseResponseMessageLineGetAvailableMeals(final String s) {
 		final String[] tokens = s.split(",");

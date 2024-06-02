@@ -31,6 +31,7 @@ import eapli.framework.io.util.Console;
 import jobs4u.app.customer.console.authz.CredentialStore;
 import jobs4u.app.customer.console.followup.customer.client.FollowUpServerProxy;
 import jobs4u.app.customer.console.jobOpenings.application.GetJobOpeningsController;
+import jobs4u.app.customer.console.presentation.JobOpening.DisplayJobOpeningUI;
 import jobs4u.app.customer.console.presentation.MainMenu;
 import jobs4u.base.app.common.console.BaseApplication;
 import jobs4u.base.app.common.console.authz.LoginUI;
@@ -38,6 +39,7 @@ import jobs4u.base.authz.AuthenticationCredentialHandler;
 import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedEvent;
 import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedWatchDog;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromClientRegistedWatchDog;
 import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
@@ -77,23 +79,12 @@ public final class BaseCustomer extends BaseApplication{
 
     @Override
     protected void doMain(final String[] args) {
-        /*if (new LoginUI(new AuthenticationCredentialHandler()).show()) {
-            // go to main menu
+        final var correctPin = new LoginUI(CredentialStore.STORE_CREDENTIALS).show();
+        if (correctPin) {
             final MainMenu menu = new MainMenu();
-            doSetupEventHandlers(InProcessPubSub.dispatcher());
             menu.mainLoop();
-        }*/
-
-        GetJobOpeningsController controller = new GetJobOpeningsController();
-
-        try {
-            Iterable<JobOpeningDTO> list = controller.getJobOpeningsForCustomer(ClientCode.valueOf("Isep1"));
-            System.out.println("Job openings:");
-
-            System.out.println("-"+list);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } else {
+            System.out.println("Invalid Credentials");
         }
 
     }

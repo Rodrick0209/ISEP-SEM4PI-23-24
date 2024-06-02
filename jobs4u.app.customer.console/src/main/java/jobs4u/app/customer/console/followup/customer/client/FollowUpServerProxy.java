@@ -163,17 +163,7 @@ public class FollowUpServerProxy {
         auth("customer@gmail.com","Password1");
         socket.connect(ALT_IP, DEI_PORT);
 
-        final  byte[] request = new GetJobOpeningForCustomerDTO(ClientCode.valueOf("Isep1")).execute();
-
-
-        System.out.println("Copied bytes:");
-        StringBuilder sb = new StringBuilder();
-        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 5; i++) {
-            sb.append((char)request[i]);
-        }
-        String result = sb.toString();
-        System.out.println(result);
-
+        final  byte[] request = new GetJobOpeningForCustomerDTO(code).execute();
 
 
         socket.send(request);
@@ -181,21 +171,11 @@ public class FollowUpServerProxy {
 
         final byte[] response = socket.recv();
 
-        System.out.println("-"+response[1]);
-
-        System.out.println("Copied2 bytes:");
-
-        StringBuilder sb1 = new StringBuilder();
-        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 5; i++) {
-            sb1.append((char)response[i]);
-        }
-        String result1 = sb1.toString();
-        System.out.println(result1);
-
 
         socket.stop();
 
         final MarshlerUnmarshler mu = new MarshlerUnmarshler();
+
         return mu.parseResponseMessageGetJobOpenings(response);
     }
 

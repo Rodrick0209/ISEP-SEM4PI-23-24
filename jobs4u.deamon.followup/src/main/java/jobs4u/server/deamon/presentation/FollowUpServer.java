@@ -102,10 +102,8 @@ public class FollowUpServer {
     }
 
     private static byte [] readMessage(DataInputStream in) throws IOException {
-        System.out.println("readMessage()");
         List<Byte> input = new ArrayList<>();
         byte b = in.readByte();
-        System.out.println(b);
         boolean flag = true;
 
         while (flag){
@@ -117,7 +115,6 @@ public class FollowUpServer {
                     flag = false;
                 }else {
                     b = in.readByte();
-                    System.out.println(b);
                 }
             } catch (EOFException e){
                 //handle exception
@@ -136,7 +133,6 @@ public class FollowUpServer {
         for (int i = 0; i < input.size(); i++){
             message[i] = input.get(i);
         }
-        System.out.println("readMessage() done");
         return message;
     }
 }

@@ -1,12 +1,16 @@
 package jobs4u.server.deamon.followup.server;
 
 import eapli.framework.infrastructure.authz.application.Authenticator;
+import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.ListJobOpeningForCustomerController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.utils.ClientCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FollowUpMessageParser {
 
@@ -77,11 +81,9 @@ public class FollowUpMessageParser {
         }
         String result = sb.toString();
 
-        Iterable<JobOpening> jobs=controller.getJobOpeningsForCustomer(ClientCode.valueOf(result));
-        if (jobs==null){
-            System.out.println("EMPTY");
-        }
 
+
+        Iterable<JobOpening> jobs=controller.getJobOpeningsForCustomer(ClientCode.valueOf(result));
 
         return new JobOpeningRequest(jobs);
     }

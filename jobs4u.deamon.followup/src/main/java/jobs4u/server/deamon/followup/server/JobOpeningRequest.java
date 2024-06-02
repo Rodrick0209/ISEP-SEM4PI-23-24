@@ -34,10 +34,10 @@ public class JobOpeningRequest  extends FollowUpRequest{
 
         if (jobOpenings!=null) {
             for (JobOpening jobOpening : jobOpenings) {
-                concatjob = concatjob.concat(jobOpening.jobReference().toString());
-                concatjob = concatjob.concat(jobOpening.jobReference().toString());
-                concatjob = concatjob.concat(jobOpening.getRecruitmentProcess().applicationPhase().startDate().toString());
-                concatjob = concatjob.concat(jobOpening.getApplications().toString());
+                concatjob = concatjob.concat(jobOpening.jobReference().toString()).concat("\n");
+                concatjob = concatjob.concat(jobOpening.function().toString()).concat("\n");
+                concatjob = concatjob.concat(jobOpening.getRecruitmentProcess().applicationPhase().startDate().toString()).concat("\n");
+                concatjob = concatjob.concat(String.valueOf(jobOpening.countApplications())).concat("\n\t");
             }
             length = concatjob.length();
             System.arraycopy(concatjob.getBytes(), 0, response, DATA1_PREFIX, length);
