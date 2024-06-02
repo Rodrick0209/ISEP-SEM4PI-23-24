@@ -124,7 +124,7 @@ These are the message code relevant to this user story:
 
     UNKNOWN_REQUEST, "JOB_APPLICATIONS_REQUEST user1"
 
-- If there is a sintax error on the request, that is, the request is known but not conformat to the specification, the server will reply with:
+- If there is a syntax error on the request, that is, the request is known but does not conform to the specification, the server will reply with:
 
 
     ERROR_IN_REQUEST, «request», «error-description» 
@@ -154,7 +154,7 @@ The server will reply with a `DATA` message containing the list of job applicati
 
 ### 5. Use case realization
 
-This responsability will be assigned to a new application (`FollowUpDeamon`) since all the existing applications are for user interaction, while this one does not require user interaction.
+This responsibility will be assigned to a new application (`FollowUpDeamon`) since all the existing applications are for user interaction, while this one does not require user interaction.
 
 
 For this user story we will use the `CandidateListJobApplicationsController`, this allows to list all the job applications for a candidate.
