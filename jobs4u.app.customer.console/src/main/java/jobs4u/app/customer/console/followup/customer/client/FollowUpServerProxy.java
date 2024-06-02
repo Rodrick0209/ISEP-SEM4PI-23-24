@@ -66,7 +66,6 @@ public class FollowUpServerProxy {
 
                 in = new DataInputStream(sock.getInputStream());
 
-                System.out.println("connected to " + address + " on port " + port);
                 LOGGER.debug("Connected to {}", address);
             } catch (IOException e) {
                 LOGGER.error("Failed to connect to {}", address);
@@ -139,13 +138,13 @@ public class FollowUpServerProxy {
 
         socket.send(auth);
 
-        System.out.println("waiting for response");
+        //System.out.println("waiting for response");
 
         byte [] response = socket.recv();
 
         if (response[1] == ACK) {
             authenticated = true;
-            LOGGER.info("Authentication successful");
+            //LOGGER.info("Authentication successful");
 
             socket.stop();
             return true;

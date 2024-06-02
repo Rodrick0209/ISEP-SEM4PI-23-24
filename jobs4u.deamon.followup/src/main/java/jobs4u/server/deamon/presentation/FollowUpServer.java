@@ -54,7 +54,7 @@ public class FollowUpServer {
                     out.flush();
                     out.write(response);
 
-                    System.out.println("response sent");
+                    //System.out.println("response sent");
                     LOGGER.debug("Sent message:----\n{}\n----", response);
                     if (request.getClass().equals(DisconnectRequest.class)){
                         break;
