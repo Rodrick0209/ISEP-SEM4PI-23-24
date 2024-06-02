@@ -56,11 +56,9 @@ public class FollowUpServerProxy {
 
 
         public void connect(final String address, final int port) throws IOException {
-            System.out.println(1);
 
             try {
                 sock = new Socket(InetAddress.getByName(address), port);
-                System.out.println(2);
                 sOut = new DataOutputStream(sock.getOutputStream());
 
 
@@ -105,7 +103,6 @@ public class FollowUpServerProxy {
             while(in.available() > 0)
                 resp.add(in.readByte());
 
-            System.out.println(resp.size());
 
             byte[] response = new byte[resp.size()];
 
@@ -117,7 +114,7 @@ public class FollowUpServerProxy {
         }
     }
 
-    private boolean auth(String username, String password) throws IOException {
+    public boolean auth(String username, String password) throws IOException {
         final var auth = new byte[4+ DATA1_LEN_L + DATA1_LEN_M * 256 + DATA2_LEN_L + DATA_LEN_M * 256];
         auth[0] = VERSION;
         auth[1] = AUTH;
@@ -136,19 +133,15 @@ public class FollowUpServerProxy {
 
         //System.out.println("Sending authentication request");
         final var socket = new ClientSocket();
-        System.out.println("Connecting to DEI server");
+
 
         socket.connect(ALT_IP, DEI_PORT);
-
-        System.out.println("Connected to DEI server");
-        System.out.println(auth.length);
-
 
         socket.send(auth);
 
         System.out.println("waiting for response");
+
         byte [] response = socket.recv();
-        System.out.println(response.length);
 
         if (response[1] == ACK) {
             authenticated = true;
@@ -168,16 +161,42 @@ public class FollowUpServerProxy {
             throws IOException {
         final var socket = new ClientSocket();
         auth("customer@gmail.com","Password1");
+        socket.connect(ALT_IP, DEI_PORT);
 
-        //TODO dar connect outra vez / criar uma class JobOpeningsRequest para tratar as job openins
-        final  byte[] request = new GetJobOpeningForCustomerDTO(code).toRequest();
+        final  byte[] request = new GetJobOpeningForCustomerDTO(ClientCode.valueOf("Isep1")).execute();
+
+
+        System.out.println("Copied bytes:");
+        StringBuilder sb = new StringBuilder();
+        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 5; i++) {
+            sb.append((char)request[i]);
+        }
+        String result = sb.toString();
+        System.out.println(result);
+
+
+
         socket.send(request);
+
+
         final byte[] response = socket.recv();
+
+        System.out.println("-"+response[1]);
+
+        System.out.println("Copied2 bytes:");
+
+        StringBuilder sb1 = new StringBuilder();
+        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 5; i++) {
+            sb1.append((char)response[i]);
+        }
+        String result1 = sb1.toString();
+        System.out.println(result1);
+
 
         socket.stop();
 
         final MarshlerUnmarshler mu = new MarshlerUnmarshler();
-        return mu.parseResponseMessageGetAvailableMeals(response);
+        return mu.parseResponseMessageGetJobOpenings(response);
     }
 
 

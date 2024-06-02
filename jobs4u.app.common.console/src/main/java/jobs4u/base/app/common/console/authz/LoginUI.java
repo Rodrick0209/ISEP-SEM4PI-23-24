@@ -28,6 +28,8 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.io.IOException;
+
 /** 
  * UI for user login action. 
  *
@@ -71,10 +73,14 @@ public class LoginUI extends AbstractUI {
 			final String email = Console.readNonEmptyLine("Email:", "Please provide a email");
 			final String password = Console.readLine("Password:");
 
-			if (credentialHandler.authenticated(email, password, onlyWithThis)) {
-				return true;
-			}
-			System.out.printf("Wrong email or password. You have %d attempts left.%n%n»»»»»»»»»%n",
+            try {
+                if (credentialHandler.authenticated(email, password, onlyWithThis)) {
+                    return true;
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.printf("Wrong email or password. You have %d attempts left.%n%n»»»»»»»»»%n",
 					maxAttempts - attempt);
 			attempt++;
 		}

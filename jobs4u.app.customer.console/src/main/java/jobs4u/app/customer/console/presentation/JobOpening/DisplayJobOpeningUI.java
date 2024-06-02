@@ -17,17 +17,18 @@ public class DisplayJobOpeningUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DisplayJobOpeningUI.class);
 
-    private final ListJobOpeningContoller theController = new ListJobOpeningContoller(PersistenceContext.repositories().jobOpenings(), AuthzRegistry.authorizationService());
+    //private final ListJobOpeningContoller theController = new ListJobOpeningContoller(PersistenceContext.repositories().jobOpenings(), AuthzRegistry.authorizationService());
 
     @Override
     protected boolean doShow() {
         GetJobOpeningsController controller = new GetJobOpeningsController();
 
         try {
-            Iterable<JobOpeningDTO> list = controller.getJobOpeningsForCustomer(ClientCode.valueOf("ISEP1"));
+            Iterable<JobOpeningDTO> list = controller.getJobOpeningsForCustomer(ClientCode.valueOf("Isep1"));
+            System.out.println("Job openings:");
 
             for (JobOpeningDTO jobOpeningDTO : list) {
-                System.out.println(jobOpeningDTO);
+                System.out.println("-"+jobOpeningDTO.JobReference);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -6,6 +6,7 @@ import jobs4u.server.deamon.followup.server.FollowUpMessageParser;
 import jobs4u.server.deamon.presentation.FollowUpServer;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
+import org.hibernate.jpa.boot.spi.Bootstrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,7 @@ public class FollowUpDeamon {
     }
 
     public static void main(final String[] args) {
+
         LOGGER.info("Configuring the daemon");
 
         AuthzRegistry.configure(PersistenceContext.repositories().users(), new Jobs4uPasswordPolicy(),

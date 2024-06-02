@@ -27,6 +27,10 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
+import eapli.framework.io.util.Console;
+import jobs4u.app.customer.console.authz.CredentialStore;
+import jobs4u.app.customer.console.followup.customer.client.FollowUpServerProxy;
+import jobs4u.app.customer.console.jobOpenings.application.GetJobOpeningsController;
 import jobs4u.app.customer.console.presentation.MainMenu;
 import jobs4u.base.app.common.console.BaseApplication;
 import jobs4u.base.app.common.console.authz.LoginUI;
@@ -34,9 +38,15 @@ import jobs4u.base.authz.AuthenticationCredentialHandler;
 import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedEvent;
 import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedWatchDog;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromClientRegistedWatchDog;
 import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
+import jobs4u.base.utils.ClientCode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
 
 /**
  *
@@ -44,6 +54,8 @@ import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
  */
 @SuppressWarnings("squid:S106")
 public final class BaseCustomer extends BaseApplication{
+
+    private static final Logger LOGGER = LogManager.getLogger(BaseCustomer.class);
 
     /**
      * avoid instantiation of this class.
@@ -57,22 +69,33 @@ public final class BaseCustomer extends BaseApplication{
      */
     public static void main(final String[] args) {
 
-        AuthzRegistry.configure(PersistenceContext.repositories().users(),
-                new Jobs4uPasswordPolicy(), new PlainTextEncoder());
+        //AuthzRegistry.configure(PersistenceContext.repositories().users(),
+                //new Jobs4uPasswordPolicy(), new PlainTextEncoder());
         new BaseCustomer().run(args);
       //
     }
 
     @Override
     protected void doMain(final String[] args) {
-        // login and go to main menu
-        if (new LoginUI(new AuthenticationCredentialHandler()).show()) {
+        /*if (new LoginUI(new AuthenticationCredentialHandler()).show()) {
             // go to main menu
             final MainMenu menu = new MainMenu();
             doSetupEventHandlers(InProcessPubSub.dispatcher());
-
             menu.mainLoop();
+        }*/
+
+        GetJobOpeningsController controller = new GetJobOpeningsController();
+
+        try {
+            Iterable<JobOpeningDTO> list = controller.getJobOpeningsForCustomer(ClientCode.valueOf("Isep1"));
+            System.out.println("Job openings:");
+
+            System.out.println("-"+list);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+
     }
 
 
@@ -88,8 +111,8 @@ public final class BaseCustomer extends BaseApplication{
 
     @Override
     protected void configureAuthz() {
-        AuthzRegistry.configure(PersistenceContext.repositories().users(), new Jobs4uPasswordPolicy(),
-                new PlainTextEncoder());
+        //AuthzRegistry.configure(PersistenceContext.repositories().users(), new Jobs4uPasswordPolicy(),
+          //      new PlainTextEncoder());
     }
     @SuppressWarnings("unchecked")
     @Override

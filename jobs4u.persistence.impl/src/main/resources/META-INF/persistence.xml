@@ -36,15 +36,20 @@
     <class>jobs4u.base.jobApplications.domain.RequirementAnswer</class>
       <class>jobs4u.base.rankManagement.domain.Rank</class>
 
+
+
+
       <properties>
       <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->
       <!--property name="jakarta.persistence.jdbc.url" value="jdbc:h2:~\base"/-->
         <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://vs1172.dei.isep.ipp.pt:1521/jobs4u"/>
 
-      <property name="jakarta.persistence.jdbc.user" value="1211281"/>
-      <property name="jakarta.persistence.jdbc.password" value="P"/>
+      <!--property name="jakarta.persistence.jdbc.user" value="sa"/-->
+      <!--property name="jakarta.persistence.jdbc.password" value=""/-->
+        <property name="jakarta.persistence.jdbc.user" value="1211281"/>
+        <property name="jakarta.persistence.jdbc.password" value="P"/>
       <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
-      <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
       <!-- <property name="eclipselink.logging.level" value="FINE"/> -->
       <!-- <property name = "hibernate.show_sql" value = "true" /> -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>

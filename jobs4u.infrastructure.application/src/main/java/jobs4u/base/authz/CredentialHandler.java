@@ -25,11 +25,13 @@ package jobs4u.base.authz;
 
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
+import java.io.IOException;
+
 /**
  *
  * @author Paulo Gandra de Sousa 2022.11.24
  *
  */
 public interface CredentialHandler {
-	boolean authenticated(String username, String password, Role onlyWithThis);
+	boolean authenticated(String username, String password, Role onlyWithThis) throws IOException;
 }

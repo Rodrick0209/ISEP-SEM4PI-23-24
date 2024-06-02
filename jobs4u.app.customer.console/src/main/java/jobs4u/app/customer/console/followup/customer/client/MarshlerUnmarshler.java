@@ -20,7 +20,6 @@
  */
 package jobs4u.app.customer.console.followup.customer.client;
 
-import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 
 import java.util.ArrayList;
@@ -36,14 +35,15 @@ import java.util.List;
  */
 /* package */ class MarshlerUnmarshler {
 
-	public Iterable<JobOpeningDTO> parseResponseMessageGetAvailableMeals(final byte[] responseBytes){
-    String responseString = new String(responseBytes);
-    List<String> response = Arrays.asList(responseString.split("\n"));
+	public Iterable<JobOpeningDTO> parseResponseMessageGetJobOpenings(final byte[] responseBytes){
+
+		byte data = responseBytes[2];
+		System.out.println(data);
 
     final List<JobOpeningDTO> ret = new ArrayList<>();
 
-    response.remove(0); // removes header
-    response.forEach(s -> ret.add(parseResponseMessageLineGetAvailableMeals(s)));
+
+
     return ret;
 }
 

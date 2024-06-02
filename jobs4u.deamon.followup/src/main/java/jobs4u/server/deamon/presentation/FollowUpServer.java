@@ -43,17 +43,17 @@ public class FollowUpServer {
 
 
                 while ((input = readMessage(in)) != null){
-                    System.out.println(input.length);
+
                     LOGGER.debug("Received message:----\n{}\n----", input);
                     final FollowUpRequest request = parser.parse(input);
                     final byte[] response = request.execute();
 
-                    System.out.println(response.length);
+
 
                     LOGGER.info("sending response");
                     out.flush();
                     out.write(response);
-                    System.out.println(out.size());
+
                     System.out.println("response sent");
                     LOGGER.debug("Sent message:----\n{}\n----", response);
                     if (request.getClass().equals(DisconnectRequest.class)){
