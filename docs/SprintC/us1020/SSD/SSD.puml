@@ -1,0 +1,28 @@
+@startuml
+
+actor "Customer Manager" as C
+participant "System" as SYS
+
+activate C
+C -> SYS: Selects Job Opening Menu
+
+activate SYS
+SYS -> C: Displays Job Opening Menu
+deactivate SYS
+
+C -> SYS: Selects option to publish results of a job opening
+activate SYS
+SYS -> C: Displays the available job openings
+deactivate SYS
+
+C -> SYS: Selects a job opening
+activate SYS
+SYS -> SYS: Publishes results and notifies\n candidates and the customer
+SYS -> C: Displays a message confirming the publication of the results
+deactivate SYS
+deactivate C
+
+
+
+
+@enduml
