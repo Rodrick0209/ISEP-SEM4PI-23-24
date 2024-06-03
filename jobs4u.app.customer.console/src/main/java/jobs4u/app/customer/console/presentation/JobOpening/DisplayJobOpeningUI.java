@@ -31,7 +31,7 @@ public class DisplayJobOpeningUI extends AbstractUI {
                 System.out.println("- Job Reference: "+jobOpeningDTO.JobReference);
                 System.out.println("    - Function: "+jobOpeningDTO.function);
                 System.out.println("    - Active Since: "+jobOpeningDTO.creationDate);
-                System.out.println("    - Num Applications: "+jobOpeningDTO.numApplications);
+                System.out.println("    - Number of Applications: "+jobOpeningDTO.numApplications);
                 System.out.println("\n");
             }
 

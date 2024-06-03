@@ -6,6 +6,8 @@ import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.ListJobOpeningForCustomerController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
+import jobs4u.base.notificationManagement.application.GetNotificationsController;
+import jobs4u.base.notificationManagement.domain.Notification;
 import jobs4u.base.utils.ClientCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,8 @@ public class FollowUpMessageParser {
     protected final static byte AUTH = 4;
     protected final static byte GET_AVAILABLE_MEALS = 6;
 
+    protected final static byte GET_NOTIFICATIONS = 7;
+
     public FollowUpMessageParser(Authenticator authenticationService) {
         this.authenticationService = authenticationService;
     }
@@ -40,7 +44,6 @@ public class FollowUpMessageParser {
     public FollowUpRequest parse(final byte[] message) {
 
         FollowUpRequest request = new UnknownRequest(message);
-
         try {
 
             byte version = message[0];
@@ -60,16 +63,32 @@ public class FollowUpMessageParser {
                     case GET_AVAILABLE_MEALS:
                         request = parseGetAvailableJobOpeningsRequest(message);
                         break;
-
+                    case GET_NOTIFICATIONS:
+                        request = parseGetNotifications(message);
+                        break;
 
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             LOGGER.error("Unable to parse request: {}", message);
             request = new BadRequest(message, "Unable to parse request");
         }
         return request;
     }
+
+    private FollowUpRequest parseGetNotifications(byte [] message){
+        GetNotificationsController controller = new GetNotificationsController();
+        StringBuilder sb = new StringBuilder();
+        int DATA1_PREFIX = 4;
+        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 5 ; i++) {
+            sb.append((char)message[i]);
+        }
+        String result = sb.toString();
+        Iterable<Notification> notifications = controller.listNotificationsByClient(ClientCode.valueOf(result));
+        return new NotificationRequest(notifications);
+    }
+
 
     private FollowUpRequest parseGetAvailableJobOpeningsRequest(final byte[] message) {
         ListJobOpeningForCustomerController controller = new ListJobOpeningForCustomerController();

@@ -33,6 +33,8 @@ import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedWatc
 import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromClientRegistedWatchDog;
 import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.notificationManagement.application.eventhandlers.SendNotificationOnJobOpeningsStateChangedWatchDog;
+import jobs4u.base.notificationManagement.application.eventhandlers.SendNotificationOnjobOpeningStateChangedEvent;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
@@ -98,7 +100,7 @@ public final class BaseBackoffice extends BaseApplication {
                 NewUserRegisteredFromClientRegistedEvent.class);
 
         dispatcher.subscribe(new ClientRegistedWatchDog(), ClientRegistedEvent.class);
-
+        dispatcher.subscribe(new SendNotificationOnJobOpeningsStateChangedWatchDog(), SendNotificationOnjobOpeningStateChangedEvent.class);
     }
 
 

@@ -1,7 +1,6 @@
 package jobs4u.app.customer.console.followup.customer.client;
 
 
-import eapli.framework.infrastructure.authz.domain.model.Role;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 import jobs4u.base.utils.ClientCode;
 import org.slf4j.Logger;
@@ -121,11 +120,9 @@ public class FollowUpServerProxy {
         auth[2] = DATA1_LEN_L;
         auth[3] = DATA1_LEN_M;
 
-
         // Ensure that username and password do not exceed their respective lengths
         int usernameLength = Math.min(username.length(), DATA1_LEN_M * 256 + DATA1_LEN_L);
         int passwordLength = Math.min(password.length(), DATA2_LEN_L + DATA_LEN_M * 256);
-
 
         auth[DATA1_PREFIX - 2] = DATA2_LEN_L;
         auth[DATA1_PREFIX - 1] = DATA_LEN_M;
@@ -143,7 +140,7 @@ public class FollowUpServerProxy {
 
         //System.out.println("waiting for response");
 
-        byte [] response = socket.recv();
+        byte[] response = socket.recv();
 
         if (response[1] == ACK) {
             authenticated = true;
@@ -153,7 +150,7 @@ public class FollowUpServerProxy {
             return true;
         } else {
             authenticated = false;
-            //LOGGER.error("Authentication failed");
+            LOGGER.error("Authentication failed");
             socket.stop();
             return false;
         }
@@ -165,11 +162,14 @@ public class FollowUpServerProxy {
 
         socket.connect(ALT_IP, DEI_PORT);
 
-        final  byte[] request = new GetJobOpeningForCustomerDTO(code).execute();
+        final byte[] request = new GetJobOpeningForCustomerDTO(code).execute();
+
 
         socket.send(request);
 
+
         final byte[] response = socket.recv();
+
 
         socket.stop();
 
@@ -178,6 +178,14 @@ public class FollowUpServerProxy {
         return mu.parseResponseMessageGetJobOpenings(response);
     }
 
+    public Iterable<NotificationDTO> getNotificationForCustomer(final ClientCode code)
+            throws IOException {
+        final var socket = new ClientSocket();
+        auth("customer@gmail.com", "Password1");
+        socket.connect(ALT_IP, DEI_PORT);
+        final byte[] request = new GetNotificationsForClientRequestDTO(code).execute();
+
+        socket.send(request);
 
 
 }

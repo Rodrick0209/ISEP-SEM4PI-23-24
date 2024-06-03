@@ -70,8 +70,10 @@ The client application will need to establish a TCP connection to this server so
 
 ### 2. Communication Protocol
 
-- **Native Sockets and UTF-8 Encoding**: Communication uses native sockets with text messages encoded as UTF-8, delimited by a newline character (`\n`). Data is formatted as array of bites.
-
+- **Native Sockets and UTF-8 Encoding**: Communication uses native sockets with text messages encoded as UTF-8, delimited by a newline character (`\n`). Data is formatted as array of bites, with non-numeric values enclosed in double quotes (e.g., `"JOB_OPENING"`).
+- **Message Types**: The protocol supports this type of messages:
+    - `GET_JOB_OPENINGS_DATA`
+    
 - **Client Connection Handling**: To maintain a good client connection, the client must send a `GOODBYE` message before closing the connection.
 
 ### 3. Error Handling
@@ -81,9 +83,17 @@ If the server does not understand the message it will reply with an `UNKNOWN_REQ
 
     UNKNOWN_REQUEST, «request»
 
+Where `request` is the content the server has received. For instance, if the server receives a message `GET_JOB_OPENINGS_DATA user1`, it will reply with
+
+    UNKNOWN_REQUEST, "GET_JOB_OPENINGS_DATA user1"
+
 If there is a sintax error on the request, that is, the request is known but not conformat to the specification, the server will reply with:
 
     ERROR_IN_REQUEST, «request», «error-description» 
+
+For example:
+
+    ERROR_IN_REQUEST, "GET_JOB_OPENINGS_DATA, user1", "Wrong number of parameters"
 
 If there is a semantic error on the request (e.g., unknown user id), the server will reply with
 
@@ -96,8 +106,11 @@ If there is a problem executing the request (e.g., the server cannot execute the
 
 ### 4. GET_JOB_OPENINGS_DATA
 
-To get the job openings data from the server the array of bytes should have the GET_JOB_OPENINGS_DATA index (number 6), in the third element of the array.
-The server when receive this array know what kind of request need to do.
+The GET_JOB_OPENINGS_DATA message has the following format
+
+    GET_JOB_OPENINGS_DATA, «customer_code»
+
+Where `customer_code` is the code of the customer that wants to list his job openings.
 
 
 
@@ -129,39 +142,21 @@ For `GET_JOB_OPENINGS_DATA`:
 
 
 
+
+
 ## 5. Implementation
 
-For the implementation of this user story, we need to create some components, that work together:
 
 
-- **User Interface (DisplayJobOpeningUI.java):** This component is responsible for the interaction with the user. It shows the jobOpenings and the respective data for the customer 
-
-
-- **Controller (ListJobOpeningForCustomerController.java):** This component is responsible for get the JobOpenings fot the customer. It receives the customer code and  passes them to the service layer for processing. It also handles the response from the service layer and send the response back to the UI.
-
-
-- **Repository (JobOpeningRepository):** The JobOpeningRepository class is responsible for searching the jobOpenings for the customer. This class has methods for search.
-
-- **Server (Followup Server):**: This user story works throw a server, all the connections to de database passes throw the server. The customer app and the database doest have direct connection, so a server and all classes that permit the communication and the connection are important to this implementation
 
 
 
 ## 6. Integration/Demonstration
 
 ### Integration
-To integrate the components, we need used some components that already exist in the system, like repositories. The integration of this components with the new components was not very clear and easy to do, because the new ideia of server, 
-where all data that goes to and comes from database passes throw the server. This integration was hard to understand and implement. 
 
 
 ### Demonstration
-To demonstrate the implementation of this user story, we can use the following steps:
-
-1. Ensure the follow up server is runnig
-2. Login as customer
-3. Select the Job Opening option
-4. Select List Job Openings
-5. The system will show the Job Openings for the customer and the data required
-   
 
 
 

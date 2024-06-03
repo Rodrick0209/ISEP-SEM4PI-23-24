@@ -44,6 +44,8 @@ import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
 import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
+import jobs4u.base.notificationManagement.domain.Notification;
+import jobs4u.base.notificationManagement.repositories.NotificationRepository;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
@@ -79,6 +81,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
     final RegisterClientController clientController = new RegisterClientController(PersistenceContext.repositories().clients(),
             AuthzRegistry.authorizationService(), InProcessPubSub.publisher());
+
+    final NotificationRepository notificationRepository = PersistenceContext.repositories().notifications();
 
     final CandidateRepository candidateRepository = PersistenceContext.repositories().candidates();
 
@@ -154,9 +158,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                 EmailAddress.valueOf("anothercustomermanager@gmail.com"));
 
 
-
-
-
         //---------------------------------------------------------------------------------------------------
         //create Recruitment Process
         //---------------------------------------------------------------------------------------------------
@@ -171,7 +172,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        recruitmentProcess.analysisPhase().openPhase();
 
         RecruitmentProcessDto recruitmentProcessDto1 = new RecruitmentProcessDto(
                 DateUtils.parseDate("18-04-2024"),
@@ -183,7 +183,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcessBuilder recruitmentProcessBuilder1 = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector1 = new RecruitmentProcessDirector(recruitmentProcessBuilder1);
         RecruitmentProcess recruitmentProcess1 = recruitmentProcessDirector1.createRecruitmentProcessWithInterview(recruitmentProcessDto1);
-        recruitmentProcess1.applicationPhase().openPhase();
 
         RecruitmentProcessDto recruitmentProcessDto2 = new RecruitmentProcessDto(
                 DateUtils.parseDate("18-06-2024"),
@@ -195,15 +194,13 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcessBuilder recruitmentProcessBuilder2 = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector2 = new RecruitmentProcessDirector(recruitmentProcessBuilder2);
         RecruitmentProcess recruitmentProcess2 = recruitmentProcessDirector2.createRecruitmentProcessWithInterview(recruitmentProcessDto2);
-        recruitmentProcess2.interviewsPhase().openPhase();
 
         //---------------------------------------------------------------------------------------------------
         //Register Job Openings
         //---------------------------------------------------------------------------------------------------
-        JobOpening j =registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
+        JobOpening j = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
-                "Software Engineer", ContractType.FULL_TIME, client,recruitmentProcess);
-
+                "Software Engineer", ContractType.FULL_TIME, client, recruitmentProcess);
 
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
@@ -212,7 +209,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Marketing Manager develops and implements marketing strategies to promote products or services. They conduct market research, identify target audiences, and oversee advertising campaigns.",
-                "Marketing Manager", ContractType.FULL_TIME, client1,recruitmentProcess);
+                "Marketing Manager", ContractType.FULL_TIME, client, recruitmentProcess);
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Financial Analyst evaluates financial data to provide insights and recommendations for business decision-making. They analyze market trends, assess investment opportunities, and prepare financial reports.",
@@ -220,22 +217,22 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         JobOpening jobOpening = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
-                "Software Engineer", ContractType.FULL_TIME, client1,recruitmentProcess);
+                "Software Engineer", ContractType.FULL_TIME, client1, recruitmentProcess);
 
         //Register IBM-000123 jobOpening
-        JobOpening jobOpening1=  registerJobOpening("IBM-000123",WorkingMode.REMOTE, "1", "1234-123",
+        JobOpening jobOpening1 = registerJobOpening("IBM-000123", WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
-                "Software Engineer", ContractType.FULL_TIME, client3,recruitmentProcess1);
+                "Software Engineer", ContractType.FULL_TIME, client3, recruitmentProcess1);
 
-        RequirementSpecification jobRequirementSpecification = new RequirementSpecification("programador2AnosExperiencia","jobs4u.integration.plugins.Programador2AnosExperienciaRequirement.RequirementManagement.RequirementService");
+        RequirementSpecification jobRequirementSpecification = new RequirementSpecification("programador2AnosExperiencia", "jobs4u.integration.plugins.Programador2AnosExperienciaRequirement.RequirementManagement.RequirementService");
         jobRequirementSpecificationRepository.save(jobRequirementSpecification);
 
         jobOpening1.selectJobRequirementSpecification(jobRequirementSpecification);
         jobOpeningRepository.save(jobOpening1);
 
-        JobOpening jobOpening2 =  registerJobOpening("GTECH-001241",WorkingMode.REMOTE, "1", "1234-123",
+        JobOpening jobOpening2 = registerJobOpening("GTECH-001241", WorkingMode.REMOTE, "1", "1234-123",
                 "GreenTech Solutions is at the forefront of sustainable technology development, specializing in creating innovative chemical processes that minimize environmental impact.",
-                "Chemical Engineer", ContractType.FULL_TIME, client3,recruitmentProcess2);
+                "Chemical Engineer", ContractType.FULL_TIME, client3, recruitmentProcess2);
 
         InterviewModelSpecification interviewModelSpecification = new InterviewModelSpecification("quimicoInterview", "jobs4u.integration.plugins.QuimicoInterview.InterviewManagement.InterviewService");
         interviewModelSpecificationRepository.save(interviewModelSpecification);
@@ -247,17 +244,17 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         //Register Candidate
         //---------------------------------------------------------------------------------------------------
         Candidate candidate = new Candidate("Amilcar",
-                "Leitão","amilcar@gmail.com","919111228");
+                "Leitão", "amilcar@gmail.com", "919111228");
         candidateRepository.save(candidate);
 
 
-        Candidate candidate1 = new Candidate("Sebastião", "Tobaldo","sebtob@gmail.com","919131222");
+        Candidate candidate1 = new Candidate("Sebastião", "Tobaldo", "sebtob@gmail.com", "919131222");
         candidateRepository.save(candidate1);
 
-        Candidate candidate2 = new Candidate("Carlos", "Tesmeão","cates@gmail.com","919131322");
+        Candidate candidate2 = new Candidate("Carlos", "Tesmeão", "cates@gmail.com", "919131322");
         candidateRepository.save(candidate2);
 
-        Candidate candidate3 = new Candidate("teste", "Teste","teste@gmail.com","919131325");
+        Candidate candidate3 = new Candidate("teste", "Teste", "teste@gmail.com", "919131325");
         candidateRepository.save(candidate3);
 
         Candidate candidate4 = new Candidate("candidate", "candidato", "candidate@gmail.com", "919121299");
@@ -276,34 +273,37 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         List<JobApplicationFile> file2 = List.of(new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-email.txt")));
 
 
-        JobApplication jobApplication = new JobApplication(1L,j,file,candidate);
+        JobApplication jobApplication = new JobApplication(1L, j, file, candidate);
         jobApplication.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
         jobApplication.interview().grade(InterviewPoints.valueOf(65));
-        JobApplication jobApplication1 = new JobApplication(2L,jobOpening,file1,candidate1);
+        JobApplication jobApplication1 = new JobApplication(2L, jobOpening, file1, candidate1);
         jobApplication1.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication1.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication1.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
         jobApplication1.interview().grade(InterviewPoints.valueOf(10));
-        JobApplication jobApplication2 = new JobApplication(3L,jobOpening,file2,candidate2);
+        JobApplication jobApplication2 = new JobApplication(3L, jobOpening, file2, candidate2);
         jobApplication2.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication2.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication2.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
         jobApplication2.interview().grade(InterviewPoints.valueOf(60));
-        JobApplication jobApplication3 = new JobApplication(4L,jobOpening2,file2,candidate3);
+        JobApplication jobApplication3 = new JobApplication(4L, jobOpening2, file2, candidate3);
         jobApplication3.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication3.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
         jobApplication3.interview().grade(InterviewPoints.valueOf(23));
-        JobApplication jobApplication4 = new JobApplication(5L,jobOpening2,file2,candidate2);
+        JobApplication jobApplication4 = new JobApplication(5L, jobOpening2, file2, candidate2);
         jobApplication4.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication4.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
+
 
         jobApplicationRepository.save(jobApplication);
         jobApplicationRepository.save(jobApplication1);
         jobApplicationRepository.save(jobApplication2);
         jobApplicationRepository.save(jobApplication3);
         jobApplicationRepository.save(jobApplication4);
+
+        notificationRepository.save(new Notification("Teste Message", client));
 
 
         return true;
@@ -313,7 +313,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
      *
      */
     private void registerAdmin(final String username, final String password, final String firstName,
-            final String lastName, final String email) {
+                               final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.ADMIN);
 
@@ -321,7 +321,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerCustomerManager(final String username, final String password, final String firstName,
-                               final String lastName, final String email) {
+                                         final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.CUSTOMER_MANAGER);
 
@@ -329,7 +329,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerCandidate(final String username, final String password, final String firstName,
-                                         final String lastName, final String email) {
+                                   final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.CANDIDATE);
 
@@ -337,7 +337,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerOperator(final String username, final String password, final String firstName,
-                                   final String lastName, final String email) {
+                                  final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.OPERATOR);
 
@@ -353,13 +353,12 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     }
 
     private void registerLanguageEngineer(final String username, final String password, final String firstName,
-                                          final String lastName, final String email){
+                                          final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.LANGUAGE_ENGINEER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
-
 
 
     public JobOpening registerJobOpening(WorkingMode workingMode
@@ -382,11 +381,11 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
             , String function
             , ContractType contractType
             , Client client
-            , RecruitmentProcess recruitmentProcess){
+            , RecruitmentProcess recruitmentProcess) {
 
         ClientDTO clientDTO = new ClientMapper().toDTO(client);
 
-        return jobOpeningController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientDTO,recruitmentProcess);
+        return jobOpeningController.registerJobOpening(workingMode, nrVacancy, address, description, function, contractType, clientDTO, recruitmentProcess);
     }
 
     public JobOpening registerJobOpening(
@@ -398,11 +397,11 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
             , String function
             , ContractType contractType
             , Client client
-            , RecruitmentProcess recruitmentProcess){
+            , RecruitmentProcess recruitmentProcess) {
 
         ClientDTO clientDTO = new ClientMapper().toDTO(client);
 
-        return jobOpeningController.registerJobOpening(JobReference,workingMode, nrVacancy, address, description, function, contractType, clientDTO,recruitmentProcess);
+        return jobOpeningController.registerJobOpening(JobReference, workingMode, nrVacancy, address, description, function, contractType, clientDTO, recruitmentProcess);
     }
 
 }

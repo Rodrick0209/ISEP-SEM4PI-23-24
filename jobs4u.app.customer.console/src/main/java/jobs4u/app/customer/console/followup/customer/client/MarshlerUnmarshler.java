@@ -20,6 +20,7 @@
  */
 package jobs4u.app.customer.console.followup.customer.client;
 
+import jobs4u.app.customer.console.checkNotifications.dto.NotificationDTO;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 
 import java.sql.SQLOutput;
@@ -37,7 +38,6 @@ import java.util.List;
  */
 /* package */ class MarshlerUnmarshler {
 	protected final static int DATA1_PREFIX = 4;
-
 
 	public Iterable<JobOpeningDTO> parseResponseMessageGetJobOpenings(final byte[] response){
 		List<JobOpeningDTO> list = new ArrayList<>();
@@ -58,7 +58,6 @@ import java.util.List;
 					switch (count){
 						case 0:
 							jobReference=fieldValue;
-
 							count++;
 							break;
 						case 1:
@@ -76,6 +75,7 @@ import java.util.List;
 					}
 					sb1 = new StringBuilder();
 				}
+
 				if (response[i] == '\t'){
 					JobOpeningDTO jobOpeningDTO = new JobOpeningDTO();
 					jobOpeningDTO.setJobReference(jobReference);
@@ -96,6 +96,50 @@ import java.util.List;
 
 
 		}
+		return list;
+	}
+
+
+	public Iterable<NotificationDTO> parseResponseMessageGetNotifications(final byte[] response) {
+		List<NotificationDTO> list = new ArrayList<>();
+		String date = "";
+		String message = "";
+		int count = 0;
+		StringBuilder sb1 = new StringBuilder();
+
+		for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 200; i++) {
+			if (response[i] != 0) {
+				sb1.append((char) response[i]);
+
+				if (response[i] == '\n') {
+					String fieldValue = sb1.toString().trim();
+					switch (count) {
+						case 0:
+							date = fieldValue;
+
+							count++;
+							break;
+						case 1:
+							message = fieldValue;
+							count++;
+							break;
+
+					}
+					sb1 = new StringBuilder();
+
+				}
+				if (response[i] == '\t') {
+					NotificationDTO notificationDTO = new NotificationDTO(date, message);
+					list.add(notificationDTO);
+					date = "";
+					message = "";
+					count = 0;
+					sb1 = new StringBuilder();
+				}
+			}
+		}
+
+		System.out.println("LIST"+ list.get(0).message);
 		return list;
 	}
 

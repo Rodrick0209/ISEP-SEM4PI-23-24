@@ -22,6 +22,7 @@ package jobs4u.base.persistence.impl.inmemory;
 
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
+import jobs4u.base.notificationManagement.repositories.NotificationRepository;
 import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
@@ -63,6 +64,17 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public ClientUserRepository clientUsers() {
         return clientUsers(null);
     }
+
+    @Override
+    public NotificationRepository notifications() {
+        return notifications(null);
+    }
+
+    @Override
+    public NotificationRepository notifications(final TransactionalContext tx) {
+        return new InMemoryNotificationRepository();
+    }
+
 
     @Override
     public JobOpeningRepository jobOpenings() {
