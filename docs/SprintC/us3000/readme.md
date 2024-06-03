@@ -13,6 +13,7 @@ to list the applications he has submitted and their state.
 
 ### 2.2. Dependencies/References
 
+- NFR10 - RCOMP
 - NFR11 - RCOMP
 
 ### 2.3. Client clarifications

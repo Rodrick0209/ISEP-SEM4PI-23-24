@@ -52,7 +52,8 @@ were selected and that they will contacted soon by the Company they applied to.
 
 This feature must comply with specific technical requirements, including a client-server architecture where the client accesses data through a server application.
 Additionally, the solution must be deployed on multiple network nodes, with separate nodes for the database server and Follow-Up Server,
-ideally in the cloud, ensuring background execution of email notifications.
+ideally in the cloud, ensuring background execution of email notifications. The SMTP application protocol must be used 
+to send the email messages trough the SMTP server with DNS name frodo.dei.isep.ipp.pt.
 
 ### Domain model
 
