@@ -13,6 +13,7 @@ public class JobOpeningDTO {
     public String function;
     public String contractType;
     public String creationDate;
+    public String numApplications;
     public String status;
 
     public JobOpeningDTO(String jobReference) {
