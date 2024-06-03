@@ -1,5 +1,7 @@
 package jobs4u.server.deamon.followup.server;
 
+import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 
 public class JobOpeningRequest  extends FollowUpRequest{
@@ -37,7 +39,8 @@ public class JobOpeningRequest  extends FollowUpRequest{
                 concatjob = concatjob.concat(jobOpening.jobReference().toString()).concat("\n");
                 concatjob = concatjob.concat(jobOpening.function().toString()).concat("\n");
                 concatjob = concatjob.concat(jobOpening.getRecruitmentProcess().applicationPhase().startDate().toString()).concat("\n");
-                concatjob = concatjob.concat(String.valueOf(jobOpening.countApplications())).concat("\n\t");
+                JobApplicationRepository repo = PersistenceContext.repositories().jobApplications();
+                concatjob = concatjob.concat(String.valueOf(repo.findJobApplicationsByJobOpening(jobOpening).size())).concat("\n\t");
             }
             length = concatjob.length();
             System.arraycopy(concatjob.getBytes(), 0, response, DATA1_PREFIX, length);

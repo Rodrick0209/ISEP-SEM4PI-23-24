@@ -211,12 +211,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         return layouts;
     }
 
-    public int countApplications(){
-        JobApplicationRepository repo = PersistenceContext.repositories().jobApplications();
-        return repo.findJobApplicationsByJobOpening(this).size();
-
-    }
-
     public int getRankSize() {
         int size = calculateRankSize(rank.getMultiplier());
         rank.setRankSize(size);
