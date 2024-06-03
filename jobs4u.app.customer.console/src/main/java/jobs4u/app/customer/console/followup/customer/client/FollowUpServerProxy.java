@@ -1,6 +1,8 @@
 package jobs4u.app.customer.console.followup.customer.client;
 
 
+import eapli.framework.infrastructure.authz.domain.model.Role;
+import jobs4u.app.customer.console.checkNotifications.dto.NotificationDTO;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 import jobs4u.base.utils.ClientCode;
 import org.slf4j.Logger;
@@ -181,11 +183,12 @@ public class FollowUpServerProxy {
     public Iterable<NotificationDTO> getNotificationForCustomer(final ClientCode code)
             throws IOException {
         final var socket = new ClientSocket();
-        auth("customer@gmail.com", "Password1");
+        //auth("customer@gmail.com", "Password1");
         socket.connect(ALT_IP, DEI_PORT);
         final byte[] request = new GetNotificationsForClientRequestDTO(code).execute();
 
         socket.send(request);
-
+        return null;
+    }
 
 }
