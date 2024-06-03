@@ -27,7 +27,9 @@ public class Message implements ValueObject {
     }
 
 
-
+    public String toString(){
+        return this.message;
+    }
 
 
 

@@ -1,6 +1,7 @@
 package jobs4u.app.customer.console.followup.customer.client;
 
 
+import jobs4u.app.customer.console.checkNotifications.dto.NotificationDTO;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 import jobs4u.base.utils.ClientCode;
 import org.slf4j.Logger;
@@ -37,7 +38,6 @@ public class FollowUpServerProxy {
     protected final static int DEI_PORT = 9999;
 
 
-
     protected final static int DATA1_PREFIX = 4;
     protected final static int DATA2_PREFIX = DATA1_LEN_M * 256 + DATA1_LEN_L + 2;
 
@@ -53,8 +53,6 @@ public class FollowUpServerProxy {
         private DataInputStream in;
 
 
-
-
         public void connect(final String address, final int port) throws IOException {
 
             try {
@@ -66,7 +64,6 @@ public class FollowUpServerProxy {
 
                 in = new DataInputStream(sock.getInputStream());
 
-                System.out.println("connected to " + address + " on port " + port);
                 LOGGER.debug("Connected to {}", address);
             } catch (IOException e) {
                 LOGGER.error("Failed to connect to {}", address);
@@ -78,12 +75,10 @@ public class FollowUpServerProxy {
         public void send(final byte[] request) throws IOException {
 
 
-
             sOut.write(request);
 
             LOGGER.debug("Sent message\n-----\n{}\n-----", request);
         }
-
 
 
         public void stop() throws IOException {
@@ -96,11 +91,11 @@ public class FollowUpServerProxy {
 
             final List<Byte> resp = new ArrayList<>();
 
-            while (in.available() == 0){
+            while (in.available() == 0) {
 
             }
             ;
-            while(in.available() > 0)
+            while (in.available() > 0)
                 resp.add(in.readByte());
 
 
@@ -115,7 +110,7 @@ public class FollowUpServerProxy {
     }
 
     public boolean auth(String username, String password) throws IOException {
-        final var auth = new byte[4+ DATA1_LEN_L + DATA1_LEN_M * 256 + DATA2_LEN_L + DATA_LEN_M * 256];
+        final var auth = new byte[4 + DATA1_LEN_L + DATA1_LEN_M * 256 + DATA2_LEN_L + DATA_LEN_M * 256];
         auth[0] = VERSION;
         auth[1] = AUTH;
         auth[2] = DATA1_LEN_L;
@@ -139,13 +134,13 @@ public class FollowUpServerProxy {
 
         socket.send(auth);
 
-        System.out.println("waiting for response");
+        //System.out.println("waiting for response");
 
-        byte [] response = socket.recv();
+        byte[] response = socket.recv();
 
         if (response[1] == ACK) {
             authenticated = true;
-            LOGGER.info("Authentication successful");
+            //LOGGER.info("Authentication successful");
 
             socket.stop();
             return true;
@@ -160,20 +155,10 @@ public class FollowUpServerProxy {
     public Iterable<JobOpeningDTO> getJobOpeningsForCustomer(final ClientCode code)
             throws IOException {
         final var socket = new ClientSocket();
-        auth("customer@gmail.com","Password1");
+        auth("customer@gmail.com", "Password1");
         socket.connect(ALT_IP, DEI_PORT);
 
-        final  byte[] request = new GetJobOpeningForCustomerDTO(ClientCode.valueOf("Isep1")).execute();
-
-
-        System.out.println("Copied bytes:");
-        StringBuilder sb = new StringBuilder();
-        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 5; i++) {
-            sb.append((char)request[i]);
-        }
-        String result = sb.toString();
-        System.out.println(result);
-
+        final byte[] request = new GetJobOpeningForCustomerDTO(code).execute();
 
 
         socket.send(request);
@@ -181,24 +166,28 @@ public class FollowUpServerProxy {
 
         final byte[] response = socket.recv();
 
-        System.out.println("-"+response[1]);
-
-        System.out.println("Copied2 bytes:");
-
-        StringBuilder sb1 = new StringBuilder();
-        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 5; i++) {
-            sb1.append((char)response[i]);
-        }
-        String result1 = sb1.toString();
-        System.out.println(result1);
-
 
         socket.stop();
 
         final MarshlerUnmarshler mu = new MarshlerUnmarshler();
+
         return mu.parseResponseMessageGetJobOpenings(response);
     }
 
+    public Iterable<NotificationDTO> getNotificationForCustomer(final ClientCode code)
+            throws IOException {
+        final var socket = new ClientSocket();
+        auth("customer@gmail.com", "Password1");
+        socket.connect(ALT_IP, DEI_PORT);
+        final byte[] request = new GetNotificationsForClientRequestDTO(code).execute();
 
+        socket.send(request);
 
+        final byte[] response = socket.recv();
+        socket.stop();
+
+        final MarshlerUnmarshler mu = new MarshlerUnmarshler();
+
+        return mu.parseResponseMessageGetNotifications(response);
+    }
 }

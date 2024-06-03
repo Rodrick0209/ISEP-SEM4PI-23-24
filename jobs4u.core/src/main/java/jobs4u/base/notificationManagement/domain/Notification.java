@@ -9,9 +9,9 @@ import jobs4u.base.utils.ClientCode;
 import org.hibernate.annotations.Fetch;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 @Entity
 public class Notification implements AggregateRoot<Long> {
@@ -27,7 +27,7 @@ public class Notification implements AggregateRoot<Long> {
     private Client client;
     private Message message;
 
-    private LocalTime time;
+    private LocalDate date;
 
 
     public Notification() {
@@ -37,10 +37,17 @@ public class Notification implements AggregateRoot<Long> {
     public Notification(String message, Client client) {
         this.message = Message.valueOf(message);
         this.client = client;
-        this.time = LocalTime.now();
+        this.date = LocalDate.now();
     }
 
 
+    public Message message() {
+        return this.message;
+    }
+
+    public LocalDate date() {
+        return this.date;
+    }
 
 
     @Override
