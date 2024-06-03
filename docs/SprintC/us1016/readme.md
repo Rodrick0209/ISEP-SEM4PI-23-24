@@ -31,16 +31,38 @@ as candidaturas devem estar aceites ou recusadas. É então possível ao Custome
 - **Q209**: A fase de verificação de requisitos é o mesmo que a fase de traigem?
 - **A209**: Sim.
 
-- **Q210**:  This user story has a functional dependency with 1015. I would like to know if an error occurs, do I need 
-to delete what happened in US 1015, as if it were a transaction?
+  - **Q210**:  This user story has a functional dependency with 1015. I would like to know if an error occurs, do I need 
+  to delete what happened in US 1015, as if it were a transaction?
 - **A210**: The process of notification (US1016) must be done after the verification (US1015) but an error in the notification 
 does not invalidate the “results” of the verification process. 
 
 ## 3. Analysis
 
-The system should notify the candidates, by email, of th result of the verification process. Email messages are sent in background by
-the Follow Up Server. The SMTP application
-protocol must be used to send the email
-messages to the SMTP server with DNS
-name frodo.dei.isep.ipp.pt.
+### What is asked?
+
+The task requires implementing a feature for the system to notify the candidates, by email, of the result of the verification
+process done by the customer manager.
+
+This feature must comply with specific technical requirements, including a client-server architecture where the client accesses data through a server application.
+Additionally, the solution must be deployed on multiple network nodes, with separate nodes for the database server and Follow-Up Server,
+ideally in the cloud, ensuring background execution of email notifications. The SMTP application protocol must be used
+to send the email messages trough the SMTP server with DNS name frodo.dei.isep.ipp.pt.
+
+### Domain model
+
+This user story will change the domain model adding and Email Notification to the Domain.
+
+### How is it supposed to work?
+
+The customer manager should be able to notify the candidates, by email, of the result of the verification process.
+The result of the verification process is done in the US 1015, and after that, the system automatically sends an email to the candidates.
+
+### SSD
+
+![s](SSD//ssd.svg)
+
+### Impact in the business
+
+This implementation will allow the customer manager to automate the notification of the result of the verification process
+to the candidates, making the process more efficient and less error-prone.
 

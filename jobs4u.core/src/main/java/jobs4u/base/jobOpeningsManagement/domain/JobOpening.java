@@ -8,6 +8,8 @@ import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobApplications.utils.JobApplicationInterviewPointsComparator;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.jobApplications.domain.JobApplication;
@@ -45,9 +47,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     @Version
     private Long version;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<JobApplication> applications = new ArrayList<>();
-
     private WorkingMode workingMode;
     private NrVacancy nrVacancy;
     private PostalAddress address;
@@ -59,6 +58,8 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     private Designation function;
     private ContractType contractType;
     private Calendar creationDate;
+
+    @Setter
     private JobOpeningStatus status;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -87,7 +88,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
         this.status = JobOpeningStatus.INACTIVE;
-        this.applications = new ArrayList<>();
         this.client = client;
         this.rank = new Rank();
     }
@@ -102,18 +102,12 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
-        this.status = JobOpeningStatus.INACTIVE;
-        this.applications = new ArrayList<>();
+        this.status = JobOpeningStatus.ACTIVE;
         this.client = client;
         this.recruitmentProcess = recruitmentProcess;
         this.rank = new Rank();
     }
 
-    public JobApplication addJobApplication(JobApplication jobApplication) {
-        Preconditions.ensure(jobApplication != null, "job application should not be null");
-        this.applications.add(jobApplication);
-        return jobApplication;
-    }
 
 
     protected JobOpening() {
@@ -155,13 +149,7 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         return status;
     }
 
-    public List<JobApplication> jobApplications() {
-        return applications;
-    }
     public RecruitmentProcess recruitmentProcess() {
-        if (recruitmentProcess == null) {
-            throw new IllegalArgumentException("Recruitment process is not defined");
-        }
         return recruitmentProcess;
     }
 
@@ -221,15 +209,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         layouts.add(List.of(Phases.APPLICATION, Phases.RESUME_SCREEN, Phases.ANALYSIS, Phases.RESULT));
         layouts.add(List.of(Phases.APPLICATION, Phases.RESUME_SCREEN, Phases.INTERVIEWS, Phases.ANALYSIS, Phases.RESULT));
         return layouts;
-    }
-
-
-    public List<Candidate> getCandidates() {
-        List<Candidate> candidates = new ArrayList<>();
-        for (JobApplication application : applications) {
-            candidates.add(application.candidate());
-        }
-        return candidates;
     }
 
     public int getRankSize() {
@@ -312,12 +291,11 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
     public void changePhase(List<JobApplication> jobApplications){
         areAllApplicationsOfThisJobOpening(jobApplications);
-        if (!recruitmentProcess.hasRecruitmentStarted()) {
+        if (recruitmentProcess.hasRecruitmentStarted()) {
             this.status = JobOpeningStatus.ACTIVE;
         }
-        State resultPhaseStateBeforeOpenClose = this.recruitmentProcess.resultPhase().state();
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
-        if (this.recruitmentProcess.resultPhase().state().equals(State.CLOSED) && resultPhaseStateBeforeOpenClose.equals(State.OPEN)) {
+            recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        if (this.recruitmentProcess.resultPhase().state().equals(State.CLOSED)) {
             this.status = JobOpeningStatus.INACTIVE;
         }
 
