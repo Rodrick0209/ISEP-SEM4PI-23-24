@@ -13,8 +13,6 @@ import java.util.List;
 public class RecruitmentProcess {
     private static final long serialVersionUID = 1L;
 
-    @Version
-    private Long version;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -102,7 +102,7 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
-        this.status = JobOpeningStatus.ACTIVE;
+        this.status = JobOpeningStatus.INACTIVE;
         this.applications = new ArrayList<>();
         this.client = client;
         this.recruitmentProcess = recruitmentProcess;
@@ -159,6 +159,9 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         return applications;
     }
     public RecruitmentProcess recruitmentProcess() {
+        if (recruitmentProcess == null) {
+            throw new IllegalArgumentException("Recruitment process is not defined");
+        }
         return recruitmentProcess;
     }
 
@@ -309,11 +312,12 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
     public void changePhase(List<JobApplication> jobApplications){
         areAllApplicationsOfThisJobOpening(jobApplications);
-        if (recruitmentProcess.hasRecruitmentStarted()) {
+        if (!recruitmentProcess.hasRecruitmentStarted()) {
             this.status = JobOpeningStatus.ACTIVE;
         }
-            recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
-        if (this.recruitmentProcess.resultPhase().state().equals(State.CLOSED)) {
+        State resultPhaseStateBeforeOpenClose = this.recruitmentProcess.resultPhase().state();
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        if (this.recruitmentProcess.resultPhase().state().equals(State.CLOSED) && resultPhaseStateBeforeOpenClose.equals(State.OPEN)) {
             this.status = JobOpeningStatus.INACTIVE;
         }
 

@@ -48,6 +48,7 @@ import jobs4u.base.app.backoffice.console.presentation.candiateManagement.Regist
 import jobs4u.base.app.backoffice.console.presentation.clientuser.RegisterClientUI;
 import jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureInterviewModelPluginUI;
 import jobs4u.base.app.backoffice.console.presentation.languageEngineer.ConfigureJobRequirementPluginUI;
+import jobs4u.base.app.backoffice.console.presentation.recruitmentProcess.OpenClosePhaseUI;
 import jobs4u.base.app.backoffice.console.presentation.recruitmentProcess.SetupRecruitmentProcessUI_DTO;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
@@ -85,6 +86,8 @@ public class MainMenu extends AbstractUI {
     // CUSTOMERS
     private static final int ADD_CUSTOMER_OPTION = 1;
     private static final int SETUP_RECRUITMENT_PROCESS = 2;
+
+    private static final int CHANGE_PHASE = 3;
 
     // OPERATOR CANDIDATE
     private static final int REGISTER_CANDIDATE = 1;
@@ -251,6 +254,7 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(ADD_CUSTOMER_OPTION, "Add Customer", new RegisterClientUI()::show);
         menu.addItem(SETUP_RECRUITMENT_PROCESS, "SetupRecruitmentProcess", new SetupRecruitmentProcessUI_DTO()::show);
+        menu.addItem(CHANGE_PHASE, "Change Phase", new OpenClosePhaseUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

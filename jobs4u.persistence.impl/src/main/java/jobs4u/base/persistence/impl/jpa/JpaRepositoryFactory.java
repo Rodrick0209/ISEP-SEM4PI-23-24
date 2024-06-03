@@ -23,6 +23,7 @@ package jobs4u.base.persistence.impl.jpa;
 import jobs4u.base.Application;
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.clientManagement.application.repositories.ClientRepository;
+import jobs4u.base.notificationManagement.repositories.NotificationRepository;
 import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
@@ -76,6 +77,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public JobApplicationRepository jobApplications() {
         return new JpaJobApplicationRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public NotificationRepository notifications() {
+        return new JpaNotificationRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public NotificationRepository notifications(final TransactionalContext autoTx) {
+        return new JpaNotificationRepository(autoTx);
     }
 
 

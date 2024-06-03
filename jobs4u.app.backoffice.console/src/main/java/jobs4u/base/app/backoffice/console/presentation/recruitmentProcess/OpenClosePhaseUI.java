@@ -26,7 +26,10 @@ public class OpenClosePhaseUI extends AbstractUI {
     protected boolean doShow() {
         try {
             JobOpening jobOpening = listJobOpeningUI.selectJobOpeningFromList();
+            System.out.println("Selected job opening: " + jobOpening.toString());
             List<JobApplication> jobApplications = theController.getJobApplicationsByJobOpening(jobOpening);
+            System.out.println("Selected job applications: " + jobApplications.toString());
+
             System.out.println(theController.getMessageAccordinglyWithPhaseState(jobOpening,jobApplications));
             final int option = Console.readOption(1, 2, 0);
             if (option == 1) {
@@ -39,7 +42,8 @@ public class OpenClosePhaseUI extends AbstractUI {
 
             System.out.println("Phase changed successfully");
         } catch (Exception e) {
-            LOGGER.error("An error occurred. Please try again later.");
+            System.out.println("An error occurred. Please check the logs.");
+            LOGGER.error(e.getMessage());
         }
         return false;
     }

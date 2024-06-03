@@ -170,7 +170,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        recruitmentProcess.analysisPhase().openPhase();
 
         RecruitmentProcessDto recruitmentProcessDto1 = new RecruitmentProcessDto(
                 DateUtils.parseDate("18-04-2024"),
@@ -182,7 +181,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcessBuilder recruitmentProcessBuilder1 = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector1 = new RecruitmentProcessDirector(recruitmentProcessBuilder1);
         RecruitmentProcess recruitmentProcess1 = recruitmentProcessDirector1.createRecruitmentProcessWithInterview(recruitmentProcessDto1);
-        recruitmentProcess1.applicationPhase().openPhase();
 
         RecruitmentProcessDto recruitmentProcessDto2 = new RecruitmentProcessDto(
                 DateUtils.parseDate("18-06-2024"),
@@ -194,7 +192,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcessBuilder recruitmentProcessBuilder2 = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector2 = new RecruitmentProcessDirector(recruitmentProcessBuilder2);
         RecruitmentProcess recruitmentProcess2 = recruitmentProcessDirector2.createRecruitmentProcessWithInterview(recruitmentProcessDto2);
-        recruitmentProcess2.interviewsPhase().openPhase();
 
         //---------------------------------------------------------------------------------------------------
         //Register Job Openings
