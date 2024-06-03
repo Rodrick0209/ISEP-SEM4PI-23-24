@@ -1,6 +1,7 @@
 package jobs4u.server.deamon.followup.server;
 
 import eapli.framework.infrastructure.authz.application.Authenticator;
+import eapli.framework.infrastructure.authz.domain.model.Role;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.ListJobOpeningForCustomerController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
@@ -93,7 +94,6 @@ public class FollowUpMessageParser {
         String password = "";
         byte anterior = 127;
 
-
         try {
 
              int data1Frame = message[2] + message[3] * 256;
@@ -102,41 +102,38 @@ public class FollowUpMessageParser {
             int i = 4;
             byte atual = message[i];
 
-            do{
-
-                username += (char)atual;
+            // Parse username
+            do {
+                username += (char) atual;
                 anterior = atual;
                 i++;
                 atual = message[i];
-
-
-            }while ((anterior != 0 && atual != 0) && i < data1Frame );
-
+            } while ((anterior != 0 && atual != 0) && i < 6 + data1Frame);
 
             i = skipToNextField(message, i);
 
             atual = message[i];
 
-
-            do{
-
-                password += (char)atual;
-
+            // Parse password
+            do {
+                password += (char) atual;
                 anterior = atual;
                 i++;
                 atual = message[i];
-            }while ((anterior != 0 && atual != 0) && i < data1Frame+data2Frame+2);
+            } while ((anterior != 0 && atual != 0) && i < 6 + data1Frame + data2Frame);
+
 
             return new AuthRequest(authenticationService, username, password);
 
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             LOGGER.error("Insufficient data in auth message: {}", message);
             return new BadRequest(message, "Insufficient data in auth message");
+        } catch (IllegalArgumentException e) {
+            LOGGER.error("Invalid role in auth message: {}", message);
+            return new BadRequest(message, "Invalid role in auth message");
         }
-
-
-
     }
+
 
     private int skipToNextField(byte[] message, int i) {
         byte atual = message[i];

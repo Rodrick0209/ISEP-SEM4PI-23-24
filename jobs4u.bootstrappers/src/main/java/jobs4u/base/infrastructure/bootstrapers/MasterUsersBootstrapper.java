@@ -212,7 +212,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Marketing Manager develops and implements marketing strategies to promote products or services. They conduct market research, identify target audiences, and oversee advertising campaigns.",
-                "Marketing Manager", ContractType.FULL_TIME, client,recruitmentProcess);
+                "Marketing Manager", ContractType.FULL_TIME, client1,recruitmentProcess);
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Financial Analyst evaluates financial data to provide insights and recommendations for business decision-making. They analyze market trends, assess investment opportunities, and prepare financial reports.",
