@@ -1,6 +1,8 @@
 package jobs4u.base.jobOpeningsManagement.domain;
 
+import lombok.Setter;
 
+@Setter
 public class JobOpeningDTO {
 
     public String JobReference;
@@ -19,4 +21,5 @@ public class JobOpeningDTO {
 
     public JobOpeningDTO() {
     }
+
 }

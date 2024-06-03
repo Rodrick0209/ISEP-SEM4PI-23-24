@@ -8,8 +8,6 @@ import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.domain.Client;
-import jobs4u.base.infrastructure.persistence.PersistenceContext;
-import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobApplications.utils.JobApplicationInterviewPointsComparator;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.jobApplications.domain.JobApplication;
@@ -58,8 +56,6 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     private Designation function;
     private ContractType contractType;
     private Calendar creationDate;
-
-    @Setter
     private JobOpeningStatus status;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -102,7 +98,7 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
-        this.status = JobOpeningStatus.ACTIVE;
+        this.status = JobOpeningStatus.INACTIVE;
         this.client = client;
         this.recruitmentProcess = recruitmentProcess;
         this.rank = new Rank();
@@ -150,6 +146,9 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     }
 
     public RecruitmentProcess recruitmentProcess() {
+        if (recruitmentProcess == null) {
+            throw new IllegalArgumentException("Recruitment process is not defined");
+        }
         return recruitmentProcess;
     }
 
@@ -210,6 +209,7 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         layouts.add(List.of(Phases.APPLICATION, Phases.RESUME_SCREEN, Phases.INTERVIEWS, Phases.ANALYSIS, Phases.RESULT));
         return layouts;
     }
+
 
     public int getRankSize() {
         int size = calculateRankSize(rank.getMultiplier());
@@ -291,11 +291,12 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
     public void changePhase(List<JobApplication> jobApplications){
         areAllApplicationsOfThisJobOpening(jobApplications);
-        if (recruitmentProcess.hasRecruitmentStarted()) {
+        if (!recruitmentProcess.hasRecruitmentStarted()) {
             this.status = JobOpeningStatus.ACTIVE;
         }
-            recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
-        if (this.recruitmentProcess.resultPhase().state().equals(State.CLOSED)) {
+        State resultPhaseStateBeforeOpenClose = this.recruitmentProcess.resultPhase().state();
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        if (this.recruitmentProcess.resultPhase().state().equals(State.CLOSED) && resultPhaseStateBeforeOpenClose.equals(State.OPEN)) {
             this.status = JobOpeningStatus.INACTIVE;
         }
 
