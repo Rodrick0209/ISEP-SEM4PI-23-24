@@ -106,3 +106,7 @@ To demonstrate the implementation of this user story, we can use the following s
 1. Start the application and log in as a customer manager.
 2. Navigate to the application section and select the option to execute the process of evaluation of interviews.
 3. Select the job opening that is in interview phase.
+
+## 7. Observation
+
+- N/A
