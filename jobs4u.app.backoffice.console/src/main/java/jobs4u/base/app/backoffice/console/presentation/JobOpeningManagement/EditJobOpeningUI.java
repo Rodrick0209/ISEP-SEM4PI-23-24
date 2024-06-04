@@ -28,6 +28,10 @@ public class EditJobOpeningUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         final List<JobOpening> jobOpenings = controller.inactiveJobOpenings();
+        if(jobOpenings == null){
+            System.out.println("No inactive job openings found");
+            return true;
+        }
         final SelectWidget<JobOpening> jobOpeningSelector = new SelectWidget<>("Select a Inactive Job Opening", jobOpenings);
         jobOpeningSelector.show();
         final JobOpening jobOpening = jobOpeningSelector.selectedElement();
@@ -43,7 +47,7 @@ public class EditJobOpeningUI extends AbstractUI {
 
     private void selectAttributesToEdit(JobOpening jobOpening) {
         boolean exit = false;
-        while(!exit) {
+        while (!exit) {
             System.out.println("Select the attribute to edit:");
             System.out.println("1. Working Mode");
             System.out.println("2. Number of vacancies");
@@ -57,7 +61,15 @@ public class EditJobOpeningUI extends AbstractUI {
 
             switch (option) {
                 case 1:
-                    selectNewWorkingMode(jobOpening);
+                    WorkingMode workingMode = selectNewWorkingMode();
+                    try {
+                        controller.edit(jobOpening, workingMode);
+                        successfulEdit();
+                    } catch (IntegrityViolationException | ConcurrencyException ex) {
+                        LOGGER.error("Error performing the operation", ex);
+                        System.out.println(
+                                "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+                    }
                     break;
                 case 2:
                     promptNewNumberVacancies(jobOpening);
@@ -72,7 +84,15 @@ public class EditJobOpeningUI extends AbstractUI {
                     promptNewFunction(jobOpening);
                     break;
                 case 6:
-                    selectNewContractType(jobOpening);
+                    ContractType contractType = selectNewContractType();
+                    try {
+                        controller.edit(jobOpening, contractType);
+                        successfulEdit();
+                    } catch (IntegrityViolationException | ConcurrencyException ex) {
+                        LOGGER.error("Error performing the operation", ex);
+                        System.out.println(
+                                "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+                    }
                     break;
                 case 0:
                     exit = true;
@@ -83,8 +103,7 @@ public class EditJobOpeningUI extends AbstractUI {
         }
     }
 
-    private void selectNewWorkingMode(JobOpening jobOpening) {
-        WorkingMode newWorkingMode = null;
+    private WorkingMode selectNewWorkingMode() {
         System.out.println("Select new working mode:");
         System.out.println("1. Remote");
         System.out.println("2. Hybrid");
@@ -94,26 +113,14 @@ public class EditJobOpeningUI extends AbstractUI {
 
         switch (option) {
             case 1:
-                newWorkingMode = WorkingMode.REMOTE;
-                break;
+                return WorkingMode.REMOTE;
             case 2:
-                newWorkingMode = WorkingMode.HYBRID;
-                break;
+                return WorkingMode.HYBRID;
             case 3:
-                newWorkingMode = WorkingMode.ONSITE;
-                break;
+                return WorkingMode.ONSITE;
             default:
                 System.out.println("Invalid option. Please try again.");
-                selectNewWorkingMode(jobOpening);
-        }
-
-        try {
-            controller.edit(jobOpening, newWorkingMode);
-            successfulEdit();
-        } catch (IntegrityViolationException | ConcurrencyException ex) {
-            LOGGER.error("Error performing the operation", ex);
-            System.out.println(
-                    "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+                return selectNewWorkingMode();
         }
     }
 
@@ -169,8 +176,7 @@ public class EditJobOpeningUI extends AbstractUI {
         }
     }
 
-    private void selectNewContractType(JobOpening jobOpening) {
-        ContractType newContractType = null;
+    private ContractType selectNewContractType() {
         System.out.println("Select new contract type:");
         System.out.println("1. Full time");
         System.out.println("2. Part time");
@@ -179,23 +185,12 @@ public class EditJobOpeningUI extends AbstractUI {
 
         switch (option) {
             case 1:
-                newContractType = ContractType.FULL_TIME;
-                break;
+                return ContractType.FULL_TIME;
             case 2:
-                newContractType = ContractType.PART_TIME;
-                break;
+                return ContractType.PART_TIME;
             default:
                 System.out.println("Invalid option. Please try again.");
-                selectNewContractType(jobOpening);
-        }
-
-        try {
-            controller.edit(jobOpening, newContractType);
-            successfulEdit();
-        } catch (IntegrityViolationException | ConcurrencyException ex) {
-            LOGGER.error("Error performing the operation", ex);
-            System.out.println(
-                    "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+                return selectNewContractType();
         }
     }
 
