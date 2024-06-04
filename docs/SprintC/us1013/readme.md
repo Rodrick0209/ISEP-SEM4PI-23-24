@@ -78,9 +78,10 @@ The customer manager should write the candidates email to identify the candidate
 To implement this user story some changes are needed in the domain model.
 
 - A new Entity is needed to represent the rank of a candidate in a job opening.
-- The Rank is inside of Job Opening aggregate. Each Job Opening can have zero or one rank (The rank only exists in the Analysis phase), and each rank has zero or multiple Candidates.
+- A new Value object is needed to represent the position of a candidate.
+- The Rank is inside of Job Opening aggregate. Each Job Opening have one rank, and each rank has zero or multiple Positions. Each position has one candidate.
 
-![Alt text](img/domain_model.jpeg)
+![Alt text](img/domain_model.png)
 
 
 

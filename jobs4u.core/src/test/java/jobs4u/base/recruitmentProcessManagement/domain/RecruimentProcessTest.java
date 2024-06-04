@@ -328,7 +328,7 @@ public class RecruimentProcessTest {
         jobApplications.add(jobApplication2);
         jobApplications.add(jobApplication3);
         List<Candidate> candidates = List.of(candidate1, candidate2);
-        expectedJobOpening.addRankList(candidates);
+        
         recruitmentProcess.analysisPhase().setState(State.OPEN);
         assertThrows(IllegalStateException.class, () -> recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications));
     }
@@ -371,7 +371,7 @@ public class RecruimentProcessTest {
         jobApplications.add(jobApplication2);
         jobApplications.add(jobApplication3);
         List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        expectedJobOpening.addRankList(candidates);
+        
         recruitmentProcess.analysisPhase().setState(State.OPEN);
         recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
 
@@ -420,7 +420,7 @@ public class RecruimentProcessTest {
         jobApplications.add(jobApplication2);
         jobApplications.add(jobApplication3);
         List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        expectedJobOpening.addRankList(candidates);
+        
         recruitmentProcess.interviewsPhase().setState(State.OPEN);
         recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
         assertEquals(recruitmentProcess.interviewsPhase().state(), State.CLOSED);
@@ -471,7 +471,7 @@ public class RecruimentProcessTest {
         jobApplications.add(jobApplication2);
 
         List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        expectedJobOpening.addRankList(candidates);
+        
         recruitmentProcess.interviewsPhase().setState(State.OPEN);
         assertThrows(IllegalStateException.class, () -> recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications));
 
@@ -521,7 +521,7 @@ public class RecruimentProcessTest {
         jobApplications.add(jobApplication2);
 
         List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        expectedJobOpening.addRankList(candidates);
+        
         recruitmentProcess.interviewsPhase().setState(State.OPEN);
         recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
         assertEquals(recruitmentProcess.interviewsPhase().state(), State.CLOSED);
@@ -567,7 +567,7 @@ public class RecruimentProcessTest {
         jobApplications.add(jobApplication2);
 
         List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        expectedJobOpening.addRankList(candidates);
+        
         recruitmentProcess.resumeScreenPhase().setState(State.OPEN);
         recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
         assertEquals(recruitmentProcess.resumeScreenPhase().state(), State.CLOSED);
@@ -617,7 +617,7 @@ public class RecruimentProcessTest {
         jobApplications.add(jobApplication2);
 
         List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        expectedJobOpening.addRankList(candidates);
+        
         recruitmentProcess.resumeScreenPhase().setState(State.OPEN);
         assertThrows(IllegalStateException.class, () -> recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications));
 
@@ -667,7 +667,7 @@ public class RecruimentProcessTest {
         jobApplications.add(jobApplication2);
 
         List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        expectedJobOpening.addRankList(candidates);
+        
         recruitmentProcess.resumeScreenPhase().setState(State.OPEN);
         recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
         assertEquals(recruitmentProcess.resumeScreenPhase().state(), State.CLOSED);

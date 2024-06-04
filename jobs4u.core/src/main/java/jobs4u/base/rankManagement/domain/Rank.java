@@ -1,5 +1,6 @@
 package jobs4u.base.rankManagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
 import jobs4u.base.candidateManagement.domain.Candidate;
@@ -20,8 +21,9 @@ public class Rank implements DTOable<RankDTO>, Serializable {
     @Getter
     private final int multiplier=2;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Candidate> rank = new ArrayList<>();
+    @JsonProperty
+    @ElementCollection
+    private List<Position> rank = new ArrayList<>();
 
     @Setter
     @Getter
@@ -32,12 +34,13 @@ public class Rank implements DTOable<RankDTO>, Serializable {
     }
 
 
-    private Rank(List<Candidate> rank, int rankSize) {
+
+    private Rank(List<Position> rank, int rankSize) {
         this.rank = rank;
         this.rankSize = rankSize;
     }
 
-    public Rank valueOf(List<Candidate> rank, int rankSize) {
+    public Rank valueOf(List<Candidate> candidates, int rankSize) {
 
         if (rankSize ==0) {
             throw new IllegalArgumentException("Rank size must be set and bigger than 0");
@@ -46,7 +49,12 @@ public class Rank implements DTOable<RankDTO>, Serializable {
             throw new IllegalArgumentException("Rank size must be bigger than the number of candidates");
 
         }else {
-            return new Rank(rank, rankSize);
+            Rank r =new Rank(rank, rankSize);
+
+            for (Candidate candidate: candidates) {
+                r.addElementToRank(candidate);
+            }
+            return r;
         }
     }
 
@@ -56,7 +64,7 @@ public class Rank implements DTOable<RankDTO>, Serializable {
         String str="";
         int i;
         for (i = 0; i < rank.size(); i++) {
-            str = str.concat(i+1+". "+rank.get(i).emailAddress()+"\n");
+            str = str.concat(i+1+". "+rank.get(i).getCandidate().emailAddress()+"\n");
         }
 
 
@@ -71,9 +79,10 @@ public class Rank implements DTOable<RankDTO>, Serializable {
     public RankDTO toDTO() {
 
         //Put rank as String (email separated by commas)
+
         String rankStr = "";
-        for (Candidate candidate : rank) {
-            rankStr=rankStr.concat(candidate.emailAddress().toString()).concat(",");
+        for (Position position : rank) {
+            rankStr=rankStr.concat(position.getCandidate().emailAddress().toString()).concat(",");
         }
 
         //delete last element
@@ -88,16 +97,25 @@ public class Rank implements DTOable<RankDTO>, Serializable {
 
     //create update
     public Rank update(List<Candidate> rank, int rankSize) {
-        this.rank = rank;
+        this.rank.clear();
+        for (Candidate candidate: rank) {
+            addElementToRank(candidate);
+        }
         this.rankSize = rankSize;
         return this;
     }
 
-    public List<Candidate> rank() {
+    public List<Position> rank() {
         return this.rank;
     }
 
     public boolean hasCandidate() {
         return !rank.isEmpty();
+    }
+
+    public Position addElementToRank(Candidate candidate){
+        Position pos =Position.valueOf(rank.size(), candidate);
+        rank.add(pos);
+        return pos;
     }
 }

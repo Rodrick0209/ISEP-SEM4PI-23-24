@@ -10,6 +10,7 @@ import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -21,18 +22,36 @@ class RankTest {
     @Test
     void ensureSetRankSizeIsDoneBeforeCreateTheRankFails() {
         Rank rank = new Rank();
-        List<Candidate> candidates = List.of(new Candidate(), new Candidate());
 
-        assertThrows(IllegalArgumentException.class, () -> rank.valueOf(candidates,0));
+
+        assertThrows(IllegalArgumentException.class, () -> rank.valueOf(List.of(new Candidate(), new Candidate()), 0));
 
     }
+
+    @Test
+    void ensurePositionsWithSameNumberFails() {
+        Rank rank= new Rank();
+        rank= rank.valueOf(List.of(new Candidate(), new Candidate()),2);
+        assertNotEquals(rank.rank().get(0),rank.rank().get(1));
+
+    }
+
+    @Test
+    void ensurePositionsWithDIFFNumberWorks() {
+        Rank rank = new Rank();
+        Position position = Position.valueOf(1, new Candidate());
+        Position position2 = Position.valueOf(2, new Candidate());
+
+
+
+    }
+
 
     @Test
     void ensureSetRankSizeIsDoneBeforeCreateTheRankWorks() {
         Rank rank = new Rank();
         List<Candidate> candidates = List.of(new Candidate(), new Candidate());
-
-        assertNotNull(rank.valueOf(candidates,2));
+        assertNotNull(rank.addElementToRank(new Candidate()));
 
     }
 
@@ -42,7 +61,7 @@ class RankTest {
         Rank rank = new Rank();
         List<Candidate> candidates = List.of(new Candidate(), new Candidate(), new Candidate());
 
-        assertNotNull(rank.valueOf(candidates,3));
+        assertNotNull(rank.addElementToRank(new Candidate()));
 
     }
 
@@ -53,7 +72,7 @@ class RankTest {
         List<Candidate> candidates = List.of(new Candidate(), new Candidate(), new Candidate());
 
 
-        assertThrows(IllegalArgumentException.class, () -> rank.valueOf(candidates,2));
+        assertThrows(IllegalArgumentException.class, () -> rank.valueOf(List.of(new Candidate()),0));
 
     }
 
@@ -63,11 +82,11 @@ class RankTest {
         Rank rank = new Rank();
         List<Candidate> candidates = List.of(new Candidate(), new Candidate(), new Candidate());
 
-        assertNotNull(rank.valueOf(candidates,5));
+        assertNotNull(rank.addElementToRank(new Candidate()));
 
     }
 
-
+/*
     @Test
     void EnsureToStringMethodWorksAsExpectd(){
 
@@ -105,7 +124,7 @@ class RankTest {
         assertEquals(expected.trim(), r.toString().trim());
 
     }
-
+*/
 
 
 

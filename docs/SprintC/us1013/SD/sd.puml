@@ -9,7 +9,8 @@ participant jobOpeningRepository as jrepo
 participant CandidateRepository as crepo
 participant jobOpening as jo
 participant "List<Candidate>" as lc
-participant "List<Candidate>" as lc1
+participant Position as po
+participant "List<Positions>" as lc1
 participant jobApplication as ja
 participant Candidate as c
 participant Rank as rank
@@ -90,7 +91,11 @@ loop for each email
 
     crepo -> service: Candidate
     deactivate crepo
-    service->lc1: addCandidates(Candidate)
+    service->po: valueof(index,Candidate)
+    activate po
+    po -> service: Position
+    deactivate po
+    service->lc1: addElementToRank(Positions)
 end
 
     service -> jo: getRankSize(jobOpening)

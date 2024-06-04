@@ -14,6 +14,7 @@ import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.utils.*;
 
 import jobs4u.base.pluginManagement.domain.RequirementSpecification;
+import jobs4u.base.rankManagement.domain.Position;
 import jobs4u.base.rankManagement.domain.Rank;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;

@@ -169,8 +169,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                 DateUtils.parseDate("18-05-2024"), DateUtils.parseDate("19-05-2024"),
                 DateUtils.parseDate("20-05-2024"), DateUtils.parseDate("21-05-2024"),
                 DateUtils.parseDate("22-05-2024"), DateUtils.parseDate("23-05-2024"),
-                DateUtils.parseDate("24-05-2024"), DateUtils.parseDate("29-05-2024"),
-                DateUtils.parseDate("30-05-2024"));
+                DateUtils.parseDate("01-06-2024"), DateUtils.parseDate("29-06-2024"),
+                DateUtils.parseDate("30-06-2024"));
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
