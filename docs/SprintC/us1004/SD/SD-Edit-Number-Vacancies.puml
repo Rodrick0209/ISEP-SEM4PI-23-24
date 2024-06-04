@@ -28,12 +28,10 @@ EditJobOpeningUI --> CustomerManager : asks to prompt new\nnumber of vacancies
 CustomerManager -> EditJobOpeningUI : prompts new number of vacancies
 EditJobOpeningUI -> EditJobOpeningController : edit(jobOpening, nrVacancy)
 activate EditJobOpeningController
+alt job opening is inactive
 EditJobOpeningController -> JobOpening : editNumberVacancies(nrVacancy)
+end alt
 EditJobOpeningController -> JobOpeningRepository : save(jobOpening)
-activate JobOpeningRepository
-JobOpeningRepository --> EditJobOpeningController :
-deactivate JobOpeningRepository
-EditJobOpeningController --> EditJobOpeningUI :
 deactivate EditJobOpeningController
 EditJobOpeningUI --> CustomerManager : backs to menu
 deactivate EditJobOpeningUI

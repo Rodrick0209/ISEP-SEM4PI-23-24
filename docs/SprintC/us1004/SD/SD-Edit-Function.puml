@@ -28,12 +28,10 @@ EditJobOpeningUI --> CustomerManager : asks to prompt new function
 CustomerManager -> EditJobOpeningUI : prompts new function
 EditJobOpeningUI -> EditJobOpeningController : edit(jobOpening, function)
 activate EditJobOpeningController
+alt job opening is inactive
 EditJobOpeningController -> JobOpening : editFunction(function)
+end alt
 EditJobOpeningController -> JobOpeningRepository : save(jobOpening)
-activate JobOpeningRepository
-JobOpeningRepository --> EditJobOpeningController : 
-deactivate JobOpeningRepository
-EditJobOpeningController --> EditJobOpeningUI :
 deactivate EditJobOpeningController
 EditJobOpeningUI --> CustomerManager : backs to menu
 deactivate EditJobOpeningUI
