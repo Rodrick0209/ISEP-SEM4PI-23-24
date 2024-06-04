@@ -12,6 +12,7 @@ import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.recruitmentProcessManagement.utils.State;
 import jobs4u.base.utils.ClientCode;
 
+import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

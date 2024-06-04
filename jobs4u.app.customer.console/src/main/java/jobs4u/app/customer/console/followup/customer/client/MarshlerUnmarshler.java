@@ -21,6 +21,7 @@
 package jobs4u.app.customer.console.followup.customer.client;
 
 import jobs4u.app.customer.console.checkNotifications.dto.NotificationDTO;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 
 import java.sql.SQLOutput;
@@ -97,6 +98,19 @@ import java.util.List;
 
 		}
 		return list;
+	}
+
+
+	public String parseCustomerCode(final byte[] response){
+
+		StringBuilder sb1 = new StringBuilder();
+		for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 200; i++) {
+			if (response[i] != 0) {
+				sb1.append((char) response[i]);
+			}
+		}
+
+		return sb1.toString();
 	}
 
 

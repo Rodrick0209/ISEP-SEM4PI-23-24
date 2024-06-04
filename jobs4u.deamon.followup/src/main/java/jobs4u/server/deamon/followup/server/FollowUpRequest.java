@@ -17,6 +17,7 @@ public abstract class FollowUpRequest {
     protected final static byte JOB_APPLICATION_REQUEST = 5;
     protected final static byte GET_JOB_OPENINGS = 6;
     protected final static byte GET_NOTIFICATIONS = 7;
+    protected final static byte GET_CUSTOMER =8;
     protected final static byte DATA = 50;
 
 

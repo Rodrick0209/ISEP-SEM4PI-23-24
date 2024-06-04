@@ -2,6 +2,7 @@ package jobs4u.server.deamon.followup.server;
 
 import eapli.framework.infrastructure.authz.application.Authenticator;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.ListJobOpeningForCustomerController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
@@ -36,6 +37,8 @@ public class FollowUpMessageParser {
     protected final static byte GET_AVAILABLE_MEALS = 6;
 
     protected final static byte GET_NOTIFICATIONS = 7;
+    protected final static byte GET_CUSTOMER =8;
+
 
     public FollowUpMessageParser(Authenticator authenticationService) {
         this.authenticationService = authenticationService;
@@ -65,6 +68,9 @@ public class FollowUpMessageParser {
                         break;
                     case GET_NOTIFICATIONS:
                         request = parseGetNotifications(message);
+                        break;
+                    case GET_CUSTOMER:
+                        request = parseGetCustomer(message);
                         break;
 
                 }
@@ -105,7 +111,26 @@ public class FollowUpMessageParser {
 
         Iterable<JobOpening> jobs=controller.getJobOpeningsForCustomer(ClientCode.valueOf(result));
 
+
         return new JobOpeningRequest(jobs);
+    }
+
+    private FollowUpRequest parseGetCustomer(final byte[] message) {
+        ListJobOpeningForCustomerController controller = new ListJobOpeningForCustomerController();
+
+        StringBuilder sb = new StringBuilder();
+        int DATA1_PREFIX = 4;
+
+        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 50; i++) {
+            if (message[i] != 0){
+                sb.append((char)message[i]);
+            }
+        }
+        String result = sb.toString();
+
+        Client client = controller.getCustomer(result);
+
+        return new CustomerRequest(client.clientCode().toString());
     }
 
     private FollowUpRequest parseAuthRequest(final byte[] message) {

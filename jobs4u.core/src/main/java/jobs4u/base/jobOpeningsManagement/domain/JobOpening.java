@@ -56,6 +56,7 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     private Designation function;
     private ContractType contractType;
     private Calendar creationDate;
+
     private JobOpeningStatus status;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -98,7 +99,8 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
         this.function = Designation.valueOf(function);
         this.contractType = contractType;
         this.creationDate = creationDate == null ? Calendar.getInstance() : creationDate;
-        this.status = JobOpeningStatus.INACTIVE;
+        //TODO : perguntar ao rodrigo
+        this.status = JobOpeningStatus.ACTIVE;
         this.client = client;
         this.recruitmentProcess = recruitmentProcess;
         this.rank = new Rank();
