@@ -174,7 +174,7 @@ public class FollowUpServerProxy {
         return mu.parseResponseMessageGetJobOpenings(response);
     }
 
-    public Iterable<NotificationDTO> getNotificationForCustomer(final ClientCode code)
+    public Iterable<NotificationDTO> getNotificationReadForCustomer(final ClientCode code)
             throws IOException {
         final var socket = new ClientSocket();
         auth("customer@gmail.com", "Password1");
@@ -190,4 +190,26 @@ public class FollowUpServerProxy {
 
         return mu.parseResponseMessageGetNotifications(response);
     }
+
+    public Iterable<NotificationDTO> getNotificationNotReadForCustomer(final ClientCode code)
+            throws IOException {
+        final var socket = new ClientSocket();
+        auth("customer@gmail.com", "Password1");
+        socket.connect(ALT_IP, DEI_PORT);
+        final byte[] request = new GetNotificationsForClientRequestDTO(code).execute();
+
+        socket.send(request);
+
+        final byte[] response = socket.recv();
+        socket.stop();
+
+        final MarshlerUnmarshler mu = new MarshlerUnmarshler();
+
+        return mu.parseResponseMessageGetNotifications(response);
+    }
+
+
+
+
+
 }

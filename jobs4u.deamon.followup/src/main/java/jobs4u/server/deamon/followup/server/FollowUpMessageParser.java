@@ -34,7 +34,9 @@ public class FollowUpMessageParser {
     protected final static byte AUTH = 4;
     protected final static byte GET_AVAILABLE_MEALS = 6;
 
-    protected final static byte GET_NOTIFICATIONS = 7;
+    protected final static byte GET_NOTIFICATIONS_NOT_READ = 7;
+
+    protected final static byte GET_NOTIFICATIONS_READ = 8;
 
     public FollowUpMessageParser(Authenticator authenticationService) {
         this.authenticationService = authenticationService;
@@ -62,9 +64,11 @@ public class FollowUpMessageParser {
                     case GET_AVAILABLE_MEALS:
                         request = parseGetAvailableJobOpeningsRequest(message);
                         break;
-                    case GET_NOTIFICATIONS:
-                        request = parseGetNotifications(message);
+                    case GET_NOTIFICATIONS_NOT_READ:
+                        request = parseGetNotificationsNotRead(message);
                         break;
+                    case GET_NOTIFICATIONS_READ:
+                        request = parseGetNotificationsRead(message);
 
                 }
             }
@@ -76,7 +80,7 @@ public class FollowUpMessageParser {
         return request;
     }
 
-    private FollowUpRequest parseGetNotifications(byte [] message){
+    private FollowUpRequest parseGetNotificationsNotRead(byte [] message){
         GetNotificationsController controller = new GetNotificationsController();
         StringBuilder sb = new StringBuilder();
         int DATA1_PREFIX = 4;
@@ -84,7 +88,19 @@ public class FollowUpMessageParser {
             sb.append((char)message[i]);
         }
         String result = sb.toString();
-        Iterable<Notification> notifications = controller.listNotificationsByClient(ClientCode.valueOf(result));
+        Iterable<Notification> notifications = controller.listNotificationsByClientNotRead(ClientCode.valueOf(result));
+        return new NotificationRequest(notifications);
+    }
+
+    private FollowUpRequest parseGetNotificationsRead(byte [] message){
+        GetNotificationsController controller = new GetNotificationsController();
+        StringBuilder sb = new StringBuilder();
+        int DATA1_PREFIX = 4;
+        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 5 ; i++) {
+            sb.append((char)message[i]);
+        }
+        String result = sb.toString();
+        Iterable<Notification> notifications = controller.listNotificationsReadByClient(ClientCode.valueOf(result));
         return new NotificationRequest(notifications);
     }
 

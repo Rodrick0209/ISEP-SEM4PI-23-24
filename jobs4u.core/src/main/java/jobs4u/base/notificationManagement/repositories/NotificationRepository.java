@@ -9,7 +9,7 @@ public interface NotificationRepository extends DomainRepository<Long, Notificat
 
         //TODO implement method find notifications by candidate
 
-    Iterable<Notification> findNotificationsByCandidate(ClientCode clientCode);
-
+    Iterable<Notification> findNotificationsNotReadByCandidate(ClientCode clientCode);
+    Iterable<Notification> findNotificationsReadByCandidate(ClientCode clientCode);
 
 }

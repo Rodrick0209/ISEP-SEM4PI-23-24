@@ -18,9 +18,17 @@ public class GetNotificationsController {
 
 
 
-    public Iterable<Notification> listNotificationsByClient(ClientCode clientCode){
+    public Iterable<Notification> listNotificationsReadByClient(ClientCode clientCode){
 
-       return notificationRepository.findNotificationsByCandidate(clientCode);
+       return notificationRepository.findNotificationsReadByCandidate(clientCode);
+
+    }
+
+
+
+    public Iterable<Notification> listNotificationsByClientNotRead(ClientCode clientCode){
+
+        return notificationRepository.findNotificationsNotReadByCandidate(clientCode);
 
     }
 

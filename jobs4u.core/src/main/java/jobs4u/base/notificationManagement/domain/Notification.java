@@ -2,15 +2,13 @@ package jobs4u.base.notificationManagement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
+import eapli.framework.general.domain.model.EmailAddress;
 import jakarta.persistence.*;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.domain.Client;
-import jobs4u.base.utils.ClientCode;
-import org.hibernate.annotations.Fetch;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @XmlRootElement
 @Entity
@@ -22,23 +20,32 @@ public class Notification implements AggregateRoot<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private Client client;
+    private EmailAddress emailAddress;
     private Message message;
-
     private LocalDate date;
 
+    private NotificationState state;
 
     public Notification() {
         // for ORM
     }
 
-    public Notification(String message, Client client) {
+    public Notification(String message, EmailAddress emailAddress) {
         this.message = Message.valueOf(message);
-        this.client = client;
+        this.emailAddress = emailAddress;
         this.date = LocalDate.now();
+        this.state = NotificationState.NotRead;
     }
+
+    public NotificationState state() {
+        return this.state;
+    }
+
+
+    public void markAsRead() {
+        this.state = NotificationState.Read;
+    }
+
 
 
     public Message message() {

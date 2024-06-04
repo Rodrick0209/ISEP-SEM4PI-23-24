@@ -11,7 +11,7 @@ import jobs4u.base.utils.ClientCode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JpaNotificationRepository extends JpaAutoTxRepository<Notification,Long,Long> implements NotificationRepository {
+public class JpaNotificationRepository extends JpaAutoTxRepository<Notification, Long, Long> implements NotificationRepository {
 
     public JpaNotificationRepository(final TransactionalContext autoTx) {
         super(autoTx, "id");
@@ -22,10 +22,20 @@ public class JpaNotificationRepository extends JpaAutoTxRepository<Notification,
                 "id");
     }
 
-        @Override
-    public Iterable<Notification> findNotificationsByCandidate(ClientCode clientCode) {
+    @Override
+    public Iterable<Notification> findNotificationsNotReadByCandidate(ClientCode clientCode) {
         final Map<String, Object> params = new HashMap<>();
         params.put("clientCode", clientCode);
-        return match("e.client.clientCode = :clientCode", params);
+        params.put("state", "NotRead");
+        return match("e.client.clientCode = :clientCode AND e.state = state", params);
     }
+
+    @Override
+    public Iterable<Notification> findNotificationsReadByCandidate(ClientCode clientCode) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("clientCode", clientCode);
+        params.put("state", "Read");
+        return match("e.client.clientCode = :clientCode AND e.state = state" , params);
+    }
+
 }

@@ -12,12 +12,18 @@ public class CheckNotificationsController {
     private final FollowUpServerProxy proxy = new FollowUpServerProxy();
 
 
-    public Iterable<NotificationDTO> getNotificationForCustomer(final ClientCode code)
+    public Iterable<NotificationDTO> getNotificationReadNotificationsForCustomer(final ClientCode code)
             throws IOException {
 
-        return proxy.getNotificationForCustomer(code);
+        return proxy.getNotificationReadForCustomer(code);
     }
 
+
+    public Iterable<NotificationDTO> getNotificationNotReadForCustomer(final ClientCode code)
+            throws IOException {
+
+        return proxy.getNotificationNotReadForCustomer(code);
+    }
 
 
 }
