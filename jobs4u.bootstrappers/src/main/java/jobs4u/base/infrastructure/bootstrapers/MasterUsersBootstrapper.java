@@ -174,6 +174,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
+        recruitmentProcess.analysisPhase().openPhase();
 
         RecruitmentProcessDto recruitmentProcessDto1 = new RecruitmentProcessDto(
                 DateUtils.parseDate("18-04-2024"),
