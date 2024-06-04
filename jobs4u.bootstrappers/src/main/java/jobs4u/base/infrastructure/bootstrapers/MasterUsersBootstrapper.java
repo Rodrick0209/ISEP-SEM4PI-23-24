@@ -197,6 +197,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcessBuilder recruitmentProcessBuilder2 = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector2 = new RecruitmentProcessDirector(recruitmentProcessBuilder2);
         RecruitmentProcess recruitmentProcess2 = recruitmentProcessDirector2.createRecruitmentProcessWithInterview(recruitmentProcessDto2);
+        recruitmentProcess2.interviewsPhase().openPhase();
 
         //---------------------------------------------------------------------------------------------------
         //Register Job Openings
