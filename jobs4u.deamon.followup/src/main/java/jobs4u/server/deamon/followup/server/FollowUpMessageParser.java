@@ -1,6 +1,8 @@
 package jobs4u.server.deamon.followup.server;
 
 import eapli.framework.infrastructure.authz.application.Authenticator;
+import eapli.framework.infrastructure.authz.domain.model.Role;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.ListJobOpeningForCustomerController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
@@ -34,9 +36,11 @@ public class FollowUpMessageParser {
     protected final static byte AUTH = 4;
     protected final static byte GET_AVAILABLE_MEALS = 6;
 
-    protected final static byte GET_NOTIFICATIONS_NOT_READ = 7;
+    protected final static byte GET_NOTIFICATIONS_READ = 7;
+    protected final static byte GET_CUSTOMER =8;
 
-    protected final static byte GET_NOTIFICATIONS_READ = 8;
+    protected final static byte GET_NOTIFICATIONS_NOT_READ = 9;
+
 
     public FollowUpMessageParser(Authenticator authenticationService) {
         this.authenticationService = authenticationService;
@@ -65,7 +69,10 @@ public class FollowUpMessageParser {
                         request = parseGetAvailableJobOpeningsRequest(message);
                         break;
                     case GET_NOTIFICATIONS_NOT_READ:
-                        request = parseGetNotificationsNotRead(message);
+                        request = (message);
+                        break;
+                    case GET_CUSTOMER:
+                        request = parseGetCustomer(message);
                         break;
                     case GET_NOTIFICATIONS_READ:
                         request = parseGetNotificationsRead(message);
@@ -120,12 +127,32 @@ public class FollowUpMessageParser {
 
         Iterable<JobOpening> jobs=controller.getJobOpeningsForCustomer(ClientCode.valueOf(result));
 
+
         return new JobOpeningRequest(jobs);
+    }
+
+    private FollowUpRequest parseGetCustomer(final byte[] message) {
+        ListJobOpeningForCustomerController controller = new ListJobOpeningForCustomerController();
+
+        StringBuilder sb = new StringBuilder();
+        int DATA1_PREFIX = 4;
+
+        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 50; i++) {
+            if (message[i] != 0){
+                sb.append((char)message[i]);
+            }
+        }
+        String result = sb.toString();
+
+        Client client = controller.getCustomer(result);
+
+        return new CustomerRequest(client.clientCode().toString());
     }
 
     private FollowUpRequest parseAuthRequest(final byte[] message) {
         String username = "";
         String password = "";
+        String role = "";
         byte anterior = 127;
 
 
@@ -137,41 +164,54 @@ public class FollowUpMessageParser {
             int i = 4;
             byte atual = message[i];
 
-            do{
-
-                username += (char)atual;
+            // Parse username
+            do {
+                username += (char) atual;
                 anterior = atual;
                 i++;
                 atual = message[i];
-
-
-            }while ((anterior != 0 && atual != 0) && i < data1Frame );
-
+            } while ((anterior != 0 && atual != 0) && i < 6 + data1Frame);
 
             i = skipToNextField(message, i);
 
             atual = message[i];
 
+            // Parse password
+            boolean flagRole = false;
+            do {
+                if (atual=='\n'){
+                    flagRole = true;
+                }
 
-            do{
-
-                password += (char)atual;
+                if (!flagRole){
+                    password += (char) atual;
+                }else {
+                    role += (char) atual;
+                }
 
                 anterior = atual;
                 i++;
                 atual = message[i];
-            }while ((anterior != 0 && atual != 0) && i < data1Frame+data2Frame+2);
 
-            return new AuthRequest(authenticationService, username, password);
+            } while ((anterior != 0 && atual != 0) && i < 6 + data1Frame + data2Frame);
 
-        } catch (ArrayIndexOutOfBoundsException e){
+            role = role.trim();
+
+
+            return new AuthRequest(authenticationService, username, password,role);
+
+        } catch (ArrayIndexOutOfBoundsException e) {
             LOGGER.error("Insufficient data in auth message: {}", message);
             return new BadRequest(message, "Insufficient data in auth message");
+        } catch (IllegalArgumentException e) {
+            LOGGER.error("Invalid role in auth message: {}", message);
+            return new BadRequest(message, "Invalid role in auth message");
         }
 
 
 
     }
+
 
     private int skipToNextField(byte[] message, int i) {
         byte atual = message[i];

@@ -9,6 +9,7 @@ import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
+import jobs4u.base.rankManagement.domain.Position;
 import jobs4u.base.rankManagement.domain.Rank;
 
 import java.util.ArrayList;
@@ -31,15 +32,18 @@ public class RankingService {
             candidatesList.add(jobApplication.getCandidate());
         }
 
-        List<Candidate> candidates = new ArrayList<>();
+        List<Candidate> ranking = new ArrayList<>();
 
+        int i=0;
         for (EmailAddress email : emailList) {
 
             Optional<Candidate> candidate = candidateRepository.findByEmail(email);
 
             if (candidate.isPresent()) {
                 if(candidatesList.contains(candidate.get())){
-                    candidates.add(candidate.get());
+                    ranking.add(candidate.get());
+
+                    i++;
                 }else{
                     throw new IllegalArgumentException("Candidate with email " + email + " not found in the job opening candidates list.");
                 }
@@ -51,18 +55,18 @@ public class RankingService {
 
         int size = jobOpening.getRankSize();
 
-        if (candidates.size() > size) {
+        if (ranking.size() > size) {
             System.out.println("The number of candidates is greater than the rank size");
             return null;
-        }else if (candidates.size() < size) {
+        }else if (ranking.size() < size) {
             System.out.println("The number of candidates is less than the rank size. Please finish the rank as soon as possible.");
         }
 
         Rank rank=null;
         if (jobOpening.getRank().hasCandidate()) {
-            rank = jobOpening.updateRankList(candidates);
+            rank = jobOpening.updateRankList(ranking);
         }else {
-            rank = jobOpening.addRankList(candidates);
+            rank = jobOpening.addRankList(ranking);
         }
 
         jobOpeningRepository.save(jobOpening);

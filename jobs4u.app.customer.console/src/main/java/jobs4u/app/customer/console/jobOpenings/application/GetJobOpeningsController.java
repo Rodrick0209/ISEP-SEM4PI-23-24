@@ -25,6 +25,7 @@ package jobs4u.app.customer.console.jobOpenings.application;
 
 
 import jobs4u.app.customer.console.followup.customer.client.FollowUpServerProxy;
+import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 import jobs4u.base.utils.ClientCode;
 
@@ -40,7 +41,12 @@ public class GetJobOpeningsController {
 
 	public Iterable<JobOpeningDTO> getJobOpeningsForCustomer(final ClientCode code)
 			throws IOException{
-
 		return proxy.getJobOpeningsForCustomer(code);
+	}
+
+	public String getCustomerCode(String email)
+			throws IOException{
+
+		return proxy.getCustomerCode(email);
 	}
 }

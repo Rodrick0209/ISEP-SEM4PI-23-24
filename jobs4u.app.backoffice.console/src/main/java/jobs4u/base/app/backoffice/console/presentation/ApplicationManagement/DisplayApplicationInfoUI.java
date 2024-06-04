@@ -45,7 +45,7 @@ public class DisplayApplicationInfoUI extends AbstractUI {
         // Display job applications and ask user to choose one
         System.out.println("Please choose an application:");
         for (int i = 0; i < jobApplications.size(); i++) {
-            System.out.println((i + 1) + ". " + jobApplications.get(i));
+            System.out.println((i + 1) + ". " + jobApplications.get(i).getId() + " - "+jobApplications.get(i).getCandidate().name());
         }
         int jobApplicationIndex = Console.readOption(1, jobApplications.size(), -1) - 1;
         JobApplication selectedJobApplication = jobApplications.get(jobApplicationIndex);

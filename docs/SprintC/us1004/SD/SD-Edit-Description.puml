@@ -28,12 +28,10 @@ EditJobOpeningUI --> CustomerManager : asks to prompt new description
 CustomerManager -> EditJobOpeningUI : prompts new description
 EditJobOpeningUI -> EditJobOpeningController : edit(jobOpening, description)
 activate EditJobOpeningController
+alt job opening is inactive
 EditJobOpeningController -> JobOpening : editDescription(description)
+end alt
 EditJobOpeningController -> JobOpeningRepository : save(jobOpening)
-activate JobOpeningRepository
-JobOpeningRepository --> EditJobOpeningController :
-deactivate JobOpeningRepository
-EditJobOpeningController --> EditJobOpeningUI :
 deactivate EditJobOpeningController
 EditJobOpeningUI --> CustomerManager : backs to menu
 deactivate EditJobOpeningUI

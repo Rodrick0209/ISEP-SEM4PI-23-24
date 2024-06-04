@@ -66,13 +66,13 @@ public class DisplayApplicationInfoController {
         info.append("Job Opening: ").append(jobApplication.jobOpening().toString()).append("\n");
         info.append("Attached files:\n");
         for (JobApplicationFile file : jobApplication.files()) {
-            info.append(file.getName()).append("\n");
+            info.append("   -").append(file.getName()).append("\n");
         }
         if (jobApplication.interview() != null) {
             info.append("Interview Date: ").append(jobApplication.interview().date().toString()).append("\n");
             info.append("Interview Time: ").append(jobApplication.interview().time().toString()).append("\n");
         }
-        if (jobApplication.requirementAnswer() != null) {
+        if (jobApplication.requirementAnswer().result() != null) {
             info.append("Requirement Answer: ").append(jobApplication.requirementAnswer().result().toString()).append("\n");
         }
 

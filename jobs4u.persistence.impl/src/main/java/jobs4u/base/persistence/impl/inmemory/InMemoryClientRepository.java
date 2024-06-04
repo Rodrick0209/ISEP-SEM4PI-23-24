@@ -14,4 +14,8 @@ class InMemoryClientRepository extends InMemoryDomainRepository<Client, ClientCo
     }
 
 
+    @Override
+    public Optional<Client> findByEmail(String email) {
+        return null;
+    }
 }

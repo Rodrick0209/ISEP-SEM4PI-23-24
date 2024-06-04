@@ -1,8 +1,12 @@
 package jobs4u.app.customer.console.presentation.JobOpening;
 
+import com.zaxxer.hikari.util.ConcurrentBag;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.presentation.console.AbstractUI;
+import jobs4u.app.customer.console.authz.CredentialStore;
 import jobs4u.app.customer.console.jobOpenings.application.GetJobOpeningsController;
+import jobs4u.base.authz.CredentialHandler;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.ListJobOpeningContoller;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
@@ -24,7 +28,9 @@ public class DisplayJobOpeningUI extends AbstractUI {
         GetJobOpeningsController controller = new GetJobOpeningsController();
 
         try {
-            Iterable<JobOpeningDTO> list = controller.getJobOpeningsForCustomer(ClientCode.valueOf("Isep1"));
+
+            String code=controller.getCustomerCode(CredentialStore.getUsername());
+            Iterable<JobOpeningDTO> list = controller.getJobOpeningsForCustomer(ClientCode.valueOf(code));
             System.out.println("Job openings:");
 
             for (JobOpeningDTO jobOpeningDTO : list) {

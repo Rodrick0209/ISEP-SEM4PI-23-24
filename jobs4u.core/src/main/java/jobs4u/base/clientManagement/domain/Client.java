@@ -3,11 +3,13 @@ package jobs4u.base.clientManagement.domain;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.EmailAddress;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import jakarta.persistence.*;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.ClientName;
 import jobs4u.base.utils.PostalAddress;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,18 +28,21 @@ public class Client implements AggregateRoot<ClientCode> {
     @Column(name = "customerManagerEmail")
     private EmailAddress customerManagerEmail;
 
+    @Getter
+    @Setter
+    @OneToOne
+    private SystemUser user;
+
 
     public Client() {
 
     }
 
     public Client(String clientCode, String clientName, String address, EmailAddress customerManagerEmail) {
-
         this.clientCode = ClientCode.valueOf(clientCode);
         this.name = ClientName.valueOf(clientName);
         this.address = PostalAddress.valueOf(address);
         this.customerManagerEmail = customerManagerEmail;
-
     }
 
     public ClientCode code() {

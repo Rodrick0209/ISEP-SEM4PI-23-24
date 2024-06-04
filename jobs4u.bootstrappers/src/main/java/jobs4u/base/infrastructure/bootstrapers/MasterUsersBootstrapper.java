@@ -60,6 +60,7 @@ import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.recruitmentProcessManagement.utils.State;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Action;
+import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.Path;
 
 import java.time.ZoneId;
@@ -110,7 +111,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerCandidate("candidate@gmail.com", TestDataConstants.PASSWORD1, "candidate", "Doe candidate",
                 "candidate@gmail.com");
 
-        registerCustomer("customer@gmail.com", TestDataConstants.PASSWORD1, "customer", "Doe customer",
+        SystemUser user = registerCustomer("customer@gmail.com", TestDataConstants.PASSWORD1, "customer", "Doe customer",
                 "customer@gmail.com");
 
         registerLanguageEngineer("language@gmail.com", TestDataConstants.PASSWORD1, "languageEngineer", "Doe LanguageEngineer",
@@ -127,6 +128,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                 "Luis",
                 "Gonçalves",
                 EmailAddress.valueOf("customermanager@gmail.com"));
+        client.setUser(user);
 
 
         Client client1 = clientController.registerClient(
@@ -167,11 +169,12 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                 DateUtils.parseDate("18-05-2024"), DateUtils.parseDate("19-05-2024"),
                 DateUtils.parseDate("20-05-2024"), DateUtils.parseDate("21-05-2024"),
                 DateUtils.parseDate("22-05-2024"), DateUtils.parseDate("23-05-2024"),
-                DateUtils.parseDate("24-05-2024"), DateUtils.parseDate("29-05-2024"),
-                DateUtils.parseDate("30-05-2024"));
+                DateUtils.parseDate("01-06-2024"), DateUtils.parseDate("29-06-2024"),
+                DateUtils.parseDate("30-06-2024"));
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
+        recruitmentProcess.analysisPhase().openPhase();
 
         RecruitmentProcessDto recruitmentProcessDto1 = new RecruitmentProcessDto(
                 DateUtils.parseDate("18-04-2024"),
@@ -194,6 +197,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcessBuilder recruitmentProcessBuilder2 = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector2 = new RecruitmentProcessDirector(recruitmentProcessBuilder2);
         RecruitmentProcess recruitmentProcess2 = recruitmentProcessDirector2.createRecruitmentProcessWithInterview(recruitmentProcessDto2);
+        recruitmentProcess2.interviewsPhase().openPhase();
 
         //---------------------------------------------------------------------------------------------------
         //Register Job Openings
@@ -201,7 +205,6 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         JobOpening j = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
                 "Software Engineer", ContractType.FULL_TIME, client, recruitmentProcess);
-
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Data Scientist analyzes and interprets complex data to inform business decision-making. They use statistical techniques and machine learning algorithms to extract insights from data",
@@ -306,6 +309,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         notificationRepository.save(new Notification("Teste Message", client));
 
 
+
         return true;
     }
 
@@ -344,19 +348,18 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerUser(username, password, firstName, lastName, email, roles);
     }
 
-    private void registerCustomer(final String username, final String password, final String firstName,
+    private SystemUser registerCustomer(final String username, final String password, final String firstName,
                                   final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.CUSTOMER);
 
-        registerUser(username, password, firstName, lastName, email, roles);
+        return registerUser(username, password, firstName, lastName, email, roles);
     }
 
     private void registerLanguageEngineer(final String username, final String password, final String firstName,
                                           final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(Jobs4uRoles.LANGUAGE_ENGINEER);
-
         registerUser(username, password, firstName, lastName, email, roles);
     }
 

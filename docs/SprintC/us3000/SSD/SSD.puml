@@ -1,0 +1,20 @@
+@startuml
+
+autonumber
+
+actor "Candidate" as C
+
+participant "System" as SYS
+
+activate C
+C->SYS: Selects Job Application Menu
+activate SYS
+SYS->C: Shows all the candidate's Job Applications
+deactivate SYS
+C->SYS: Selects a Job Application
+activate SYS
+SYS->C: Shows the details of the Job Application
+deactivate SYS
+deactivate C
+
+@enduml

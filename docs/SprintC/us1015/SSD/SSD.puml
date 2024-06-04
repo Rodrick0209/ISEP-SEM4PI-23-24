@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor CustomerManager
+participant System
+
+activate CustomerManager
+CustomerManager -> System : asks to execute the\n process of verifications\nof requirements for a job opening
+activate System
+System --> CustomerManager : shows list of job openings\nand asks to select one
+CustomerManager -> System : selects one job Opening
+System --> CustomerManager : backs to menu
+
+@enduml

@@ -44,6 +44,7 @@ import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromClientRegistedWatchDog;
 import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
+import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import jobs4u.base.utils.ClientCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -79,7 +80,9 @@ public final class BaseCustomer extends BaseApplication{
 
     @Override
     protected void doMain(final String[] args) {
+        CredentialStore.setRole(Jobs4uRoles.CUSTOMER);
         final var correctPin = new LoginUI(CredentialStore.STORE_CREDENTIALS).show();
+
         if (correctPin) {
             final MainMenu menu = new MainMenu();
             menu.mainLoop();

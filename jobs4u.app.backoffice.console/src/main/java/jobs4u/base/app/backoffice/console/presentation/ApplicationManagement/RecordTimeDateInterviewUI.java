@@ -11,8 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 
@@ -31,29 +33,41 @@ public class RecordTimeDateInterviewUI extends AbstractUI {
         // Get all job openings
         List<JobOpening> jobOpenings = controller.jobOpeningsFromRepository();
 
-        // Display job openings and ask user to choose one
+// Display job openings and ask user to choose one
         System.out.println("Please choose a job opening:");
         for (int i = 0; i < jobOpenings.size(); i++) {
             System.out.println((i + 1) + ". " + jobOpenings.get(i).jobReference() + " - " + jobOpenings.get(i).function());
-            ;
         }
         int jobOpeningIndex = Console.readOption(1, jobOpenings.size(), -1) - 1;
         JobOpening selectedJobOpening = jobOpenings.get(jobOpeningIndex);
 
-        // Get all job applications for the selected job opening
+// Get all job applications for the selected job opening
         List<JobApplication> jobApplications = controller.getJobApplicationsByJobOpening(selectedJobOpening);
 
-        // Display job applications and ask user to choose one
+// Check if the selected job opening has any job applications
+        if (jobApplications.isEmpty()) {
+            System.out.println("The selected job opening does not have any job applications.");
+            return false;
+        }
+
+// Display job applications and ask user to choose one
         System.out.println("Please choose an application:");
         for (int i = 0; i < jobApplications.size(); i++) {
-            System.out.println((i + 1) + ". " + jobApplications.get(i));
+            System.out.println((i + 1) + ". " + jobApplications.get(i).getId() + " - "+jobApplications.get(i).getCandidate().name());
         }
         int jobApplicationIndex = Console.readOption(1, jobApplications.size(), -1) - 1;
         JobApplication selectedJobApplication = jobApplications.get(jobApplicationIndex);
+// Get the start and end dates of the interview phase
+        Date interviewPhaseStartDate = java.sql.Date.valueOf(selectedJobOpening.recruitmentProcess().interviewsPhase().startDate());
+        Date interviewPhaseEndDate = java.sql.Date.valueOf(selectedJobOpening.recruitmentProcess().interviewsPhase().endDate());
 
-        // Ask user to enter a date and time
-        String date = Console.readLine("Please enter a date (yyyy-MM-dd):");
+// Convert the dates to strings
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String startDateString = dateFormat.format(interviewPhaseStartDate);
+        String endDateString = dateFormat.format(interviewPhaseEndDate);
 
+// Ask user to enter a date and include the start and end dates in the message
+        String date = Console.readLine("Please enter a date (yyyy-MM-dd) between " + startDateString + " and " + endDateString + ":");
         String time = Console.readLine("Please enter a time (HH:mm):");
 
         // Parse the date and get the day of the week

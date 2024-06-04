@@ -1,0 +1,61 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor CustomerManager
+participant ExecuteRequirementEvaluationUI <<presentation>>
+participant ExecuteRequirementEvaluationController <<application>>
+participant ExecuteListOfApplicationsService <<service>>
+participant JobOpeningRepository <<repository>>
+participant JobApplicationRepository <<repository>>
+participant JobApplication <<domain>>
+participant JobOpening <<domain>>
+participant JobRequirementSpecification <<domain>>
+participant RequirementAnswer <<domain>>
+
+
+activate CustomerManager
+CustomerManager -> ExecuteRequirementEvaluationUI : asks to execute the\n process of verifications\nof requirements for a job opening
+activate ExecuteRequirementEvaluationUI
+ExecuteRequirementEvaluationUI --> CustomerManager : shows list of job openings\nand asks to select one
+CustomerManager -> ExecuteRequirementEvaluationUI : selects one job Opening
+ExecuteRequirementEvaluationUI -> ExecuteRequirementEvaluationController : executeInterviewEvaluation(jobOpening)
+activate ExecuteRequirementEvaluationController
+ExecuteRequirementEvaluationController -> JobApplicationRepository : findByJobOpeningAndWithRequirementAnswer(jobOpening)
+activate JobApplicationRepository
+JobApplicationRepository --> ExecuteRequirementEvaluationController : jobApplications
+deactivate JobApplicationRepository
+ExecuteRequirementEvaluationController -> ExecuteListOfApplicationsService : evaluateListOfApplications(jobApplications)
+activate ExecuteListOfApplicationsService
+loop for each job application
+ExecuteListOfApplicationsService -> JobApplication : jobOpening()
+activate JobApplication
+JobApplication --> ExecuteListOfApplicationsService : jobOpening
+deactivate JobApplication
+alt jobOpening is in screening phase
+ExecuteListOfApplicationsService -> JobApplication : requirementAnswer()
+activate JobApplication
+JobApplication -> RequirementAnswer : requirementAnswer()
+activate RequirementAnswer
+RequirementAnswer -> RequirementAnswer : inputStreamFromResourceFile()
+RequirementAnswer --> JobApplication : requirementAnswer
+deactivate RequirementAnswer
+JobApplication --> ExecuteListOfApplicationsService : requirementAnswer
+ExecuteListOfApplicationsService -> JobOpening : evaluate(requirementAnswer)
+activate JobOpening
+JobOpening -> JobRequirementSpecification : evaluate(requirementAnswer)
+activate JobRequirementSpecification
+JobRequirementSpecification --> JobOpening : result
+deactivate JobRequirementSpecification
+JobOpening --> ExecuteListOfApplicationsService : result
+deactivate JobOpening
+ExecuteListOfApplicationsService -> JobApplication : defineResult(result)
+activate JobApplication
+end alt
+end loop
+deactivate ExecuteRequirementEvaluationController
+ExecuteRequirementEvaluationUI --> CustomerManager : backs to menu
+deactivate ExecuteRequirementEvaluationUI
+
+@enduml

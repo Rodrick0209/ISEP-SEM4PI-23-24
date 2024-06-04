@@ -28,12 +28,10 @@ EditJobOpeningUI --> CustomerManager : asks to prompt new address
 CustomerManager -> EditJobOpeningUI : prompts new address
 EditJobOpeningUI -> EditJobOpeningController : edit(jobOpening, address)
 activate EditJobOpeningController
+alt job opening is inactive
 EditJobOpeningController -> JobOpening : editAddress(address)
+end alt
 EditJobOpeningController -> JobOpeningRepository : save(jobOpening)
-activate JobOpeningRepository
-JobOpeningRepository --> EditJobOpeningController :
-deactivate JobOpeningRepository
-EditJobOpeningController --> EditJobOpeningUI :
 deactivate EditJobOpeningController
 EditJobOpeningUI --> CustomerManager : backs to menu
 deactivate EditJobOpeningUI
