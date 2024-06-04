@@ -50,6 +50,12 @@ This user story have some dependencies with the following user stories:
 
 ![](SSD/SSD.svg)
 
+### 3.4. Domain model
+
+- This use case changes the domain model, adding interivew points value object to the answer of interivew.
+
+![](img/us1018_domainModel.png)
+
 ## 4. Design
 
 ### 4.1. Functionality

@@ -29,3 +29,9 @@
 ## System functionality
 
 ![](../SSD/SSD.svg)
+
+## Domain model
+
+- This use case changes the domain model, adding interivew points value object to the answer of interivew.
+
+![](../img/us1018_domainModel.png)
