@@ -18,12 +18,12 @@ public class AuthRequest extends FollowUpRequest{
 
 
 
-    public AuthRequest(final Authenticator authenticationService, final String username, final String password) {
+    public AuthRequest(final Authenticator authenticationService, final String username, final String password, final String role) {
         super(null, null);
         this.authenticationService = authenticationService;
         this.username = username;
         this.password = password;
-        this.role = null;
+        this.role = Role.valueOf(role);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class AuthRequest extends FollowUpRequest{
 
         byte [] response;
 
-        Optional<UserSession> user = authenticationService.authenticate(username, password);
+        Optional<UserSession> user = authenticationService.authenticate(username, password,role);
         if(user.isEmpty()) {
             response = new byte[4];
             response[0] = VERSION;

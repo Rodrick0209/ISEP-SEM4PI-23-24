@@ -125,13 +125,18 @@ public class FollowUpServerProxy {
         // Ensure that username and password do not exceed their respective lengths
         int usernameLength = Math.min(username.length(), DATA1_LEN_M * 256 + DATA1_LEN_L);
         int passwordLength = Math.min(password.length(), DATA2_LEN_L + DATA_LEN_M * 256);
+        int roleLength = Math.min(role.toString().length(), DATA2_LEN_L + DATA_LEN_M * 256);
+
 
         auth[DATA1_PREFIX - 2] = DATA2_LEN_L;
         auth[DATA1_PREFIX - 1] = DATA_LEN_M;
 
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(password+"\n"+role.toString());
+
 
         System.arraycopy(username.getBytes(), 0, auth, DATA1_PREFIX, usernameLength);
-        System.arraycopy(password.getBytes(), 0, auth, DATA2_PREFIX, passwordLength);
+        System.arraycopy(stringBuilder.toString().getBytes(), 0, auth, DATA2_PREFIX, stringBuilder.length());
 
         //System.out.println("Sending authentication request");
         final var socket = new ClientSocket();
@@ -152,7 +157,7 @@ public class FollowUpServerProxy {
             return true;
         } else {
             authenticated = false;
-            LOGGER.error("Authentication failed");
+            //LOGGER.error("Authentication failed");
             socket.stop();
             return false;
         }

@@ -111,6 +111,7 @@ public class FollowUpMessageParser {
     private FollowUpRequest parseAuthRequest(final byte[] message) {
         String username = "";
         String password = "";
+        String role = "";
         byte anterior = 127;
 
         try {
@@ -134,15 +135,28 @@ public class FollowUpMessageParser {
             atual = message[i];
 
             // Parse password
+            boolean flagRole = false;
             do {
-                password += (char) atual;
+                if (atual=='\n'){
+                    flagRole = true;
+                }
+
+                if (!flagRole){
+                    password += (char) atual;
+                }else {
+                    role += (char) atual;
+                }
+
                 anterior = atual;
                 i++;
                 atual = message[i];
+
             } while ((anterior != 0 && atual != 0) && i < 6 + data1Frame + data2Frame);
 
+            role = role.trim();
 
-            return new AuthRequest(authenticationService, username, password);
+
+            return new AuthRequest(authenticationService, username, password,role);
 
         } catch (ArrayIndexOutOfBoundsException e) {
             LOGGER.error("Insufficient data in auth message: {}", message);
