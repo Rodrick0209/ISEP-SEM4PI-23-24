@@ -52,35 +52,42 @@ This user story have some dependencies with the following user stories:
 
 ## 4. Design
 
-### 4.1. Domain Classes
+### 4.1. Realization
 
--AnswerFileName
--Interview
+![](SD/SD.svg)
 
-### 4.2 Controller
+### 4.2. Domain Classes
 
-- **RegisterCandidateFileWithAnswersToInterviewController**
+- JobApplication
+- JobOpening
+- JobRequirementSpecification
+- RequirementAnswer
 
-### 4.3 Repository
+### 4.3. Controller
 
-- **JobApplicationRepository**
+- EvaluateRequirementEvaluationController
 
-### 4.4 Methods Implemented
+### 4.4. Service
 
-- ****: Method that associate the answerFileName to the respective candidate interview.
-- **InputStream inputStreamFromResourceOrFile()**: This method should return an InputStream from a file or resource. The file or resource should be passed as a parameter. If the file or resource does not exist, the method should return null.
+- EvaluateListOfApplicationsService
 
+### 4.4. Repository
 
-### 4.5 Strategy Used
+- JobApplicationRepository
 
-For this Us we registered the file name associated with the candidate interview. With this file name we can return an input stream of the file through the method inputStreamFromResourceOrFile() in the class Interview.
+### 4.5. Class diagram
 
+![](CD/CD.svg)
 
-## 5. Tests
+### 4.6. Applied patterns
 
-- **testIsRecognisingFileAnswer**
-- **testDoesntRecogniseInvalidFile**
+In the development of this task, we utilized several design patterns to structure our code and ensure its
+maintainability and scalability. These patterns include:
 
-## 6. How to Use
+- **Repository Pattern:** The Repository pattern was used to create an abstraction layer between the data access layer
+  and the business logic layer of the application. This helps to decouple the application and make it easier to maintain
+  and test.
+- **Service Pattern:** The Service pattern was used to encapsulate business logic and rules. This pattern provides a set of methods that any client application can use, and these methods implement the business rules and logic.
+- **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
+  handle incoming requests, manipulate data using the model, and select views to render to the user.
 
-Manually we add a text file with the responses from the candidate to the resouces of that core module. Then we can use the UI upload candidate responses file which will ask the file name and the candidate which it will be associated with.  
