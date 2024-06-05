@@ -33,6 +33,7 @@ JobApplicationRepository --> GetOrderedListOfCandidatesController : jobApplicati
 deactivate JobApplicationRepository
 GetOrderedListOfCandidatesController -> JobOpening : orderCandidatesBasedOnInterviewPoints(jobApplications)
 activate JobOpening
+alt job opening is in analysis phase and had interview phase
 JobOpening -> JobOpening : orderJobApplicationsBasedOnInterviewPoints(jobApplications)
 JobOpening --> JobOpening : orderedApplications
 loop for each job application
@@ -55,6 +56,9 @@ deactivate GetOrderedListOfCandidatesController
 deactivate JobApplicationRepository
 
 GetOrderedListOfCandidatesUI --> CustomerManager : shows ordered list of candidates based\nin interview points and backs to menu
+else
+GetOrderedListOfCandidatesUI --> CustomerManager : shows an exception
+end alt
 deactivate GetOrderedListOfCandidatesUI
 
 @enduml
