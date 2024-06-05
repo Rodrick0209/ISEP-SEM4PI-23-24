@@ -11,7 +11,11 @@ CustomerManager -> System : asks to get an ordered list of\ncandidates based in 
 activate System
 System --> CustomerManager : shows list of job openings in \nanalysis phase and had an\ninterview phase and asks to select
 CustomerManager -> System : selects a job opening
+alt job opening is in analysis phase and had interivew phase
 System --> CustomerManager : shows ordered list of candidates based\nin interview points and backs to menu
+else
+System --> CustomerManager : shows a exception
+end alt
 deactivate System
 
 @enduml
