@@ -25,6 +25,8 @@ public class Notification implements AggregateRoot<Long> {
     private Message message;
     private LocalDate date;
 
+    @Enumerated(EnumType.STRING)
+    private NotificationType type;
 
     @Enumerated(EnumType.STRING)
     private NotificationState state;
@@ -38,6 +40,7 @@ public class Notification implements AggregateRoot<Long> {
         this.emailAddress = emailAddress;
         this.date = LocalDate.now();
         this.state = NotificationState.NotRead;
+        this.type = NotificationType.JOB_APPLICATION_STATE_CHANGE;
     }
 
     public Notification(EmailAddress emailAddress, JobApplication jobApplication) {
@@ -45,6 +48,7 @@ public class Notification implements AggregateRoot<Long> {
         this.emailAddress = emailAddress;
         this.date = LocalDate.now();
         this.state = NotificationState.NotRead;
+        this.type = NotificationType.JOB_APPLICATION_STATE_CHANGE;
     }
 
 
@@ -52,6 +56,9 @@ public class Notification implements AggregateRoot<Long> {
         return this.state;
     }
 
+    public NotificationType type() {
+        return this.type;
+    }
 
     public void markAsRead() {
         this.state = NotificationState.Read;
