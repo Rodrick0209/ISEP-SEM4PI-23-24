@@ -16,6 +16,7 @@ This user story have some dependencies with the following user stories:
 
 | US                                     | Reason                                            |
 |----------------------------------------|---------------------------------------------------|
+| [G007](../../SprintB/g007/readme.md)     | We need the authentication to ensure is a customer manager that is logged.                    
 | [1002](../../SprintB/us1002/readme.md) | The job opening must be registered in the system. |
 
 ## 3. Analysis
