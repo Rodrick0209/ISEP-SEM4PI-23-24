@@ -64,6 +64,8 @@ public class Client implements AggregateRoot<ClientCode> {
         return DomainEntities.areEqual(this, other);
     }
 
+
+
     public ClientName name() {
         return name;
     }

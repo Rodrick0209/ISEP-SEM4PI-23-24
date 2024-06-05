@@ -1,20 +1,15 @@
 package jobs4u.server.deamon.followup.server;
 
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.Authenticator;
-import eapli.framework.infrastructure.authz.domain.model.Role;
 import jobs4u.base.clientManagement.domain.Client;
-import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.ListJobOpeningForCustomerController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
-import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.notificationManagement.application.GetNotificationsController;
 import jobs4u.base.notificationManagement.domain.Notification;
 import jobs4u.base.utils.ClientCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FollowUpMessageParser {
 
@@ -36,11 +31,10 @@ public class FollowUpMessageParser {
     protected final static byte AUTH = 4;
     protected final static byte GET_AVAILABLE_MEALS = 6;
 
-    protected final static byte GET_NOTIFICATIONS_READ = 7;
-    protected final static byte GET_CUSTOMER =8;
+    protected final static byte GET_CUSTOMER = 7;
+    protected final static byte GET_NOTIFICATIONS_READ = 8;
 
     protected final static byte GET_NOTIFICATIONS_NOT_READ = 9;
-
 
     public FollowUpMessageParser(Authenticator authenticationService) {
         this.authenticationService = authenticationService;
@@ -54,13 +48,12 @@ public class FollowUpMessageParser {
             byte version = message[0];
             byte type = message[1];
             if (version == 1) {
-
+                System.out.println("TYPE  === " + type);
                 switch (type) {
                     case COMM_TEST:
                         request = new CommunicationTestRequest();
                         break;
                     case DISCONN:
-                        LOGGER.debug("Client Disconnected");
                         break;
                     case AUTH:
                         request = parseAuthRequest(message);
@@ -68,15 +61,15 @@ public class FollowUpMessageParser {
                     case GET_AVAILABLE_MEALS:
                         request = parseGetAvailableJobOpeningsRequest(message);
                         break;
-                    case GET_NOTIFICATIONS_NOT_READ:
-                        request = (message);
-                        break;
                     case GET_CUSTOMER:
                         request = parseGetCustomer(message);
                         break;
                     case GET_NOTIFICATIONS_READ:
                         request = parseGetNotificationsRead(message);
-
+                        break;
+                    case GET_NOTIFICATIONS_NOT_READ:
+                        request = parseGetNotificationsNotRead(message);
+                        break;
                 }
             }
         } catch (Exception e) {
@@ -87,28 +80,34 @@ public class FollowUpMessageParser {
         return request;
     }
 
-    private FollowUpRequest parseGetNotificationsNotRead(byte [] message){
+    private FollowUpRequest parseGetNotificationsNotRead(byte[] message) {
         GetNotificationsController controller = new GetNotificationsController();
         StringBuilder sb = new StringBuilder();
         int DATA1_PREFIX = 4;
-        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 5 ; i++) {
-            sb.append((char)message[i]);
+        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 50; i++) {
+            if (message[i] != 0) {
+                sb.append((char) message[i]);
+            }
         }
         String result = sb.toString();
-        Iterable<Notification> notifications = controller.listNotificationsByClientNotRead(ClientCode.valueOf(result));
-        return new NotificationRequest(notifications);
+        Iterable<Notification> notifications = controller.listNotificationsNotRead(EmailAddress.valueOf(result));
+        controller.markNotificationAsRead(notifications);
+        return new NotificationNotReadRequest(notifications);
     }
 
-    private FollowUpRequest parseGetNotificationsRead(byte [] message){
+    private FollowUpRequest parseGetNotificationsRead(byte[] message) {
         GetNotificationsController controller = new GetNotificationsController();
         StringBuilder sb = new StringBuilder();
         int DATA1_PREFIX = 4;
-        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 5 ; i++) {
-            sb.append((char)message[i]);
+        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 50; i++) {
+            if (message[i] != 0) {
+                sb.append((char) message[i]);
+            }
         }
         String result = sb.toString();
-        Iterable<Notification> notifications = controller.listNotificationsReadByClient(ClientCode.valueOf(result));
-        return new NotificationRequest(notifications);
+        System.out.println("Entrou aquiii");
+        Iterable<Notification> notifications = controller.listNotificationsRead(EmailAddress.valueOf(result));
+        return new NotificationReadRequest(notifications);
     }
 
 
@@ -119,17 +118,18 @@ public class FollowUpMessageParser {
         int DATA1_PREFIX = 4;
 
         for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 5; i++) {
-            sb.append((char)message[i]);
+            sb.append((char) message[i]);
         }
         String result = sb.toString();
 
 
-
-        Iterable<JobOpening> jobs=controller.getJobOpeningsForCustomer(ClientCode.valueOf(result));
+        Iterable<JobOpening> jobs = controller.getJobOpeningsForCustomer(ClientCode.valueOf(result));
 
 
         return new JobOpeningRequest(jobs);
     }
+
+
 
     private FollowUpRequest parseGetCustomer(final byte[] message) {
         ListJobOpeningForCustomerController controller = new ListJobOpeningForCustomerController();
@@ -138,8 +138,8 @@ public class FollowUpMessageParser {
         int DATA1_PREFIX = 4;
 
         for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 50; i++) {
-            if (message[i] != 0){
-                sb.append((char)message[i]);
+            if (message[i] != 0) {
+                sb.append((char) message[i]);
             }
         }
         String result = sb.toString();
@@ -158,8 +158,8 @@ public class FollowUpMessageParser {
 
         try {
 
-             int data1Frame = message[2] + message[3] * 256;
-             int data2Frame = message[2 + data1Frame] + message[3 + data1Frame] * 256;
+            int data1Frame = message[2] + message[3] * 256;
+            int data2Frame = message[2 + data1Frame] + message[3 + data1Frame] * 256;
 
             int i = 4;
             byte atual = message[i];
@@ -179,13 +179,13 @@ public class FollowUpMessageParser {
             // Parse password
             boolean flagRole = false;
             do {
-                if (atual=='\n'){
+                if (atual == '\n') {
                     flagRole = true;
                 }
 
-                if (!flagRole){
+                if (!flagRole) {
                     password += (char) atual;
-                }else {
+                } else {
                     role += (char) atual;
                 }
 
@@ -198,7 +198,7 @@ public class FollowUpMessageParser {
             role = role.trim();
 
 
-            return new AuthRequest(authenticationService, username, password,role);
+            return new AuthRequest(authenticationService, username, password, role);
 
         } catch (ArrayIndexOutOfBoundsException e) {
             LOGGER.error("Insufficient data in auth message: {}", message);
@@ -207,7 +207,6 @@ public class FollowUpMessageParser {
             LOGGER.error("Invalid role in auth message: {}", message);
             return new BadRequest(message, "Invalid role in auth message");
         }
-
 
 
     }

@@ -6,6 +6,7 @@ import eapli.framework.general.domain.model.EmailAddress;
 import jakarta.persistence.*;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
@@ -24,14 +25,16 @@ public class Notification implements AggregateRoot<Long> {
     private Message message;
     private LocalDate date;
 
+
+    @Enumerated(EnumType.STRING)
     private NotificationState state;
 
     public Notification() {
         // for ORM
     }
 
-    public Notification(String message, EmailAddress emailAddress) {
-        this.message = Message.valueOf(message);
+    public Notification(EmailAddress emailAddress, JobOpening jobOpening) {
+        this.message = Message.valueOf(messageForJobOpeningStateChange(jobOpening));
         this.emailAddress = emailAddress;
         this.date = LocalDate.now();
         this.state = NotificationState.NotRead;
@@ -46,6 +49,9 @@ public class Notification implements AggregateRoot<Long> {
         this.state = NotificationState.Read;
     }
 
+    public EmailAddress emailAddress() {
+        return this.emailAddress;
+    }
 
 
     public Message message() {
@@ -72,15 +78,15 @@ public class Notification implements AggregateRoot<Long> {
         return DomainEntities.areEqual(this, other);
     }
 
+    public String messageForJobOpeningStateChange(JobOpening jobOpening) {
+        return "Job Opening :" + jobOpening.jobReference() + " has changed its Status to " + jobOpening.status();
+    }
 
 
     @Override
     public Long identity() {
         return this.id;
     }
-
-
-
 
 
 }

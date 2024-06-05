@@ -1,10 +1,12 @@
 package jobs4u.base.persistence.impl.jpa;
 
 import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.base.Application;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.notificationManagement.domain.Notification;
+import jobs4u.base.notificationManagement.domain.NotificationState;
 import jobs4u.base.notificationManagement.repositories.NotificationRepository;
 import jobs4u.base.utils.ClientCode;
 
@@ -23,19 +25,19 @@ public class JpaNotificationRepository extends JpaAutoTxRepository<Notification,
     }
 
     @Override
-    public Iterable<Notification> findNotificationsNotReadByCandidate(ClientCode clientCode) {
+    public Iterable<Notification> findNotificationsNotRead(EmailAddress emailAddress) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("clientCode", clientCode);
-        params.put("state", "NotRead");
-        return match("e.client.clientCode = :clientCode AND e.state = state", params);
+        params.put("emailAddress", emailAddress);
+        params.put("state", NotificationState.NotRead);
+        return match("e.emailAddress = :emailAddress AND e.state = :state", params);
     }
 
     @Override
-    public Iterable<Notification> findNotificationsReadByCandidate(ClientCode clientCode) {
+    public Iterable<Notification> findNotificationsRead(EmailAddress clientCode) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("clientCode", clientCode);
-        params.put("state", "Read");
-        return match("e.client.clientCode = :clientCode AND e.state = state" , params);
+        params.put("emailAddress", clientCode);
+        params.put("state", NotificationState.Read);
+        return match("e.emailAddress = :emailAddress AND e.state = :state" , params);
     }
 
 }

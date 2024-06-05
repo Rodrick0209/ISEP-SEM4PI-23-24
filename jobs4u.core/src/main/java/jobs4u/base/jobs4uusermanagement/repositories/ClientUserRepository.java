@@ -50,9 +50,8 @@ public interface ClientUserRepository
      * @return
      */
 
-    default Optional<Jobs4uUser> findByClientCode(final ClientCode code) {
-        return ofIdentity(code);
-    }
+    Optional<Jobs4uUser> findByClientCode(final ClientCode code) ;
+
 
 
     public Iterable<Jobs4uUser> findAllActive();

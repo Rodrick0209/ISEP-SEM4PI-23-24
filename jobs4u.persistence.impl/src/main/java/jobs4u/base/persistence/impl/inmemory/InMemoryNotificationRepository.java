@@ -1,5 +1,6 @@
 package jobs4u.base.persistence.impl.inmemory;
 
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.notificationManagement.domain.Notification;
@@ -12,13 +13,14 @@ class InMemoryNotificationRepository extends InMemoryDomainRepository<Notificati
         InMemoryInitializer.init();
     }
 
+
     @Override
-    public Iterable<Notification> findNotificationsByCandidate(ClientCode candidateEmail) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Iterable<Notification> findNotificationsNotRead(EmailAddress emailAddress) {
+        return null;
     }
 
-
-
-
-
+    @Override
+    public Iterable<Notification> findNotificationsRead(EmailAddress emailAddress) {
+        return null;
+    }
 }

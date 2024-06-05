@@ -114,7 +114,7 @@ import java.util.List;
 	}
 
 
-	public Iterable<NotificationDTO> parseResponseMessageGetNotifications(final byte[] response) {
+	public Iterable<NotificationDTO> parseResponseMessageGetNotificationsNotRead(final byte[] response) {
 		List<NotificationDTO> list = new ArrayList<>();
 		String date = "";
 		String message = "";
@@ -153,9 +153,52 @@ import java.util.List;
 			}
 		}
 
-		System.out.println("LIST"+ list.get(0).message);
 		return list;
 	}
+
+	public Iterable<NotificationDTO> parseResponseMessageGetNotificationsRead(final byte[] response) {
+		List<NotificationDTO> list = new ArrayList<>();
+		String date = "";
+		String message = "";
+		int count = 0;
+		StringBuilder sb1 = new StringBuilder();
+
+		for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 200; i++) {
+			if (response[i] != 0) {
+				sb1.append((char) response[i]);
+
+				if (response[i] == '\n') {
+					String fieldValue = sb1.toString().trim();
+					switch (count) {
+						case 0:
+							date = fieldValue;
+
+							count++;
+							break;
+						case 1:
+							message = fieldValue;
+							count++;
+							break;
+
+					}
+					sb1 = new StringBuilder();
+
+				}
+				if (response[i] == '\t') {
+					NotificationDTO notificationDTO = new NotificationDTO(date, message);
+					list.add(notificationDTO);
+					date = "";
+					message = "";
+					count = 0;
+					sb1 = new StringBuilder();
+				}
+			}
+		}
+
+		return list;
+	}
+
+
 
 	private JobOpeningDTO parseResponseMessageLineGetAvailableMeals(final String s) {
 		final String[] tokens = s.split(",");

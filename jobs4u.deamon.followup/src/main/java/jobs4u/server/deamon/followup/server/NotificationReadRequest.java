@@ -1,15 +1,14 @@
 package jobs4u.server.deamon.followup.server;
 
-import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.notificationManagement.domain.Notification;
 
-public class NotificationRequest extends FollowUpRequest {
+public class NotificationReadRequest extends FollowUpRequest {
 
     protected final static int DATA1_PREFIX = 4;
 
     Iterable<Notification> notifications;
 
-    public NotificationRequest(Iterable<Notification> notifications) {
+    public NotificationReadRequest(Iterable<Notification> notifications) {
         super(null, null);
         this.notifications = notifications;
     }
@@ -20,7 +19,7 @@ public class NotificationRequest extends FollowUpRequest {
 
         byte [] response = new byte[4+ DATA1_LEN_L + DATA1_LEN_M * 256 + DATA2_LEN_L + DATA_LEN_M * 256];;
         response[0] = VERSION;
-        response[1] = GET_JOB_OPENINGS;
+        response[1] = GET_NOTIFICATIONS_READ;
         response[2] = DATA1_LEN_L;
         response[3] = DATA1_LEN_M;
 

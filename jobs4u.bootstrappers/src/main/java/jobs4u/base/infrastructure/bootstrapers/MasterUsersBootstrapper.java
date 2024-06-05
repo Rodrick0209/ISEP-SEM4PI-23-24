@@ -306,8 +306,10 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         jobApplicationRepository.save(jobApplication3);
         jobApplicationRepository.save(jobApplication4);
 
-        notificationRepository.save(new Notification("Teste Message", client));
-
+        Notification notification = new Notification(client.getUser().email(), jobOpening);
+        notificationRepository.save(notification);
+        Notification notification1 = new Notification(client.getUser().email(), jobOpening1);
+        notificationRepository.save(notification1);
 
 
         return true;
@@ -323,6 +325,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
+
+
 
     private void registerCustomerManager(final String username, final String password, final String firstName,
                                          final String lastName, final String email) {

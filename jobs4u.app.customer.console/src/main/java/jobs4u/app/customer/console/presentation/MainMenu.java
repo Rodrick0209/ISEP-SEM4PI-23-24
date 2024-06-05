@@ -110,8 +110,8 @@ public class MainMenu extends AbstractUI {
         final Menu jobOpeningMenu = buildJobOpeningMenu();
         final Menu notificationsMenu = buildNotificationMenu();
 
-        mainMenu.addSubMenu(JOB_OPENING, jobOpeningMenu);
         mainMenu.addSubMenu(SEE_NOTIFICATIONS, notificationsMenu);
+        mainMenu.addSubMenu(JOB_OPENING, jobOpeningMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));

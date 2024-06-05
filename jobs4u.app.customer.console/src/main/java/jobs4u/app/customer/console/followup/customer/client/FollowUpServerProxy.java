@@ -3,7 +3,6 @@ package jobs4u.app.customer.console.followup.customer.client;
 
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import jobs4u.app.customer.console.checkNotifications.dto.NotificationDTO;
-import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.server.deamon.followup.server.CustomerRequest;
@@ -201,15 +200,49 @@ public class FollowUpServerProxy {
     }
 
 
-    public Iterable<NotificationDTO> getNotificationForCustomer(final ClientCode code)
+    public Iterable<NotificationDTO> getNotificationNotReadForCustomer(final String email)
             throws IOException {
         final var socket = new ClientSocket();
-        //auth("customer@gmail.com", "Password1");
+
         socket.connect(ALT_IP, DEI_PORT);
-        final byte[] request = new GetNotificationsForClientRequestDTO(code).execute();
+        final byte[] request = new GetNotificationsNotReadRequestDTO(email).execute();
 
         socket.send(request);
-        return null;
+
+        final byte[] response = socket.recv();
+
+        socket.stop();
+
+        final MarshlerUnmarshler mu = new MarshlerUnmarshler();
+
+        return mu.parseResponseMessageGetNotificationsNotRead(response);
+
     }
+
+    public Iterable<NotificationDTO> getNotificationReadForCustomer(final String email)
+            throws IOException {
+        final var socket = new ClientSocket();
+
+        socket.connect(ALT_IP, DEI_PORT);
+        final byte[] request = new GetNotificationsReadRequestDTO(email).execute();
+
+        socket.send(request);
+
+        final byte[] response = socket.recv();
+
+        socket.stop();
+
+        final MarshlerUnmarshler mu = new MarshlerUnmarshler();
+
+        return mu.parseResponseMessageGetNotificationsRead(response);
+
+    }
+
+
+
+
+
+
+
 
 }
