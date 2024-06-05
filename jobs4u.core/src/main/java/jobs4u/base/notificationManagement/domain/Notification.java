@@ -4,8 +4,7 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.EmailAddress;
 import jakarta.persistence.*;
-import jobs4u.base.candidateManagement.domain.Candidate;
-import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,6 +12,7 @@ import java.time.LocalDate;
 
 @XmlRootElement
 @Entity
+
 public class Notification implements AggregateRoot<Long> {
 
     private static final long serialVersionUID = 1L;
@@ -39,6 +39,14 @@ public class Notification implements AggregateRoot<Long> {
         this.date = LocalDate.now();
         this.state = NotificationState.NotRead;
     }
+
+    public Notification(EmailAddress emailAddress, JobApplication jobApplication) {
+        this.message = Message.valueOf(messageForJobApplication(jobApplication));
+        this.emailAddress = emailAddress;
+        this.date = LocalDate.now();
+        this.state = NotificationState.NotRead;
+    }
+
 
     public NotificationState state() {
         return this.state;
@@ -80,6 +88,10 @@ public class Notification implements AggregateRoot<Long> {
 
     public String messageForJobOpeningStateChange(JobOpening jobOpening) {
         return "Job Opening :" + jobOpening.jobReference() + " has changed its Status to " + jobOpening.status();
+    }
+
+    public String messageForJobApplication(JobApplication jobApplication) {
+        return "Job Application for Job opening :" + jobApplication.getJobOpening().jobReference() + " has changed its Status to " + jobApplication.getState();
     }
 
 

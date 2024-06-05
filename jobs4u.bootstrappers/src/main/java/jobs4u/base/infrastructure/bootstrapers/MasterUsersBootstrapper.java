@@ -20,55 +20,48 @@
  */
 package jobs4u.base.infrastructure.bootstrapers;
 
-import eapli.framework.general.domain.model.Designation;
 import eapli.framework.general.domain.model.EmailAddress;
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.*;
+import eapli.framework.infrastructure.pubsub.PubSubRegistry;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jobs4u.base.Application;
 import jobs4u.base.candidateManagement.application.repositories.CandidateRepository;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.application.ClientMapper;
 import jobs4u.base.clientManagement.application.RegisterClientController;
+import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedEvent;
+import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedWatchDog;
 import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.clientManagement.domain.ClientDTO;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
-import jobs4u.base.jobApplications.application.RegisterJobApplicationController;
+import jobs4u.base.jobApplications.application.ChangeJobApplicationStateController;
 import jobs4u.base.jobApplications.domain.*;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.application.RegisterJobOpeningController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.ContractType;
-import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.WorkingMode;
+import jobs4u.base.notificationManagement.application.eventhandlers.SendNotificationWhenAppStateChangeEvent;
+import jobs4u.base.notificationManagement.application.eventhandlers.SendNotificationWhenAppStateChangeWatchDog;
 import jobs4u.base.notificationManagement.domain.Notification;
 import jobs4u.base.notificationManagement.repositories.NotificationRepository;
 import jobs4u.base.pluginManagement.domain.InterviewModelSpecification;
 import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.pluginManagement.repositories.InterviewModelSpecificationRepository;
 import jobs4u.base.pluginManagement.repositories.JobRequirementSpecificationRepository;
-import jobs4u.base.recruitmentProcessManagement.domain.Phase;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcessBuilder;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcessDirector;
 import jobs4u.base.recruitmentProcessManagement.dto.RecruitmentProcessDto;
 import jobs4u.base.recruitmentProcessManagement.utils.DateUtils;
-import jobs4u.base.recruitmentProcessManagement.utils.Phases;
-import jobs4u.base.recruitmentProcessManagement.utils.State;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 import eapli.framework.actions.Action;
-import jobs4u.base.utils.ClientCode;
 import jobs4u.base.utils.Path;
-
-import java.time.ZoneId;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -95,6 +88,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
     @Override
     public boolean execute() {
+
 
         //---------------------------------------------------------------------------------------------------
         //Register user
@@ -276,7 +270,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         List<JobApplicationFile> file2 = List.of(new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-email.txt")));
 
 
-        JobApplication jobApplication = new JobApplication(1L, j, file, candidate);
+        JobApplication jobApplication = new JobApplication(1L, j, file, candidate4);
         jobApplication.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
@@ -310,6 +304,22 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         notificationRepository.save(notification);
         Notification notification1 = new Notification(client.getUser().email(), jobOpening1);
         notificationRepository.save(notification1);
+
+
+        Notification notification2 = new Notification(jobApplication.getCandidate().emailAddress(),
+                jobApplication);
+        notificationRepository.save(notification2);
+
+
+
+        ChangeJobApplicationStateController c = new ChangeJobApplicationStateController();
+        c.changeState(jobApplication, JobApplicationState.ACCEPTED);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
         return true;

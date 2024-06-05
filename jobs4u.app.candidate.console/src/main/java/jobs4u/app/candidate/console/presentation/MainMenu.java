@@ -35,6 +35,8 @@ import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
+import jobs4u.app.customer.console.presentation.JobOpening.DisplayJobOpeningUI;
+import jobs4u.app.customer.console.presentation.Notification.CheckNotificationsUI;
 import jobs4u.base.Application;
 import jobs4u.base.app.common.console.authz.MyUserMenu;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
@@ -56,13 +58,17 @@ public class MainMenu extends AbstractUI {
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
+    private static final int JOB_OPENING = 2;
+
+    // JOB OPENING
+
+    // NOTIFICATIONS
+    private static final int SEE_NOTIFICATIONS = 1;
 
 
     private static final int SETTINGS_OPTION = 5;
 
     private static final String SEPARATOR_LABEL = "--------------";
-
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
 
     @Override
@@ -76,6 +82,7 @@ public class MainMenu extends AbstractUI {
      */
     @Override
     public boolean doShow() {
+
         Menu menu = buildMainMenu();
         final MenuRenderer renderer;
         if (Application.settings().isMenuLayoutHorizontal()) {
@@ -89,29 +96,22 @@ public class MainMenu extends AbstractUI {
     @Override
     public String headline() {
 
-        return authz.session().map(s -> "Base [ @" + s.authenticatedUser().identity() + " ]")
-                .orElse("Base [ ==Anonymous== ]");
+        return "Base Candidate App";
     }
 
     private Menu buildMainMenu() {
 
-        if (!authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.CANDIDATE)){
-            throw new IllegalArgumentException("App exclusive for CANDIDATE users.");
-        }
-
         final Menu mainMenu = new Menu();
+        //final Menu myUserMenu = new MyUserMenu();
 
-        final Menu myUserMenu = new MyUserMenu();
-        mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
+        //mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
+
+        final Menu notificationsMenu = buildNotificationMenu();
+
+        mainMenu.addSubMenu(SEE_NOTIFICATIONS, notificationsMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
-        }
-
-        if (authz.isAuthenticatedUserAuthorizedTo(Jobs4uRoles.POWER_USER, Jobs4uRoles.CANDIDATE)) {
-
-            final Menu settingsMenu = buildSettingsMenu();
-            mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
 
 
@@ -134,6 +134,17 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
 
+
+
+
+    private Menu buildNotificationMenu() {
+        final Menu menu = new Menu("Notifications >");
+        menu.addItem(SEE_NOTIFICATIONS, "See Notifications", new CheckNotificationsUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+
+    }
 
 
 }

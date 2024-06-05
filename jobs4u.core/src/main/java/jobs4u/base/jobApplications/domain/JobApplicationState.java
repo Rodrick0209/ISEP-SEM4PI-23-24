@@ -4,6 +4,8 @@ import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
 
 public enum JobApplicationState implements ValueObject {
+    RECEIVED,
     ACCEPTED,
     REJECTED,
+    CHOSEN,
 }

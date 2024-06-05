@@ -23,20 +23,19 @@
  */
 package jobs4u.app.candidate.console;
 
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
+
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
-import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
 import jobs4u.app.candidate.console.presentation.MainMenu;
+import jobs4u.app.customer.console.authz.CredentialStore;
 import jobs4u.base.app.common.console.BaseApplication;
 import jobs4u.base.app.common.console.authz.LoginUI;
-import jobs4u.base.authz.AuthenticationCredentialHandler;
 import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedEvent;
 import jobs4u.base.clientManagement.application.eventhandlers.ClientRegistedWatchDog;
-import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobs4uusermanagement.application.eventhandlers.NewUserRegisteredFromClientRegistedWatchDog;
 import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClientRegistedEvent;
-import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
+import jobs4u.base.usermanagement.domain.Jobs4uRoles;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -44,6 +43,8 @@ import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
  */
 @SuppressWarnings("squid:S106")
 public final class BaseCandidate extends BaseApplication{
+
+    private static final Logger LOGGER = LogManager.getLogger(BaseCandidate.class);
 
     /**
      * avoid instantiation of this class.
@@ -57,39 +58,41 @@ public final class BaseCandidate extends BaseApplication{
      */
     public static void main(final String[] args) {
 
-        AuthzRegistry.configure(PersistenceContext.repositories().users(),
-                new Jobs4uPasswordPolicy(), new PlainTextEncoder());
+        //AuthzRegistry.configure(PersistenceContext.repositories().users(),
+        //new Jobs4uPasswordPolicy(), new PlainTextEncoder());
         new BaseCandidate().run(args);
-      //
+        //
     }
 
     @Override
     protected void doMain(final String[] args) {
-        // login and go to main menu
-        if (new LoginUI(new AuthenticationCredentialHandler()).show()) {
-            // go to main menu
-            final MainMenu menu = new MainMenu();
-            doSetupEventHandlers(InProcessPubSub.dispatcher());
+        CredentialStore.setRole(Jobs4uRoles.CANDIDATE);
+        final var correctPin = new LoginUI(CredentialStore.STORE_CREDENTIALS).show();
 
+        if (correctPin) {
+            final MainMenu menu = new MainMenu();
             menu.mainLoop();
+        } else {
+            System.out.println("Invalid Credentials");
         }
+
     }
 
 
     @Override
     protected String appTitle() {
-        return "Base Candidate";
+        return "Base Customer";
     }
 
     @Override
     protected String appGoodbye() {
-        return "Base Candidate";
+        return "Base Customer";
     }
 
     @Override
     protected void configureAuthz() {
-        AuthzRegistry.configure(PersistenceContext.repositories().users(), new Jobs4uPasswordPolicy(),
-                new PlainTextEncoder());
+        //AuthzRegistry.configure(PersistenceContext.repositories().users(), new Jobs4uPasswordPolicy(),
+        //      new PlainTextEncoder());
     }
     @SuppressWarnings("unchecked")
     @Override
@@ -98,9 +101,8 @@ public final class BaseCandidate extends BaseApplication{
                 NewUserRegisteredFromClientRegistedEvent.class);
 
         dispatcher.subscribe(new ClientRegistedWatchDog(), ClientRegistedEvent.class);
+
+
     }
-
-
-
 
 }

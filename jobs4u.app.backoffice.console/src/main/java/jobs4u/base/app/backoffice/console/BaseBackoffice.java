@@ -23,6 +23,7 @@
  */
 package jobs4u.base.app.backoffice.console;
 
+import eapli.framework.infrastructure.pubsub.PubSubRegistry;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
 import jobs4u.base.app.backoffice.console.presentation.MainMenu;
 import jobs4u.base.app.common.console.BaseApplication;
@@ -35,6 +36,8 @@ import jobs4u.base.jobs4uusermanagement.domain.events.NewUserRegisteredFromClien
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.notificationManagement.application.eventhandlers.SendNotificationOnJobOpeningsStateChangedWatchDog;
 import jobs4u.base.notificationManagement.application.eventhandlers.SendNotificationOnjobOpeningStateChangedEvent;
+import jobs4u.base.notificationManagement.application.eventhandlers.SendNotificationWhenAppStateChangeEvent;
+import jobs4u.base.notificationManagement.application.eventhandlers.SendNotificationWhenAppStateChangeWatchDog;
 import jobs4u.base.usermanagement.domain.Jobs4uPasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
@@ -98,7 +101,7 @@ public final class BaseBackoffice extends BaseApplication {
     protected void doSetupEventHandlers(final EventDispatcher dispatcher) {
         dispatcher.subscribe(new NewUserRegisteredFromClientRegistedWatchDog(),
                 NewUserRegisteredFromClientRegistedEvent.class);
-
+        dispatcher.subscribe(new SendNotificationWhenAppStateChangeWatchDog(), SendNotificationWhenAppStateChangeEvent.class);
         dispatcher.subscribe(new ClientRegistedWatchDog(), ClientRegistedEvent.class);
         dispatcher.subscribe(new SendNotificationOnJobOpeningsStateChangedWatchDog(), SendNotificationOnjobOpeningStateChangedEvent.class);
     }

@@ -65,7 +65,7 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
         this.id = id;
         this.jobOpening=jobOpening;
         this.file = file;
-        this.state = JobApplicationState.ACCEPTED;
+        this.state = JobApplicationState.RECEIVED;
         this.requirementAnswer = requirementAnswer;
         this.interview = interview;
         this.candidate = candidate;
@@ -77,7 +77,7 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
         this.id = id;
         this.jobOpening=jobOpening;
         this.file = file;
-        this.state = JobApplicationState.ACCEPTED;
+        this.state = JobApplicationState.RECEIVED;
         this.requirementAnswer = new RequirementAnswer();
         this.interview = null;
         this.candidate = candidate;
@@ -186,6 +186,11 @@ public class JobApplication implements AggregateRoot<Long>, Serializable {
 
     public InputStream interviewAnswer() throws IOException {
         return interview.answer().inputStreamFromResourceOrFile();
+    }
+
+    public void changeState(JobApplicationState state){
+        this.state = state;
+
     }
 
 }
