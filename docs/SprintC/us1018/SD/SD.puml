@@ -36,6 +36,7 @@ JobApplicationRepository --> ExecuteInterviewEvaluationController : jobApplicati
 deactivate JobApplicationRepository
 ExecuteInterviewEvaluationController -> ExecuteInterviewEvaluationService : executeInterviewEvaluation(jobOpening, jobApplications)
 activate ExecuteInterviewEvaluationService
+alt job opening is in interview phase
 loop for each job application
 ExecuteInterviewEvaluationService -> JobApplication : interviewAnswer()
 activate JobApplication
@@ -60,6 +61,7 @@ deactivate JobApplication
 ExecuteInterviewEvaluationService -> JobApplicationRepository : save(jobApplication)
 deactivate ExecuteInterviewEvaluationService
 end loop
+end alt
 deactivate ExecuteInterviewEvaluationController
 ExecuteInterviewEvaluationUI --> CustomerManager : backs to menu
 deactivate ExecuteInterviewEvaluationUI
