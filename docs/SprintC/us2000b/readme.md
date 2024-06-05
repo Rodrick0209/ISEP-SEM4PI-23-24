@@ -4,8 +4,6 @@
 
 This task, identifies as "US 2000b", is part of the Operator feature. The goal of this task is to allow the operator to enable/disable a candidate from the his app (Candidate app).
 
-This is the first task that is directly related to the rank feature of the system.
-
 ## 2. Requirements
 
 **2000b** As Operator, I want to enable/disable a candidate.
@@ -14,9 +12,10 @@ This is the first task that is directly related to the rank feature of the syste
 
 This user story have some dependencies with the following user stories:
 
-| US                                      | Reason                                          |
-|-----------------------------------------|-------------------------------------------------|
-| [2000a](../../SprintB/us1002/readme.md) | The candidate must be registered in the system. |
+| US                                      | Reason                                                             |
+|-----------------------------------------|--------------------------------------------------------------------|
+| [G007](../../SprintB/g007/readme.md)    | We need the authentication to ensure is a operator that is logged. |
+| [2000a](../../SprintB/us1002/readme.md) | The candidate must be registered in the system.                    |
 
 ## 3. Analysis
 
@@ -128,3 +127,7 @@ To demonstrate this functionality follow the steps below:
 1. Start the application and log in as a operator.
 2. Navigate to the candidate section and select the option to enable a candidate.
 3. Select the enabled candidate.
+
+## 7. Observations
+
+- N/A
