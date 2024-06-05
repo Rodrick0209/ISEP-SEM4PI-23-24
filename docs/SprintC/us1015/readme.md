@@ -13,10 +13,17 @@ of applications for a job opening.
 
 This user story have some dependencies with the following user stories:
 
-| US                                     | Reason                                                                                          |
-|----------------------------------------|-------------------------------------------------------------------------------------------------|
-| [1009](../../SprintB/us1009/readme.md) | The job opening must have a requirement specification made for evaluation.                      |
-| [1013](../../SprintC/us1013/readme.md) | The job application of a job opening has an requirement answer settled (not necessary for all). |
+| US                                                           | Reason                                                                                  |
+|--------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| [G007](../../SprintB/g007/readme.md)                         | We need the authentication to ensure is a customer manager that is logged.              | 
+| [1002](../../SprintB/us1002/readme.md)                       | The job opening must be registered in the system.                                       |
+| [1007](../../SprintB/us1007)<br/>[1010](../us1010/readme.md) | The job must must had received applications, so that one of the phases happened.        |
+| [1009](../../SprintB/us1009/readme.md)                       | The job opening must have a requirement specification made for evaluation.              |
+| [1013](../../SprintC/us1013/readme.md)                       | The job application of a job opening has an requirement answer (not necessary for all). |
+
+- **NFR09 (LPROG) -> The support
+  for this functionality must follow specific technical requirements, specified in LPROG.
+  The ANTLR tool should be used (https://www.antlr.org/).**
 
 ## 3. Analysis
 
