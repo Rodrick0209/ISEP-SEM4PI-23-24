@@ -20,20 +20,20 @@ to list the applications he has submitted and their state.
 
 #### 2.3.1. General questions
 
-- **Q176**: Na US3000 pede que, para alem de listar as aplicações e o estado das mesmas de um candidato, que liste o 
-numero de candidatos. Este numero de candidatos é um somatório da quantidade de candidatos que fizeram uma aplicação para 
-as mesmas Job Openings deste primeiro candidato (que esta a executar o caso de uso)?
-- **A176**: Devem ser listadas todas as “applications” (candidaturas) do candidato, o estado delas, assim como o número 
-de candidaturas que cada job opening teve (assim o candidato tem uma noção da “concorrência” que teve para cada uma das suas candidaturas)
+- **Q176**: Na US3000 pede que, para alem de listar as aplicações e o estado das mesmas de um candidato, que liste o
+  numero de candidatos. Este numero de candidatos é um somatório da quantidade de candidatos que fizeram uma aplicação para
+  as mesmas Job Openings deste primeiro candidato (que esta a executar o caso de uso)?
+- **A176**: Devem ser listadas todas as “applications” (candidaturas) do candidato, o estado delas, assim como o número
+  de candidaturas que cada job opening teve (assim o candidato tem uma noção da “concorrência” que teve para cada uma das suas candidaturas)
 
 ## 3. Analysis
 
 ### What is asked?
 
 The task requires implementing a feature for candidates to list all their applications and their state, including the number of applicants.
-This feature must comply with specific technical requirements, including a client-server architecture where the client 
+This feature must comply with specific technical requirements, including a client-server architecture where the client
 accesses data through a server application, without direct database access.
-Additionally, the solution must be deployed on multiple network nodes, with separate nodes for the database server and Follow-Up Server, 
+Additionally, the solution must be deployed on multiple network nodes, with separate nodes for the database server and Follow-Up Server,
 ideally in the cloud, ensuring background execution of email notifications.
 
 ### Domain model
@@ -54,7 +54,7 @@ To achieve this, the candidate must follow the steps below:
 
 ### Impact in the business
 
-These implementations will allow the candidate to have a better overview of his applications, making it easier to manage 
+These implementations will allow the candidate to have a better overview of his applications, making it easier to manage
 them and have a better understanding of the amount of people applying for the same Job Opening.
 
 ## 4. Design
@@ -70,17 +70,17 @@ them and have a better understanding of the amount of people applying for the sa
 ### 2. Communication Protocol
 
 - **Native Sockets**: Communication is done through native sockets and the content of the messages is always encoded as an array of bytes.
-Data is formatted as array of bites, with non-numeric values translated to their byte value (ASCII code in the case of Strings and Chars).
+  Data is formatted as array of bites, with non-numeric values translated to their byte value (ASCII code in the case of Strings and Chars).
 - **Message Types**: The protocol supports this type of messages:
-  
-  - `GET_JOB_APPLICATIONS_REQUEST` 
+
+  - `GET_JOB_APPLICATIONS_REQUEST`
   - `AUTH`
   - `ERR`
   - `ACK`
   - `DISCONN`
 
 - **Message Format**: The messages are formatted as an array of bytes, with the first byte representing the message version and the second representing the type of message.
-The following bytes representing the message content. Each data field is preceded by two bytes indicating the field size.
+  The following bytes representing the message content. Each data field is preceded by two bytes indicating the field size.
 
 | BYTE                                                                   | DESCRIPTION |
 |------------------------------------------------------------------------|-------------|
