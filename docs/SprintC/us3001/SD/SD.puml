@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Candidate  as c
+participant CheckNotificationUI as ui
+box "Server"
+participant "FollowUpDeamon" as server
+end box
+
+participant NotificationsController as controller
+participant NotificationsRepository as repo
+
+autonumber
+
+activate c
+c->ui: Select the Notifications Menu
+activate ui
+ui->c: Displays the job Openings options
+deactivate ui
+c->ui: Select the option "See Notifications"
+activate ui
+ui->server: Request to list all notifications
+activate server
+server->controller: getNotificationsForCandidate(candidate)
+activate controller
+controller->repo: getNotificationsForCandidate(candidate)
+activate repo
+repo-->controller: List<Notifications>
+deactivate repo
+controller-->server: List<Notifications>
+deactivate controller
+server-->ui: List<Notifications>
+deactivate server
+ui->c: Displays the Notifications for the candidate
+deactivate
+@enduml

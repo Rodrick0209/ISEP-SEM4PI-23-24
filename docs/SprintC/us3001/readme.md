@@ -63,42 +63,20 @@ This functionality will be implemented as a daemon that listens on a well-known 
 The client application will need to establish a TCP connection to this server socket using the provided IP address or DNS name and port number. After the connection is established, the client and server will exchange messages according to the specified format, maintaining the connection for all data exchanges (requests and responses) while the client application is active. Configuration details, such as the server's IP address and port, will be specified in the client's setup properties file.
 
 
-### 4. GET_NOTIFICATIONS_CANDIDATE
-
-The GET_JOB_OPENINGS_DATA message has the following format
-
-    GET_JOB_OPENINGS_DATA, «customer_code»
-
-Where `customer_code` is the code of the customer that wants to list his job openings.
-
+This implementation is similar to [US 3002](../us3002/readme.md), but the server will be responsible for sending notifications to the client. The client will be responsible for receiving the notifications and displaying them to the user.
 
 
 ### 5. Use case realization
 
-This responsability will be assigned to a new application (`FollowUpDeamon`) since all the existing applications are for user interaction, while this one does not require user interaction.
 
-
-For this user story, we will use the `ListJobOpeningForCustomerController`, this allow to list all the job openings for a customer. This controller will be used in the `daemon` application project.
-
-The server must be resilient to badly formed input as well as abrupt connection closing from the client.
-
-![use case](SD//sd.svg)
-
-The protocol parsing and command execution will be in the `daemon` application project reusing the existing controller from the `core` project.
-
-
-The server receives the request, parse it, and call the controller. The controller will return the data to the server, that will send it back to the client.
+![use case](SD/sd.svg)
 
 ### 4.4. Tests
 
-We will leave the threading part out of scope and will focus on the `BookingProtocolMessageParser` and `BookingProtocolRequest` classes.
 
-
-For `GET_JOB_OPENINGS_DATA`:
-- ensure an empty list (just the header) is returned 
-- ensure the jobOpenings are returned in a properly formatted multi-line response 
-
-
+Tests for Notifications class:
+- Test if notification message is for candidate
+- Test if notification message is for customer 
 
 
 
