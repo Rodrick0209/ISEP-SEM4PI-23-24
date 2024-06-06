@@ -194,12 +194,25 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         RecruitmentProcess recruitmentProcess2 = recruitmentProcessDirector2.createRecruitmentProcessWithInterview(recruitmentProcessDto2);
         recruitmentProcess2.interviewsPhase().openPhase();
 
+
+        RecruitmentProcessDto recruitmentProcessDtoAplication = new RecruitmentProcessDto(
+                DateUtils.parseDate("01-06-2024"),
+                DateUtils.parseDate("02-06-2024"), DateUtils.parseDate("19-06-2024"),
+                DateUtils.parseDate("20-06-2024"), DateUtils.parseDate("21-06-2024"),
+                DateUtils.parseDate("22-06-2024"), DateUtils.parseDate("23-06-2024"),
+                DateUtils.parseDate("24-06-2024"), DateUtils.parseDate("29-06-2024"),
+                DateUtils.parseDate("30-06-2024"));
+        RecruitmentProcessBuilder recruitmentProcessBuilderApp = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirectorAPp = new RecruitmentProcessDirector(recruitmentProcessBuilderApp);
+        RecruitmentProcess recruitmentProcessApp = recruitmentProcessDirectorAPp.createRecruitmentProcessWithInterview(recruitmentProcessDtoAplication);
+        recruitmentProcessApp.applicationPhase().openPhase();
+
         //---------------------------------------------------------------------------------------------------
         //Register Job Openings
         //---------------------------------------------------------------------------------------------------
         JobOpening j = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
-                "Software Engineer", ContractType.FULL_TIME, client, recruitmentProcess);
+                "Software Engineer", ContractType.FULL_TIME, client, recruitmentProcessApp);
 
         registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Data Scientist analyzes and interprets complex data to inform business decision-making. They use statistical techniques and machine learning algorithms to extract insights from data",
@@ -215,12 +228,12 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
         JobOpening jobOpening = registerJobOpening(WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
-                "Software Engineer", ContractType.FULL_TIME, client1, recruitmentProcess);
+                "Software Engineer", ContractType.FULL_TIME, client1, recruitmentProcessApp);
 
         //Register IBM-000123 jobOpening
         JobOpening jobOpening1 = registerJobOpening("IBM-000123", WorkingMode.REMOTE, "1", "1234-123",
                 "A Software Engineer designs, develops, and maintains software applications. They work on various stages of software development lifecycle, from designing algorithms to debugging and testing code.",
-                "Software Engineer", ContractType.FULL_TIME, client3, recruitmentProcess1);
+                "Software Engineer", ContractType.FULL_TIME, client3, recruitmentProcessApp);
 
         RequirementSpecification jobRequirementSpecification = new RequirementSpecification("programador2AnosExperiencia", "jobs4u.integration.plugins.Programador2AnosExperienciaRequirement.RequirementManagement.RequirementService");
         jobRequirementSpecificationRepository.save(jobRequirementSpecification);
@@ -265,7 +278,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         List<JobApplicationFile> file = List.of(
                 new JobApplicationFile("2-candidate-data.txt", new Path("SCOMP/output/MTN1-2/2/2-candidate-data.txt")),
                 new JobApplicationFile("2-cv.txt", new Path("SCOMP/output/MTN1-2/2/2-cv.txt")),
-                new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-big-file1.txt")));
+                new JobApplicationFile("2-big-file1.txt", new Path("SCOMP/output/MTN1-2/2/2-big-file1.txt")));
 
         List<JobApplicationFile> file1 = List.of(new JobApplicationFile("2-cv.txt", new Path("SCOMP/output/MTN1-2/2/2-cv.txt")));
         List<JobApplicationFile> file2 = List.of(new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-email.txt")));

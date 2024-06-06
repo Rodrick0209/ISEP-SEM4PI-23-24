@@ -202,8 +202,11 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
      * @return true if applications can be added, false otherwise
      */
     public boolean canApplicationsBeaAdded() {
-        return status.equals(JobOpeningStatus.ACTIVE) && recruitmentProcess.returnPhaseOpen().designation().toString().equals(Phases.APPLICATION.toString());
-
+        if (recruitmentProcess.returnPhaseOpen()==null){
+            return false;
+        }else {
+            return status.equals(JobOpeningStatus.ACTIVE) && recruitmentProcess.returnPhaseOpen().designation().equals(Phases.APPLICATION);
+        }
     }
 
     public List<List<Phases>> layoutsRecruitmentProcess() {
