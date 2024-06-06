@@ -277,7 +277,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildApplicationsOperatorMenu() {
         final Menu menu = new Menu("Applications >");
 
-        menu.addItem(REGISTER_APPLICATION, "Register Application", new RegxxisterApplicationUI()::show);
+        menu.addItem(REGISTER_APPLICATION, "Register Application", new RegisterApplicationUI()::show);
         menu.addItem(LIST_APPLICATION, "List Applications", new ListApplicationsUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
