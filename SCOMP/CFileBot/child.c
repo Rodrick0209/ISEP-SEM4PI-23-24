@@ -150,20 +150,23 @@ int main(int argc, char *argv[])
         //fica a espera do sinal do pai para ler do shm
         sem_wait(sem);
 
-        char read;
-        read = *shm_ptr;
+        char read_str[10];  // Assuming the shared memory can contain up to 10 characters
+        strncpy(read_str, shm_ptr, sizeof(read_str) - 1);
+        read_str[sizeof(read_str) - 1] = '\0';  // Ensure null-termination
+
+        
         //como já leu oo prefixo, avisa o pai que pode inserir um novo valor na shm
         sem_post(semPW); 
         
 
         int count_files;
-        char prefix[2] = {read, '\0'};
+        char prefix[3] = {read_str[0], read_str[1], '\0'}; // Example for handling "50" as a prefix
         
         //get the files with the prefix
         char **files = list_files_with_prefix(argv[1], prefix, &count_files);
 
         //process the files
-        processCandidateFile(files, count_files, read,argv[1], argv[2]);
+        processCandidateFile(files, count_files, read_str,argv[1], argv[2]);
         
         
     }
