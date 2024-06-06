@@ -14,15 +14,12 @@ import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.utils.*;
 
 import jobs4u.base.pluginManagement.domain.RequirementSpecification;
-import jobs4u.base.rankManagement.domain.Position;
 import jobs4u.base.rankManagement.domain.Rank;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.recruitmentProcessManagement.utils.State;
 import jobs4u.base.utils.PostalAddress;
 import lombok.Getter;
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
-import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.IOException;
@@ -202,11 +199,8 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
      * @return true if applications can be added, false otherwise
      */
     public boolean canApplicationsBeaAdded() {
-        if (recruitmentProcess.returnPhaseOpen()==null){
-            return false;
-        }else {
-            return status.equals(JobOpeningStatus.ACTIVE) && recruitmentProcess.returnPhaseOpen().designation().equals(Phases.APPLICATION);
-        }
+        return status.equals(JobOpeningStatus.ACTIVE) && recruitmentProcess.returnNotClosedPhase().designation().toString().equals(Phases.APPLICATION.toString());
+
     }
 
     public List<List<Phases>> layoutsRecruitmentProcess() {
@@ -295,21 +289,21 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
     }
 
 
-    public void changePhase(List<JobApplication> jobApplications){
-        areAllApplicationsOfThisJobOpening(jobApplications);
+    public void changePhase(){
         if (!recruitmentProcess.hasRecruitmentStarted()) {
             this.status = JobOpeningStatus.ACTIVE;
         }
-        State resultPhaseStateBeforeOpenClose = this.recruitmentProcess.resultPhase().state();
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
-        if (this.recruitmentProcess.resultPhase().state().equals(State.CLOSED) && resultPhaseStateBeforeOpenClose.equals(State.OPEN)) {
+
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
+
+        if (recruitmentProcess.returnNotClosedPhase() == null) {
             this.status = JobOpeningStatus.INACTIVE;
         }
 
     }
 
     public List<Candidate> getOrderedListOfCandidatesBasedOnInterviewPoints(Iterable<JobApplication> jobApplications){
-        Preconditions.ensure(recruitmentProcess.returnPhaseOpen().designation().equals(Phases.ANALYSIS), "job opening is not in analysis phase");
+        Preconditions.ensure(recruitmentProcess.returnNotClosedPhase().designation().equals(Phases.ANALYSIS), "job opening is not in analysis phase");
         Preconditions.ensure(recruitmentProcess.interviewsPhase() != null, "job opening has not an interview phase");
         List<Candidate> orderedCandidates = new ArrayList<>();
         List<JobApplication> orderedJobApplications = getOrderedListOfJobApplicationsBasedOnInterviewPoints(jobApplications);
@@ -327,6 +321,14 @@ public class JobOpening implements AggregateRoot<JobReference>, Serializable {
 
     public double evaluateInterview(InputStream interviewAnswer) throws IOException {
         return interviewModelSpecification.buildEvaluator().evaluate(interviewAnswer);
+    }
+
+    public void changeStatusToInactive(){
+        this.status = JobOpeningStatus.INACTIVE;
+    }
+
+    public void changeStatusToActive(){
+        this.status = JobOpeningStatus.ACTIVE;
     }
 
 }
