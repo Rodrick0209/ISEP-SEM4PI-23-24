@@ -45,6 +45,13 @@ public class RegisterClientController {
         return saveClient(client, representativeName, representativeLastName, emailAddress, phoneNumber);
     }
 
+    public Client registerClient(String code, String name, String emailAddress, String phoneNumber, String address, String representativeName, String representativeLastName,EmailAddress emailAddress1, SystemUser user) {
+        authorizationService.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.CUSTOMER_MANAGER,Jobs4uRoles.POWER_USER);
+        final Client client = new Client(code, name, address, emailAddress1);
+        client.setUser(user);
+        return saveClient(client, representativeName, representativeLastName, emailAddress, phoneNumber);
+    }
+
 
     private Client saveClient(Client client, String firstName, String lastName, String emailAddress, String phoneNumber) {
         client = this.clientRepository.save(client);

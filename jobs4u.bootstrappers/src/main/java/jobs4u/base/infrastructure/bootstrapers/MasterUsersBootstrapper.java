@@ -121,8 +121,9 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                 "919111222", "1234-123",
                 "Luis",
                 "Gonçalves",
-                EmailAddress.valueOf("customermanager@gmail.com"));
-        client.setUser(user);
+                EmailAddress.valueOf("customermanager@gmail.com"), user);
+
+
 
 
         Client client1 = clientController.registerClient(
