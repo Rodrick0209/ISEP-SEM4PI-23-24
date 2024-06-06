@@ -50,12 +50,12 @@ public class FollowUpServer {
 
 
 
-                    LOGGER.info("sending response");
+                    //LOGGER.info("sending response");
                     out.flush();
                     out.write(response);
 
                     //System.out.println("response sent");
-                    LOGGER.debug("Sent message:----\n{}\n----", response);
+                    //LOGGER.debug("Sent message:----\n{}\n----", response);
                     if (request.getClass().equals(DisconnectRequest.class)){
                         break;
                     }
@@ -63,12 +63,12 @@ public class FollowUpServer {
 
                 }
             } catch (final IOException e){
-                LOGGER.error("ERROR OPENING SOCKET CONNECTION",e);
+                //LOGGER.error("ERROR OPENING SOCKET CONNECTION",e);
             } finally {
                 try {
                     clientSocket.close();
                 } catch (final IOException e){
-                    LOGGER.error("ERROR CLOSING SOCKET CONNECTION",e);
+                    //LOGGER.error("ERROR CLOSING SOCKET CONNECTION",e);
                 }
             }
         }
@@ -85,11 +85,11 @@ public class FollowUpServer {
         try (var serverSocket = new ServerSocket(port)){
             while (true){
                 final var clientSocket = serverSocket.accept();
-                System.out.println("client connected from " + clientSocket.getInetAddress());
+                //System.out.println("client connected from " + clientSocket.getInetAddress());
                 new ClientHandler(clientSocket, parser).start();
             }
         } catch (final IOException e){
-            LOGGER.error("ERROR OPENING SERVER SOCKET",e);
+            //LOGGER.error("ERROR OPENING SERVER SOCKET",e);
         }
     }
 
