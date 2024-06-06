@@ -110,6 +110,7 @@ int main(int argc, char *argv[])
                 int sem_index = i % config.worker_children; // Cycle through the children
                 //write the prefix in the shared memory
                 strcpy(shm_ptr, prefixes[i]); 
+            
                 free(prefixes[i]);//free the prefix
                 
                 sem_post(semaphores[sem_index]); //notify the children that the data is in the shared memory

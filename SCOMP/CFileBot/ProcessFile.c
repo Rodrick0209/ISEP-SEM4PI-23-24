@@ -63,11 +63,11 @@ void ensure_JobOpening_directory_exists(const char *dir, const char *output_dire
 }
 
 // Ensure that the directory for the application exists
-void ensure_Application_directory_exists(const char *dirJobOpening, char dirApplication, const char *output_directory)
+void ensure_Application_directory_exists(const char *dirJobOpening, char *dirApplication, const char *output_directory)
 {
 
     char path[256];
-    sprintf(path, "%s/%s/%c", output_directory, dirJobOpening, dirApplication);
+    sprintf(path, "%s/%s/%s", output_directory, dirJobOpening, dirApplication);
 
     struct stat st = {0};
 
@@ -78,13 +78,13 @@ void ensure_Application_directory_exists(const char *dirJobOpening, char dirAppl
 }
 
 // Move the file to the appropriate directory
-void moveFile(const char *filename, const char *dir, char dirApplication, const char *input_directory, const char *output_directory)
+void moveFile(const char *filename, const char *dir, char *dirApplication, const char *input_directory, const char *output_directory)
 {
     char path[256];
     sprintf(path, "%s/%s", input_directory, filename);
 
     char newPath[256];
-    sprintf(newPath, "%s/%s/%c/%s", output_directory, dir, dirApplication, filename);
+    sprintf(newPath, "%s/%s/%s/%s", output_directory, dir, dirApplication, filename);
 
 
     if (rename(path, newPath) != 0)
@@ -129,7 +129,7 @@ bool reorganize_array(char **files, int fileCount)
 }
 
 // Function that call all the functions above to process the candidate files
-void processCandidateFile(char **file_names, int array_size, char prefix,const char *input, const char *output)
+void processCandidateFile(char **file_names, int array_size, char *prefix,const char *input, const char *output)
 {
     //organiza os ficheiros de maneira a ter o candidate-data em primeiro lugar, para ler os valores
     reorganize_array(file_names, array_size);
@@ -143,7 +143,7 @@ void processCandidateFile(char **file_names, int array_size, char prefix,const c
     ensure_Application_directory_exists(jobReference, prefix, output);
 
     // Move all files to the appropriate directories
-    printf("[%d] Moving files  with prefix %c\n",getpid(), prefix);
+    printf("[%d] Moving files  with prefix %s\n",getpid(), prefix);
     for (int i = 0; i < array_size; i++)
     {   
         moveFile(file_names[i], jobReference, prefix, input, output);
