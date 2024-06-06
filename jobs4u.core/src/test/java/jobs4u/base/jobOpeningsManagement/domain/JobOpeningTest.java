@@ -1,4 +1,4 @@
-/*
+
 package jobs4u.base.jobOpeningsManagement.domain;
 
 import eapli.framework.general.domain.model.Description;
@@ -15,8 +15,11 @@ import jobs4u.base.pluginManagement.domain.RequirementSpecification;
 import jobs4u.base.recruitmentProcessManagement.domain.Phase;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcess;
 import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcessBuilder;
+import jobs4u.base.recruitmentProcessManagement.domain.RecruitmentProcessDirector;
+import jobs4u.base.recruitmentProcessManagement.dto.RecruitmentProcessDto;
 import jobs4u.base.recruitmentProcessManagement.utils.DateUtils;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
+import jobs4u.base.recruitmentProcessManagement.utils.State;
 import jobs4u.base.utils.PostalAddress;
 import org.junit.jupiter.api.Test;
 
@@ -42,13 +45,12 @@ public class JobOpeningTest {
         JobOpeningStatus status = JobOpeningStatus.INACTIVE;
 
 
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate,null);
-        JobOpening actualJobOpening = new JobOpening(jobReference,  workingMode, nrVacancy, address, description, function, contractType, creationDate,null);
+        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
+        JobOpening actualJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
 
         assertEquals(expectedJobOpening, actualJobOpening);
     }
 
-  */
 /*  @Test
     public void ensurePossibleToSelectAJobRequirementSpecificationForAJobOpening() {
         JobReference jobReference = new JobReference("Isep-0001");
@@ -67,7 +69,7 @@ public class JobOpeningTest {
     }
 *//*
 
-   */
+     */
 /* @Test
     public void ensureNotPossibleToSelectAJobRequirementSpecificationForAInvalidJobOpening() {
         JobOpening jobOpening = null;
@@ -119,7 +121,7 @@ public class JobOpeningTest {
     }
 *//*
 
- */
+     */
 /*   @Test
     public void ensureNotPossibleToSelectAInterviewModelSpecificationForAInvalidJobOpening() {
         JobOpening jobOpening = null;
@@ -524,7 +526,7 @@ public class JobOpeningTest {
         assertEquals(candidate1, orderedCandidates.get(1));
         assertEquals(candidate2, orderedCandidates.get(0));
          */
-  //  }
+    //  }
 /*
     @Test
     void ensureOrderCandidatesBasedOnInterviewPointsFailedWhenJobOpeningNotHadInterviewPhase(){
@@ -559,11 +561,13 @@ public class JobOpeningTest {
         assertThrows(IllegalArgumentException.class, () -> {
             List<Candidate> orderedCandidates = jobOpening.getOrderedListOfCandidatesBasedOnInterviewPoints(jobApplications);
         });
-         */
-/*    }
 
-    @Test
-    void ensureOrderCandidatesBasedOnInterviewPointsFailedWhenJobOpeningNotCurrentlyInAnalysisPhase(){
+//    }
+
+*/
+
+   /* @Test
+    void ensureOrderCandidatesBasedOnInterviewPointsFailedWhenJobOpeningNotCurrentlyInAnalysisPhase() {
         JobReference jobReference = new JobReference("Isep-0001");
         WorkingMode workingMode = WorkingMode.REMOTE;
         String nrVacancy = "5";
@@ -591,13 +595,108 @@ public class JobOpeningTest {
 
         //TODO: implement the method to grade an interview for an Application
         throw new UnsupportedOperationException("Not supported yet.");
-        /*List<JobApplication> jobApplications = new ArrayList<>(List.of(jobApplication1, jobApplication2));
+        List<JobApplication> jobApplications = new ArrayList<>(List.of(jobApplication1, jobApplication2));
         assertThrows(IllegalArgumentException.class, () -> {
             List<Candidate> orderedCandidates = jobOpening.getOrderedListOfCandidatesBasedOnInterviewPoints(jobApplications);
         });
-         */
+
+    }*/
 
 
 
+    @Test
+    public void testJobOpeningStateChangesToActiveWhenFirstPhaseStarts(){
+        JobReference jobReference = new JobReference("Isep-0001");
+        WorkingMode workingMode = WorkingMode.REMOTE;
+        String nrVacancy = "5";
+        String address = "1234-123";
+        String description = "Software Developer";
+        String function = "Develop software";
+        ContractType contractType = ContractType.FULL_TIME;
+        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
+        Calendar creationDate = Calendar.getInstance();
+        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client);
+
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto(DateUtils.parseDate("18-04-2025"),
+                DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"),
+                DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-08-2025"),
+                DateUtils.parseDate("19-08-2025"), DateUtils.parseDate("20-08-2025"),
+                DateUtils.parseDate("21-08-2025"), DateUtils.parseDate("22-08-2025"), DateUtils.parseDate("30-08-2025"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
+        jobOpening.addRecruitmentProcess(recruitmentProcess);
+        assertEquals(JobOpeningStatus.INACTIVE,jobOpening.status());
+        jobOpening.changePhase();
+        assertEquals(JobOpeningStatus.ACTIVE, jobOpening.status());
+
+
+
+    }
+
+    @Test
+    public void testJobOpeningStateChangesToInactiveWhenLastPhaseEnds() {
+        JobReference jobReference = new JobReference("Isep-0001");
+        WorkingMode workingMode = WorkingMode.REMOTE;
+        String nrVacancy = "5";
+        String address = "1234-123";
+        String description = "Software Developer";
+        String function = "Develop software";
+        ContractType contractType = ContractType.FULL_TIME;
+        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
+        Calendar creationDate = Calendar.getInstance();
+        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client);
+
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto(DateUtils.parseDate("18-04-2025"),
+                DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"),
+                DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-08-2025"),
+                DateUtils.parseDate("19-08-2025"), DateUtils.parseDate("20-08-2025"),
+                DateUtils.parseDate("21-08-2025"), DateUtils.parseDate("22-08-2025"), DateUtils.parseDate("30-08-2025"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
+        jobOpening.addRecruitmentProcess(recruitmentProcess);
+        jobOpening.changeStatusToActive();
+        jobOpening.recruitmentProcess().resultPhase().setState(State.FINISHED);
+        jobOpening.changePhase();
+        assertEquals(JobOpeningStatus.INACTIVE, jobOpening.status());
+
+    }
+
+    @Test
+    public void testJobOpeningStateChangesToInactiveWhenRollbackFirstPhase(){
+        JobReference jobReference = new JobReference("Isep-0001");
+        WorkingMode workingMode = WorkingMode.REMOTE;
+        String nrVacancy = "5";
+        String address = "1234-123";
+        String description = "Software Developer";
+        String function = "Develop software";
+        ContractType contractType = ContractType.FULL_TIME;
+        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
+        Calendar creationDate = Calendar.getInstance();
+        JobOpening jobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, client);
+
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto(DateUtils.parseDate("18-04-2025"),
+                DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"),
+                DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-08-2025"),
+                DateUtils.parseDate("19-08-2025"), DateUtils.parseDate("20-08-2025"),
+                DateUtils.parseDate("21-08-2025"), DateUtils.parseDate("22-08-2025"), DateUtils.parseDate("30-08-2025"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
+        jobOpening.addRecruitmentProcess(recruitmentProcess);
+        jobOpening.changeStatusToActive();
+        jobOpening.recruitmentProcess().applicationPhase().setState(State.OPEN);
+        jobOpening.changePhase();
+        assertEquals(JobOpeningStatus.INACTIVE, jobOpening.status());
+
+
+
+
+    }
+
+
+
+}
 
 

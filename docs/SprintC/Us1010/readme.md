@@ -72,7 +72,11 @@ This task, identified as "US 1010", is part of the Customer Manager feature. The
 ### Dependencies
 
 -**UC 1007**: This UC is responsible for creating and setuping the phases of a job opening.
--**UC´s that change the phase state**: This Uc(1010) will depend on the function of the all the Us´s that change the state of the phase to concluded because the open or close depend if the phase is in progress or not. 
+-**UC 2002**: This UC register applications in the job opening and is responsible to change the state of the application phase to active when regists the first applications and to change the state to concluded when doesn`t want to register more applications
+-**UC 1013**: This UC is responsible for the "ranking" of the applications and is responsible to change the state of the analysis phase to active when the ranking starts and to concluded when the ranking is done
+-**UC 1015/1016**: The Uc 1015 is responsible for evaluating the requirements of the applications and the UC 1016 is responsible for notifying the candidates of the final result. Both are responsible to change the state of the screening phase to active when the evaluation starts and to concluded when the evaluation and notifications of the results is done
+-**UC 1018**: This UC is responsible for the interviews evaluation and is responsible to change the state of the interview phase to active when the evaluation starts and to concluded when the evaluation is done
+-**UC 1020**: This UC is responsible for the notification of the final result of the recruitment process and is responsible to change the state of the result phase to active when the final result starts being notified and to concluded when the final result notification is done
 
 ### Business Rules
 
@@ -145,31 +149,29 @@ This task, identified as "US 1010", is part of the Customer Manager feature. The
 
 #### 4.5.2 In Recruitment Process Class
 
--closeOpenPhaseAndOpenPhaseBefore() - Close the actual phase and open the previous phase
+-closeOpenPhaseAndOpenPhaseBefore() - Close the actual phase and open the previous phase(except for the application phase)
 -returnNotClosedPhase() - Return the phase that is not closed
--closePhase() - Close the phase that if it at state concluded
+-movesNextPhase() - Moves the recruitment process to the next phase
 -previousPhase() - Return the previous phase
--nextPhase() - Return the phase that will be the next of the recruitment process
+-returnNextPhase() - Return the phase that will be the next of the recruitment process
 -hasRecruitmentStarted() - Return if the recruitment process has started
--changePhase() - Close the actual phase and open the next phase
 -executeActionForOpenClosePhaseAccordinglyWithAvailableChoice() - Method that will execute the action according to the state that the phase is at
--messageForOpenClosePhase() - Return the message option for the open/close phase
+-messageForOpenClosePhase() - Return the message option for the open/close phase action
 
 #### 4.5.3 In Phase Class
 
 -openPhase() - Open the phase
 -closePhase() - Close the phase
 
-
-
 ## 5. Test Plan
 
 ### 5.1. Test For JobOpening Class
 
 #### 5.1.1. Test For Business Rules
--**Test 1**: TestWhenBeginsFirstPhaseOfRecruitmentProcessThenJobOpeningIsActivated
--**Test 2**: TestWhenEndsLastPhaseOfRecruitmentProcessThenJobOpeningIsInactivated
--**Test 3**: TestWhenCloseFirstPhaseAndRollbackToNotStartedRecruitmentProcessThenJobOpeningIsInactivated
+
+-**Test 1**: testJobOpeningStateChangesToActiveWhenFirstPhaseStarts
+-**Test 2**: testJobOpeningStateChangesToInactiveWhenLastPhaseEnds
+-**Test 3**: testJobOpeningStateChangesToInactiveWhenRollbackFirstPhase
 
 ### 5.2. Test For RecruitmentProcess Class
 
@@ -181,32 +183,32 @@ For each phase we tested the following scenarios:
 3. Move to next phase when the actual phase is not started
 
 For these tests:
-1. The actual phase should close and the next phase should open, unless in the case where the actual phase is the last phase of the recruitment process
+1. The actual phase should close and the next phase should open, unless in the case where the actual phase is the last phase of the recruitment process or when the recruitment process didn't started
 2. The phases state should not change (throw exception)
 3. The phases can rollback to the previous phase closing the actual one and opening the previous one
+
 
 The following tests were conducted:
 
 - `testChangeNextPhaseWhenIsAtResultPhaseAndResultPhaseIsFinished`
 - `testChangeNextPhaseWhenIsAtResultPhaseAndResultPhaseIsInProgress`
 - `testChangeNextPhaseWhenIsAtResultPhaseAndResultPhaseIsNotInProgress`
+
 - `testChangePhaseWhenIsAtAnalysisAndPhaseIsNotInProgress`
 - `testChangePhaseWhenIsAtAnalysisAndPhaseIsInProgress`
 - `testChangePhaseWhenIsAtAnalysisAndPhaseIsFinished`
+
 - `testChangePhaseWhenIsAtInterviewAndPhaseIsNotInProgress`
 - `testChangePhaseWhenIsAtInterviewAndPhaseIsInProgress`
 - `testChangePhaseWhenIsAtInterviewAndPhaseIsFinished`
+
 - `testChangePhaseWhenIsAtScreeningAndPhaseIsNotInProgress`
 - `testChangePhaseWhenIsAtScreeningAndPhaseIsInProgress`
 - `testChangePhaseWhenIsAtScreeningAndPhaseIsFinished`
+
+- `testChangePhaseWhenIsAtApplicationAndPhaseIsConcluded`
+- `testChangePhaseWhenIsAtApplicationsAndPhaseIsInProgress`
 - `testChangePhaseWhenIsAtApplicationPhaseAndIsNotInProgress`
-
-
-Particular scenario:
-When the recruitment process is not started and no phase is open. For the application phase when we don't really have any system data that can be used as criteria to see if it's concluded or not, so it doesn't make sense to test the scenario if it's concluded and if not.
-
-- `testChangePhaseWhenRecruitmentProcessDidntStarted`
-- `testChangePhaseWhenIsAtApplicationAndMoveToNextPhase`
 
 #### 5.2.2. Tests to Method that returns the message option for the open/close phase
 
@@ -215,6 +217,6 @@ For print test did only tests for the diferent messages that can be returned.
 - `testPrintMoveNextPhaseLastPhaseScenario`
 - `testPrintRollbackNotFirstPhaseScenario`
 - `testPrintPhaseMoveNextPhaseScenario`
-- `testPrintApplicationPhaseRollbackPhaseScenario`
+- `testPrintApplicationPhaseRollbackFirstPhaseScenario`
 
 

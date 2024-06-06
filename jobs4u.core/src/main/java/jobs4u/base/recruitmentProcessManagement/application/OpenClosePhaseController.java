@@ -24,26 +24,21 @@ public class OpenClosePhaseController {
     private JobOpeningRepository jobOpeningRepository;
     private JobApplicationRepository jobApplicationRepository;
 
-    public OpenClosePhaseController(JobOpeningRepository jobOpeningRepository,JobApplicationRepository jobApplicationRepository ,AuthorizationService authz) {
+    public OpenClosePhaseController(JobOpeningRepository jobOpeningRepository ,AuthorizationService authz) {
         this.jobOpeningRepository = jobOpeningRepository;
-        this.jobApplicationRepository = jobApplicationRepository;
         this.authz = authz;
     }
 
-    public List<JobApplication> getJobApplicationsByJobOpening(JobOpening jobOpening) {
-        return jobApplicationRepository.findJobApplicationsByJobOpening(jobOpening);
+
+
+    public String getMessageAccordinglyWithPhaseState(JobOpening jobOpening) {
+        return jobOpening.recruitmentProcess().messageForOpenClosePhase();
     }
 
-    public String getMessageAccordinglyWithPhaseState(JobOpening jobOpening, List<JobApplication> jobApplications) {
-        return jobOpening.recruitmentProcess().messageForOpenClosePhase(jobApplications);
-    }
-
-    public void changePhase(JobOpening jobOpening,List<JobApplication> jobApplications){
+    public void changePhase(JobOpening jobOpening){
         JobOpeningStatus status = jobOpening.getStatus();
-        System.out.println("Old status -> "+status);
-        jobOpening.changePhase(jobApplications);
+        jobOpening.changePhase();
         JobOpeningStatus newStatus = jobOpening.getStatus();
-        System.out.println("New status -> "+newStatus);
         if(status != newStatus){
             DomainEvent domainEvent = new SendNotificationOnjobOpeningStateChangedEvent(jobOpening);
             dispatcher.publish(domainEvent);

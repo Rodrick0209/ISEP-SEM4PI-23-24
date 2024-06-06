@@ -17,7 +17,7 @@ import java.util.List;
 public class OpenClosePhaseUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenClosePhaseUI.class);
-    private final OpenClosePhaseController theController = new OpenClosePhaseController(PersistenceContext.repositories().jobOpenings(), PersistenceContext.repositories().jobApplications(),AuthzRegistry.authorizationService());
+    private final OpenClosePhaseController theController = new OpenClosePhaseController(PersistenceContext.repositories().jobOpenings(),AuthzRegistry.authorizationService());
 
     private final ListJobOpeningUI listJobOpeningUI = new ListJobOpeningUI();
 
@@ -27,13 +27,11 @@ public class OpenClosePhaseUI extends AbstractUI {
         try {
             JobOpening jobOpening = listJobOpeningUI.selectJobOpeningFromList();
             System.out.println("Selected job opening: " + jobOpening.toString());
-            List<JobApplication> jobApplications = theController.getJobApplicationsByJobOpening(jobOpening);
-            System.out.println("Selected job applications: " + jobApplications.toString());
+            String userMessage = theController.getMessageAccordinglyWithPhaseState(jobOpening);
+            int option = Console.readInteger(userMessage);
 
-            System.out.println(theController.getMessageAccordinglyWithPhaseState(jobOpening,jobApplications));
-            final int option = Console.readOption(1, 2, 0);
-            if (option == 1) {
-                theController.changePhase(jobOpening,jobApplications);
+            if (option == 1 && !userMessage.equals("There are no available actions because the phase is not concluded/is in progress\n" + "2- Exit \n")) {
+                theController.changePhase(jobOpening);
             } else if (option == 2) {
                 System.out.println("Exiting");
             }else {

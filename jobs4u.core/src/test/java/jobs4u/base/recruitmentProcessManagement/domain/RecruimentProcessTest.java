@@ -121,7 +121,7 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(null);
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
         assertEquals(recruitmentProcess.applicationPhase().state(), State.OPEN);
     }
 
@@ -135,32 +135,10 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
 
-        JobApplication jobApplication1 = new JobApplication(1L, null, files, null);
-        JobApplication jobApplication2 = new JobApplication(2L, null, files, null);
-        JobApplication jobApplication3 = new JobApplication(3L, null, files, null);
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-        jobApplications.add(jobApplication3);
-
-        recruitmentProcess.resultPhase().setState(State.OPEN);
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        recruitmentProcess.resultPhase().setState(State.FINISHED);
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
         assertEquals(recruitmentProcess.resultPhase().state(), State.CLOSED);
 
     }
@@ -176,37 +154,12 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, null, files, null);
-        JobApplication jobApplication2 = new JobApplication(2L, null, files, null);
-        JobApplication jobApplication3 = new JobApplication(3L, null, files, null);
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-        jobApplications.add(jobApplication3);
-
-        recruitmentProcess.resultPhase().setState(State.OPEN);
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
-        assertEquals(recruitmentProcess.resultPhase().state(), State.CLOSED);
+        recruitmentProcess.resultPhase().setState(State.ACTIVE);
+        assertThrows(IllegalStateException.class, recruitmentProcess::executeActionForOpenClosePhaseAccordinglyWithAvailableChoice);
 
     }
 
-    //TODO not finished this test
     @Test
     public void testChangeNextPhaseWhenIsAtResultPhaseAndResultPhaseIsNotInProgress() {
         RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto(DateUtils.parseDate("18-04-2025"),
@@ -217,32 +170,10 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, null, files, null);
-        JobApplication jobApplication2 = new JobApplication(2L, null, files, null);
-        JobApplication jobApplication3 = new JobApplication(3L, null, files, null);
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-        jobApplications.add(jobApplication3);
 
         recruitmentProcess.resultPhase().setState(State.OPEN);
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
         assertEquals(recruitmentProcess.resultPhase().state(), State.CLOSED);
     }
 
@@ -256,34 +187,9 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-
-
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, null);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, null);
-        JobApplication jobApplication3 = new JobApplication(3L, expectedJobOpening, files, null);
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-        jobApplications.add(jobApplication3);
 
         recruitmentProcess.analysisPhase().setState(State.OPEN);
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
         assertEquals(recruitmentProcess.analysisPhase().state(), State.CLOSED);
         assertEquals(recruitmentProcess.interviewsPhase().state(), State.OPEN);
 
@@ -300,37 +206,9 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, candidate1);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
-        JobApplication jobApplication3 = new JobApplication(3L, expectedJobOpening, files, candidate3);
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-        jobApplications.add(jobApplication3);
-        List<Candidate> candidates = List.of(candidate1, candidate2);
-        
-        recruitmentProcess.analysisPhase().setState(State.OPEN);
-        assertThrows(IllegalStateException.class, () -> recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications));
+        recruitmentProcess.analysisPhase().setState(State.ACTIVE);
+        assertThrows(IllegalStateException.class, recruitmentProcess::executeActionForOpenClosePhaseAccordinglyWithAvailableChoice);
     }
 
     @Test
@@ -343,37 +221,9 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, candidate1);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
-        JobApplication jobApplication3 = new JobApplication(3L, expectedJobOpening, files, candidate3);
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-        jobApplications.add(jobApplication3);
-        List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        
-        recruitmentProcess.analysisPhase().setState(State.OPEN);
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        recruitmentProcess.analysisPhase().setState(State.FINISHED);
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
 
         assertEquals(recruitmentProcess.analysisPhase().state(), State.CLOSED);
         assertEquals(recruitmentProcess.resultPhase().state(), State.OPEN);
@@ -390,39 +240,9 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, candidate1);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
-        JobApplication jobApplication3 = new JobApplication(3L, expectedJobOpening, files, candidate3);
-
-
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-        jobApplications.add(jobApplication3);
-        List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        
         recruitmentProcess.interviewsPhase().setState(State.OPEN);
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
         assertEquals(recruitmentProcess.interviewsPhase().state(), State.CLOSED);
         assertEquals(recruitmentProcess.resumeScreenPhase().state(), State.OPEN);
     }
@@ -437,43 +257,9 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, candidate1);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
-
-        jobApplication1.registerInterivew(Date.valueOf("2025-06-18"), Time.valueOf("10:00:00"));
-        jobApplication2.registerInterivew(Date.valueOf("2025-06-18"), Time.valueOf("10:00:00"));
-
-        jobApplication1.getInterview().grade(InterviewPoints.valueOf(10));
-
-
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-
-        List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        
-        recruitmentProcess.interviewsPhase().setState(State.OPEN);
-        assertThrows(IllegalStateException.class, () -> recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications));
+        recruitmentProcess.interviewsPhase().setState(State.ACTIVE);
+        assertThrows(IllegalStateException.class, recruitmentProcess::executeActionForOpenClosePhaseAccordinglyWithAvailableChoice);
 
     }
 
@@ -487,43 +273,9 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, candidate1);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
-
-        jobApplication1.registerInterivew(Date.valueOf("2025-06-18"), Time.valueOf("10:00:00"));
-        jobApplication2.registerInterivew(Date.valueOf("2025-06-18"), Time.valueOf("10:00:00"));
-
-        jobApplication1.getInterview().grade(InterviewPoints.valueOf(10));
-        jobApplication2.getInterview().grade(InterviewPoints.valueOf(15));
-
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-
-        List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        
-        recruitmentProcess.interviewsPhase().setState(State.OPEN);
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        recruitmentProcess.interviewsPhase().setState(State.FINISHED);
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
         assertEquals(recruitmentProcess.interviewsPhase().state(), State.CLOSED);
         assertEquals(recruitmentProcess.analysisPhase().state(), State.OPEN);
     }
@@ -538,38 +290,10 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, candidate1);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
-
-
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-
-        List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
         
         recruitmentProcess.resumeScreenPhase().setState(State.OPEN);
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
         assertEquals(recruitmentProcess.resumeScreenPhase().state(), State.CLOSED);
         assertEquals(recruitmentProcess.applicationPhase().state(), State.OPEN);
     }
@@ -584,42 +308,9 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, candidate1);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
-
-        jobApplication1.registerRequirementAnswer("aaaaa");
-        jobApplication1.getRequirementAnswer().defineResult(true);
-
-
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-
-        List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        
-        recruitmentProcess.resumeScreenPhase().setState(State.OPEN);
-        assertThrows(IllegalStateException.class, () -> recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications));
+        recruitmentProcess.resumeScreenPhase().setState(State.ACTIVE);
+        assertThrows(IllegalStateException.class, recruitmentProcess::executeActionForOpenClosePhaseAccordinglyWithAvailableChoice);
 
     }
 
@@ -633,49 +324,15 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, candidate1);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
-
-        jobApplication1.registerRequirementAnswer("aaaaa");
-        jobApplication1.getRequirementAnswer().defineResult(true);
-        jobApplication2.registerRequirementAnswer("bbbbbb");
-        jobApplication2.getRequirementAnswer().defineResult(true);
-
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-
-        List<Candidate> candidates = List.of(candidate1, candidate2, candidate3);
-        
-        recruitmentProcess.resumeScreenPhase().setState(State.OPEN);
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        recruitmentProcess.resumeScreenPhase().setState(State.FINISHED);
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
         assertEquals(recruitmentProcess.resumeScreenPhase().state(), State.CLOSED);
         assertEquals(recruitmentProcess.interviewsPhase().state(), State.OPEN);
     }
 
     @Test
-    public void testChangePhaseWhenIsAtApplicationAndMoveToNextPhase() {
+    public void testChangePhaseWhenIsAtApplicationAndPhaseIsConcluded() {
         RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto(DateUtils.parseDate("18-04-2025"),
                 DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"),
                 DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-08-2025"),
@@ -684,41 +341,26 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, candidate1);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-
-        jobApplication1.registerRequirementAnswer("aaaaa");
-        jobApplication1.getRequirementAnswer().defineResult(true);
-
-
-        recruitmentProcess.applicationPhase().openPhase();
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        recruitmentProcess.applicationPhase().setState(State.FINISHED);
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
         assertEquals(recruitmentProcess.applicationPhase().state(), State.CLOSED);
         assertEquals(recruitmentProcess.resumeScreenPhase().state(), State.OPEN);
+    }
+
+    @Test
+    public void testChangePhaseWhenIsAtApplicationsAndPhaseIsInProgress(){
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto(DateUtils.parseDate("18-04-2025"),
+                DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"),
+                DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-08-2025"),
+                DateUtils.parseDate("19-08-2025"), DateUtils.parseDate("20-08-2025"),
+                DateUtils.parseDate("21-08-2025"), DateUtils.parseDate("22-08-2025"), DateUtils.parseDate("30-08-2025"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
+
+        recruitmentProcess.applicationPhase().setState(State.ACTIVE);
+        assertThrows(IllegalStateException.class, recruitmentProcess::executeActionForOpenClosePhaseAccordinglyWithAvailableChoice);
     }
 
     @Test
@@ -731,30 +373,9 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
-
-
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
 
         recruitmentProcess.applicationPhase().openPhase();
-        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(jobApplications);
+        recruitmentProcess.executeActionForOpenClosePhaseAccordinglyWithAvailableChoice();
         assertEquals(recruitmentProcess.applicationPhase().state(), State.CLOSED);
     }
 
@@ -769,31 +390,10 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-
-        recruitmentProcess.applicationPhase().openPhase();
-        assertEquals(recruitmentProcess.messageForOpenClosePhase(jobApplications), "Active phase: " + recruitmentProcess.applicationPhase().designation() + "\n1- Rollback and make the Recruitment Process not started\n" + "2- Exit \n");
+        recruitmentProcess.applicationPhase().setState(State.OPEN);
+        assertEquals(recruitmentProcess.messageForOpenClosePhase(), "Active phase: " + recruitmentProcess.applicationPhase().designation() + "\n1- Rollback and make the Recruitment Process not started\n" + "2- Exit \n");
 
     }
 
@@ -807,37 +407,9 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, candidate1);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
-
-        jobApplication1.registerRequirementAnswer("aaaaa");
-        jobApplication1.getRequirementAnswer().defineResult(true);
-
-        recruitmentProcess.applicationPhase().openPhase();
-        assertEquals(recruitmentProcess.messageForOpenClosePhase(jobApplications), "Active phase: " + recruitmentProcess.applicationPhase().designation() + "\n1- Move to next phase " + recruitmentProcess.resumeScreenPhase().designation() + " and close phase before " + recruitmentProcess.applicationPhase().designation() + "\n" + "2- Exit \n");
+        recruitmentProcess.applicationPhase().setState(State.FINISHED);
+        assertEquals(recruitmentProcess.messageForOpenClosePhase(), "Active phase: " + recruitmentProcess.applicationPhase().designation() + "\n1- Move to next phase " + recruitmentProcess.resumeScreenPhase().designation() + " and close phase before " + recruitmentProcess.applicationPhase().designation() + "\n" + "2- Exit \n");
     }
 
     @Test
@@ -850,30 +422,9 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
-
-        recruitmentProcess.resumeScreenPhase().openPhase();
-        assertEquals(recruitmentProcess.messageForOpenClosePhase(jobApplications), "Active phase: " + recruitmentProcess.resumeScreenPhase().designation() + "\n1- Rollback to phase before " + recruitmentProcess.applicationPhase().designation() + "\n" + "2- Exit \n");
+        recruitmentProcess.resumeScreenPhase().setState(State.OPEN);
+        assertEquals(recruitmentProcess.messageForOpenClosePhase(), "Active phase: " + recruitmentProcess.resumeScreenPhase().designation() + "\n1- Rollback to phase before " + recruitmentProcess.applicationPhase().designation() + "\n" + "2- Exit \n");
 
     }
 
@@ -887,37 +438,28 @@ public class RecruimentProcessTest {
         RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
         RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
         RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
-        JobReference jobReference = new JobReference("Isep-0001");
-        SystemUser user = null;
-        WorkingMode workingMode = WorkingMode.REMOTE;
-        String nrVacancy = "5";
-        String address = "1234-123";
-        String description = "Software Developer";
-        String function = "Develop software";
-        ContractType contractType = ContractType.FULL_TIME;
-        Client client = new Client("ISEP123", "ISEP", "4123-123", EmailAddress.valueOf("customermanager@gmail.com"));
-        Calendar creationDate = Calendar.getInstance();
-        JobOpening expectedJobOpening = new JobOpening(jobReference, workingMode, nrVacancy, address, description, function, contractType, creationDate, null);
-        Candidate candidate1 = new Candidate("nome", "apelidor", "email@email.pt", "965430393");
-        Candidate candidate2 = new Candidate("nomex", "apelidot", "email2@email.pt", "962434293");
-        Candidate candidate3 = new Candidate("nomexx", "apelidot", "email3@email.pt", "961434293");
 
-        RequirementAnswer requirementAnswer = new RequirementAnswer("file");
-        requirementAnswer.defineResult(true);
-        List<JobApplication> jobApplications = new ArrayList<>();
-        List<JobApplicationFile> files;
-        files = Arrays.asList(new JobApplicationFile(), new JobApplicationFile());
+        recruitmentProcess.resultPhase().setState(State.FINISHED);
+        assertEquals(recruitmentProcess.messageForOpenClosePhase(), "Active phase: " + recruitmentProcess.resultPhase().designation() + "\n1- Close " + recruitmentProcess.resultPhase() + " and consequently end the Recruitment Process (no more phases left)\n" + "2- Exit \n");
 
-        JobApplication jobApplication1 = new JobApplication(1L, expectedJobOpening, files, candidate1);
-        JobApplication jobApplication2 = new JobApplication(2L, expectedJobOpening, files, candidate2);
-        jobApplications.add(jobApplication1);
-        jobApplications.add(jobApplication2);
+    }
 
-        jobApplication1.registerRequirementAnswer("aaaaa");
-        jobApplication1.getRequirementAnswer().defineResult(true);
+    @Test
+    public void testPrintMoveNextPhaseInProgressScenario(){
+        RecruitmentProcessDto recruitmentProcessDto = new RecruitmentProcessDto(DateUtils.parseDate("18-04-2025"),
+                DateUtils.parseDate("18-05-2025"), DateUtils.parseDate("18-06-2025"),
+                DateUtils.parseDate("18-06-2025"), DateUtils.parseDate("18-08-2025"),
+                DateUtils.parseDate("19-08-2025"), DateUtils.parseDate("20-08-2025"),
+                DateUtils.parseDate("21-08-2025"), DateUtils.parseDate("22-08-2025"), DateUtils.parseDate("30-08-2025"));
+        RecruitmentProcessBuilder recruitmentProcessBuilder = new RecruitmentProcessBuilder();
+        RecruitmentProcessDirector recruitmentProcessDirector = new RecruitmentProcessDirector(recruitmentProcessBuilder);
+        RecruitmentProcess recruitmentProcess = recruitmentProcessDirector.createRecruitmentProcessWithInterview(recruitmentProcessDto);
 
-        recruitmentProcess.resultPhase().openPhase();
-        assertEquals(recruitmentProcess.messageForOpenClosePhase(jobApplications), "Active phase: " + recruitmentProcess.resultPhase().designation() + "\n1- Close " + recruitmentProcess.resultPhase() + " and consequently end the Recruitment Process (no more phases left)\n" + "2- Exit \n");
+        recruitmentProcess.resultPhase().setState(State.ACTIVE);
+        assertEquals(recruitmentProcess.messageForOpenClosePhase(),"There are no available actions because the phase is not concluded/is in progress\n" +
+                "2- Exit \n");
+
+
 
     }
 

@@ -129,26 +129,25 @@ public class RecruitmentProcess {
      *
      * @return
      */
-    public Phase returnPhaseOpen() {
+    public Phase returnNotClosedPhase() {
         List<Phase> phases = getAllPhases();
         for (Phase phase : phases) {
-            if (phase.state().equals(State.OPEN)) {
+            if (!phase.state().equals(State.CLOSED)) {
                 return phase;
             }
         }
         return null;
     }
 
-
     /**
      * Método que retorna a próxima fase do processo de recrutamento
      *
      * @return Next phase
      */
-    public Phase nextPhase() {
-        Phase phaseThatGoingToClose = returnPhaseOpen();
+    public Phase returnNextPhase() {
+        Phase phaseThatGoingToClose = returnNotClosedPhase();
         if (phaseThatGoingToClose == null) {
-            return inicialPhaseOfRecruitmentProcess();
+            return applicationPhase;
         }
 
         boolean flag = false;
@@ -176,7 +175,7 @@ public class RecruitmentProcess {
      */
     public Phase previousPhase(Phase phase) {
         List<Phase> phases = getAllPhases();
-        if (phase.equals(inicialPhaseOfRecruitmentProcess())) {
+        if (phase.equals(applicationPhase)) {
             return null;
         } else {
 
@@ -191,21 +190,7 @@ public class RecruitmentProcess {
         return null;
     }
 
-    public boolean checkIfPhaseIsInProgress(List<JobApplication> jobApplicationList, Phase phase) {
-        if (phase.designation().equals(Phases.APPLICATION)) {
-            return isApplicationPhaseStarted(jobApplicationList);
-        } else if (phase.designation().equals(Phases.RESUME_SCREEN)) {
-            return isScreeningPhaseStarted(jobApplicationList);
-        } else if (phase.designation().equals(Phases.INTERVIEWS)) {
-            return isInterviewPhaseStarted(jobApplicationList);
-        } else if (phase.designation().equals(Phases.ANALYSIS)) {
-            return isAnalysisPhaseStarted(jobApplicationList);
-        } else if (phase.designation().equals(Phases.RESULT)) {
-            return isResultPhaseStarted(jobApplicationList);
-        }
-        return false;
 
-    }
 
     public void closePhase(Phase phase) {
         phase.setState(State.CLOSED);
@@ -233,20 +218,21 @@ public class RecruitmentProcess {
     /**
      * Método que fecha a fase atual e abre a seguinte
      */
-    public void movesNextPhase(List<JobApplication> jobApplications) {
-        Phase nextPhase = nextPhase();
-        Phase activePhase = returnPhaseOpen();
-        if (activePhase == null) {
+    public void movesNextPhase() {
+        Phase nextPhase = returnNextPhase();
+        Phase notClosedPhase = returnNotClosedPhase();
+
+        if (notClosedPhase == null) {
             //Quer dizer que o recruitment process ainda nao começou
             nextPhase.openPhase();
 
         } else if (nextPhase == null) {
             //Se a proxima fase for nula quer dizer que o processo de recrutamento acabou
-            closePhase(activePhase);
-        } else if (!checkIfIsAtLastPhase()) {
+            notClosedPhase.closePhase();
+        } else  {
             //Se nao for nem a primeira nem a ultima fecha a atual e abre a seguinte
-            closePhase(activePhase);
-            openPhase(activePhase, nextPhase);
+            notClosedPhase.closePhase();
+            nextPhase.openPhase();
         }
 
     }
@@ -269,21 +255,17 @@ public class RecruitmentProcess {
 
     /**
      * Method that will execute the action according to the state that the phase is at
-     * Since there aren´t 2 or more options to change the state for any of the phase states whe dont need to receive nothing through parameter
+     * Case 1: If the phase is null we have to show the option to start the recruitment process
+     * Case 2: If the phase is open we have to show the option to rollback the phase
+     * Case 3: If the phase is finished we have to show the option to move to the next phase
      */
-    public void executeActionForOpenClosePhaseAccordinglyWithAvailableChoice(List<JobApplication> jobApplications) {
-        Phase phase = returnPhaseOpen();
+    public void executeActionForOpenClosePhaseAccordinglyWithAvailableChoice() {
+        Phase phase = returnNotClosedPhase();
 
-        if (phase == null) {
-            movesNextPhase(jobApplications);
-        } else if (phase.state().equals(State.OPEN) && !checkIfPhaseIsInProgress(jobApplications, phase)) {
+        if (phase == null || phase.state().equals(State.FINISHED)) {
+            movesNextPhase();
+        } else if (phase.state().equals(State.OPEN)) {
             closeOpenPhaseAndOpenPhaseBefore(phase);
-        } else if (checkIsPhaseConcluded(jobApplications, phase)) {
-            if (checkIfIsAtLastPhase()) {
-                closePhase(phase);
-            } else {
-                movesNextPhase(jobApplications);
-            }
         } else {
             throw new IllegalStateException("The are no actions available for the phase");
         }
@@ -291,98 +273,58 @@ public class RecruitmentProcess {
     }
 
 
-    public void openPhase(Phase previousPhase, Phase nextPhase) {
-        if (previousPhase.state().equals(State.CLOSED)) {
-            nextPhase.openPhase();
-        } else {
-            throw new IllegalStateException("The previous phase is not closed");
-        }
-
-
-    }
-
-    /**
-     * @return first phase of the recruitment process
-     */
-    public Phase inicialPhaseOfRecruitmentProcess() {
-        return getAllPhases().get(0);
-    }
-
 
     /**
      * Since the recruitment process knows the options available accordingly with each state we made this method in
      * the recruitment process class to made the message for the user
+     * <p>
+     * Case 1: If the phase is null we have to show the option to start the recruitment process
+     * Case 2: If the phase is open we have to show the option to rollback the phase
+     * Case 3: If the phase is finished we have to show the option to move to the next phase
      *
      * @return
      */
-    public String messageForOpenClosePhase(List<JobApplication> jobApplicationList) {
-        Phase phase = returnPhaseOpen();
+    public String messageForOpenClosePhase() {
+        Phase phase = returnNotClosedPhase();
         String text;
 
         if (phase == null) {
-            text = "1- Open " + inicialPhaseOfRecruitmentProcess().designation() + " phase and consequently start the Recruitment Process\n" +
+            text = "1- Open " + applicationPhase.designation() + " phase and consequently start the Recruitment Process\n" +
                     "2- Exit \n";
 
-        } else if (!checkIfPhaseIsInProgress(jobApplicationList, phase)) {
-            if (inicialPhaseOfRecruitmentProcess().state().equals(State.OPEN)) {
+        } else if (phase.state().equals(State.OPEN)) {
+
+            if (phase.equals(applicationPhase)) {
                 text = "Active phase: " + phase.designation() + "\n1- Rollback and make the Recruitment Process not started\n" +
                         "2- Exit \n";
-            }else {
-                text = "Active phase: " + phase.designation() + "\n1- Rollback to phase before " + previousPhase(phase).designation()+"\n"+
+            } else {
+                text = "Active phase: " + phase.designation() + "\n1- Rollback to phase before " + previousPhase(phase).designation() + "\n" +
                         "2- Exit \n";
             }
 
-        } else if (phase.state().equals(State.OPEN) && checkIsPhaseConcluded(jobApplicationList, phase) && !checkIfIsAtLastPhase()) {
-
-            //When the phase is concluded, the user can move to the next phase or exit
-            text = "Active phase: " + phase.designation() + "\n1- Move to next phase " + nextPhase().designation() + " and close phase before " + phase.designation() + "\n" +
-                    "2- Exit \n";
-
-        } else if (checkIsPhaseConcluded(jobApplicationList, phase) && checkIfIsAtLastPhase()) {
-
+        } else if (phase.state().equals(State.FINISHED)) {
+            if (!phase.equals(resultPhase)) {
+                text = "Active phase: " + phase.designation() + "\n1- Move to next phase " + returnNextPhase().designation() + " and close phase before " + phase.designation() + "\n" +
+                        "2- Exit \n";
+            } else {
                 text = "Active phase: " + phase.designation() + "\n1- Close " + phase + " and consequently end the Recruitment Process (no more phases left)\n" +
                         "2- Exit \n";
+            }
         } else {
-            text = "There are no available actions because the phase is not concluded/is in progress";
+            text = "There are no available actions because the phase is not concluded/is in progress\n" +
+                    "2- Exit \n";
+
         }
 
         return text;
     }
 
 
-    public boolean checkIsPhaseConcluded(List<JobApplication> jobApplicationList, Phase phase) {
-
-        if (phase.designation().equals(Phases.RESUME_SCREEN)) {
-            return isScreenPhaseConcluded(jobApplicationList);
-        } else if (phase.designation().equals(Phases.INTERVIEWS)) {
-            return isInterviewPhaseConcluded(jobApplicationList);
-        } else if (phase.designation().equals(Phases.ANALYSIS)) {
-            return isAnalysisPhaseConcluded(jobApplicationList);
-        } else if (phase.designation().equals(Phases.RESULT)) {
-            return isResultPhaseConcluded(jobApplicationList);
-        }
-
-        return true;
-    }
 
 
-    public boolean isScreenPhaseConcluded(List<JobApplication> jobApplicationList) {
-        for (JobApplication application : jobApplicationList) {
-            if (!application.isApplicationRequirementAnswerEvaluated()) {
-                return false;
-            }
-        }
-        return true;
-    }
 
-    public boolean isInterviewPhaseConcluded(List<JobApplication> jobApplicationList) {
-        for (JobApplication application : jobApplicationList) {
-            if (!application.isApplicationInterviewAvaliationDone()) {
-                return false;
-            }
-        }
-        return true;
-    }
+
+
 
     public boolean isResultPhaseConcluded(List<JobApplication> jobApplicationList) {
         for (JobApplication application : jobApplicationList) {
@@ -407,23 +349,8 @@ public class RecruitmentProcess {
 
     }
 
-    public boolean isScreeningPhaseStarted(List<JobApplication> jobApplicationList) {
-        for (JobApplication application : jobApplicationList) {
-            if (application.isApplicationRequirementAnswerEvaluated()) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public boolean isInterviewPhaseStarted(List<JobApplication> jobApplicationsList) {
-        for (JobApplication jobApplication : jobApplicationsList) {
-            if (jobApplication.isApplicationInterviewAvaliationDone()) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     public boolean isAnalysisPhaseStarted(List<JobApplication> jobApplicationsList) {
         for (JobApplication jobApplication : jobApplicationsList) {
