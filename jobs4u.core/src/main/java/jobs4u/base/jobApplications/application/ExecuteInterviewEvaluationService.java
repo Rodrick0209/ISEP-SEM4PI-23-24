@@ -16,7 +16,7 @@ public class ExecuteInterviewEvaluationService {
         this.jobApplicationRepository = jobApplicationRepository;
     }
     public void executeInterviewEvaluation(JobOpening jobOpening, List<JobApplication> jobApplication){
-        Preconditions.ensure(jobOpening.getRecruitmentProcess().returnPhaseOpen().designation().equals(Phases.INTERVIEWS), "job opening is not in interview phase");
+        Preconditions.ensure(jobOpening.getRecruitmentProcess().returnNotClosedPhase().designation().equals(Phases.INTERVIEWS), "job opening is not in interview phase");
         try{
             for(JobApplication ja: jobApplication){
                 InputStream interviewAnswer = ja.interviewAnswer();

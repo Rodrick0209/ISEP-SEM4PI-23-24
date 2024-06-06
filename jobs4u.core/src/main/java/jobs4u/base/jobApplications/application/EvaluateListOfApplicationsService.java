@@ -21,7 +21,7 @@ public class EvaluateListOfApplicationsService {
         try {
             for (JobApplication jobApplication : list) {
                 JobOpening jobOpening = jobApplication.getJobOpening();
-                if (!jobOpening.getRecruitmentProcess().returnPhaseOpen().designation().toString().equals("Interview"))
+                if (!jobOpening.getRecruitmentProcess().returnNotClosedPhase().designation().toString().equals("Interview"))
                     throw new IllegalStateException("The recruitment process is not in the interview phase");
 
                 InputStream inputStream = jobApplication.getRequirementAnswer().inputStreamFromResourceOrFile();
