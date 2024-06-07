@@ -24,6 +24,7 @@
 
 - The job opening must be in interview phase.
 - The process of execution of evaluation of interviews is only made in job applications with interview answers but without interview points.
+- The job application has its requirement answer accepted.
 - The evaluation of each interview must result in a value in a number with a range of 0-100 and is automatically settled on each job application.
 
 ## System functionality
