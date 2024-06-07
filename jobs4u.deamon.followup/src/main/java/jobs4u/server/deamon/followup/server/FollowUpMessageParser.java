@@ -48,7 +48,7 @@ public class FollowUpMessageParser {
             byte version = message[0];
             byte type = message[1];
             if (version == 1) {
-                System.out.println("TYPE  === " + type);
+                //System.out.println("TYPE  === " + type);
                 switch (type) {
                     case COMM_TEST:
                         request = new CommunicationTestRequest();
@@ -105,7 +105,7 @@ public class FollowUpMessageParser {
             }
         }
         String result = sb.toString();
-        System.out.println("Entrou aquiii");
+        //System.out.println("Entrou aquiii");
         Iterable<Notification> notifications = controller.listNotificationsRead(EmailAddress.valueOf(result));
         return new NotificationReadRequest(notifications);
     }

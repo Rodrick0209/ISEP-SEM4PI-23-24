@@ -19,14 +19,14 @@ public class GetNotificationsController {
 
 
     public Iterable<Notification> listNotificationsRead(EmailAddress emailAddress) {
-        System.out.println("TRACKING CONTROLLER");
+        //System.out.println("TRACKING CONTROLLER");
         return notificationRepository.findNotificationsRead(emailAddress);
 
     }
 
 
     public Iterable<Notification> listNotificationsNotRead(EmailAddress emailAddress) {
-        System.out.println("TRACKING CONTROLLER");
+        //System.out.println("TRACKING CONTROLLER");
         return notificationRepository.findNotificationsNotRead(emailAddress);
 
     }

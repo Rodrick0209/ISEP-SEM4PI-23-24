@@ -1,0 +1,65 @@
+Candidate Report
+
+Candidate Email: johndoe@email.com
+Job Reference: IBM-000123
+Candidate Number: 1
+Path: ../output/IBM-000123/1
+Files:
+   - 1-email.txt
+   - 1-cv.txt
+   - 1-big-file-1.txt
+   - 1-candidate-data.txt
+   - 1-report-1.txt
+
+Candidate Email: johndoe@email.com
+Job Reference: IBM-000123
+Candidate Number: 10
+Path: ../output/IBM-000123/10
+Files:
+   - 10-report-1.txt
+   - 10-cv.txt
+   - 10-candidate-data.txt
+   - 10-big-file-1.txt
+   - 10-email.txt
+
+Candidate Email: janedoe@email.com
+Job Reference: IBM-000123
+Candidate Number: 2
+Path: ../output/IBM-000123/2
+Files:
+   - 2-letter.txt
+   - 2-cv.txt
+   - 2-candidate-data.txt
+   - 2-big-file1.txt
+   - 2-email.txt
+
+Candidate Email: amilcar@gmail.com
+Job Reference: Isep1-2
+Candidate Number: 30
+Path: ../output/Isep1-2/30
+Files:
+   - 30-letter.txt
+   - 30-cv.txt
+   - 30-candidate-data.txt
+   - 30-email.txt
+   - 30-big-file1.txt
+
+Candidate Email: amilcar@gmail.com
+Job Reference: Isep1-2
+Candidate Number: 40
+Path: ../output/Isep1-2/40
+Files:
+   - 40-candidate-data.txt
+   - 40-cv.txt
+
+Candidate Email: amilcar@gmail.com
+Job Reference: MTN1-2
+Candidate Number: 20
+Path: ../output/MTN1-2/20
+Files:
+   - 20-email.txt
+   - 20-cv.txt
+   - 20-candidate-data.txt
+   - 20-big-file1.txt
+   - 20-letter.txt
+

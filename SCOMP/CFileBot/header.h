@@ -17,7 +17,7 @@
 #define MAX_SIZE 256
 
 #define SEM_NOTIFICATION "/notification" //SEM_NAME
-#define SEM_CHILD_READ "/sem_child_rea" //SEM_MEM
+#define SEM_CHILD_READ "/sem_child_re" //SEM_MEM
 #define SEM_PARENT_WRITE "/par_write" //SEM_PARW
 #define SHM_NAME "/my_shared_memory" //SHM_NAME
 

@@ -80,22 +80,37 @@ Tests for Notifications class:
 
 
 
+
 ## 5. Implementation
 
+For the implementation of this user story, we need to create some components, that work together:
 
 
+- **User Interface (DisplayNotificationsUI.java):** This component is responsible for the interaction with the user. 
+
+
+- **Controller (ListNotificationController.java):** This component is responsible for get the Notifications fot the customer. It receives the customer code and  passes them to the service layer for processing. It also handles the response from the service layer and send the response back to the UI.
+
+
+- **Repository (NotificationRepository):** The JobOpeningRepository class is responsible for searching the Notifications for the customer. This class has methods for search.
+
+- **Server (Followup Server):**: This user story works throw a server, all the connections to de database passes throw the server. The customer app and the database doest have direct connection, so a server and all classes that permit the communication and the connection are important to this implementation
 
 
 
 ## 6. Integration/Demonstration
 
 ### Integration
+To integrate the components, we need used some components that already exist in the system, like repositories. The integration of this components with the new components was not very clear and easy to do, because the new ideia of server,
+where all data that goes to and comes from database passes throw the server. This integration was hard to understand and implement.
 
 
 ### Demonstration
+To demonstrate the implementation of this user story, we can use the following steps:
 
-
-
-## 7. Observations
-
+1. Ensure the follow up server is running
+2. Login as candidate
+3. Select option Notification
+4. Select see new notifications
+5. the system will show the notifications for candidate
 
