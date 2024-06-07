@@ -1,11 +1,11 @@
-package jobs4u.app.customer.console.presentation.Notification;
+package jobs4u.app.candidate.console.presentation.Notification;
 
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import jobs4u.app.customer.console.authz.CredentialStore;
-import jobs4u.app.customer.console.checkNotifications.application.NotificationsController;
-import jobs4u.app.customer.console.checkNotifications.dto.NotificationDTO;
+import jobs4u.app.candidate.console.authz.CredentialStore;
+import jobs4u.app.candidate.console.checkNotifications.application.NotificationsController;
+import jobs4u.app.candidate.console.checkNotifications.dto.NotificationDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class CheckNotificationsUI extends AbstractUI {
             switch (option) {
                 case 1:
                     System.out.println("-----------New Notifications-----------:");
-                    Iterable<NotificationDTO> iterable = controller.getNotificationNotReadForCustomer(EmailAddress.valueOf(CredentialStore.getUsername()).toString());
+                    Iterable<NotificationDTO> iterable = controller.getNotificationReadNotificationsForCandidate(EmailAddress.valueOf(CredentialStore.getUsername()).toString());
                     for (NotificationDTO notification : iterable) {
                         System.out.println("-->" + notification.message + " - " + notification.localDate);
                     }
@@ -40,7 +40,7 @@ public class CheckNotificationsUI extends AbstractUI {
                     break;
                 case 2:
                     System.out.println("-----------Old Notifications-----------:");
-                    Iterable<NotificationDTO> iterable1 = controller.getNotificationReadNotificationsForCustomer(EmailAddress.valueOf(CredentialStore.getUsername()).toString());
+                    Iterable<NotificationDTO> iterable1 = controller.getNotificationNotReadForCandidate(CredentialStore.getUsername().toString());
                     for (NotificationDTO notification : iterable1) {
                         System.out.println("-->" + notification.message + " - " + notification.localDate);
                     }

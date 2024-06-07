@@ -3,7 +3,7 @@ package jobs4u.app.candidate.console.client;
 
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.Role;
-import jobs4u.app.customer.console.checkNotifications.dto.NotificationDTO;
+import jobs4u.app.candidate.console.checkNotifications.dto.NotificationDTO;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobApplications.domain.JobApplicationDTO;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
@@ -189,30 +189,9 @@ public class FollowUpServerProxy {
 
 
 
-
-
-    public Iterable<NotificationDTO> getNotificationNotReadForCustomer(final String email)
+    public Iterable<jobs4u.app.candidate.console.checkNotifications.dto.NotificationDTO> getNotificationReadForCandidate(final String email)
             throws IOException {
-        final var socket = new ClientSocket();
-
-        socket.connect(ALT_IP, DEI_PORT);
-        final byte[] request = new GetNotificationsNotReadRequestDTO(email).execute();
-
-        socket.send(request);
-
-        final byte[] response = socket.recv();
-
-        socket.stop();
-
-        final MarshlerUnmarshler mu = new MarshlerUnmarshler();
-
-        return mu.parseResponseMessageGetNotificationsNotRead(response);
-
-    }
-
-    public Iterable<NotificationDTO> getNotificationReadForCustomer(final String email)
-            throws IOException {
-        final var socket = new ClientSocket();
+        final var socket = new FollowUpServerProxy.ClientSocket();
 
         socket.connect(ALT_IP, DEI_PORT);
         final byte[] request = new GetNotificationsReadRequestDTO(email).execute();
@@ -229,7 +208,24 @@ public class FollowUpServerProxy {
 
     }
 
+    public Iterable<jobs4u.app.candidate.console.checkNotifications.dto.NotificationDTO> getNotificationNotReadForCandidate(final String email)
+            throws IOException {
+        final var socket = new FollowUpServerProxy.ClientSocket();
 
+        socket.connect(ALT_IP, DEI_PORT);
+        final byte[] request = new GetNotificationsNotReadRequestDTO(email).execute();
+
+        socket.send(request);
+
+        final byte[] response = socket.recv();
+
+        socket.stop();
+
+        final MarshlerUnmarshler mu = new MarshlerUnmarshler();
+
+        return mu.parseResponseMessageGetNotificationsNotRead(response);
+
+    }
 
 
 

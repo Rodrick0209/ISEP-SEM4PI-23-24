@@ -156,6 +156,8 @@ public class FollowUpMessageParser {
         return new CustomerRequest(client.clientCode().toString());
     }
 
+
+
     private FollowUpRequest parseGetJobApplicationRequest(final byte[] message) {
         ListJobApplicationForCandidate controller = new ListJobApplicationForCandidate();
 
