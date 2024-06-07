@@ -44,7 +44,7 @@ public class RegisterApplicationUI extends AbstractUI {
         switch (option){
             case 1:
                 theController.wantsToCloseApplicationPhase(jobOpening);
-                break;
+                return true;
             case 2:
                 break;
             case 0:

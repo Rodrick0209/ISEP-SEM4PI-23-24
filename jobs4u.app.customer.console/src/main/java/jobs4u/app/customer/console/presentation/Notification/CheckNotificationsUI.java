@@ -1,7 +1,9 @@
 package jobs4u.app.customer.console.presentation.Notification;
 
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import jobs4u.app.customer.console.authz.CredentialStore;
 import jobs4u.app.customer.console.checkNotifications.application.NotificationsController;
 import jobs4u.app.customer.console.checkNotifications.dto.NotificationDTO;
 import org.slf4j.Logger;
@@ -27,7 +29,7 @@ public class CheckNotificationsUI extends AbstractUI {
             switch (option) {
                 case 1:
                     System.out.println("-----------New Notifications-----------:");
-                    Iterable<NotificationDTO> iterable = controller.getNotificationNotReadForCustomer("customer@gmail.com");
+                    Iterable<NotificationDTO> iterable = controller.getNotificationNotReadForCustomer(EmailAddress.valueOf(CredentialStore.getUsername()).toString());
                     for (NotificationDTO notification : iterable) {
                         System.out.println("-->" + notification.message + " - " + notification.localDate);
                     }
