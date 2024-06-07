@@ -20,8 +20,7 @@
  */
 package jobs4u.app.candidate.console.client;
 
-import jobs4u.app.customer.console.checkNotifications.dto.NotificationDTO;
-import jobs4u.base.jobApplications.domain.JobApplication;
+import jobs4u.app.candidate.console.checkNotifications.dto.NotificationDTO;
 import jobs4u.base.jobApplications.domain.JobApplicationDTO;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 
@@ -188,18 +187,6 @@ import java.util.List;
 
 		return list;
 	}
-
-
-
-	private JobOpeningDTO parseResponseMessageLineGetAvailableMeals(final String s) {
-		final String[] tokens = s.split(",");
-		return new JobOpeningDTO(tokens[0]);
-	}
-
-	private String removeDoubleQuotes(final String token) {
-		return token.replace("\"", "").trim();
-	}
-
 
 
 

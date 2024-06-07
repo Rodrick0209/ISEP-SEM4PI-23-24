@@ -243,7 +243,43 @@ public class FollowUpServerProxy {
 
     }
 
+    public Iterable<NotificationDTO> getNotificationReadForCandidate(final String email)
+            throws IOException {
+        final var socket = new ClientSocket();
 
+        socket.connect(ALT_IP, DEI_PORT);
+        final byte[] request = new GetNotificationsReadRequestDTO(email).execute();
+
+        socket.send(request);
+
+        final byte[] response = socket.recv();
+
+        socket.stop();
+
+        final MarshlerUnmarshler mu = new MarshlerUnmarshler();
+
+        return mu.parseResponseMessageGetNotificationsRead(response);
+
+    }
+
+    public Iterable<NotificationDTO> getNotificationNotReadForCandidate(final String email)
+            throws IOException {
+        final var socket = new ClientSocket();
+
+        socket.connect(ALT_IP, DEI_PORT);
+        final byte[] request = new GetNotificationsNotReadRequestDTO(email).execute();
+
+        socket.send(request);
+
+        final byte[] response = socket.recv();
+
+        socket.stop();
+
+        final MarshlerUnmarshler mu = new MarshlerUnmarshler();
+
+        return mu.parseResponseMessageGetNotificationsNotRead(response);
+
+    }
 
 
 

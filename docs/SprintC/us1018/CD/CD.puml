@@ -28,6 +28,12 @@ class InterviewModelSpecification{
 class Interview{
     inputStreamOrResourceFile()
     }
+class RequirementProcess{
+    interviewPhase()
+    }
+class Phase{
+    setStatus(status)
+    }
 
 
 ExecuteInterviewEvaluationUI -> ExecuteInterviewEvaluationController
@@ -38,6 +44,8 @@ ExecuteInterviewEvaluationService --> JobApplicationRepository
 ExecuteInterviewEvaluationService --> JobOpening
 ExecuteInterviewEvaluationService --> JobApplication
 JobOpening --> InterviewModelSpecification
+JobOpening --> RequirementProcess
+RequirementProcess --> Phase
 JobApplication --> Interview
 
 @enduml

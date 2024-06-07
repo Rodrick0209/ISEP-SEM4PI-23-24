@@ -7,6 +7,7 @@ import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
+import jobs4u.base.recruitmentProcessManagement.utils.State;
 import jobs4u.base.utils.ClientCode;
 
 import java.util.ArrayList;
@@ -108,7 +109,7 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
     public List<JobOpening> findInInterviewPhase() {
         List<JobOpening> result = new ArrayList<>();
         for(JobOpening jobOpening : this){
-            if(jobOpening.getRecruitmentProcess().returnNotClosedPhase().designation().equals(Phases.INTERVIEWS)){
+            if(jobOpening.getRecruitmentProcess().interviewsPhase().state().equals(State.OPEN) || jobOpening.getRecruitmentProcess().interviewsPhase().state().equals(State.ACTIVE)){
                 result.add(jobOpening);
             }
         }

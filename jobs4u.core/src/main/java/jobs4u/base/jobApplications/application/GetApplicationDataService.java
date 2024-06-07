@@ -31,6 +31,7 @@ import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
+import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.utils.Path;
 
 import java.io.BufferedReader;
@@ -76,7 +77,7 @@ public class GetApplicationDataService {
 
                     if (jobOpeningRepository.containsOfIdentity(jobReference)) {
                         JobOpening jobOpening = jobOpeningRepository.ofIdentity(jobReference).get();
-                        if (!result.contains(jobOpening)) {
+                        if (!result.contains(jobOpening) && jobOpening.getRecruitmentProcess().returnNotClosedPhase().equals(Phases.APPLICATION)) {
                             if (jobOpening.canApplicationsBeaAdded()){
                                 result.add(jobOpening);
                             }

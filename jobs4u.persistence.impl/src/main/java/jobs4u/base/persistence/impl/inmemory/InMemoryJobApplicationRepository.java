@@ -23,6 +23,7 @@ package jobs4u.base.persistence.impl.inmemory;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.jobApplications.domain.JobApplication;
+import jobs4u.base.jobApplications.domain.RequirementResult;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 
@@ -73,13 +74,15 @@ public class InMemoryJobApplicationRepository
     }
 
     @Override
-    public List<JobApplication> findJobApplicationByJobOpeningWithInterviewAnswerFile(JobOpening jobOpening) {
+    public List<JobApplication> findJobApplicationByJobOpeningWithInterviewAnswerFileWithoutInterviewPointsAndRequirementResultAccepted(JobOpening jobOpening) {
         List<JobApplication> result = new ArrayList<>();
         for (JobApplication jobApplication : this) {
             if(jobApplication.jobOpening().jobReference().toString().equals(jobOpening.jobReference().toString())){
                 if(jobApplication.interview().answer() != null){
                     if(jobApplication.interview().points() == null){
-                        result.add(jobApplication);
+                        if(jobApplication.requirementAnswer().result().equals(RequirementResult.ACCEPTED)) {
+                            result.add(jobApplication);
+                        }
                     }
                 }
             }

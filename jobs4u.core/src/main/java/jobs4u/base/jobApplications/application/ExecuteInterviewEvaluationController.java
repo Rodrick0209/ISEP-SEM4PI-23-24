@@ -30,7 +30,7 @@ public class ExecuteInterviewEvaluationController {
 
     public void executeInterviewEvaluation(JobOpening jobOpening){
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
-        List<JobApplication> jobApplications= jobApplicationRepository.findJobApplicationByJobOpeningWithInterviewAnswerFile(jobOpening);
+        List<JobApplication> jobApplications= jobApplicationRepository.findJobApplicationByJobOpeningWithInterviewAnswerFileWithoutInterviewPointsAndRequirementResultAccepted(jobOpening);
         service.executeInterviewEvaluation(jobOpening, jobApplications);
     }
 

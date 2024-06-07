@@ -13,14 +13,17 @@ interviews for a job opening.
 
 This user story have some dependencies with the following user stories:
 
-| US                                                           | Reason                                                                                |
-|--------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| [G007](../../SprintB/g007/readme.md)                         | We need the authentication to ensure is a customer manager that is logged.            | 
-| [1002](../../SprintB/us1002/readme.md)                       | The job opening must be registered in the system.                                     |
-| [1007](../../SprintB/us1007)<br/>[1010](../us1010/readme.md) | The job must must had received applications, so that one of the phases happened.      |
-| [1011](../../SprintB/us1011/readme.md)                       | The job opening must have a interview model made for evaluation.                      |
-| [1014](../../SprintC/us1014/readme.md)                       | The candidate of a job application had an interview with a customer.                  |   
-| [1017](../../SprintC/us1017/readme.md)                       | The job application of a job opening has an interview answer (not necessary for all). |
+| US                                                                     | Reason                                                                                |
+|------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| [G007](../../SprintB/g007/readme.md)                                   | We need the authentication to ensure is a customer manager that is logged.            | 
+| [1002](../../SprintB/us1002/readme.md)                                 | The job opening must be registered in the system.                                     |
+| [1007](../../SprintB/us1007/readme.md)<br/>[1010](../us1010/readme.md) | The job must must had received applications, so that one of the phases happened.      |
+| [1009](../../SprintB/us1009/readme.md)                                 | The job opening must have a requirement specification made for evaluating requirements. |
+| [1011](../../SprintB/us1011/readme.md)                                 | The job opening must have a interview model made for evaluation.                      |
+| [1012](../../SprintC/us1012/readme.md)                                 | The job application must have a requirement answer. |
+| [1014](../../SprintC/us1014/readme.md)                                 | The candidate of a job application had an interview with a customer.                  |
+| [1015](../../SprintC/us1015/readme.md)                                 | The job application of a job opening has an result from requirement answer. |
+| [1017](../../SprintC/us1017/readme.md)                                 | The job application of a job opening has an interview answer (not necessary for all). |
 
 - **NFR09 (LPROG) -> The support
   for this functionality must follow specific technical requirements, specified in LPROG.
@@ -52,6 +55,7 @@ This user story have some dependencies with the following user stories:
 
 - The job opening must be in interview phase.
 - The process of execution of evaluation of interviews is only made in job applications with interview answers but without interview points.
+- The job application has its requirement answer accepted.
 - The evaluation of each interview must result in a value in a number with a range of 0-100 and is automatically settled on each job application.
 
 ### 3.3. System functionality
@@ -86,10 +90,13 @@ maintainability and scalability. These patterns include:
 - **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
   handle incoming requests, manipulate data using the model, and select views to render to the user.
 
+### 4.4. Observations
+
+- Transactional context are used instead of events for increase service processing speed.
 
 ## 5. Implementation
 
-he process of executing the process of evaluating interviews in this system involves several components working together. Here's a step-by-step
+The process of executing the process of evaluating interviews in this system involves several components working together. Here's a step-by-step
 explanation
 
 - **User Interface (ExecuteInterviewEvaluationUI.java)**: The process starts in the ExecuteInterviewEvaluationUI class, which is
