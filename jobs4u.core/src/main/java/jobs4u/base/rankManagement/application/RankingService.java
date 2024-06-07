@@ -11,6 +11,7 @@ import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.rankManagement.domain.Position;
 import jobs4u.base.rankManagement.domain.Rank;
+import jobs4u.base.recruitmentProcessManagement.utils.State;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class RankingService {
     private final CandidateRepository candidateRepository = PersistenceContext.repositories().candidates();
     private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     private final JobApplicationRepository jobApplicationRepository = PersistenceContext.repositories().jobApplications();
+
     public Rank rankCandidates(JobOpening jobOpening, String emails) {
         List<EmailAddress> emailList = convertEmailsToList(emails);
 
@@ -34,21 +36,21 @@ public class RankingService {
 
         List<Candidate> ranking = new ArrayList<>();
 
-        int i=0;
+        int i = 0;
         for (EmailAddress email : emailList) {
 
             Optional<Candidate> candidate = candidateRepository.findByEmail(email);
 
             if (candidate.isPresent()) {
-                if(candidatesList.contains(candidate.get())){
+                if (candidatesList.contains(candidate.get())) {
                     ranking.add(candidate.get());
 
                     i++;
-                }else{
+                } else {
                     throw new IllegalArgumentException("Candidate with email " + email + " not found in the job opening candidates list.");
                 }
 
-            }else {
+            } else {
                 throw new IllegalArgumentException("Candidate with email " + email + " not found");
             }
         }
@@ -58,15 +60,20 @@ public class RankingService {
         if (ranking.size() > size) {
             System.out.println("The number of candidates is greater than the rank size");
             return null;
-        }else if (ranking.size() < size) {
+        } else if (ranking.size() < size) {
             System.out.println("The number of candidates is less than the rank size. Please finish the rank as soon as possible.");
         }
 
-        Rank rank=null;
+        Rank rank = null;
         if (jobOpening.getRank().hasCandidate()) {
             rank = jobOpening.updateRankList(ranking);
-        }else {
+
+            if (jobOpening.recruitmentProcess().analysisPhase().state().equals(State.ACTIVE)) {
+                checkIfAnalysisPhaseFinished(jobOpening);
+            }
+        } else {
             rank = jobOpening.addRankList(ranking);
+            jobOpening.recruitmentProcess().analysisPhase().setState(State.ACTIVE);
         }
 
         jobOpeningRepository.save(jobOpening);
@@ -74,11 +81,15 @@ public class RankingService {
 
     }
 
-
+    private void checkIfAnalysisPhaseFinished(JobOpening jobOpening) {
+        if (jobOpening.getRank().rank().size() == jobOpening.getRank().getRankSize()) {
+            jobOpening.recruitmentProcess().analysisPhase().setState(State.FINISHED);
+        }
+    }
 
     public List<EmailAddress> convertEmailsToList(String emailString) {
-         final String EMAIL_REGEX = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
-         final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+        final String EMAIL_REGEX = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
+        final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
 
         if (emailString == null || emailString.isEmpty()) {
             return new ArrayList<>();
