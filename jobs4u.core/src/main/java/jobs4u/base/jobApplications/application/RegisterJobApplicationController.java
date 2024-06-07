@@ -107,6 +107,7 @@ public class RegisterJobApplicationController {
 
     public void wantsToCloseApplicationPhase(JobOpening jobOpening){
         jobOpening.recruitmentProcess().applicationPhase().setState(State.FINISHED);
+        jobOpeningRepository.save(jobOpening);
     }
 
     private void checkIfIsFirstApplicationsBeingAdded(JobOpening jobOpening){
