@@ -69,6 +69,7 @@ public class RegisterJobApplicationController {
 
         jobApplicationRepository.save(jobApplication);
         checkIfIsFirstApplicationsBeingAdded(jobOpening);
+        jobOpeningRepository.save(jobOpening);
         txCtx.commit();
 
         return jobApplication;
