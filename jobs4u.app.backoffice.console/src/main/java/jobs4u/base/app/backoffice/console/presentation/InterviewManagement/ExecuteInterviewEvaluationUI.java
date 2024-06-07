@@ -21,7 +21,8 @@ public class ExecuteInterviewEvaluationUI extends AbstractUI {
             PersistenceContext.repositories().jobOpenings(),
             PersistenceContext.repositories().jobApplications(),
             new ExecuteInterviewEvaluationService(
-                    PersistenceContext.repositories().jobApplications())
+                    PersistenceContext.repositories().jobApplications(),
+                    PersistenceContext.repositories().newTransactionalContext())
             );
 
 

@@ -5,6 +5,7 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.base.Application;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.jobApplications.domain.JobApplication;
+import jobs4u.base.jobApplications.domain.RequirementResult;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 
@@ -50,10 +51,11 @@ class JpaJobApplicationRepository
     }
 
     @Override
-    public List<JobApplication> findJobApplicationByJobOpeningWithInterviewAnswerFile(JobOpening jobOpening) {
+    public List<JobApplication> findJobApplicationByJobOpeningWithInterviewAnswerFileWithoutInterviewPointsAndRequirementResultAccepted(JobOpening jobOpening) {
         final Map<String, Object> params = new HashMap<>();
         params.put("reference", jobOpening.jobReference());
-        return match("e.jobOpening.jobReference = :reference and e.interview.answer is not null and e.interview.answer.points IS NULL", params);
+        params.put("accepted", RequirementResult.ACCEPTED);
+        return match("e.jobOpening.jobReference = :reference and e.interview.answer is not null and e.interview.answer.points IS NULL and e.requirementAnswer.result = :accepted", params);
     }
 
 
