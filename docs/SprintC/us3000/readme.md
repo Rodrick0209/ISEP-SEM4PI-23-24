@@ -49,8 +49,6 @@ To achieve this, the candidate must follow the steps below:
 3. Select the option to list all job applications.
 4. The system should display a list of all job applications, including their state and the number of applicants.
 
-### SSD
-![s](SSD//ssd.svg)
 
 ### Impact in the business
 
@@ -74,10 +72,7 @@ them and have a better understanding of the amount of people applying for the sa
 - **Message Types**: The protocol supports this type of messages:
 
   - `GET_JOB_APPLICATIONS_REQUEST`
-  - `AUTH`
-  - `ERR`
-  - `ACK`
-  - `DISCONN`
+  
 
 - **Message Format**: The messages are formatted as an array of bytes, with the first byte representing the message version and the second representing the type of message.
   The following bytes representing the message content. Each data field is preceded by two bytes indicating the field size.
@@ -105,8 +100,7 @@ These are the message code relevant to this user story:
 | 2    | ACK                          |
 | 3    | ERR                          |
 | 4    | AUTH                         |
-| 5    | GET_JOB_APPLICATIONS_REQUEST |
-| 50   | DATA                         |
+| 11   | GET_JOB_APPLICATIONS_REQUEST |
 
 
 - **Client Connection Handling**: To maintain a good client connection, the client must send a `DISCONN` message before closing the connection.
@@ -145,9 +139,9 @@ These are the message code relevant to this user story:
 
 The GET_JOB_APPLICATIONS_REQUEST message has the following format
 
-    GET_JOB_APPLICATIONS_REQUEST, «candidate_id»
+    GET_JOB_APPLICATIONS_REQUEST, «candidate_email»
 
-Where `candidate_id` is the id of the candidate that wants to list his job applications.
+Where `candidate_email` is the email of the candidate that wants to list his job applications.
 
 #### 4.1 Server Response
 
@@ -168,9 +162,7 @@ The protocol parsing and command execution will be in the `daemon` application p
 The server receives the request, parses it, and calls the controller. The controller will return the data to the server,
 then it sends the data back to the client.
 
-### 6. SD
 
-![use case](SD//sd.svg)
 
 ### 7. Tests
 
@@ -181,17 +173,35 @@ For `GET_JOB_APPLICATIONS_REQUEST`:
 
 ## 5. Implementation
 
+For the implementation of this user story, we need to create some components, that work together:
+
+
+- **User Interface :** This component is responsible for the interaction with the user. It shows the job applications and the respective data for the candidate
+
+
+- **Controller:** This component is responsible for get the job applications fot the candidate.
+
+
+- **Repository :** The JobApplicationRepository class is responsible for searching the job applications for the candidate. This class has methods for search.
+
+- **Server :** This user story works throw a server, all the connections to de database passes throw the server. The candidate app and the database doest have direct connection, so a server and all classes that permit the communication and the connection are important to this implementation
+
+
 
 ## 6. Integration/Demonstration
 
 ### Integration
+To integrate the components, we  used some components that already exist in the system, like repositories. The integration of this components with the new components was not very clear and easy to do, because the new ideia of server,
+where all data that goes to and comes from database passes throw the server. This integration was hard to understand and implement.
 
 
 ### Demonstration
+To demonstrate the implementation of this user story, we can use the following steps:
 
-
-
-## 7. Observations
+1. Ensure the follow up server is running
+2. Login as candidate
+3. Select option List Job application
+5. The system will show the job application data for the candidate
 
 
 
