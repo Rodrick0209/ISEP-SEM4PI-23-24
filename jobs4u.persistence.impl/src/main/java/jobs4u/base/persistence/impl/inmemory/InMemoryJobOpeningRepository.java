@@ -2,15 +2,12 @@ package jobs4u.base.persistence.impl.inmemory;
 
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
-import jobs4u.base.clientManagement.domain.Client;
-import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.JobOpeningStatus;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.utils.ClientCode;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +58,7 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
         List<JobOpening> result = new ArrayList<>();
         for (JobOpening jobOpening : this) {
             if (jobOpening.getClient().getCustomerManagerEmail().equals(customermanager.email())) {
-                if (jobOpening.getRecruitmentProcess().returnPhaseOpen().equals(Phases.ANALYSIS)) {
+                if (jobOpening.getRecruitmentProcess().returnNotClosedPhase().equals(Phases.ANALYSIS)) {
                     result.add(jobOpening);
                 }
             }
@@ -85,7 +82,7 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
     public List<JobOpening> findInAnalysisPhaseAndHadInterviewPhase() {
         List<JobOpening> result = new ArrayList<>();
         for (JobOpening jobOpening : this){
-            if(jobOpening.getRecruitmentProcess().returnPhaseOpen().designation().equals(Phases.ANALYSIS)){
+            if(jobOpening.getRecruitmentProcess().returnNotClosedPhase().designation().equals(Phases.ANALYSIS)){
                 if(jobOpening.getRecruitmentProcess().interviewsPhase() != null){
                     result.add(jobOpening);
                 }
@@ -111,7 +108,7 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
     public List<JobOpening> findInInterviewPhase() {
         List<JobOpening> result = new ArrayList<>();
         for(JobOpening jobOpening : this){
-            if(jobOpening.getRecruitmentProcess().returnPhaseOpen().designation().equals(Phases.INTERVIEWS)){
+            if(jobOpening.getRecruitmentProcess().returnNotClosedPhase().designation().equals(Phases.INTERVIEWS)){
                 result.add(jobOpening);
             }
         }

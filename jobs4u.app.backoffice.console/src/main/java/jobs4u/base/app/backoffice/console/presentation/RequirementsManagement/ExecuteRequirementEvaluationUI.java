@@ -16,7 +16,7 @@ public class ExecuteRequirementEvaluationUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExecuteRequirementEvaluationUI.class);
 
-    private final ExecuteRequirementEvaluationController requirementEvaluationController = new ExecuteRequirementEvaluationController(PersistenceContext.repositories().jobApplications(), AuthzRegistry.authorizationService());
+    private final ExecuteRequirementEvaluationController requirementEvaluationController = new ExecuteRequirementEvaluationController(PersistenceContext.repositories().jobApplications(), AuthzRegistry.authorizationService(),PersistenceContext.repositories().notifications());
 
     private final ListJobOpeningUI listJobOpeningUI = new ListJobOpeningUI();
 
