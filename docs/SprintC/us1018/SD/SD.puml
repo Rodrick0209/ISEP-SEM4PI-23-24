@@ -10,8 +10,10 @@ participant ExecuteInterviewEvaluationService <<service>>
 participant JobOpeningRepository <<repository>>
 participant JobApplicationRepository <<repository>>
 participant JobOpening <<domain>>
-participant JobApplication <<domain>>
 participant InterviewModelSpecification <<domain>>
+participant RequirementProcess <<domain>>
+participant Phase <<domain>>
+participant JobApplication <<domain>>
 participant Interview <<domain>>
 
 
@@ -30,7 +32,7 @@ ExecuteInterviewEvaluationUI --> CustomerManager : shows list of job openings in
 CustomerManager -> ExecuteInterviewEvaluationUI : selects one job Opening
 ExecuteInterviewEvaluationUI -> ExecuteInterviewEvaluationController : executeInterviewEvaluation(jobOpening)
 activate ExecuteInterviewEvaluationController
-ExecuteInterviewEvaluationController -> JobApplicationRepository : findByJobOpeningAndWithInterviewAnswer(jobOpening)
+ExecuteInterviewEvaluationController -> JobApplicationRepository : findByJobOpeningAndWithInterviewAnswerWithoutInterviewPointsAndRequirementResultAccepted(jobOpening)
 activate JobApplicationRepository
 JobApplicationRepository --> ExecuteInterviewEvaluationController : jobApplications
 deactivate JobApplicationRepository
@@ -38,6 +40,7 @@ ExecuteInterviewEvaluationController -> ExecuteInterviewEvaluationService : exec
 activate ExecuteInterviewEvaluationService
 alt job opening is in interview phase
 loop for each job application
+alt job application has interview answer, not had interview points and had requirement result accepted
 ExecuteInterviewEvaluationService -> JobApplication : interviewAnswer()
 activate JobApplication
 JobApplication -> Interview : inputStreamFromResourceOrFile()
@@ -59,8 +62,46 @@ activate JobApplication
 JobApplication -> Interview : grade(interviewPoints)
 deactivate JobApplication
 ExecuteInterviewEvaluationService -> JobApplicationRepository : save(jobApplication)
-deactivate ExecuteInterviewEvaluationService
+end alt
 end loop
+ExecuteInterviewEvaluationService -> ExecuteInterviewEvaluationService : checkIfInterviewPhaseStateChanges(jobOpening, jobApplication)
+activate ExecuteInterviewEvaluationService
+alt exists job applications in job opening
+ExecuteInterviewEvaluationService -> ExecuteInterviewEvaluationService :  isInterviewPhaseConcluded(jobApplications)
+activate ExecuteInterviewEvaluationService
+loop for each job application
+ExecuteInterviewEvaluationService -> JobApplication : isApplicationInterviewAvaliationDone()
+activate JobApplication
+end loop
+alt all job applications interview evaluation done
+JobApplication --> ExecuteInterviewEvaluationService : true
+ExecuteInterviewEvaluationService -> JobOpening : requirementProcess()
+JobOpening -> RequirementProcess : interviewPhase()
+RequirementProcess -> Phase : setStatus(Status.FINISHED)
+else
+JobApplication --> ExecuteInterviewEvaluationService : false
+deactivate JobApplication
+end alt
+deactivate ExecuteInterviewEvaluationService
+ExecuteInterviewEvaluationService -> ExecuteInterviewEvaluationService : isInterviewPhaseStarted(jobApplications)
+activate ExecuteInterviewEvaluationService
+loop for each job application
+ExecuteInterviewEvaluationService -> JobApplication : isApplicationInterviewAvaliationDone()
+activate JobApplication
+end loop
+alt job application has interview evaluation done
+JobApplication --> ExecuteInterviewEvaluationService : true
+ExecuteInterviewEvaluationService -> JobOpening : requirementProcess()
+JobOpening -> RequirementProcess : interviewPhase()
+RequirementProcess -> Phase : setStatus(Status.ACTIVE)
+else
+JobApplication --> ExecuteInterviewEvaluationService : false
+deactivate JobApplication
+end alt
+deactivate ExecuteInterviewEvaluationService
+deactivate ExecuteInterviewEvaluationService
+deactivate ExecuteInterviewEvaluationService
+end alt
 end alt
 deactivate ExecuteInterviewEvaluationController
 ExecuteInterviewEvaluationUI --> CustomerManager : backs to menu

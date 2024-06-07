@@ -10,6 +10,8 @@
 - JobApplication
 - InterviewModelSpecification
 - Interview
+- RequirementProcess
+- Phase
 
 ## Controller
 
@@ -27,3 +29,7 @@
 ## Class diagram
 
 ![](../CD/CD.svg)
+
+## Observations
+
+- Transactional context are used instead of events for increase service processing speed.

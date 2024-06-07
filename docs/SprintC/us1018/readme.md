@@ -90,10 +90,13 @@ maintainability and scalability. These patterns include:
 - **Controller Pattern:** The Controller pattern was used in the presentation layer of the application. Controllers
   handle incoming requests, manipulate data using the model, and select views to render to the user.
 
+### 4.4. Observations
+
+- Transactional context are used instead of events for increase service processing speed.
 
 ## 5. Implementation
 
-he process of executing the process of evaluating interviews in this system involves several components working together. Here's a step-by-step
+The process of executing the process of evaluating interviews in this system involves several components working together. Here's a step-by-step
 explanation
 
 - **User Interface (ExecuteInterviewEvaluationUI.java)**: The process starts in the ExecuteInterviewEvaluationUI class, which is
