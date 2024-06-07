@@ -99,10 +99,11 @@ JobApplication --> ExecuteInterviewEvaluationService : false
 deactivate JobApplication
 end alt
 deactivate ExecuteInterviewEvaluationService
-deactivate ExecuteInterviewEvaluationService
+end alt
 deactivate ExecuteInterviewEvaluationService
 end alt
-end alt
+ExecuteInterviewEvaluationService -> JobOpeningRepository : save(jobOpening)
+deactivate ExecuteInterviewEvaluationService
 deactivate ExecuteInterviewEvaluationController
 ExecuteInterviewEvaluationUI --> CustomerManager : backs to menu
 deactivate ExecuteInterviewEvaluationUI
