@@ -2,7 +2,10 @@ package jobs4u.server.deamon.followup.server;
 
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.Authenticator;
+import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.domain.Client;
+import jobs4u.base.jobApplications.application.ListJobApplicationForCandidate;
+import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobOpeningsManagement.application.ListJobOpeningForCustomerController;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.notificationManagement.application.GetNotificationsController;
@@ -35,6 +38,7 @@ public class FollowUpMessageParser {
     protected final static byte GET_NOTIFICATIONS_READ = 8;
 
     protected final static byte GET_NOTIFICATIONS_NOT_READ = 9;
+    protected final static byte GET_APPLICATION_CANDIDATE = 11;
 
     public FollowUpMessageParser(Authenticator authenticationService) {
         this.authenticationService = authenticationService;
@@ -69,6 +73,9 @@ public class FollowUpMessageParser {
                         break;
                     case GET_NOTIFICATIONS_NOT_READ:
                         request = parseGetNotificationsNotRead(message);
+                        break;
+                    case GET_APPLICATION_CANDIDATE:
+                        request = parseGetJobApplicationRequest(message);
                         break;
                 }
             }
@@ -147,6 +154,26 @@ public class FollowUpMessageParser {
         Client client = controller.getCustomer(result);
 
         return new CustomerRequest(client.clientCode().toString());
+    }
+
+    private FollowUpRequest parseGetJobApplicationRequest(final byte[] message) {
+        ListJobApplicationForCandidate controller = new ListJobApplicationForCandidate();
+
+        StringBuilder sb = new StringBuilder();
+        int DATA1_PREFIX = 4;
+
+        for (int i = DATA1_PREFIX; i < DATA1_PREFIX + 50; i++) {
+            if (message[i] != 0) {
+                sb.append((char) message[i]);
+            }
+        }
+        String result = sb.toString();
+
+
+
+        Iterable<JobApplication> jobs = controller.getJobApplicationForCandidate(EmailAddress.valueOf(result));
+
+        return new JobApplicationRequest(jobs);
     }
 
     private FollowUpRequest parseAuthRequest(final byte[] message) {

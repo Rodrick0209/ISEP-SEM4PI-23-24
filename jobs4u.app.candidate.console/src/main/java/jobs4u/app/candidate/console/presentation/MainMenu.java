@@ -35,6 +35,7 @@ import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
+import jobs4u.app.candidate.console.presentation.jobApplications.DisplayJobApplicationsUI;
 import jobs4u.app.customer.console.presentation.JobOpening.DisplayJobOpeningUI;
 import jobs4u.app.customer.console.presentation.Notification.CheckNotificationsUI;
 import jobs4u.base.Application;
@@ -64,6 +65,9 @@ public class MainMenu extends AbstractUI {
 
     // NOTIFICATIONS
     private static final int SEE_NOTIFICATIONS = 1;
+
+
+    private static final int SEE_JOB_APLICATIONS = 2;
 
 
     private static final int SETTINGS_OPTION = 5;
@@ -109,6 +113,8 @@ public class MainMenu extends AbstractUI {
         final Menu notificationsMenu = buildNotificationMenu();
 
         mainMenu.addSubMenu(SEE_NOTIFICATIONS, notificationsMenu);
+        mainMenu.addSubMenu(SEE_JOB_APLICATIONS,buildJobApplications());
+
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
@@ -143,7 +149,14 @@ public class MainMenu extends AbstractUI {
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
+    }
 
+    private Menu buildJobApplications() {
+        final Menu menu = new Menu("Applications >");
+        menu.addItem(1, "See Applications", new DisplayJobApplicationsUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
     }
 
 
