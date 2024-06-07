@@ -29,10 +29,29 @@ public class RegisterApplicationUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
+
+
         JobOpening jobOpening = requestJobOpening();
         if (jobOpening == null) {
             return false;
         }
+
+        System.out.println("Do you want to close the applicationPhase? (Y/N)");
+        System.out.println("1 - Yes");
+        System.out.println("2 - No");
+        System.out.println("0 - Exit");
+        int option = Console.readOption(1, 2, 0);
+        switch (option){
+            case 1:
+                theController.wantsToCloseApplicationPhase(jobOpening);
+                break;
+            case 2:
+                break;
+            case 0:
+                return false;
+
+        }
+
 
 
         String jobApplicationId = requestApplication(jobOpening.jobReference());

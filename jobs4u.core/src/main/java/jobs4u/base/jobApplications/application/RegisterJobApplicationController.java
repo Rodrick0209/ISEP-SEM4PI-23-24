@@ -15,6 +15,7 @@ import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.jobOpeningsManagement.utils.JobReference;
+import jobs4u.base.recruitmentProcessManagement.utils.State;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 
 import java.util.*;
@@ -67,7 +68,7 @@ public class RegisterJobApplicationController {
         JobApplication jobApplication = new JobApplication(Long.parseLong(id),jobOpening, file, candidate);
 
         jobApplicationRepository.save(jobApplication);
-
+        checkIfIsFirstApplicationsBeingAdded(jobOpening);
         txCtx.commit();
 
         return jobApplication;
@@ -102,6 +103,15 @@ public class RegisterJobApplicationController {
             return candidateRepository.ofIdentity(EmailAddress.valueOf(clientInfo.get("email"))).get();
         }
 
+    }
+
+    public void wantsToCloseApplicationPhase(JobOpening jobOpening){
+        jobOpening.recruitmentProcess().applicationPhase().setState(State.FINISHED);
+    }
+
+    private void checkIfIsFirstApplicationsBeingAdded(JobOpening jobOpening){
+      if ( (long) jobApplicationRepository.findJobApplicationsByJobOpening(jobOpening).size() == 1)
+            jobOpening.recruitmentProcess().resumeScreenPhase().setState(State.ACTIVE);
     }
 
 }
