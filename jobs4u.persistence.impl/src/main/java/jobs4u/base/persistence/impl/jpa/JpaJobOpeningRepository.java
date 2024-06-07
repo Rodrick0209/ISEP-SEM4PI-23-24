@@ -170,11 +170,13 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
     public List<JobOpening> findInInterviewPhase() {
         // JPQL query
         String jpql = "SELECT jo FROM JobOpening jo " +
-                "WHERE jo.recruitmentProcess.interviewsPhase.state = :interviwsPhaseState";
+                "WHERE jo.recruitmentProcess.interviewsPhase.state = :interviwsPhaseStateOpen " +
+                "OR jo.recruitmentProcess.interviewsPhase.state = :interviewsPhaseStateActive";
 
         // Execute the query
         List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
-                .setParameter("interviwsPhaseState", State.OPEN)
+                .setParameter("interviwsPhaseStateOpen", State.OPEN)
+                .setParameter("interviewsPhaseStateActive", State.ACTIVE)
                 .getResultList();
 
         // If there are no jobOpenings found, return null

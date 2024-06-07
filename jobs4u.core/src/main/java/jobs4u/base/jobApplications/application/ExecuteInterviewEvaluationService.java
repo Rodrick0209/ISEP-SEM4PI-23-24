@@ -7,6 +7,7 @@ import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.jobApplications.domain.RequirementResult;
 import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
+import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.recruitmentProcessManagement.utils.State;
 
@@ -15,14 +16,17 @@ import java.util.List;
 
 public class ExecuteInterviewEvaluationService {
     private final JobApplicationRepository jobApplicationRepository;
+    private final JobOpeningRepository jobOpeningRepository;
     private final TransactionalContext ctx;
     public ExecuteInterviewEvaluationService(JobApplicationRepository jobApplicationRepository,
+                                             JobOpeningRepository jobOpeningRepository,
                                              TransactionalContext ctx) {
         this.jobApplicationRepository = jobApplicationRepository;
+        this.jobOpeningRepository = jobOpeningRepository;
         this.ctx = ctx;
     }
     public void executeInterviewEvaluation(JobOpening jobOpening, List<JobApplication> jobApplication){
-        Preconditions.ensure(jobOpening.getRecruitmentProcess().returnNotClosedPhase().designation().equals(Phases.INTERVIEWS), "job opening is not in interview phase");
+        Preconditions.ensure(jobOpening.getRecruitmentProcess().interviewsPhase().state().equals(State.OPEN) || jobOpening.getRecruitmentProcess().interviewsPhase().state().equals(State.ACTIVE), "job opening is not in interview phase");
 
         try{
             ctx.beginTransaction();
@@ -36,6 +40,7 @@ public class ExecuteInterviewEvaluationService {
             }
             //Change interview phase state using transactional context
             checkIfInterviewPhaseStateChanges(jobOpening, jobApplication);
+            jobOpeningRepository.save(jobOpening);
             ctx.commit();
         } catch (Exception e){
             throw new RuntimeException(e);
