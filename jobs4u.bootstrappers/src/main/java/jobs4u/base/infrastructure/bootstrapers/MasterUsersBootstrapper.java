@@ -105,6 +105,10 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerCandidate("candidate@gmail.com", TestDataConstants.PASSWORD1, "candidate", "Doe candidate",
                 "candidate@gmail.com");
 
+        registerCandidate("cates@gmail.com", TestDataConstants.PASSWORD1, "cates", "Doe candidate",
+                "cates@gmail.com");
+
+
         SystemUser user = registerCustomer("customer@gmail.com", TestDataConstants.PASSWORD1, "customer", "Doe customer",
                 "customer@gmail.com");
 

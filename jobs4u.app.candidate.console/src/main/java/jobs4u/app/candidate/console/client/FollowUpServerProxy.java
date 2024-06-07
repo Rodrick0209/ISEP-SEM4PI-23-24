@@ -1,10 +1,11 @@
-package jobs4u.app.customer.console.followup.customer.client;
+package jobs4u.app.candidate.console.client;
 
 
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import jobs4u.app.customer.console.checkNotifications.dto.NotificationDTO;
 import jobs4u.base.jobApplications.domain.JobApplication;
+import jobs4u.base.jobApplications.domain.JobApplicationDTO;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpeningDTO;
 import jobs4u.base.utils.ClientCode;
 import jobs4u.server.deamon.followup.server.CustomerRequest;
@@ -166,43 +167,28 @@ public class FollowUpServerProxy {
         }
     }
 
-
-
-
-    public Iterable<JobOpeningDTO> getJobOpeningsForCustomer(final ClientCode code)
+    public Iterable<JobApplicationDTO> getJobApplicationForCandidate(final EmailAddress emailAddress)
             throws IOException {
         final var socket = new ClientSocket();
 
         socket.connect(ALT_IP, DEI_PORT);
 
-        final byte[] request = new GetJobOpeningForCustomerDTO(code).execute();
-
+        final byte[] request = new GetJobApplicationForCandidate(emailAddress).execute();
 
         socket.send(request);
 
-
         final byte[] response = socket.recv();
-
 
         socket.stop();
 
         final MarshlerUnmarshler mu = new MarshlerUnmarshler();
 
-        return mu.parseResponseMessageGetJobOpenings(response);
+        return mu.parseResponseMessageGetJobApplication(response);
     }
 
 
-    public String getCustomerCode(final String email)
-            throws IOException {
-        final var socket = new ClientSocket();
-        socket.connect(ALT_IP, DEI_PORT);
-        final byte[] request = new CustomerRequest(email).execute();
-        socket.send(request);
-        final byte[] response = socket.recv();
-        socket.stop();
-        final MarshlerUnmarshler mu = new MarshlerUnmarshler();
-        return mu.parseCustomerCode(response);
-    }
+
+
 
 
     public Iterable<NotificationDTO> getNotificationNotReadForCustomer(final String email)

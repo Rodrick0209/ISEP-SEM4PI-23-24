@@ -7,6 +7,7 @@ import eapli.framework.infrastructure.authz.domain.model.Name;
 import jakarta.persistence.*;
 import jobs4u.base.jobApplications.domain.JobApplication;
 import jobs4u.base.utils.PhoneNumber;
+import lombok.Setter;
 
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,6 +21,7 @@ import java.util.Objects;
 public class Candidate implements AggregateRoot<EmailAddress> {
     private static final long serialVersionUID = 1L;
 
+    @Setter
     @EmbeddedId
     private EmailAddress email;
 
