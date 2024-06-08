@@ -288,6 +288,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         List<JobApplicationFile> file2 = List.of(new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-email.txt")));
 
 
+        JobApplication jobApplication5 = new JobApplication(6L, j, file, candidate1);
+        JobApplication jobApplication6 = new JobApplication(7L, j, file, candidate2);
         JobApplication jobApplication = new JobApplication(1L, j, file, candidate4);
         jobApplication.registerRequirementAnswer("answerFromCandidate1Test.answer");
         jobApplication.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
@@ -321,6 +323,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         jobApplicationRepository.save(jobApplication2);
         jobApplicationRepository.save(jobApplication3);
         jobApplicationRepository.save(jobApplication4);
+        jobApplicationRepository.save(jobApplication5);
+        jobApplicationRepository.save(jobApplication6);
 
         Notification notification = new Notification(client.getUser().email(), jobOpening);
         notificationRepository.save(notification);
