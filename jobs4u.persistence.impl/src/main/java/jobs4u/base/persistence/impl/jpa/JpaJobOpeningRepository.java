@@ -187,5 +187,19 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
         return jobOpenings;
     }
 
+    @Override
+    public JobOpening findByJobReference(JobReference jobReference) {
+        // JPQL query
+        String jpql = "SELECT jo FROM JobOpening jo " +
+                "WHERE jo.jobReference = :jobReference";
+
+        // Execute the query
+        JobOpening jobOpening = entityManager().createQuery(jpql, JobOpening.class)
+                .setParameter("jobReference", jobReference)
+                .getSingleResult();
+
+        return jobOpening;
+    }
+
 
 }
