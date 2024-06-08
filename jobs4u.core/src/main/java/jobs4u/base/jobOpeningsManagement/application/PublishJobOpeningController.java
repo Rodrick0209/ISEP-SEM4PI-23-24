@@ -25,22 +25,12 @@ public class PublishJobOpeningController {
     }
 
     public Iterable<JobOpening> getJobOpenings(){
+
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
 
 
-        // get active job openings
-        Iterable<JobOpening> jobOpenings = jobOpeningRepository.findAll();
 
-
-        //remove inactive job openings
-        ArrayList<JobOpening> activeJobOpenings = new ArrayList<>();
-        for(JobOpening jobOpening : jobOpenings){
-            if(jobOpening.recruitmentProcess().returnNotClosedPhase().designation().equals(Phases.RESULT)){
-                activeJobOpenings.add(jobOpening);
-            }
-        }
-
-        return activeJobOpenings;
+        return jobOpeningRepository.findInResultPhase();
     }
 
     public void publishJobOpeningResults(JobOpening jobOpening){
@@ -52,7 +42,7 @@ public class PublishJobOpeningController {
 
         followUpServerProxy.sendResultEmailRequest(jobOpening);
 
-        jobOpening.changePhase();
+        jobOpening.recruitmentProcess().closePhase(jobOpening.recruitmentProcess().resultPhase());
 
         jobOpeningRepository.save(jobOpening);
 
