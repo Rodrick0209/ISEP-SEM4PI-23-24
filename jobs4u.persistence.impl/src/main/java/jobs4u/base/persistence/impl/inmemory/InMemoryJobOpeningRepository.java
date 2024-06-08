@@ -115,4 +115,14 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
         }
         return result;
     }
+
+    @Override
+    public JobOpening findByJobReference(JobReference jobReference) {
+        for (JobOpening jobOpening : this) {
+            if (jobOpening.jobReference().equals(jobReference)) {
+                return jobOpening;
+            }
+        }
+        return null;
+    }
 }

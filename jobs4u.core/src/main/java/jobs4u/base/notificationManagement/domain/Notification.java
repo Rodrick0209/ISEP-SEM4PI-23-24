@@ -51,6 +51,14 @@ public class Notification implements AggregateRoot<Long> {
         this.type = NotificationType.JOB_APPLICATION_STATE_CHANGE;
     }
 
+    public Notification(EmailAddress emailAddress, String message) {
+        this.emailAddress = emailAddress;
+        this.message = Message.valueOf(message);
+        this.date = LocalDate.now();
+        this.state = NotificationState.EmailNotification;
+        this.type = NotificationType.PUBLISHED_RESULTS;
+    }
+
 
     public NotificationState state() {
         return this.state;
