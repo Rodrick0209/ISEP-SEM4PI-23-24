@@ -67,10 +67,11 @@ public class RankingService {
         Rank rank = null;
         if (jobOpening.getRank().hasCandidate()) {
             rank = jobOpening.updateRankList(ranking);
-
+            /*
             if (jobOpening.recruitmentProcess().analysisPhase().state().equals(State.ACTIVE)) {
                 checkIfAnalysisPhaseFinished(jobOpening);
             }
+             */
         } else {
             rank = jobOpening.addRankList(ranking);
             jobOpening.recruitmentProcess().analysisPhase().setState(State.ACTIVE);

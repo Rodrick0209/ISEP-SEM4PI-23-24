@@ -118,4 +118,12 @@ public class Rank implements DTOable<RankDTO>, Serializable {
         rank.add(pos);
         return pos;
     }
+
+    public boolean isRankCompleted() {
+        if (rank.isEmpty()){
+            return false;
+        }
+        return rank.size() == rankSize;
+    }
+
 }
