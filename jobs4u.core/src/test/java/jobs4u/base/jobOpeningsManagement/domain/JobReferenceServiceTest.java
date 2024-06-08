@@ -105,6 +105,11 @@ public class JobReferenceServiceTest {
             return List.of();
         }
 
+        @Override
+        public JobOpening findByJobReference(JobReference jobReference) {
+            return null;
+        }
+
     };
 
     public static JobOpening jobOpening() {
