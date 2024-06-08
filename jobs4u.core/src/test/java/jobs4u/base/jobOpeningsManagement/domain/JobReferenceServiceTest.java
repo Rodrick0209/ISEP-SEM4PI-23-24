@@ -106,6 +106,11 @@ public class JobReferenceServiceTest {
         }
 
         @Override
+        public List<JobOpening> findInResultPhase() {
+            return List.of();
+        }
+
+        @Override
         public JobOpening findByJobReference(JobReference jobReference) {
             return null;
         }
