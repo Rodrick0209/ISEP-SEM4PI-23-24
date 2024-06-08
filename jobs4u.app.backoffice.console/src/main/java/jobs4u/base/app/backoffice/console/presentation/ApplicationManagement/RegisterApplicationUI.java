@@ -36,21 +36,6 @@ public class RegisterApplicationUI extends AbstractUI {
             return false;
         }
 
-        System.out.println("Do you want to close the applicationPhase? (Y/N)");
-        System.out.println("1 - Yes");
-        System.out.println("2 - No");
-        System.out.println("0 - Exit");
-        int option = Console.readOption(1, 2, 0);
-        switch (option){
-            case 1:
-                theController.wantsToCloseApplicationPhase(jobOpening);
-                return true;
-            case 2:
-                break;
-            case 0:
-                return false;
-
-        }
 
 
 
@@ -64,11 +49,28 @@ public class RegisterApplicationUI extends AbstractUI {
             this.theController.registerJobApplication(jobApplicationId, jobOpening.jobReference().toString());
             System.out.println("Job Application registered successfully.");
 
+            System.out.println("Do you want to close the applicationPhase? (Y/N)");
+            System.out.println("1 - Yes");
+            System.out.println("2 - No");
+            System.out.println("0 - Exit");
+            int option = Console.readOption(1, 2, 0);
+            switch (option){
+                case 1:
+                    theController.wantsToCloseApplicationPhase(jobOpening);
+                    return true;
+                case 2:
+                    break;
+                case 0:
+                    return false;
+
+            }
+
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println(
                     "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
         }
+
 
 
         return true;
