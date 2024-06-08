@@ -184,6 +184,24 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
         return jobOpenings;
     }
 
+    public List<JobOpening> findInResultPhase() {
+        // JPQL query
+        String jpql = "SELECT jo FROM JobOpening jo " +
+                "WHERE jo.recruitmentProcess.resultPhase.state = :resultPhaseState";
+
+        // Execute the query
+        List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
+                .setParameter("resultPhaseState", State.OPEN)
+                .getResultList();
+
+        // If there are no jobOpenings found, return null
+        if(jobOpenings.isEmpty()){
+            return null;
+        }
+
+        return jobOpenings;
+    }
+
     @Override
     public JobOpening findByJobReference(JobReference jobReference) {
         // JPQL query

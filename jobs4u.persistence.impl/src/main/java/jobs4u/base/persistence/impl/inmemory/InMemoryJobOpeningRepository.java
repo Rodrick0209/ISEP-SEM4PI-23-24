@@ -116,6 +116,16 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
         return result;
     }
 
+    public List<JobOpening> findInResultPhase() {
+        List<JobOpening> result = new ArrayList<>();
+        for(JobOpening jobOpening : this){
+            if(jobOpening.getRecruitmentProcess().returnNotClosedPhase().designation().equals(Phases.RESULT)){
+                result.add(jobOpening);
+            }
+        }
+        return result;
+    }
+
     @Override
     public JobOpening findByJobReference(JobReference jobReference) {
         for (JobOpening jobOpening : this) {
