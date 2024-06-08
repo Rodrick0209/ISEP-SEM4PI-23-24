@@ -35,6 +35,7 @@ import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.List
 import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.ExecuteRequirementEvaluationUI;
 import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.RegisterRequirementAnswerFileUI;
 import jobs4u.base.app.backoffice.console.presentation.candiateManagement.GetOrderedListOfCandidatesUI;
+import jobs4u.base.app.backoffice.console.presentation.rank.finishJobOpeningAction;
 import jobs4u.base.app.backoffice.console.presentation.rank.rankJobOpeningAction;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.RegisterJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.SelectJobRequirementSpecificationForJobOpeningUI;
@@ -116,6 +117,7 @@ public class MainMenu extends AbstractUI {
 
     // PLUGINS
     private static final int REGISTER_RANK_FOR_JOB_OPENING = 1;
+    private static final int FINISH_RANK_FOR_JOB_OPENING = 2;
 
     // APPLICATIONS
     private static final int REGISTER_APPLICATION = 1;
@@ -325,7 +327,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Rank >");
 
         menu.addItem(REGISTER_RANK_FOR_JOB_OPENING, "Register Rank for Job Opening", new rankJobOpeningAction());
-
+        menu.addItem(FINISH_RANK_FOR_JOB_OPENING, "Finish rank state for Job Opening", new finishJobOpeningAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

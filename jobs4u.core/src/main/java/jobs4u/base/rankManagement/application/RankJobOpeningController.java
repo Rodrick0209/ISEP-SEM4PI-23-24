@@ -12,6 +12,7 @@ import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 import jobs4u.base.rankManagement.domain.Rank;
 import jobs4u.base.rankManagement.domain.RankDTO;
+import jobs4u.base.recruitmentProcessManagement.utils.State;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 
 import java.util.ArrayList;
@@ -57,6 +58,16 @@ public class RankJobOpeningController {
 
     public RankDTO getRankAsDTO(JobOpening job) {
         return job.getRank().toDTO();
+    }
+
+
+    public boolean finishRankingPhase(JobOpening jobOpening) {
+        if (jobOpening.getRank().isRankCompleted()) {
+            jobOpening.recruitmentProcess().analysisPhase().setState(State.FINISHED);
+            jobOpeningRepository.save(jobOpening);
+            return true;
+        }
+        return false;
     }
 
 }

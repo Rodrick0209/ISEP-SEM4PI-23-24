@@ -74,34 +74,31 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
     }
 
 
-   @Override
+    @Override
     public List<JobOpening> findByCustomerManagerAndInAnalysisPhase(SystemUser customermanager) {
 
+        // Ensure the customermanager is not null
+        if (customermanager == null) {
+            throw new IllegalArgumentException("CustomerManager cannot be null");
+        }
 
-       // Ensure the jobApplication is not null
-       if (customermanager == null) {
-           throw new IllegalArgumentException("JobApplication cannot be null");
-       }
+        // JPQL query with OR condition to check for both states
+        String jpql = "SELECT jo FROM JobOpening jo " +
+                "WHERE jo.client.customerManagerEmail = :customermanagerEmail " +
+                "AND (jo.recruitmentProcess.analysisPhase.state = :openState " +
+                "OR jo.recruitmentProcess.analysisPhase.state = :activeState)";
 
-       // JPQL query
-       String jpql = "SELECT jo FROM JobOpening jo " +
-               "WHERE jo.client.customerManagerEmail = :customermanager " +
-                "AND jo.recruitmentProcess.analysisPhase.state = :analysisPhaseState";
+        // Execute the query
+        List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
+                .setParameter("customermanagerEmail", customermanager.email())
+                .setParameter("openState", State.OPEN)
+                .setParameter("activeState", State.ACTIVE)
+                .getResultList();
 
-       // Execute the query
-       List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
-               .setParameter("customermanager", customermanager.email())
-               .setParameter("analysisPhaseState", State.OPEN)
-               .getResultList();
-
-       // If there are no jobOpenings found, return null
-       if (jobOpenings.isEmpty()) {
-           return null;
-       }
-
-       // Otherwise, return the first JobOpening found
-       return jobOpenings;
+        // Return the list of job openings, or null if none found
+        return jobOpenings.isEmpty() ? null : jobOpenings;
     }
+
 
     @Override
     public List<JobOpening> findInInactiveState() {
