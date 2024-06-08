@@ -27,6 +27,8 @@ public abstract class FollowUpRequest {
     protected final static byte DATA = 50;
 
 
+
+
     protected final byte[] request;
     protected final Object controller;
 

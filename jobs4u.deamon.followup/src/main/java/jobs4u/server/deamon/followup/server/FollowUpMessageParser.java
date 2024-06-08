@@ -40,6 +40,8 @@ public class FollowUpMessageParser {
     protected final static byte GET_NOTIFICATIONS_NOT_READ = 9;
     protected final static byte GET_APPLICATION_CANDIDATE = 11;
 
+    protected final static byte PUBLISHOPN = 87;
+
     public FollowUpMessageParser(Authenticator authenticationService) {
         this.authenticationService = authenticationService;
     }
@@ -76,6 +78,9 @@ public class FollowUpMessageParser {
                         break;
                     case GET_APPLICATION_CANDIDATE:
                         request = parseGetJobApplicationRequest(message);
+                        break;
+                    case PUBLISHOPN:
+                        request = parseResultEmailRequest(message);
                         break;
                 }
             }
@@ -137,7 +142,6 @@ public class FollowUpMessageParser {
     }
 
 
-
     private FollowUpRequest parseGetCustomer(final byte[] message) {
         ListJobOpeningForCustomerController controller = new ListJobOpeningForCustomerController();
 
@@ -157,7 +161,6 @@ public class FollowUpMessageParser {
     }
 
 
-
     private FollowUpRequest parseGetJobApplicationRequest(final byte[] message) {
         ListJobApplicationForCandidate controller = new ListJobApplicationForCandidate();
 
@@ -170,7 +173,6 @@ public class FollowUpMessageParser {
             }
         }
         String result = sb.toString();
-
 
 
         Iterable<JobApplication> jobs = controller.getJobApplicationForCandidate(EmailAddress.valueOf(result));
@@ -238,6 +240,23 @@ public class FollowUpMessageParser {
         }
 
 
+    }
+
+    public FollowUpRequest parseResultEmailRequest(final byte[] message) {
+        StringBuilder sb = new StringBuilder();
+        int DATA1_PREFIX = 4;
+        byte anterior = 127;
+        byte atual = 0;
+
+        for (int i = DATA1_PREFIX; i < DATA1_LEN_L + 1 * 256 && (atual != 0 && anterior == 0); i++) {
+
+            atual = message[i];
+            anterior = message[i - 1];
+            sb.append((char) message[i]);
+
+        }
+
+        return new ResultEmailRequest(sb.toString());
     }
 
 
