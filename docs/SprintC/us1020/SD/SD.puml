@@ -87,14 +87,8 @@ deactivate proxy
 ctrl -> ui : response
 deactivate ctrl
 ui -> cm : confirms operation success
-
-
-
-
-
-
-
 deactivate es
+deactivate cm
 
 
 

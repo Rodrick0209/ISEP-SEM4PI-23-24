@@ -139,7 +139,7 @@ These are the message code relevant to this user story:
 
     UNKNOWN_REQUEST, «request»
 
-- Where `request` is the content the server has received. For instance, if the server receives a message `JOB_APPLICATIONS_REQUEST user1`, it will reply with
+- Where `request` is the content the server has received. For instance, if the server receives a message `PUBLISH_OPN user1`, it will reply with
 
 
     UNKNOWN_REQUEST, "JOB_APPLICATIONS_REQUEST user1"
@@ -174,18 +174,24 @@ The server will reply with a `DATA` message containing the list of job applicati
 
 ### 5. Use case realization
 
-This responsibility will be assigned to a new application (`FollowUpDeamon`) since all the existing applications are for user interaction, while this one does not require user interaction.
+
+This responsibility will be assigned the `backoffice` application since all the existing applications are for user interaction,
+while this one does not require user interaction.
 
 
-For this user story we will use the `PublishJobOpeningController`, this allows to list all the job openings for a candidate and select which one to publish the results.
-This controller will be used in the `daemon` application project.
+For this user story we will use the `PublishJobOpeningResultsController`, this allows to list all the job openings and 
+select which one to notify the candidates of the results.
+This controller will be used in the `backoffice` application of the project.
 
+
+The protocol parsing and command execution will be in the `FollowUp` application of the project using a proxy that connects 
+the `backoffice` application to the server.
+
+The server receives the request, parses it, and calls the EmailService. The EmailService will send the email notification to the candidates.
+
+This responsibility will be assigned to a new application (`FollowUpDeamon`) since all the existing applications are for
+user interaction, while this one does not require user interaction.
 The server must be resilient to badly formed input as well as abrupt connection closing from the client.
-
-The protocol parsing and command execution will be in the `daemon` application project using a new controller from the `core` project.
-
-The server receives the request, parses it, and calls the controller. The controller will return the data to the server,
-then it sends the data back to the client.
 
 ### 6. Tests
 
