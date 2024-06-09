@@ -191,7 +191,37 @@ the only way ot test the functionality of this user story is to test the email s
 so with that in mind, its impossible to create unit tests for this user story.
 
 
-
 ## 5. Implementation
+
+For the implementation we had to create some components and use others already created:
+
+- **User Interface (NotifyCandidatesVerificationProcessUI.java):** This component is responsible for the interaction with the user.
+- **Controller (NotifyCandidatesVerificationProcessController.java):** This component is responsible for get the job openings and select which one to notify the candidates of the results. It receives the job reference and passes it to the service layer for processing. It also handles the response from the service layer and send the response back to the UI.
+- **Repository (JobOpeningRepository):** The JobOpeningRepository class is responsible for keeping the data of the JobOpenings.
+- **Repository (JobApplicationRepository):** The JobApplicationRepository class is responsible for keeping the data of the JobApplication, needed for the candidates email.
+- **Repository (NotificationRepository):** The NotificationRepository class is responsible for keeping the data of the Notifications, used to keep records of the notifications sent.
+- **Service (SelectCandidatesService.java):** The SelectCandidatesService class is where the business logic for selecting the candidates to notify resides.
+- **Service (EmailService.java):** The EmailService class is where the business logic for sending the email notifications resides.
+- **Server (Followup Server):**: This user story works throw a server, all the connections to de database passes throw the server. 
+The backoffice app doesnt have access to email services nor the DNS, so the server is responsible for handling the email sending.
+
+## 6. Integration/Demonstration
+
+### Integration
+
+To integrate the components, we need used some components that already exist in the system, like repositories. The integration of this components with the new components was not very clear and easy to do, because the new ideia of server,
+where all data that goes to and comes from database passes throw the server. This integration was hard to understand and implement.
+With that said everything was implemented.
+
+### Demonstration
+
+To demonstrate the implementation of this user story, we can use the following steps:
+
+1. Start the application and log in as a customer manager.
+2. Navigate to the job opening section and select the option to notify the candidates of the results of the verification process.
+3. Select the job opening that has the verification process done.
+4. The system will notify the candidates, by email, of the result of the verification process.
+5. Check the email of the candidates to see the notification.
+
 
 

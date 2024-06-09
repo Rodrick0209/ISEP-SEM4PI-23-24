@@ -193,12 +193,47 @@ This responsibility will be assigned to a new application (`FollowUpDeamon`) sin
 user interaction, while this one does not require user interaction.
 The server must be resilient to badly formed input as well as abrupt connection closing from the client.
 
+#### 5.1. Sequence Diagram
+
+![s](SD//SD.svg)
+
 ### 6. Tests
 
 
 We will leave the threading part out of scope and will focus on the `BookingProtocolMessageParser` and `BookingProtocolRequest` classes.
 the only way ot test the functionality of this user story is to test the email sending, so we will focus on that, 
 so with that in mind its impossible to create unit tests for this user story.
+
+
+## 5. Implementation
+
+For the implementation of this user story, we need to create some components, that work together:
+
+- **User Interface (PublishJobOpeningResultsUI.java):** This component is responsible for the interaction with the user.
+- **Controller (PublishJobOpeningResultsController.java):** This component is responsible for get the Job Opening and send the email to the candidates.
+-  **Repository (JobOpeningRepository):** The JobOpeningRepository class is responsible for keeping the data of the JobOpenings.
+- **Repository (JobApplicationRepository):** The JobApplicationRepository class is responsible for keeping the data of the JobApplication, needed for the candidates email.
+- **Repository (NotificationRepository):** The NotificationRepository class is responsible for keeping the data of the Notifications, used to keep records of the notifications sent.
+- **Service (SelectCandidatesService.java):** The SelectCandidatesService class is where the business logic for selecting the candidates to notify resides.
+- **Service (EmailService.java):** The EmailService class is where the business logic for sending the email notifications resides.
+- **Server (Followup Server):**: This user story works throw a server, all the connections to de database passes throw the server.
+The backoffice app doesnt have access to email services nor the DNS, so the server is responsible for handling the email sending.
+
+## 6. Integration/Demonstration
+
+### Integration
+
+To integrate the components, we need used some components that already exist in the system, like repositories. The integration of this components with the new components was not very clear and easy to do, because the new ideia of server,
+where all data that goes to and comes from database passes throw the server. This integration was hard to understand and implement.
+
+### Demonstration
+
+To demonstrate the implementation of this user story, we can use the following steps:
+1. Start the application and log in as a customer manager.
+2. Navigate to the job opening section and select the option to publish the results of a job opening.
+3. Select the job opening that you want to publish the results.
+4. The system should notify the candidates and the customer by email of the result.
+
 
 
 
