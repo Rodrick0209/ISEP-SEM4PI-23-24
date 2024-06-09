@@ -7,6 +7,7 @@ import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
 
 import java.net.PasswordAuthentication;
+import java.util.List;
 
 
 public class NotifyCandidatesVerificationProcessController {
@@ -20,7 +21,7 @@ public class NotifyCandidatesVerificationProcessController {
     }
 
 
-    public Iterable<JobOpening> getJobOpenings() {
+    public List<JobOpening> getJobOpenings() {
 
         return jobOpeningRepository.findInFinishedScreeningPhase();
 

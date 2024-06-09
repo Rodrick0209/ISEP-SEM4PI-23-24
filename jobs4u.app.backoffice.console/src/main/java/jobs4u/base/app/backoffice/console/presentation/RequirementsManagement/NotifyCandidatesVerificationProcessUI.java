@@ -8,6 +8,8 @@ import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class NotifyCandidatesVerificationProcessUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NotifyCandidatesVerificationProcessUI.class);
@@ -19,8 +21,8 @@ public class NotifyCandidatesVerificationProcessUI extends AbstractUI {
     @Override
     protected boolean doShow(){
 
-        Iterable<JobOpening> jobOpenings = theController.getJobOpenings();
-        if(!jobOpenings.iterator().hasNext()){
+        List<JobOpening> jobOpenings = theController.getJobOpenings();
+        if(jobOpenings.isEmpty()){
             System.out.println("There are no job openings to publish.");
             return false;
         }
@@ -36,7 +38,11 @@ public class NotifyCandidatesVerificationProcessUI extends AbstractUI {
             option = Integer.parseInt(System.console().readLine());
         }
 
+        JobOpening jobOpening = jobOpenings.get(i-1);
 
+        theController.notifyCandidatesVerificationProcess(jobOpening);
+
+        LOGGER.info("Candidates notified of the result");
 
 
         return true;
