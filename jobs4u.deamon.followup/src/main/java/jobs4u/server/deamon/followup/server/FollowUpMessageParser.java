@@ -31,7 +31,7 @@ public class FollowUpMessageParser {
     protected final static byte ACK = 2;
     protected final static byte ERR = 3;
     protected final static byte AUTH = 4;
-    protected final static byte GET_AVAILABLE_MEALS = 6;
+    protected final static byte GET_AVAILABLE_OPN = 6;
 
     protected final static byte GET_CUSTOMER = 7;
     protected final static byte GET_NOTIFICATIONS_READ = 8;
@@ -64,7 +64,7 @@ public class FollowUpMessageParser {
                     case AUTH:
                         request = parseAuthRequest(message);
                         break;
-                    case GET_AVAILABLE_MEALS:
+                    case GET_AVAILABLE_OPN:
                         request = parseGetAvailableJobOpeningsRequest(message);
                         break;
                     case GET_CUSTOMER:
