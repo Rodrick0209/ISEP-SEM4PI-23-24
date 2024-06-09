@@ -55,9 +55,16 @@ This user story will change the domain model adding and Email Notification to th
 ### How is it supposed to work?
 
 The customer manager should be able to notify the candidates, by email, of the result of the verification process.
-The result of the verification process is done in the US 1015, and after that, the system automatically sends an email to the candidates.
+The result of the verification process is done in the US 1015.
+After that the Customer Manager can invoke the notification process through the US 1016:
 
-### SSD
+1. The Customer Manager selects the job opening Menu.
+2. The Customer Manager selects the Notification Menu.
+3. The Customer Manager selects a job Opening.
+4. The System Notifies the candidates, by email, of the result of the verification process.
+
+
+### SD
 
 ![s](SSD//ssd.svg)
 

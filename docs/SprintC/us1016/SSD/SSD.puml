@@ -1,0 +1,19 @@
+@startuml
+
+actor "Customer Manager" as cm
+participant "System" as sys
+
+activate cm
+cm -> sys : asks to display the list of job openings
+activate sys
+sys -> cm : displays the list of job openings
+deactivate sys
+cm -> sys : selects a job opening
+activate sys
+sys -> sys : notifies the candidates
+sys -> cm : confirms the operation success
+deactivate sys
+
+
+
+@enduml
