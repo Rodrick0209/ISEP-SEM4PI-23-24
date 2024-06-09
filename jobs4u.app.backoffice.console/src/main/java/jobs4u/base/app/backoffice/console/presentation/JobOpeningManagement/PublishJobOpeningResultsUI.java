@@ -43,7 +43,7 @@ public class PublishJobOpeningResultsUI extends AbstractUI {
 
         theController.publishJobOpeningResults(jobOpening);
 
-        System.out.println("Job Opening Results Published!");
+        LOGGER.info("Job Opening Results Published");
         
         return true;
 
