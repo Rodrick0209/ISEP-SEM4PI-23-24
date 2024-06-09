@@ -14,4 +14,4 @@
 |        | [US 1009](SprintB/us1009/readme.md)     |
 |        | [US 1011](SprintB/us1011/readme.md)     |
 |        | [US 2001](SprintB/us2001/readme.md)     |
-| **C**  | [US 3004](../example/us_3004/readme.md) |
+| **C**  |[US 1019](SprintC/us1019/readme.md)<br>[US 200b](SprintC/us2000b/readme.md)<br>[US 1018](SprintC/us1018/readme.md)<br>[US 1004](SprintC/us1004/readme.md)<br>                                                                                    |
