@@ -30,7 +30,16 @@ public class NotifyCandidatesVerificationProcessController {
     public boolean notifyCandidatesVerificationProcess(JobOpening jobOpening) {
 
         FollowUpServerProxy followUpServerProxy = new FollowUpServerProxy();
-        return followUpServerProxy.notifyCandidatesVerificationProcess(jobOpening);
+        boolean notify = followUpServerProxy.notifyCandidatesVerificationProcess(jobOpening);
+
+        if (!notify) {
+            return false;
+        }
+
+        jobOpening.recruitmentProcess().movesNextPhase();
+        jobOpeningRepository.save(jobOpening);
+
+        return true;
 
 
     }
