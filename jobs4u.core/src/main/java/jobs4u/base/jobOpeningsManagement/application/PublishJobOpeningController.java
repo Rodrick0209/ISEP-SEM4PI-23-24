@@ -30,6 +30,7 @@ public class PublishJobOpeningController {
 
 
         return jobOpeningRepository.findInResultPhase();
+
     }
 
     public void publishJobOpeningResults(JobOpening jobOpening){
@@ -37,7 +38,7 @@ public class PublishJobOpeningController {
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
 
         FollowUpServerProxy followUpServerProxy = new FollowUpServerProxy();
-        //CandidateSelectionService candidateService = new CandidateSelectionService();
+
 
         followUpServerProxy.sendResultEmailRequest(jobOpening);
 

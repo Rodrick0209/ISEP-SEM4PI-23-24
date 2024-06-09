@@ -102,8 +102,8 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerOperator("operator@gmail.com", TestDataConstants.PASSWORD1, "operator", "Doe operator",
                 "operator@gmail.com");
 
-        registerCandidate("candidate@gmail.com", TestDataConstants.PASSWORD1, "candidate", "Doe candidate",
-                "candidate@gmail.com");
+        registerCandidate("1221276@isep.ipp.pt", TestDataConstants.PASSWORD1, "candidate", "Doe candidate",
+                "1221276@isep.ipp.pt");
 
         registerCandidate("cates@gmail.com", TestDataConstants.PASSWORD1, "cates", "Doe candidate",
                 "cates@gmail.com");
@@ -272,7 +272,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         Candidate candidate3 = new Candidate("teste", "Teste", "teste@gmail.com", "919131325");
         candidateRepository.save(candidate3);
 
-        Candidate candidate4 = new Candidate("candidate", "candidato", "candidate@gmail.com", "919121299");
+        Candidate candidate4 = new Candidate("candidate", "candidato", "1221276@isep.ipp.pt", "919121299");
         candidateRepository.save(candidate4);
 
 

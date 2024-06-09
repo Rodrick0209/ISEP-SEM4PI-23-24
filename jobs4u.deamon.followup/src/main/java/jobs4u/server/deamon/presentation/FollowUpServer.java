@@ -2,9 +2,7 @@ package jobs4u.server.deamon.presentation;
 
 
 
-import jobs4u.server.deamon.followup.server.FollowUpMessageParser;
-import jobs4u.server.deamon.followup.server.FollowUpRequest;
-import jobs4u.server.deamon.followup.server.DisconnectRequest;
+import jobs4u.server.deamon.followup.server.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,8 +60,10 @@ public class FollowUpServer {
 
 
                 }
-            } catch (final IOException e){
-                //LOGGER.error("ERROR OPENING SOCKET CONNECTION",e);
+            } catch (final Exception e){
+
+
+                LOGGER.error("Error parsing request",e);
             } finally {
                 try {
                     clientSocket.close();
