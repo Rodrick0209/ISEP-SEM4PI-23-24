@@ -280,12 +280,12 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         //Register Job Application
         //---------------------------------------------------------------------------------------------------
         List<JobApplicationFile> file = List.of(
-                new JobApplicationFile("2-candidate-data.txt", new Path("SCOMP/output/MTN1-2/2/2-candidate-data.txt")),
-                new JobApplicationFile("2-cv.txt", new Path("SCOMP/output/MTN1-2/2/2-cv.txt")),
-                new JobApplicationFile("2-big-file1.txt", new Path("SCOMP/output/MTN1-2/2/2-big-file1.txt")));
+                new JobApplicationFile("20-candidate-data.txt", new Path("SCOMP/output/MTN1-2/20/20-candidate-data.txt")),
+                new JobApplicationFile("20-cv.txt", new Path("SCOMP/output/MTN1-2/20/20-cv.txt")),
+                new JobApplicationFile("20-big-file1.txt", new Path("SCOMP/output/MTN1-2/20/20-big-file1.txt")));
 
-        List<JobApplicationFile> file1 = List.of(new JobApplicationFile("2-cv.txt", new Path("SCOMP/output/MTN1-2/2/2-cv.txt")));
-        List<JobApplicationFile> file2 = List.of(new JobApplicationFile("2-email.txt", new Path("SCOMP/output/MTN1-2/2/2-email.txt")));
+        List<JobApplicationFile> file1 = List.of(new JobApplicationFile("20-cv.txt", new Path("SCOMP/output/MTN1-2/20/20-cv.txt")));
+        List<JobApplicationFile> file2 = List.of(new JobApplicationFile("20-email.txt", new Path("SCOMP/output/MTN1-2/20/20-email.txt")));
 
 
         JobApplication jobApplication5 = new JobApplication(6L, j, file, candidate1);
