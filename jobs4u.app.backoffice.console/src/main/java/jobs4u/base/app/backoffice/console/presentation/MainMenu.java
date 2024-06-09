@@ -32,7 +32,9 @@ import jobs4u.base.app.backoffice.console.presentation.InterviewManagement.Execu
 import jobs4u.base.app.backoffice.console.presentation.InterviewManagement.SelectInterviewModelSpecificationForJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.EditJobOpeningUI;
 import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.ListJobOpeningUI;
+import jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement.PublishJobOpeningResultsUI;
 import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.ExecuteRequirementEvaluationUI;
+import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.NotifyCandidatesVerificationProcessUI;
 import jobs4u.base.app.backoffice.console.presentation.RequirementsManagement.RegisterRequirementAnswerFileUI;
 import jobs4u.base.app.backoffice.console.presentation.candiateManagement.*;
 import jobs4u.base.app.backoffice.console.presentation.rank.finishJobOpeningAction;
@@ -107,6 +109,8 @@ public class MainMenu extends AbstractUI {
     private static final int SELECT_JOB_REQUIREMENT_SPECIFICATION_FOR_JOB_OPENING = 3;
     private static final int SELECT_INTERVIEW_MODEL_SPECIFICATION_FOR_JOB_OPENING = 4;
     private static final int EDIT_JOB_OPENING = 5;
+    private static final int PUBLISH_JOB_OPENING_RESULTS = 6;
+    private static final int NOTIFY_CANDIDATES_VERIFICATION_PROCESS = 7;
 
     // PLUGINS
     private static final int CONFIGURE_JOB_REQUIREMENT_PLUGIN = 1;
@@ -268,6 +272,8 @@ public class MainMenu extends AbstractUI {
         menu.addItem(SELECT_JOB_REQUIREMENT_SPECIFICATION_FOR_JOB_OPENING, "Select Job Requirement Specification for Job Opening", new SelectJobRequirementSpecificationForJobOpeningUI()::show);
         menu.addItem(SELECT_INTERVIEW_MODEL_SPECIFICATION_FOR_JOB_OPENING, "Select Interview Model Specification for Job Opening", new SelectInterviewModelSpecificationForJobOpeningUI()::show);
         menu.addItem(EDIT_JOB_OPENING, "Edit a Job Opening", new EditJobOpeningUI()::show);
+        menu.addItem(PUBLISH_JOB_OPENING_RESULTS, "Publish Job Opening Results", new PublishJobOpeningResultsUI()::show);
+        menu.addItem(NOTIFY_CANDIDATES_VERIFICATION_PROCESS, "Notify Candidates Verification Process", new NotifyCandidatesVerificationProcessUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 

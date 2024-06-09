@@ -22,7 +22,7 @@ public class NotifyCandidatesVerificationProcessUI extends AbstractUI {
     protected boolean doShow(){
 
         List<JobOpening> jobOpenings = theController.getJobOpenings();
-        if(jobOpenings.isEmpty()){
+        if(jobOpenings == null){
             System.out.println("There are no job openings to publish.");
             return false;
         }
