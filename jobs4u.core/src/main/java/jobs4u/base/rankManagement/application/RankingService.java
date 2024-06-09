@@ -67,11 +67,6 @@ public class RankingService {
         Rank rank = null;
         if (jobOpening.getRank().hasCandidate()) {
             rank = jobOpening.updateRankList(ranking);
-            /*
-            if (jobOpening.recruitmentProcess().analysisPhase().state().equals(State.ACTIVE)) {
-                checkIfAnalysisPhaseFinished(jobOpening);
-            }
-             */
         } else {
             rank = jobOpening.addRankList(ranking);
             jobOpening.recruitmentProcess().analysisPhase().setState(State.ACTIVE);
@@ -105,7 +100,10 @@ public class RankingService {
         for (String email : emailsArray) {
             String trimmedEmail = email.trim();
             if (EMAIL_PATTERN.matcher(trimmedEmail).matches()) {
-                emailList.add(EmailAddress.valueOf(trimmedEmail));
+                if (!emailList.contains(EmailAddress.valueOf(trimmedEmail))) {
+                    emailList.add(EmailAddress.valueOf(trimmedEmail));
+                }
+
             } else {
                 invalidEmails.add(trimmedEmail);
             }
