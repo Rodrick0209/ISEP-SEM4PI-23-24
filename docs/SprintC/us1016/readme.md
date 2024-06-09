@@ -182,7 +182,7 @@ The server receives the request, parses it, and calls the EmailService. The Emai
 
 #### 5.1 SD
 
-
+![s](SD//SD.svg)
 
 ### 6. Tests
 
@@ -190,7 +190,7 @@ We will leave the threading part out of scope and will focus on the `BookingProt
 the only way ot test the functionality of this user story is to test the email sending, so we will focus on that,
 so with that in mind, its impossible to create unit tests for this user story.
 
-### 
+
 
 ## 5. Implementation
 
