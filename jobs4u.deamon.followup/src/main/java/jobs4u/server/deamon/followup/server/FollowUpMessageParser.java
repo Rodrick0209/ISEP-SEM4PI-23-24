@@ -269,7 +269,7 @@ public class FollowUpMessageParser {
 
         }*/
 
-        System.out.println("JobRef: " + jobRef);
+        //System.out.println("JobRef: " + jobRef);
 
         return new ResultEmailRequest(jobRef);
     }

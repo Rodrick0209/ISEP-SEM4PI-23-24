@@ -144,7 +144,7 @@ public class FollowUpServerProxy {
         //System.out.println("Sending authentication request");
         final var socket = new ClientSocket();
 
-        socket.connect(ALT_IP, DEI_PORT);
+        socket.connect(DEI_IP, DEI_PORT);
 
         socket.send(auth);
 
@@ -173,7 +173,7 @@ public class FollowUpServerProxy {
             throws IOException {
         final var socket = new ClientSocket();
 
-        socket.connect(ALT_IP, DEI_PORT);
+        socket.connect(DEI_IP, DEI_PORT);
 
         final byte[] request = new GetJobOpeningForCustomerDTO(code).execute();
 
@@ -195,7 +195,7 @@ public class FollowUpServerProxy {
     public String getCustomerCode(final String email)
             throws IOException {
         final var socket = new ClientSocket();
-        socket.connect(ALT_IP, DEI_PORT);
+        socket.connect(DEI_IP, DEI_PORT);
         final byte[] request = new CustomerRequest(email).execute();
         socket.send(request);
         final byte[] response = socket.recv();
@@ -209,7 +209,7 @@ public class FollowUpServerProxy {
             throws IOException {
         final var socket = new ClientSocket();
 
-        socket.connect(ALT_IP, DEI_PORT);
+        socket.connect(DEI_IP, DEI_PORT);
         final byte[] request = new GetNotificationsNotReadRequestDTO(email).execute();
 
         socket.send(request);
@@ -228,7 +228,7 @@ public class FollowUpServerProxy {
             throws IOException {
         final var socket = new ClientSocket();
 
-        socket.connect(ALT_IP, DEI_PORT);
+        socket.connect(DEI_IP, DEI_PORT);
         final byte[] request = new GetNotificationsReadRequestDTO(email).execute();
 
         socket.send(request);
@@ -247,7 +247,7 @@ public class FollowUpServerProxy {
             throws IOException {
         final var socket = new ClientSocket();
 
-        socket.connect(ALT_IP, DEI_PORT);
+        socket.connect(DEI_IP, DEI_PORT);
         final byte[] request = new GetNotificationsReadRequestDTO(email).execute();
 
         socket.send(request);
@@ -266,7 +266,7 @@ public class FollowUpServerProxy {
             throws IOException {
         final var socket = new ClientSocket();
 
-        socket.connect(ALT_IP, DEI_PORT);
+        socket.connect(DEI_IP, DEI_PORT);
         final byte[] request = new GetNotificationsNotReadRequestDTO(email).execute();
 
         socket.send(request);

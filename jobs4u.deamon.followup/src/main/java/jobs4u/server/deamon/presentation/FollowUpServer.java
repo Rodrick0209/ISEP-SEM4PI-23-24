@@ -31,7 +31,7 @@ public class FollowUpServer {
         @Override
         public void run(){
             final var clientIP = clientSocket.getInetAddress();
-            LOGGER.debug("Accepted connection from {}:{}", clientIP.getHostAddress(), clientSocket.getPort());
+            //LOGGER.debug("Accepted connection from {}:{}", clientIP.getHostAddress(), clientSocket.getPort());
 
             try (var out = new DataOutputStream(clientSocket.getOutputStream());
                  var in = new DataInputStream(clientSocket.getInputStream())){
@@ -42,7 +42,7 @@ public class FollowUpServer {
 
                 while ((input = readMessage(in)) != null){
 
-                    LOGGER.debug("Received message:----\n{}\n----", input);
+                    //LOGGER.debug("Received message:----\n{}\n----", input);
                     final FollowUpRequest request = parser.parse(input);
                     final byte[] response = request.execute();
 
@@ -63,7 +63,7 @@ public class FollowUpServer {
             } catch (final Exception e){
 
 
-                LOGGER.error("Error parsing request",e);
+                //LOGGER.error("Error parsing request",e);
             } finally {
                 try {
                     clientSocket.close();

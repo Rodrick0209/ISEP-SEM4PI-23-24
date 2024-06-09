@@ -145,7 +145,7 @@ public class FollowUpServerProxy {
         //System.out.println("Sending authentication request");
         final var socket = new ClientSocket();
 
-        socket.connect(ALT_IP, DEI_PORT);
+        socket.connect(DEI_IP, DEI_PORT);
 
         socket.send(auth);
 
@@ -171,7 +171,7 @@ public class FollowUpServerProxy {
             throws IOException {
         final var socket = new ClientSocket();
 
-        socket.connect(ALT_IP, DEI_PORT);
+        socket.connect(DEI_IP, DEI_PORT);
 
         final byte[] request = new GetJobApplicationForCandidate(emailAddress).execute();
 
@@ -193,7 +193,7 @@ public class FollowUpServerProxy {
             throws IOException {
         final var socket = new FollowUpServerProxy.ClientSocket();
 
-        socket.connect(ALT_IP, DEI_PORT);
+        socket.connect(DEI_IP, DEI_PORT);
         final byte[] request = new GetNotificationsReadRequestDTO(email).execute();
 
         socket.send(request);
@@ -212,7 +212,7 @@ public class FollowUpServerProxy {
             throws IOException {
         final var socket = new FollowUpServerProxy.ClientSocket();
 
-        socket.connect(ALT_IP, DEI_PORT);
+        socket.connect(DEI_IP, DEI_PORT);
         final byte[] request = new GetNotificationsNotReadRequestDTO(email).execute();
 
         socket.send(request);
