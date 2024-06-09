@@ -29,7 +29,7 @@
 | 4 – Correct	       | Frequent use of the repository: messages that are mostly significant but sometimes fail to connect to issues/tasks. Use task/issue management boards correctly.                    |
 | 5 - Exceptional    | 	Frequent use of the repository: mostly significant messages and (virtually) no failures in connection to issues/tasks. They use task/issue management boards in an exemplary way. |
 
-**Selected Level:** 4
+**Selected Level:** 5
 
 **Justification and Evidences:** In almost all cases, i reported the changes of my work and committed into the repository.
 
@@ -59,7 +59,7 @@
 | 4 – Correct	      | The system runs outside the IDE, distributed across two or more local virtual environments (machines or containers). The group was able to demonstrate the system without any execution failures during the demonstration. The correct version was used.                                      |
 | 5 - Exceptional   | 	The system runs outside the IDE, distributed across two or more remote virtual environments (machines or containers) (e.g. in the cloud). The group was able to demonstrate the system without any execution failures during the demonstration. The correct version was used.                |
 
-**Selected Level:** 4
+**Selected Level:** 5
 
 **Justification and Evidences:** The system runs outside of IDE, in all virtual machines, and without errors (except the part of running without building outside of IDE).
 
