@@ -5,10 +5,9 @@ import jobs4u.base.jobApplications.repositories.JobApplicationRepository;
 import jobs4u.base.jobOpeningsManagement.client.FollowUpServerProxy;
 import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import jobs4u.base.jobOpeningsManagement.repositories.JobOpeningRepository;
-import jobs4u.base.recruitmentProcessManagement.utils.Phases;
 import jobs4u.base.usermanagement.domain.Jobs4uRoles;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PublishJobOpeningController {
 
@@ -24,7 +23,7 @@ public class PublishJobOpeningController {
         this.jobApplicationRepository = jobApplicationRepository;
     }
 
-    public Iterable<JobOpening> getJobOpenings(){
+    public List<JobOpening> getJobOpenings(){
 
         authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.POWER_USER, Jobs4uRoles.CUSTOMER_MANAGER);
 

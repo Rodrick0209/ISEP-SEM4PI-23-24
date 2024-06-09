@@ -38,7 +38,7 @@ public class NotifyCandidatesVerificationProcessUI extends AbstractUI {
             option = Integer.parseInt(System.console().readLine());
         }
 
-        JobOpening jobOpening = jobOpenings.get(i-1);
+        JobOpening jobOpening = jobOpenings.get(option-1);
 
         theController.notifyCandidatesVerificationProcess(jobOpening);
 
