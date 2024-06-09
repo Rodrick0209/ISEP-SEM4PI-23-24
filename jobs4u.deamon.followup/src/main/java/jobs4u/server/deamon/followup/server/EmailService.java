@@ -6,6 +6,7 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
+import jobs4u.base.jobApplications.domain.RequirementResult;
 import jobs4u.base.notificationManagement.domain.Notification;
 import jobs4u.base.notificationManagement.repositories.NotificationRepository;
 
@@ -20,7 +21,7 @@ public class EmailService {
     private final NotificationRepository notificationRepository;
 
     private static final String SMTP_HOST_NAME = "frodo.dei.isep.ipp.pt";
-    private static final String SMTP_FROM = "no-reply@" + SMTP_HOST_NAME;
+    private static final String SMTP_FROM = "no-reply@job4u.com";
 
     public EmailService() {
         this.notificationRepository = PersistenceContext.repositories().notifications();
@@ -98,6 +99,42 @@ public class EmailService {
 
         Notification emailNotification = new Notification(EmailAddress.valueOf(to), subject);
         notificationRepository.save(emailNotification);
+    }
+
+    public void sendVerificationEmail(String to, String jobRef) {
+
+        String subject = "Jobs4U - Application Verification";
+
+        String body = "Hello, hope this email finds you well,\n" +
+                "We are pleased to inform you that your candidature for the following Job Opening has been verified: "
+                + jobRef + "\nThe recruitment process will continue as predicted.\n\n\n" +
+                "Best regards,\n" +
+                "Jobs4U Team";
+
+        sendEmail(to, subject, body);
+
+        Notification emailNotification = new Notification(EmailAddress.valueOf(to), "Jobs4U - Application Verified");
+        notificationRepository.save(emailNotification);
+
+    }
+
+    public void sendFailedVerificationEmail(String to, String jobRef){
+
+        String subject = "Jobs4U - Application Verification";
+
+        String body = "Hello, hope this email finds you well,\n" +
+                "We regret to inform you that your candidature for the following Job Opening failed the verification process: "
+                + jobRef + "\nWe wish you the best of luck in your future endeavours.\n\n\n" +
+                "Best regards,\n" +
+                "Jobs4U Team";
+
+        sendEmail(to, subject, body);
+
+        Notification emailNotification = new Notification(EmailAddress.valueOf(to), "Jobs4U - Application Rejected");
+        notificationRepository.save(emailNotification);
+
+
+
     }
 
 

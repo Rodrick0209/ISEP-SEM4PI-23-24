@@ -2,7 +2,6 @@ package jobs4u.server.deamon.followup.server;
 
 import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.Authenticator;
-import jobs4u.base.candidateManagement.domain.Candidate;
 import jobs4u.base.clientManagement.domain.Client;
 import jobs4u.base.jobApplications.application.ListJobApplicationForCandidate;
 import jobs4u.base.jobApplications.domain.JobApplication;
@@ -41,6 +40,7 @@ public class FollowUpMessageParser {
     protected final static byte GET_APPLICATION_CANDIDATE = 11;
 
     protected final static byte PUBLISHOPN = 87;
+    protected final static byte NOTIFYCANDIDATES = 88;
 
     public FollowUpMessageParser(Authenticator authenticationService) {
         this.authenticationService = authenticationService;
@@ -82,6 +82,10 @@ public class FollowUpMessageParser {
                     case PUBLISHOPN:
                         request = parseResultEmailRequest(message);
                         break;
+                    case NOTIFYCANDIDATES:
+                        request = parseNotificationVerificationResultRequest(message);
+                        break;
+
                 }
             }
         } catch (Exception e) {
@@ -243,7 +247,7 @@ public class FollowUpMessageParser {
     }
 
     public FollowUpRequest parseResultEmailRequest(final byte[] message) {
-        StringBuilder sb = new StringBuilder();
+        String jobRef = "";
         int DATA1_PREFIX = 4;
         byte anterior = 127;
         byte atual = 0;
@@ -252,11 +256,28 @@ public class FollowUpMessageParser {
 
             atual = message[i];
             anterior = message[i - 1];
-            sb.append((char) message[i]);
+            jobRef += (char) atual;
 
         }
 
-        return new ResultEmailRequest(sb.toString());
+        return new ResultEmailRequest(jobRef);
+    }
+
+    public FollowUpRequest parseNotificationVerificationResultRequest(final byte[] message) {
+        String jobRef = "";
+        int DATA1_PREFIX = 4;
+        byte anterior = 127;
+        byte atual = 0;
+
+        for (int i = DATA1_PREFIX; i < DATA1_LEN_L + 1 * 256 && (atual != 0 && anterior == 0); i++) {
+
+            atual = message[i];
+            anterior = message[i - 1];
+            jobRef += (char) atual;
+
+        }
+
+        return new NotifyCandidatesRequest(jobRef);
     }
 
 

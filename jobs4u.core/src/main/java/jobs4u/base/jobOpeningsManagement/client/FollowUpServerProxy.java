@@ -30,6 +30,7 @@ public class FollowUpServerProxy {
     protected final static byte ERR = 3;
     protected final static byte AUTH = 4;
     protected final static byte PUBLISHOPN = 87;
+    protected final static byte NOTIFYCANDIDATES = 88;
 
     protected final static String DEI_IP = "10.9.20.231";
     protected final static String ALT_IP = "127.0.0.1";
@@ -121,7 +122,7 @@ public class FollowUpServerProxy {
             request[2] = DATA1_LEN_M;
             request[3] = DATA1_LEN_L;
 
-            byte [] data = jobOpening.toString().getBytes();
+            byte [] data = jobOpening.jobReference().toString().getBytes();
 
             System.arraycopy(data, 0, request, 4, DATA1_LEN_L+DATA1_LEN_M*256);
 
@@ -131,7 +132,7 @@ public class FollowUpServerProxy {
 
             client.stop();
 
-            if (response[0] == ACK) {
+            if (response[1] == ACK) {
                 return true;
             } else {
                 return false;
@@ -144,5 +145,42 @@ public class FollowUpServerProxy {
 
 
     }
+
+    public boolean notifyCandidatesVerificationProcess(JobOpening jobOpening) {
+
+        try{
+            ClientSocket client = new ClientSocket();
+            client.connect(DEI_IP, DEI_PORT);
+
+            byte[] request = new byte[4+DATA1_LEN_L+DATA1_LEN_M*256];
+
+            request[0] = VERSION;
+            request[1] = NOTIFYCANDIDATES;
+            request[2] = DATA1_LEN_M;
+            request[3] = DATA1_LEN_L;
+
+            byte [] data = jobOpening.toString().getBytes();
+
+            System.arraycopy(data, 0, request, 4, DATA1_LEN_L+DATA1_LEN_M*256);
+
+            client.send(request);
+
+            byte[] response = client.recv();
+
+            client.stop();
+
+            if (response[1] == ACK) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (IOException e) {
+            LOGGER.error("Failed to send request to server");
+            return false;
+        }
+    }
+
+
 
 }
