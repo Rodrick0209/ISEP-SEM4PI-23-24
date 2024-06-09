@@ -13,15 +13,19 @@ interview points (grades), to help me analyze the candidates.
 
 This user story have some dependencies with the following user stories:
 
-| US                                                           | Reason                                                                       |
-|--------------------------------------------------------------|------------------------------------------------------------------------------|
-| [G007](../../SprintB/g007/readme.md)                         | We need the authentication to ensure is a customer manager that is logged.   | 
-| [1002](../../SprintB/us1002/readme.md)                       | The job opening must be registered in the system.                            |
-| [1007](../../SprintB/us1007)<br/>[1010](../us1010/readme.md) | The job must must had received applications, so that one of the phases happened. |
-| [1011](../../SprintB/us1011/readme.md)                       | The job opening must have a interview model made for evaluation.             |
-| [1014](../../SprintC/us1014/readme.md)                       | The candidate of a job application had an interview with a customer.              | 
-| [1017](../../SprintC/us1017/readme.md)                       | The job application of a job opening has an interview answer.                |
-| [1018](../../SprintB/us1018/readme.md)                       | All interviews made in a job opening must be graded.                         |
+| US                                                                     | Reason                                                                                  |
+|------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| [G007](../../SprintB/g007/readme.md)                                   | We need the authentication to ensure is a customer manager that is logged.              | 
+| [1002](../../SprintB/us1002/readme.md)                                 | The job opening must be registered in the system.                                       |
+| [1007](../../SprintB/us1007/readme.md)<br/>[1010](../us1010/readme.md) | The job must must had received applications, so that one of the phases happened.        |
+| [1009](../../SprintB/us1009/readme.md)                                 | The job opening must have a requirement specification made for evaluating requirements. |
+| [1011](../../SprintB/us1011/readme.md)                                 | The job opening must have a interview model made for evaluation.                        |
+| [1012](../../SprintC/us1012/readme.md)                                 | The job application must have a requirement answer.                                     |
+| [1014](../../SprintC/us1014/readme.md)                                 | The candidate of a job application had an interview with a customer.                    |
+| [1015](../../SprintC/us1015/readme.md)                                 | The job application of a job opening has an result from requirement answer.             |
+| [1017](../../SprintC/us1017/readme.md)                                 | The job application of a job opening has an interview answer.                           |
+| [1018](...)                                                            | The job application must have interview points.                                         |
+
 
 ## 3. Analysis
 
