@@ -1,6 +1,7 @@
 package jobs4u.base.app.backoffice.console.presentation.JobOpeningManagement;
 
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.base.infrastructure.persistence.PersistenceContext;
 import jobs4u.base.jobOpeningsManagement.application.PublishJobOpeningController;
@@ -23,7 +24,7 @@ public class PublishJobOpeningResultsUI extends AbstractUI {
 
 
         List<JobOpening> jobOpenings = theController.getJobOpenings();
-        if(jobOpenings.isEmpty()){
+        if(jobOpenings == null){
             System.out.println("There are no job openings to publish.");
             return false;
         }
@@ -32,8 +33,8 @@ public class PublishJobOpeningResultsUI extends AbstractUI {
             System.out.printf("%4d - %s",i ,jobOpening.jobReference());
             i++;
         }
-        System.out.println("Please choose the job opening to publish:");
-        int option = Integer.parseInt(System.console().readLine());
+        //System.out.println("Please choose the job opening to publish:");
+        int option = Integer.parseInt(Console.readLine("Please choose the job opening to publish:"));
         while(option <= 0 || option > i){
             System.out.println("Invalid option. Please choose a valid job opening:");
             option = Integer.parseInt(System.console().readLine());

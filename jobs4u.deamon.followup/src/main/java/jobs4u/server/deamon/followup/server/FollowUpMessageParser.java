@@ -248,34 +248,46 @@ public class FollowUpMessageParser {
 
     public FollowUpRequest parseResultEmailRequest(final byte[] message) {
         String jobRef = "";
-        int DATA1_PREFIX = 4;
+        int i = 4;
         byte anterior = 127;
-        byte atual = 0;
+        byte atual = message[i];
+        int data1Frame = message[2] + message[3] * 256;
 
-        for (int i = DATA1_PREFIX; i < DATA1_LEN_L + 1 * 256 && (atual != 0 && anterior == 0); i++) {
+        do {
+            jobRef += (char) atual;
+            anterior = atual;
+            i++;
+            atual = message[i];
+        } while ((anterior != 0 && atual != 0) && i < 6 + data1Frame);
+
+
+        /*for (int i = DATA1_PREFIX; i < DATA1_LEN_L + 1 * 256 && (atual != 0 && anterior == 0); i++) {
 
             atual = message[i];
             anterior = message[i - 1];
             jobRef += (char) atual;
 
-        }
+        }*/
+
+        System.out.println("JobRef: " + jobRef);
 
         return new ResultEmailRequest(jobRef);
     }
 
     public FollowUpRequest parseNotificationVerificationResultRequest(final byte[] message) {
         String jobRef = "";
-        int DATA1_PREFIX = 4;
+        int i = 4;
         byte anterior = 127;
-        byte atual = 0;
+        byte atual = message[i];
+        int data1Frame = message[2] + message[3] * 256;
 
-        for (int i = DATA1_PREFIX; i < DATA1_LEN_L + 1 * 256 && (atual != 0 && anterior == 0); i++) {
 
-            atual = message[i];
-            anterior = message[i - 1];
+        do {
             jobRef += (char) atual;
-
-        }
+            anterior = atual;
+            i++;
+            atual = message[i];
+        } while ((anterior != 0 && atual != 0) && i < 6 + data1Frame);
 
         return new NotifyCandidatesRequest(jobRef);
     }
