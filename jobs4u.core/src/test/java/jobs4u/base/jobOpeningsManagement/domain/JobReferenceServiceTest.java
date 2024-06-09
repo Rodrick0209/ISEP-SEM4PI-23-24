@@ -111,6 +111,11 @@ public class JobReferenceServiceTest {
         }
 
         @Override
+        public List<JobOpening> findInFinishedScreeningPhase() {
+            return null;
+        }
+
+        @Override
         public JobOpening findByJobReference(JobReference jobReference) {
             return null;
         }
