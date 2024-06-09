@@ -27,6 +27,7 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
     List<JobOpening> findJobOpeningsWithInterviewPhaseByCustomer(SystemUser customer);
     List<JobOpening> findInInterviewPhase();
     List<JobOpening> findInResultPhase();
+    List<JobOpening> findInFinishedScreeningPhase();
 
     JobOpening findByJobReference(JobReference jobReference);
 

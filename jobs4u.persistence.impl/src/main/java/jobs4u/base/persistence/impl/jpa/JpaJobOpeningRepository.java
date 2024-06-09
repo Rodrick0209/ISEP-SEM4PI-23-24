@@ -216,5 +216,23 @@ class JpaJobOpeningRepository extends BaseJpaRepositoryBase<JobOpening, JobRefer
         return jobOpening;
     }
 
+    public List<JobOpening> findInFinishedScreeningPhase() {
+        // JPQL query
+        String jpql = "SELECT jo FROM JobOpening jo " +
+                "WHERE jo.recruitmentProcess.resumeScreenPhase.state = :resumeScreenPhaseState";
+
+        // Execute the query
+        List<JobOpening> jobOpenings = entityManager().createQuery(jpql, JobOpening.class)
+                .setParameter("resumeScreenPhaseState", State.FINISHED)
+                .getResultList();
+
+        // If there are no jobOpenings found, return null
+        if(jobOpenings.isEmpty()){
+            return null;
+        }
+
+        return jobOpenings;
+    }
+
 
 }

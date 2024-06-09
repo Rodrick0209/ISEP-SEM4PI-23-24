@@ -135,4 +135,17 @@ class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, 
         }
         return null;
     }
+
+    @Override
+    public List<JobOpening> findInFinishedScreeningPhase() {
+        List<JobOpening> result = new ArrayList<>();
+        for(JobOpening jobOpening : this){
+            if(jobOpening.recruitmentProcess().returnNotClosedPhase().designation().equals(Phases.RESUME_SCREEN)){
+                if(jobOpening.recruitmentProcess().returnNotClosedPhase().state().equals(State.FINISHED)){
+                    result.add(jobOpening);
+                }
+            }
+        }
+        return result;
+    }
 }
