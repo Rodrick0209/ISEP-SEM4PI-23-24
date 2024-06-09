@@ -39,7 +39,7 @@ public class FollowUpDeamon extends BaseApplication {
         //AuthzRegistry.configure(PersistenceContext.repositories().users(), new Jobs4uPasswordPolicy(),
                 //new PlainTextEncoder());
 
-        //LOGGER.info("Starting the server socket on port {}", FOLLOWUP_PORT);
+        LOGGER.info("Starting the server socket on port {}", FOLLOWUP_PORT);
         //final var server = new CsvBookingProtocolServer(buildServerDependencies());
         //server.start(BOOKING_PORT, true);
         final var server = new FollowUpServer(buildServerDependencies());
