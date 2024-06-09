@@ -8,6 +8,8 @@ import jobs4u.base.jobOpeningsManagement.domain.JobOpening;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class PublishJobOpeningResultsUI extends AbstractUI {
 
 
@@ -20,8 +22,8 @@ public class PublishJobOpeningResultsUI extends AbstractUI {
     public boolean doShow() {
 
 
-        Iterable<JobOpening> jobOpenings = theController.getJobOpenings();
-        if(!jobOpenings.iterator().hasNext()){
+        List<JobOpening> jobOpenings = theController.getJobOpenings();
+        if(jobOpenings.isEmpty()){
             System.out.println("There are no job openings to publish.");
             return false;
         }
@@ -36,22 +38,13 @@ public class PublishJobOpeningResultsUI extends AbstractUI {
             System.out.println("Invalid option. Please choose a valid job opening:");
             option = Integer.parseInt(System.console().readLine());
         }
-        JobOpening jobOpening = null;
-        int j = 0;
-        for (JobOpening job : jobOpenings) {
-            if(j == option-1){
-                jobOpening = job;
-                break;
-            }
-            j++;
-        }
+
+        JobOpening jobOpening = jobOpenings.get(option-1);
+
         theController.publishJobOpeningResults(jobOpening);
 
         System.out.println("Job Opening Results Published!");
-
-
-
-
+        
         return true;
 
     }
