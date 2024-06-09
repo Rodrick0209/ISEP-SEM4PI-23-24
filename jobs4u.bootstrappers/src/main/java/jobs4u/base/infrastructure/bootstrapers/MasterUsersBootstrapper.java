@@ -316,6 +316,12 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         jobApplication4.requirementAnswer().defineResult(true);
         jobApplication4.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
         jobApplication4.interview().registerInterviewAnswer("answerFromCandidate2Test.answer");
+        jobApplication5.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
+        jobApplication5.interview().registerInterviewAnswer("answerFromCandidate3Test.answer");
+        jobApplication5.interview().grade(InterviewPoints.valueOf(10));
+        jobApplication6.registerInterivew(Date.valueOf(LocalDate.now().toString()), Time.valueOf("23:48"));
+        jobApplication6.interview().registerInterviewAnswer("answerFromCandidate3Test.answer");
+        jobApplication6.interview().grade(InterviewPoints.valueOf(100));
 
 
         jobApplicationRepository.save(jobApplication);
