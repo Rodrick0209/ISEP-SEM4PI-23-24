@@ -28,7 +28,7 @@ public class EditJobOpeningUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         final List<JobOpening> jobOpenings = controller.inactiveJobOpenings();
-        if(jobOpenings == null){
+        if (jobOpenings == null) {
             System.out.println("No inactive job openings found");
             return true;
         }
@@ -46,60 +46,55 @@ public class EditJobOpeningUI extends AbstractUI {
     }
 
     private void selectAttributesToEdit(JobOpening jobOpening) {
-        boolean exit = false;
-        while (!exit) {
-            System.out.println("Select the attribute to edit:");
-            System.out.println("1. Working Mode");
-            System.out.println("2. Number of vacancies");
-            System.out.println("3. Address");
-            System.out.println("4. Description");
-            System.out.println("5. Function");
-            System.out.println("6. Contract Type");
-            System.out.println("0. Exit");
+        System.out.println("Select the attribute to edit:");
+        System.out.println("1. Working Mode");
+        System.out.println("2. Number of vacancies");
+        System.out.println("3. Address");
+        System.out.println("4. Description");
+        System.out.println("5. Function");
+        System.out.println("6. Contract Type");
 
-            int option = Console.readOption(1, 6, 0);
+        int option = Console.readOption(1, 6, 0);
 
-            switch (option) {
-                case 1:
-                    WorkingMode workingMode = selectNewWorkingMode();
-                    try {
-                        controller.edit(jobOpening, workingMode);
-                        successfulEdit();
-                    } catch (IntegrityViolationException | ConcurrencyException ex) {
-                        LOGGER.error("Error performing the operation", ex);
-                        System.out.println(
-                                "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
-                    }
-                    break;
-                case 2:
-                    promptNewNumberVacancies(jobOpening);
-                    break;
-                case 3:
-                    promptNewAddress(jobOpening);
-                    break;
-                case 4:
-                    promptNewDescription(jobOpening);
-                    break;
-                case 5:
-                    promptNewFunction(jobOpening);
-                    break;
-                case 6:
-                    ContractType contractType = selectNewContractType();
-                    try {
-                        controller.edit(jobOpening, contractType);
-                        successfulEdit();
-                    } catch (IntegrityViolationException | ConcurrencyException ex) {
-                        LOGGER.error("Error performing the operation", ex);
-                        System.out.println(
-                                "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
-                    }
-                    break;
-                case 0:
-                    exit = true;
-                    break;
-                default:
-                    System.out.println("Invalid option. Please try again.");
-            }
+        switch (option) {
+            case 1:
+                WorkingMode workingMode = selectNewWorkingMode();
+                try {
+                    controller.edit(jobOpening, workingMode);
+                    successfulEdit();
+                } catch (IntegrityViolationException | ConcurrencyException ex) {
+                    LOGGER.error("Error performing the operation", ex);
+                    System.out.println(
+                            "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+                }
+                break;
+            case 2:
+                promptNewNumberVacancies(jobOpening);
+                break;
+            case 3:
+                promptNewAddress(jobOpening);
+                break;
+            case 4:
+                promptNewDescription(jobOpening);
+                break;
+            case 5:
+                promptNewFunction(jobOpening);
+                break;
+            case 6:
+                ContractType contractType = selectNewContractType();
+                try {
+                    controller.edit(jobOpening, contractType);
+                    successfulEdit();
+                } catch (IntegrityViolationException | ConcurrencyException ex) {
+                    LOGGER.error("Error performing the operation", ex);
+                    System.out.println(
+                            "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+                }
+                break;
+            case 0:
+                break;
+            default:
+                System.out.println("Invalid option. Please try again.");
         }
     }
 
