@@ -27,6 +27,7 @@ public class ExecuteInterviewEvaluationService {
     }
     public void executeInterviewEvaluation(JobOpening jobOpening, List<JobApplication> jobApplication){
         Preconditions.ensure(jobOpening.getRecruitmentProcess().interviewsPhase().state().equals(State.OPEN) || jobOpening.getRecruitmentProcess().interviewsPhase().state().equals(State.ACTIVE), "job opening is not in interview phase");
+        Preconditions.ensure(jobApplication != null, "not exists job applications for this job opening");
 
         try{
             ctx.beginTransaction();
