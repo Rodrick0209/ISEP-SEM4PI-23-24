@@ -21,7 +21,7 @@ public class EmailService {
     private final NotificationRepository notificationRepository;
 
     private static final String SMTP_HOST_NAME = "frodo.dei.isep.ipp.pt";
-    private static final String SMTP_FROM = "no-reply@job4u.com";
+    private static final String SMTP_FROM = "no-reply@jobs4u.com";
 
     public EmailService() {
         this.notificationRepository = PersistenceContext.repositories().notifications();

@@ -31,7 +31,7 @@ public class NotifyCandidatesRequest extends FollowUpRequest{
 
         JobOpening jobOpening = jobOpeningRepository.findByJobReference(jobRef);
 
-        List<String> verifiedCandidates = candidateSelectionService.getVerifiedCandidatesEmail(jobOpening);
+        /*List<String> verifiedCandidates = candidateSelectionService.getVerifiedCandidatesEmail(jobOpening);
         List<String> rejectedCandidates = candidateSelectionService.getRejectedCandidatesEmail(jobOpening);
 
         for(String candidateEmail : verifiedCandidates){
@@ -39,10 +39,18 @@ public class NotifyCandidatesRequest extends FollowUpRequest{
         }
         for (String candidateEmail : rejectedCandidates){
             emailService.sendRejectedResultEmail(candidateEmail, jobRef.getJobReference());
-        }
+        }*/
 
+        emailService.sendApprovedResultEmail("1221276@isep.ipp.pt", jobRef.toString());
+        emailService.sendRejectedResultEmail("1221276@isep.ipp.pt", jobRef.toString());
 
+        byte [] response = new byte[4];
 
-        return new byte[4];
+        response[0] = 1;
+        response[1] = ACK;
+        response[2] = 0;
+        response[3] = 0;
+
+        return response;
     }
 }

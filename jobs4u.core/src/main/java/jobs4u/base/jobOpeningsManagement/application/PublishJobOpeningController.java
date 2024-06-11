@@ -29,8 +29,9 @@ public class PublishJobOpeningController {
 
 
 
-        return jobOpeningRepository.findInResultPhase();
+        //return jobOpeningRepository.findInResultPhase();
 
+        return (List<JobOpening>) jobOpeningRepository.findAll();
     }
 
     public void publishJobOpeningResults(JobOpening jobOpening){
@@ -42,9 +43,9 @@ public class PublishJobOpeningController {
 
         followUpServerProxy.sendResultEmailRequest(jobOpening);
 
-        jobOpening.recruitmentProcess().closePhase(jobOpening.recruitmentProcess().resultPhase());
+        //jobOpening.recruitmentProcess().closePhase(jobOpening.recruitmentProcess().resultPhase());
 
-        jobOpeningRepository.save(jobOpening);
+        //jobOpeningRepository.save(jobOpening);
 
     }
 
