@@ -1,3 +1,11 @@
+# SEM4PI 2023-2024 Project
+Project for the follow classes:
+- EAPLI
+- SCOMP
+- LPROG
+- LAPR4
+- RCOMP
+  
 # Project Jobs4U
 
 ## 1. Description of the Project
